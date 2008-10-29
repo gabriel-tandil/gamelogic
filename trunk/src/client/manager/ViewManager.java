@@ -7,171 +7,161 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Set;
 import client.game.view.IView;
+import client.game.view.IDynamicView;
 import client.game.entity.IEntity;
 import client.game.entity.IDynamicEntity;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author
+ * 
  */
 public abstract class ViewManager {
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/**
+	 * The ViewManager instance
 	 */
-	private LinkedList lista;
-
+	private static ViewManager instance;
 	/** 
-	 * @return el lista
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * The IView pool
 	 */
-	public LinkedList getLista() {
-		// begin-user-code
-		return lista;
-		// end-user-code
-	}
-
-	/** 
-	 * @param theLista el lista a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	private HashMap<IEntity, IView> views;
+	/**
+	 * The dirty IDynamic buffer
 	 */
-	public void setLista(LinkedList theLista) {
-		// begin-user-code
-		lista = theLista;
-		// end-user-code
-	}
-
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private HashMap hash;
-
-	/** 
-	 * @return el hash
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public HashMap getHash() {
-		// begin-user-code
-		return hash;
-		// end-user-code
-	}
-
-	/** 
-	 * @param theHash el hash a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void setHash(HashMap theHash) {
-		// begin-user-code
-		hash = theHash;
-		// end-user-code
-	}
-
-	/** 
-	 * @uml.annotations for <code>iview</code>
-	 *     collection_type="client.game.view.IView"
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+	private LinkedList<IDynamicView> dirty;
+	
 	private Set<IView> iview;
+	
+	/**
+	 * Constructor of ViewManager
+	 */
+	private ViewManager(){
+		this.views = new HashMap<IEntity, IView>();
+		this.dirty = new LinkedList<IDynamicView>();
+	}
+
+	/**
+	 * @return The ViewManager instance
+	 */
+	public static ViewManager getInstance(){
+		if(ViewManager.instance == null){
+			//instance = new ViewManager();
+			//no se pueden crear instancias porque ViewManager es abstracta
+		}
+		return ViewManager.instance;
+	}
+	
+	/**
+	 * Update all the dirty views
+	 * @param interpolation The frame rate interpolation value
+	 */
+	public void update(float interpolation) {
+		while(!this.dirty.isEmpty()){
+			this.dirty.pop().update(interpolation);
+		}
+	}
+	
+	/**
+	 * Register the given view with ViewManager
+	 * @param view The IView to be registered
+	 */
+	public boolean registerView(IView view) {
+		IEntity entity = view.getEntity();
+		if(this.views.containsKey(entity)){
+			return false;
+		}
+		this.views.put(entity, view);
+		return true;
+	}
+	
+	/** 
+	 * Remove the view represents the given entity
+	 * @param entity
+	 */
+	public boolean removeView(IEntity entity) {
+		IView view = this.views.remove(entity);
+		if(view == null){
+			return false;
+		}
+		//view.detachFromParent(); no existe en IView
+		return true;
+	}
 
 	/** 
-	 * @return el iview
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Mark the dynamic view represents the given dynamic entity for update
+	 * @param entity The IDynamicEntity has been modified
+	 */
+	public void markForUpdate(IDynamicEntity entity) {
+		IView view = this.views.get(entity);
+		if(view.isValidView()){
+			this.dirty.add((IDynamicView)view);
+		}
+	}
+
+	/** 
+	 * Retrieve the view that represents the given entity.
+	 * @param entity The IEntity that the view represents.
+	 * @return The IView that represents the given entity.
+	 */
+	public IView getView(IEntity entity) {
+		return this.views.get(entity);
+		//consultar sobre lanzar excepcion ObjectNotFound
+	}
+	
+	/** 
+	 * @return The LinkedList that represents dirty views.
+	 */
+	public LinkedList getDirty() {
+		return dirty;
+	}
+	
+
+	/** 
+	 * @param list The list to set
+	 */
+	public void setDirty(LinkedList list) {
+		this.dirty = list;
+	}
+
+	/** 
+	 * @return The HashMap that represents the relation IEntity, IView.
+	 */
+	public HashMap getViews() {
+		return views;
+	}
+
+	/** 
+	 * @param views The views to set.
+	 */
+	public void setViews(HashMap views) {
+		this.views = views;
+	}
+
+	/** 
+	 * @return The IView
 	 */
 	public Set<IView> getIview() {
-		// begin-user-code
 		return iview;
-		// end-user-code
 	}
+	
 
 	/** 
-	 * @param theIview el iview a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @param theIview The IView to set
 	 */
 	public void setIview(Set<IView> theIview) {
-		// begin-user-code
 		iview = theIview;
-		// end-user-code
 	}
 
-	/** 
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public static ViewManager getInstance() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
 
 	/** 
 	 * @param view
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public void addDirtyView(IView view) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
-	}
-
-	/** 
-	 * @param entity
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public IView getView(IEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void markForUpdate(IDynamicEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		//consultar, misma funcionalidad de markForUpdate()?
 	}
 
 	/** 
 	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public abstract IEntity createView();
 
-	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void removeView(IEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
-	}
-
-	/** 
-	 * @param view
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void registerView(IView view) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
-	}
-
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void update() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
-	}
 }
