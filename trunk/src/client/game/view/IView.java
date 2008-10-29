@@ -9,30 +9,25 @@ import com.jme.scene.Node;
 import client.game.entity.IEntity;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author
  */
 public interface IView extends Savable {
 	/** 
-	 * @param Parámetro
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @param spatial
 	 */
-	public void attachSpatial(Spatial Parámetro);
+	public void attachSpatial(Spatial spatial);
 
 	/** 
-	 * @param Parámetro
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @param parent
 	 */
-	public void attachTo(Node Parámetro);
+	public void attachTo(Node parent);
 
 	/** 
 	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public IEntity getEntity();
 	
 	/**
-	 * 
 	 * @return
 	 */
 	public boolean isValidView();
