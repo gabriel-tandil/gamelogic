@@ -1,60 +1,54 @@
 /**
- * 
+ *<code>Entity</code> defines the base abstraction of an entity in the game
+ * world. One <code>Entity</code> has an identity and a type 
  */
 package client.game.entity;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 28-10-2008
+ * 
  */
 public abstract class Entity implements IEntity {
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * The type of this <code>Entity</code>.
 	 */
 	private String tipo;
 
 	/** 
-	 * @return el tipo
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the <code>Entity</code> type.
+	 * @return the <code>Entity</code> type.
 	 */
 	public String getTipo() {
-		// begin-user-code
 		return tipo;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theTipo el tipo a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Set the <code>Entity</code> type.
+	 * @param theTipo the <code>Entity</code> type required.
 	 */
 	public void setTipo(String theTipo) {
-		// begin-user-code
 		tipo = theTipo;
-		// end-user-code
 	}
 
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/**
+	 * The identity number of this <code>Entity</code>.
 	 */
 	private Integer id;
 
 	/** 
-	 * @return el id
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the identity(id) number of this <code>Entity</code>.
+	 * @return The identity of this <code>Entity</code>.
 	 */
 	public Integer getId() {
-		// begin-user-code
 		return id;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theId el id a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Set the <code>Entity</code> id.
+	 * @param theId the identity(id) number of the <code>Entity</code>.
 	 */
 	public void setId(Integer theId) {
-		// begin-user-code
 		id = theId;
-		// end-user-code
 	}
 }

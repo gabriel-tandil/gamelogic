@@ -1,161 +1,141 @@
 /**
- * 
- */
+  * <code>DynamicEntity</code> extends <code>Entity</code> and implements
+  * <code>IDynamicEntity</code> to represent an actual dynamic entity in
+  * the game world.
+  */
 package client.game.entity;
 
+import java.io.IOException;
+
 import com.jme.math.Vector3f;
+import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
+import com.jme.util.export.OutputCapsule;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 29-10-2008
  */
 public class DynamicEntity extends Entity implements IDynamicEntity {
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * The mass value of this <code>DynamicEntity</code>.
 	 */
 	private Float mass;
 
 	/** 
-	 * @return el mass
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the mass value of this <code>DynamicEntity</code>.
+	 * @return the mass value of this <code>DynamicEntity</code>.
 	 */
 	public Float getMass() {
-		// begin-user-code
 		return mass;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theMass el mass a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Assign a mass value to the <code>DynamicEntity</code>.
+	 * @param theMass value to assign.
 	 */
 	public void setMass(Float theMass) {
-		// begin-user-code
 		mass = theMass;
-		// end-user-code
 	}
 
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+	/**
+	 * The <code>Vector3f</code> force currently in effect.
+	 * */
 	private Vector3f force;
 
 	/** 
-	 * @return el force
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the <code>Vector3f</code> force of this <code>DynamicEntity</code>.
+	 * @return the <code>Vector3f</code> force of this <code>DynamicEntity</code>.
 	 */
 	public Vector3f getForce() {
-		// begin-user-code
 		return force;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theForce el force a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Apply a <code>Vector3f</code> force to this <code>DynamicEntity</code>.
+	 * @param theForce <code>Vector3f</code> force to apply.
 	 */
 	public void setForce(Vector3f theForce) {
-		// begin-user-code
 		force = theForce;
-		// end-user-code
 	}
 
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+     * The current <code>Vector3f</code> velocity of this <code>DynamicEntity</code>.
 	 */
 	private Vector3f velocity;
 
 	/** 
-	 * @return el velocity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the <code>Vector3f</code> velocity of this <code>DynamicEntity</code>.
+	 * @return <code>Vector3f</code> velocity of this <code>DynamicEntity</code>.
 	 */
 	public Vector3f getVelocity() {
-		// begin-user-code
 		return velocity;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theVelocity el velocity a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Apply a <code>Vector3f</code> velocity to this <code>DynamicEntity</code>.
+	 * @param theVelocity <code>Vector3f</code> velocity to apply.
 	 */
 	public void setVelocity(Vector3f theVelocity) {
-		// begin-user-code
 		velocity = theVelocity;
-		// end-user-code
 	}
 
 	/** 
-	 *  (sin Javadoc)
-	 * @see Savable#write(JMEExporter arg0)
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Allow export the <code>DynamicEntity</code> data to a specific location.
+	 * @param arg0 <code>JMEExporter</code> to set the save location of data.
 	 */
-	public void write(JMEExporter arg0) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+	public void write(JMEExporter arg0) throws IOException {
+		OutputCapsule oc = arg0.getCapsule(this);
+		oc.write(this.getId(),"ID",0);
+		oc.write(this.getTipo(),"Type",null);
+		oc.write(this.force.x, "ForceX", 0);
+		oc.write(this.force.y, "ForceY", 0);
+		oc.write(this.force.z, "ForceZ", 0);
+		oc.write(this.velocity.x, "VelocityX", 0);
+		oc.write(this.velocity.y, "VelocityY", 0);
+		oc.write(this.velocity.z, "VelocityZ", 0);
+		oc.write(this.mass, "Mass", 0);
 	}
 
 	/** 
-	 *  (sin Javadoc)
-	 * @see Savable#read(JMEImporter arg0)
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Allow import the <code>DynamicEntity</code> data from a specific location.
+	 * @param arg0 <code>JMEImporter</code> to set the save location of data.
 	 */
-	public void read(JMEImporter arg0) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+	public void read(JMEImporter arg0)throws IOException {
+		InputCapsule ic = arg0.getCapsule(this);
+		this.setId(ic.readInt("ID", 0));
+		this.setTipo(ic.readString("Type", null));
+		this.force.setX(ic.readFloat("ForceX", 0));
+		this.force.setY(ic.readFloat("ForceY", 0));
+		this.force.setZ(ic.readFloat("ForceZ", 0));
+		this.velocity.setX(ic.readFloat("VelocityX", 0));
+		this.velocity.setY(ic.readFloat("VelocityY", 0));
+		this.velocity.setZ(ic.readFloat("VelocityZ", 0));
+		this.mass=ic.readFloat("Mass", 0);
 	}
 
 	/** 
-	 *  (sin Javadoc)
-	 * @see Savable#getClassTag()
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the Java Class of this <code>DynamicEntity</code>.
+	 * @return the Java Class of this <code>DynamicEntity</code>.
 	 */
 	public Class getClassTag() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return this.getClass();
 	}
 
-	/** 
-	 *  (sin Javadoc)
-	 * @see IEntity#getId()
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public Integer getId() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	/** 
-	 *  (sin Javadoc)
-	 * @see IDynamicEntity#addVelocity(Vector3f vector)
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+	/**
+	* Retrieve the current velocity of this dynamic entity.
+ 	* @param vector <code>Vector3f</code> velocity.
+ 	* */
 	public void addVelocity(Vector3f vector) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		this.velocity.addLocal(velocity);
 	}
 
 	/** 
-	 *  (sin Javadoc)
-	 * @see IDynamicEntity#addForce(Vector3f vector)
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Add the given force to this entity.
+	 * @param vector The force in <code>Vector3f</code> form.
 	 */
 	public void addForce(Vector3f vector) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		this.force.addLocal(force);
 	}
 }

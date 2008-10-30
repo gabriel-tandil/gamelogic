@@ -1,30 +1,32 @@
 /**
- * 
+ *<code>IDynamicEntity</code> defines the interface for all types of dynamic
+ * entity in the game world.
  */
 package client.game.entity;
 
 import com.jme.math.Vector3f;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 29-10-2008
  */
 public interface IDynamicEntity extends IEntity {
-	/** 
-	 * @param vector
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+	
+	/**
+	* Retrieve the current velocity of this dynamic entity.
+ 	* @param vector <code>Vector3f</code> velocity.
+ 	* */
 	public void addVelocity(Vector3f vector);
 
-	/** 
-	 * @param par
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+	/**
+	 * Set the mass of this dynamic entity.
+	 * @param par The new float mass value to be set.
+	 * */
 	public void setMass(Float par);
 
 	/** 
-	 * @param vector
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 *Add the given force to this entity.
+	 * @param vector The force in <code>Vector3f</code> form.
 	 */
 	public void addForce(Vector3f vector);
 }

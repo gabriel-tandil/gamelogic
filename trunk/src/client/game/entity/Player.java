@@ -1,111 +1,91 @@
 /**
- * 
+ *<code>Player</code> extends <code>DynamicEntity</code> to define
+ * the base player in the game.
  */
 package client.game.entity;
 
 import java.util.Hashtable;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 29-10-2008
  */
 public class Player extends DynamicEntity {
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Contains the properties of the <code>Player</code>.
 	 */
 	private Hashtable properties;
 
 	/** 
-	 * @return el properties
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the properties of the <code>Player</code>.
+	 * @return the properties of the <code>Player</code>.
 	 */
 	public Hashtable getProperties() {
-		// begin-user-code
 		return properties;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theProperties el properties a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Apply a <code>Hashtable<code> properties to this <code>Player</code>.
+	 * @param theProperties <code>Hashtable<code> properties to aplly
 	 */
 	public void setProperties(Hashtable theProperties) {
-		// begin-user-code
 		properties = theProperties;
-		// end-user-code
 	}
 
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Contains the stats of the <code>Player</code>.
 	 */
 	private Hashtable stats;
 
 	/** 
-	 * @return el stats
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the <code>Hashtable<code> stats of this <code>Player<code>.
+	 * @return the <code>Hashtable<code> stats of this <code>Player<code>.
 	 */
 	public Hashtable getStats() {
-		// begin-user-code
 		return stats;
-		// end-user-code
 	}
 
 	/** 
-	 * @param theStats el stats a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Apply a <code>Hashtable<code> stats to this <code>Player</code>.
+	 * @param theStats <code>Hashtable<code> stats to aplly
 	 */
 	public void setStats(Hashtable theStats) {
-		// begin-user-code
 		stats = theStats;
-		// end-user-code
 	}
 
 	/** 
-	 * @param stat
-	 * @param key
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Save a Stat of this <code>Player</code> whit his key.
+	 * @param stat Stat to save.
+	 * @param key The Key to retrieve the Stat.
 	 */
 	public void setStat(Object stat, String key) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		this.stats.put(key,stat);
 	}
 
 	/** 
-	 * @param propertie
-	 * @param key
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Save a Propertie of this <code>Player</code> whit his key.
+	 * @param propertie Propertie to save.
+	 * @param key The Key to retrieve the Propertie.
 	 */
 	public void setPropertie(Object propertie, String key) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		this.properties.put(key, propertie);
 	}
 
 	/** 
-	 * @param key
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the Stat usign the key.
+	 * @param key the Key to retrieve the Stat.
+	 * @return the stat of this key.
 	 */
 	public Object getStat(String key) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return this.stats.get(key);
 	}
 
 	/** 
-	 * @param key
-	 * @param Parámetro1
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the Propertie usign the key.
+	 * @param key the Key to retrieve the Propertie.
+	 * @return the propertie of this key.
 	 */
-	public Object getProperties(String key, Object Parámetro1) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+	public Object getProperties(String key) {
+		return this.properties.get(key);
 	}
 }
