@@ -4,12 +4,17 @@
 package client.game.view;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * <code>IStaticView</code> define la interface para vistas que representan
+ * entidades estáticas en el mundo del juego.
+ * 
+ * @author Maria Hansen
+ * @version Creation date: 29-10-2008
  */
 public interface IStaticView extends IView {
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Función que traba la geometría, límites y transformación de un elemento de la
+	 * escena. Ésto permite optimizaciones para el motor del juego a la hora de 
+	 * actualizar elementos que no sufrieron cambios.
 	 */
 	public void lock();
 }

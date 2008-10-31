@@ -8,60 +8,70 @@ import client.game.entity.IEntity;
 import com.jme.scene.Spatial;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * <code>View</code> define la representación de una <code>IEntity</code>.
+ * Es una subclase de <code>Node</code> lo que hace posible adjuntar directamente 
+ * una <code>View</code> a la escena gráfica para renderización.
+ * 
+ * @author Maria Hansen
+ * @version Creation date: 29-10-2008
  */
 public abstract class View extends Node implements IView {
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * La <code>IEntity</code> que esta <code>View</code> representa.
 	 */
-	private IEntity ientity;
+	private IEntity entity;
 
-	/** 
-	 * @return el ientity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+
+	/**
+	 * Constructor de <code>View</code>.
 	 */
-	public IEntity getIentity() {
-		// begin-user-code
-		return ientity;
-		// end-user-code
+	public View(){
+		super();
+	}
+
+	/**
+	 * Constructor de <code>View</code> dada una <code>IEntity</code>.
+	 * @param entity Le <code>IEntity<code> que esta <code>View</code> representa.
+	 */
+	public View(IEntity entity) {
+		super(entity.getId().toString() + "_View");
+		this.entity = entity;
 	}
 
 	/** 
-	 * @param theIentity el ientity a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @see IView#attachSpatial(Spatial).
 	 */
-	public void setIentity(IEntity theIentity) {
-		// begin-user-code
-		ientity = theIentity;
-		// end-user-code
+	public void attachSpatial(Spatial mesh) {
+		this.attachChild(mesh);
 	}
 
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @see IView#attachTo(Node).
 	 */
-	public abstract void detachFromParent();
+	public void attachTo(Node parent) {
+		parent.attachChild(this);
+	}
 
 	/** 
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @see IView#detachFromParent().
+	 */
+	public boolean detachFromParent() {
+		return this.removeFromParent();
+	}
+
+	/** 
+	 * @see IView#getEntity().
 	 */
 	public IEntity getEntity() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
+		return entity;
 	}
 
 	/** 
-	 * @param node
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Setea esta entidad con la entidad dada.
+	 * @param entity La entidad a ser seteada.
 	 */
-	public abstract void attachToNode(Node node);
+	public void setEntity(IEntity entity) {
+		this.entity = entity;
+	}
 
-	/** 
-	 * @param spatial
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public abstract void attachSpatial(Spatial spatial);
 }
