@@ -12,127 +12,158 @@ import client.game.entity.IEntity;
 import client.game.entity.IDynamicEntity;
 
 /** 
- * @author
+ * <code>ViewManager</code> es responsable del manejo de todas las 
+ * <code>IView</code> que representan a las entidades. Debería ser actualizado
+ * por <code>Game</code> dentro del main game loop.
+ * <code>ViewManager</code> es responsable de todos los aspectos del manejo de
+ * vistas incluyendo creación, destrucción y actualización.
+ * <code>ViewManager</code> mantiene todas las <code>IView</code> utilizando
+ * <code>IEntity</code> como la clave. Esto permite al sistema marcar una 
+ * <code>IView</code> particular como sucia cuando su correspondiente
+ * <code>IEntity</code> ha sido modificada.
+ * <code>ViewManager</code> luego almacena todas las <code>IDynamicView</code> 
+ * sucias para actualizar durante el siguiente ciclo.
  * 
+ * @author Maria Hansen
+ * @version Creation date: 29-10-2008
  */
 public abstract class ViewManager {
 	/**
-	 * The ViewManager instance
+	 * La instancia de <code>ViewManager</code>.
 	 */
 	private static ViewManager instance;
 	/** 
-	 * The IView pool
+	 * El almacenamiento de <code>IView</code>.
 	 */
 	private HashMap<IEntity, IView> views;
 	/**
-	 * The dirty IDynamic buffer
+	 * El almacenamietno de <code>IDynamic</code> sucias.
 	 */
 	private LinkedList<IDynamicView> dirty;
-	
-	private Set<IView> iview;
-	
 	/**
-	 * Constructor of ViewManager
+	 * 
 	 */
-	private ViewManager(){
+	private Set<IView> iview;
+
+	/**
+	 * Constructor de <code>ViewManager</code>.
+	 */
+	private ViewManager() {
 		this.views = new HashMap<IEntity, IView>();
 		this.dirty = new LinkedList<IDynamicView>();
 	}
 
 	/**
-	 * @return The ViewManager instance
+	 * Devuelve la instancia de <code>ViewManager</code>.
+	 * @return La instancia de <code>ViewManager</code>.
 	 */
-	public static ViewManager getInstance(){
-		if(ViewManager.instance == null){
-			//instance = new ViewManager();
-			//no se pueden crear instancias porque ViewManager es abstracta
+	public static ViewManager getInstance() {
+		if (ViewManager.instance == null) {
+			//instance = new ViewManagaer();
 		}
 		return ViewManager.instance;
 	}
-	
+
 	/**
-	 * Update all the dirty views
-	 * @param interpolation The frame rate interpolation value
+	 * Actualiza todas las vistas sucias.
+	 * @param interpolation El valor de interpolación del frame.
 	 */
 	public void update(float interpolation) {
-		while(!this.dirty.isEmpty()){
+		while (!this.dirty.isEmpty()) {
 			this.dirty.pop().update(interpolation);
 		}
 	}
-	
+
 	/**
-	 * Register the given view with ViewManager
-	 * @param view The IView to be registered
+	 * Registra la vista dada al <code>ViewManager</code>. Este método debería ser
+	 * sólo ser invocado cuando la clase se carga por primera vez.
+	 * @param view La <code>IView</code> a ser registrada.
+	 * @return True si la vista dada es registrada exitosamente. False en caso 
+	 * contrario.
 	 */
 	public boolean registerView(IView view) {
 		IEntity entity = view.getEntity();
-		if(this.views.containsKey(entity)){
+		if (this.views.containsKey(entity)) {
 			return false;
 		}
 		this.views.put(entity, view);
 		return true;
 	}
-	
+
 	/** 
-	 * Remove the view represents the given entity
-	 * @param entity
+	 * Remueve que representa la entidad dada.
+	 * @param entity La <code>IEntity</code> que la <code>IView</code> representa.
+	 * @return True si la vista fue eliminada exitosamente. False en caso contrario.
 	 */
 	public boolean removeView(IEntity entity) {
 		IView view = this.views.remove(entity);
-		if(view == null){
+		if (view == null) {
 			return false;
 		}
-		//view.detachFromParent(); no existe en IView
+		view.detachFromParent();
 		return true;
 	}
 
 	/** 
-	 * Mark the dynamic view represents the given dynamic entity for update
-	 * @param entity The IDynamicEntity has been modified
+	 * Marca para actualizar a la vista dinámica que representa a la entidad
+	 * dinámica.
+	 * @param entity La <code>IDynamicEntity</code> que ha sido modificada.
 	 */
 	public void markForUpdate(IDynamicEntity entity) {
-		IView view = this.views.get(entity);
-		if(view.isValidView()){
-			this.dirty.add((IDynamicView)view);
-		}
+		IView view = this.getView(entity);
+		this.addDirtyView(view);
 	}
 
 	/** 
-	 * Retrieve the view that represents the given entity.
-	 * @param entity The IEntity that the view represents.
-	 * @return The IView that represents the given entity.
+	 * Devuelve la vista que representa a la entidad dada.
+	 * @param entity La <code>IEntity</code> que la vista representa.
+	 * @return La <code>IView</code> que representa a la entidad dada.
 	 */
 	public IView getView(IEntity entity) {
 		return this.views.get(entity);
-		//consultar sobre lanzar excepcion ObjectNotFound
+	}
+
+	/** 
+	 * Agrega a la lista de vistas sucias la vista dada.
+	 * @param view La vista a ser agregada.
+	 */
+	public void addDirtyView(IView view) {
+		if(view.isValidView()) {
+			this.dirty.add((IDynamicView) view);
+		}
 	}
 	
 	/** 
-	 * @return The LinkedList that represents dirty views.
+	 * Devuelve la lista que almacena a las vistas sucias.
+	 * @return La lista que almacena a las vistas sucias.
 	 */
 	public LinkedList getDirty() {
 		return dirty;
 	}
-	
 
 	/** 
-	 * @param list The list to set
+	 * Setea la lista de vistas a ser actualizadas con la lista dada.
+	 * @param list La lista a ser seteada.
 	 */
-	public void setDirty(LinkedList list) {
+	public void setDirty(LinkedList<IDynamicView> list) {
 		this.dirty = list;
 	}
 
 	/** 
-	 * @return The HashMap that represents the relation IEntity, IView.
+	 * Devuelve la tabla que representa la relacion <code>IEntity</code>,
+	 * <code>IView</code>.
+	 * @return La tabla que representa la relacion <code>IEntity</code>,
+	 * <code>IView</code>.
 	 */
 	public HashMap getViews() {
 		return views;
 	}
 
 	/** 
-	 * @param views The views to set.
+	 * Setea la tabla de vistas con la tabla dada.
+	 * @param views Las vistas a ser seteadas.
 	 */
-	public void setViews(HashMap views) {
+	public void setViews(HashMap<IEntity, IView> views) {
 		this.views = views;
 	}
 
@@ -142,7 +173,6 @@ public abstract class ViewManager {
 	public Set<IView> getIview() {
 		return iview;
 	}
-	
 
 	/** 
 	 * @param theIview The IView to set
@@ -151,16 +181,9 @@ public abstract class ViewManager {
 		iview = theIview;
 	}
 
-
 	/** 
-	 * @param view
-	 */
-	public void addDirtyView(IView view) {
-		//consultar, misma funcionalidad de markForUpdate()?
-	}
-
-	/** 
-	 * @return
+	 * 
+	 * @return IEntity
 	 */
 	public abstract IEntity createView();
 
