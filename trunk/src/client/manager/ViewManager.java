@@ -27,7 +27,7 @@ import client.game.entity.IDynamicEntity;
  * @author Maria Hansen
  * @version Creation date: 29-10-2008
  */
-public abstract class ViewManager {
+public class ViewManager {
 	/**
 	 * La instancia de <code>ViewManager</code>.
 	 */
@@ -40,10 +40,7 @@ public abstract class ViewManager {
 	 * El almacenamietno de <code>IDynamic</code> sucias.
 	 */
 	private LinkedList<IDynamicView> dirty;
-	/**
-	 * 
-	 */
-	private Set<IView> iview;
+
 
 	/**
 	 * Constructor de <code>ViewManager</code>.
@@ -59,7 +56,7 @@ public abstract class ViewManager {
 	 */
 	public static ViewManager getInstance() {
 		if (ViewManager.instance == null) {
-			//instance = new ViewManagaer();
+			instance = new ViewManager();
 		}
 		return ViewManager.instance;
 	}
@@ -132,6 +129,11 @@ public abstract class ViewManager {
 			this.dirty.add((IDynamicView) view);
 		}
 	}
+
+	/** 
+	 * Crea la vista correspondiente a la entidad dada.
+	 */
+	public void createView(IEntity entity) { }
 	
 	/** 
 	 * Devuelve la lista que almacena a las vistas sucias.
@@ -166,25 +168,5 @@ public abstract class ViewManager {
 	public void setViews(HashMap<IEntity, IView> views) {
 		this.views = views;
 	}
-
-	/** 
-	 * @return The IView
-	 */
-	public Set<IView> getIview() {
-		return iview;
-	}
-
-	/** 
-	 * @param theIview The IView to set
-	 */
-	public void setIview(Set<IView> theIview) {
-		iview = theIview;
-	}
-
-	/** 
-	 * 
-	 * @return IEntity
-	 */
-	public abstract IEntity createView();
 
 }
