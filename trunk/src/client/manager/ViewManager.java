@@ -22,7 +22,7 @@ import client.game.entity.IDynamicEntity;
  * <code>IView</code> particular como sucia cuando su correspondiente
  * <code>IEntity</code> ha sido modificada.
  * <code>ViewManager</code> luego almacena todas las <code>IDynamicView</code> 
- * sucias para actualizar durante el siguiente ciclo.
+ * sucias para actualizarlas durante el siguiente ciclo.
  * 
  * @author Maria Hansen
  * @version Creation date: 29-10-2008
@@ -73,7 +73,7 @@ public class ViewManager {
 
 	/**
 	 * Registra la vista dada al <code>ViewManager</code>. Este método debería ser
-	 * sólo ser invocado cuando la clase se carga por primera vez.
+	 * sólo invocado cuando la clase se carga por primera vez.
 	 * @param view La <code>IView</code> a ser registrada.
 	 * @return True si la vista dada es registrada exitosamente. False en caso 
 	 * contrario.
@@ -88,7 +88,7 @@ public class ViewManager {
 	}
 
 	/** 
-	 * Remueve que representa la entidad dada.
+	 * Remueve la <code>IView</code> que representa la entidad dada.
 	 * @param entity La <code>IEntity</code> que la <code>IView</code> representa.
 	 * @return True si la vista fue eliminada exitosamente. False en caso contrario.
 	 */
