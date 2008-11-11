@@ -4,100 +4,155 @@
 package client.gameEngine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Logger;
+
+import com.jme.math.Vector3f;
+import com.sun.sgs.app.ObjectNotFoundException;
+
 import client.game.entity.IDynamicEntity;
+import client.game.view.View;
+import client.manager.EntityManager;
+import client.manager.ViewManager;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 30-10-2008
  */
 public class PhysicsManager {
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	
+	/**
+	 * The <code>Logger</code> instance.
 	 */
-	private ArrayList controller;
+	protected final Logger logger;
+	
+	/**
+	 * The fixed physics update rate in seconds.
+	 */
+	private final float rate;
+	
+	/**
+	 * The gravity of the world.
+	 */
+	private static float gravedad;
+	
+	/**
+	 * Constructor of <code>PhysicsManager</code>.
+	 */
+	protected PhysicsManager() {
+		this.rate = 0.01f;
+		this.entities =new ArrayList();
+		this.logger = Logger.global;
+		this.gravedad=0.1f;
+	}
+	
+	/**
+	 * The <code>PhysicsManager</code> instance.
+	 */
+	protected static PhysicsManager instance;
+	
+	/** 
+	 * Retrieve the Singleton instance PhysicsManager.
+	 * @return the instance of the <code>PhysicsManager</code>.
+	 */
+	public static PhysicsManager getInstance() {
+		if(PhysicsManager.instance == null) {
+			PhysicsManager.instance = new PhysicsManager();
+		}
+		return PhysicsManager.instance;
+	}
+	/** 
+	 * Contains the <code>IDinamicEntity's</code> of the Game to be updated in the next iteration.
+	 */
+	private ArrayList<IDynamicEntity> entities;
 
 	/** 
-	 * @return el controller
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retrieve the <code>IDynamicEntity's</code> ArrayList of the Game to be updated in the next iteration.
+	 * @return the <code>IDynamicEntity's</code> ArrayList of the Game to be updated in the next iteration.
 	 */
-	public ArrayList getController() {
-		// begin-user-code
-		return controller;
-		// end-user-code
+	public ArrayList<IDynamicEntity> getController() {
+		return entities;
 	}
 
 	/** 
-	 * @param theController el controller a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Apply a <code>ArrayList</code>< IDynamicEntity > to the <code>PhysicsManager</code>.
+	 * @param theController <code>ArrayList</code>< IDynamicEntity > to aplly.
 	 */
-	public void setController(ArrayList theController) {
-		// begin-user-code
-		controller = theController;
-		// end-user-code
+	public void setController(ArrayList<IDynamicEntity> theController) {
+		entities = theController;
 	}
 
 	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Update all properties for a <code>IDynamicEntity</code>.
+	 * @param entity the <code>IDynamicEntity</code> to be updated
 	 */
 	public void updatePhysics(IDynamicEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		this.applyForce(entity);
+		this.updateVelocity(entity);
+		this.updateTranslation(entity);
 	}
 
-	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/**
+	 * Mark the given dynamic entity for update during the next physics update cycle.
+	 * @param entity The <code>IDynamicEntity</code> needs to be updated.
 	 */
 	public void markForUpdate(IDynamicEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		if (entity!=null)
+			entities.add(entity);
 	}
 
-	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/**
+	 * Update the translation based on its current velocity.
+	 * @param entity The <code>IDynamicEntity</code> to be updated.
 	 */
 	private void updateTranslation(IDynamicEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		Vector3f tempVector = new Vector3f();
+		tempVector.set(entity.getVelocity()).multLocal(this.rate);
+		try {
+			View view = (View)ViewManager.getInstance().getView(entity);
+			view.getLocalTranslation().addLocal(tempVector);
+		} catch (ObjectNotFoundException e) {
+			//this.logger.warning("Entity " + entity.toString() + " does not exist.");
+		}
+		entity.resetForce();
 	}
-
-	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	
+	/**
+	 * Update the velocity of the given dynamic entity based on its current force.
+	 * @param entity The <code>IDynamicEntity</code> to be updated.
 	 */
 	private void updateVelocity(IDynamicEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		Vector3f velocity = entity.getForce().divideLocal(entity.getMass()).multLocal(this.rate);
+		entity.addVelocity(velocity);
 	}
 
-	/** 
-	 * @param entity
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/**
+	 * Apply the forces on the given dynamic entity.
+	 * @param entity The <code>IDynamicEntity</code> to be applied to.
 	 */
 	private void applyForce(IDynamicEntity entity) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		// Apply gravity and air friction when the entity is moving vertically.
+		Vector3f tempVector = new Vector3f();
+		if(entity.getVelocity().y != 0) {
+			tempVector.y = -1;
+			tempVector.multLocal(this.gravedad);
+			entity.addForce(tempVector);
+		}
 	}
 
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/**
+	 * Update the <code>PhysicsManager</code>.
 	 */
 	public void update() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		// Return if there is no entities need to be updated.
+		if(this.entities.size() <= 0) return;
+		// Perform as many iterations as needed.
+		for(IDynamicEntity entity : this.entities) 
+		{
+			updatePhysics(entity);
+		}
 
-		// end-user-code
+		// Clear update list.
+		this.entities.clear();
 	}
 }
