@@ -15,5 +15,5 @@ public interface IEntity extends Savable {
 	 * Retrieve the identity(id) number of this entity.
 	 * @return The integer ID number.
 	 */
-	public Integer getId();
+	public String getId();
 }

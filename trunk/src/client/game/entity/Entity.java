@@ -22,7 +22,7 @@ public abstract class Entity implements IEntity {
 	public String getTipo() {
 		return tipo;
 	}
-
+	
 	/** 
 	 * Set the <code>Entity</code> type.
 	 * @param theTipo the <code>Entity</code> type required.
@@ -34,13 +34,13 @@ public abstract class Entity implements IEntity {
 	/**
 	 * The identity number of this <code>Entity</code>.
 	 */
-	private Integer id;
+	private String id;
 
 	/** 
 	 * Retrieve the identity(id) number of this <code>Entity</code>.
 	 * @return The identity of this <code>Entity</code>.
 	 */
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -48,7 +48,7 @@ public abstract class Entity implements IEntity {
 	 * Set the <code>Entity</code> id.
 	 * @param theId the identity(id) number of the <code>Entity</code>.
 	 */
-	public void setId(Integer theId) {
+	public void setId(String theId) {
 		id = theId;
 	}
 }

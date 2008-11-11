@@ -63,11 +63,11 @@ public class Player extends DynamicEntity {
 	}
 
 	/** 
-	 * Save a Propertie of this <code>Player</code> whit his key.
-	 * @param propertie Propertie to save.
-	 * @param key The Key to retrieve the Propertie.
+	 * Save a Property of this <code>Player</code> whit his key.
+	 * @param propertie Property to save.
+	 * @param key The Key to retrieve the Property.
 	 */
-	public void setPropertie(Object propertie, String key) {
+	public void setProperty(Object propertie, String key) {
 		this.properties.put(key, propertie);
 	}
 
@@ -81,11 +81,11 @@ public class Player extends DynamicEntity {
 	}
 
 	/** 
-	 * Retrieve the Propertie usign the key.
+	 * Retrieve the Property usign the key.
 	 * @param key the Key to retrieve the Propertie.
-	 * @return the propertie of this key.
+	 * @return the property of this key.
 	 */
-	public Object getProperties(String key) {
+	public Object getProperty(String key) {
 		return this.properties.get(key);
 	}
 }

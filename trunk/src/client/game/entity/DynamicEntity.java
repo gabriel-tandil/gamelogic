@@ -21,13 +21,13 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	/** 
 	 * The mass value of this <code>DynamicEntity</code>.
 	 */
-	private Float mass;
+	private float mass;
 
 	/** 
 	 * Retrieve the mass value of this <code>DynamicEntity</code>.
 	 * @return the mass value of this <code>DynamicEntity</code>.
 	 */
-	public Float getMass() {
+	public float getMass() {
 		return mass;
 	}
 
@@ -35,7 +35,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 * Assign a mass value to the <code>DynamicEntity</code>.
 	 * @param theMass value to assign.
 	 */
-	public void setMass(Float theMass) {
+	public void setMass(float theMass) {
 		mass = theMass;
 	}
 
@@ -87,7 +87,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void write(JMEExporter arg0) throws IOException {
 		OutputCapsule oc = arg0.getCapsule(this);
-		oc.write(this.getId(),"ID",0);
+		oc.write(this.getId(), "ID", null);
 		oc.write(this.getTipo(),"Type",null);
 		oc.write(this.force.x, "ForceX", 0);
 		oc.write(this.force.y, "ForceY", 0);
@@ -104,7 +104,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void read(JMEImporter arg0)throws IOException {
 		InputCapsule ic = arg0.getCapsule(this);
-		this.setId(ic.readInt("ID", 0));
+		this.setId(ic.readString("ID", null));
 		this.setTipo(ic.readString("Type", null));
 		this.force.setX(ic.readFloat("ForceX", 0));
 		this.force.setY(ic.readFloat("ForceY", 0));
@@ -137,5 +137,12 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void addForce(Vector3f vector) {
 		this.force.addLocal(force);
+	}
+	
+	/**
+	 * Clear the force acting on this entity.
+	 */
+	public void resetForce() {
+		this.force.zero();
 	}
 }
