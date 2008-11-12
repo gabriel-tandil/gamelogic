@@ -16,6 +16,8 @@ import client.manager.EntityManager;
 import client.manager.IHudManager;
 
 /** 
+ * @author Martin Sabatini - Sebastian Bisbal
+ * @version Fecha de creación: 06-11-2008 
  *  Tiene como responsabilidad, inicializar todos los manager una vez que esta conectado. 
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
@@ -275,21 +277,27 @@ public abstract class Game extends BaseGame {
 	}
 
 	/** 
+	 * Actualiza los Head Up Display
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public abstract void updateHuds();
 
 	/** 
+	 * inicializa la cámara, se setea una posición inicial o puede ser 
+	 * asignada para que siga un determinado elemento del juego 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	protected abstract void initCamera();
 
 	/** 
+	 * define el comportamiento de las teclas asignadas para realizar 
+	 * tareas predefinidas
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	protected abstract void initHotKeys();
 
 	/** 
+	 * 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	protected void initConverters() {
@@ -300,11 +308,13 @@ public abstract class Game extends BaseGame {
 	}
 
 	/** 
+	 * inicializa todos lo managers 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	protected abstract void initManagers();
 
 	/** 
+	 * configura configuran las propiedades de la pantalla principal del juego
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	protected abstract void initWindow();
