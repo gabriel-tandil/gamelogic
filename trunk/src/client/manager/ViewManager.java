@@ -125,7 +125,7 @@ public class ViewManager {
 	 * @param view La vista a ser agregada.
 	 */
 	public void addDirtyView(IView view) {
-		if(view.isValidView()) {
+		if(view.isDynamicView()) {
 			this.dirty.add((IDynamicView) view);
 		}
 	}
@@ -133,7 +133,7 @@ public class ViewManager {
 	/** 
 	 * Crea la vista correspondiente a la entidad dada.
 	 */
-	public void createView(IEntity entity) { }
+	public void createView(String idEntity) { }
 	
 	/** 
 	 * Devuelve la lista que almacena a las vistas sucias.
