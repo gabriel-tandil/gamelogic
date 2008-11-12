@@ -7,7 +7,8 @@ import com.jmex.game.state.BasicGameState;
 import client.game.Game;
 
 /** 
- * @author Mara
+ * @author Martin Sabatini - Sebastian Bisbal
+ * @version Fecha de creación: 05-11-2008
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public abstract class WorldGameState extends BasicGameState implements
@@ -46,11 +47,12 @@ public abstract class WorldGameState extends BasicGameState implements
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	private IWorldBuilder iworldbuilder;
-
+	
 	/** 
 	 * @return el iworldbuilder
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
+	
 	public IWorldBuilder getIworldbuilder() {
 		// begin-user-code
 		return iworldbuilder;
@@ -73,7 +75,7 @@ public abstract class WorldGameState extends BasicGameState implements
 	 */
 	public void initializeWorld() {
 		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
+		iworldbuilder.buildWorld(this.getRootNode());
 
 		// end-user-code
 	}
@@ -87,4 +89,16 @@ public abstract class WorldGameState extends BasicGameState implements
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public abstract void updateState();
+	
+	/**
+	 * 
+	 */
+	public abstract WorldGameState getWorld();
+	
+	/**
+	 * inicializa el mundo correspondiente al estado 
+	 * y el estado
+	 */
+	public abstract void initialize();
+		
 }
