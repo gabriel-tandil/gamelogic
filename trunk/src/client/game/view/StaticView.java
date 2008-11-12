@@ -40,7 +40,7 @@ public class StaticView extends View implements IStaticView {
 	/**
 	 * @see IView#isValidView().
 	 */
-	public boolean isValidView(){
+	public boolean isDynamicView(){
 		return false;
 	}
 

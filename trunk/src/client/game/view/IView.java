@@ -50,6 +50,6 @@ public interface IView extends Savable {
 	/**
 	 * @return True si esta vista es una instancia de IDynamicView.
 	 */
-	public boolean isValidView();
+	public boolean isDynamicView();
 
 }

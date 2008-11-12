@@ -26,7 +26,7 @@ public abstract class DynamicView extends View implements IDynamicView {
 	/**
 	 * @see IView#isValidView()
 	 */
-	public boolean isValidView(){
+	public boolean isDynamicView(){
 		return true;
 	}
 
