@@ -4,101 +4,69 @@
 package client.game.task;
 
 import client.game.Game;
+import client.manager.ITaskFactory;
 
-/** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+/**
+ * <code>Task</code> define la más básica abstracción de todos los tipos de tareas.
+ * <p>
+ * <code>Task</code> mantiene una referencia al <code>Game</code> con el objeto de 
+ * de permitir a las subclases acceder a los datos del Game para llevar a cabo la
+ * lógica de ejecución.
+ * <p>
+ * Las subclases de <code>Task</code> necesitan implementar los detalles de la 
+ * lógica de ejecución.
  */
-public abstract class Task implements ITask {
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+public abstract class Task implements ITaskFactory {
+	/**
+	 * El time stamp de creación de esta <code>Task</code>
 	 */
-	private Float timer;
-
-	/** 
-	 * @return el timer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	protected long timestamp;	
+	
+	/**
+	 * La instancia del <code>Game</code>.
 	 */
-	public Float getTimer() {
-		// begin-user-code
-		return timer;
-		// end-user-code
+	protected Game game;
+	
+	/**
+	 * El identificador de <code>Task</code>.
+	 */
+	protected String id;
+	
+	/**
+	 * Constructor de <code>Task</code>.
+	 * @param game The <code>Game</code> instance.
+	 */
+	public Task(Game game, String id) {
+		this.timestamp = System.currentTimeMillis();
+		this.game = game;
+		this.id = id;
 	}
-
+	
 	/** 
-	 * @param theTimer el timer a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @return La instancia del game.
 	 */
-	public void setTimer(Float theTimer) {
-		// begin-user-code
-		timer = theTimer;
-		// end-user-code
-	}
-
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private ETask etask;
-
-	/** 
-	 * @return el etask
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public ETask getEtask() {
-		// begin-user-code
-		return etask;
-		// end-user-code
-	}
-
-	/** 
-	 * @param theEtask el etask a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void setEtask(ETask theEtask) {
-		// begin-user-code
-		etask = theEtask;
-		// end-user-code
-	}
-
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private Game game;
-
-	/** 
-	 * @return el game
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public Game getGame() {
-		// begin-user-code
+	public Game getGame() {		
 		return game;
-		// end-user-code
+	}	
+	
+	public boolean isLaterThan(ITask task) { 
+		return (this.timestamp >= task.getTimestamp());
 	}
 
-	/** 
-	 * @param theGame el game a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void setGame(Game theGame) {
-		// begin-user-code
-		game = theGame;
-		// end-user-code
+	public boolean equals(Object o) {
+		if(o instanceof ITask) {
+			ITask task = (ITask)o;
+			return this.getId() == task.getId();
+		}
+		return false;
 	}
-
-	/** 
-	 * @param Parámetro
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void isLaterThan(ITask Parámetro) {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+	
+	public long getTimestamp() {
+		return this.timestamp;
 	}
-
-	/** 
-	 * @param Parámetro
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public abstract void equals(ITask Parámetro);
+	
+	public String getId() {
+		return this.id;
+	}
+	
 }
