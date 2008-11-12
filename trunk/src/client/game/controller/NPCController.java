@@ -3,9 +3,30 @@
  */
 package client.game.controller;
 
+import client.game.entity.IDynamicEntity;
+
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * Esta clase contendrá el algoritmo de comportamiento del NPC.
  */
 public class NPCController extends Controller {
+	
+	
+	/**
+	 * Contructor del <code>Controller<code> del NPC.
+	 * @param entity La entidad que representará al NPC.
+	 */
+	public NPCController(IDynamicEntity entity) {
+		super(entity);		
+	}
+		
+	public void updateLogic(float interpolation) {
+		// begin-user-code
+		// TODO Apéndice de método generado automáticamente		
+		// end-user-code
+	}
+	
+	public IControllerFactory createController(IDynamicEntity entity){
+		return new NPCController(entity);
+	}
+		
 }
