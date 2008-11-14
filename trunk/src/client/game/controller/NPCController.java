@@ -25,8 +25,5 @@ public class NPCController extends Controller {
 		// end-user-code
 	}
 	
-	public IControllerFactory createController(IDynamicEntity entity){
-		return new NPCController(entity);
-	}
-		
+
 }

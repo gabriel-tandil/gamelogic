@@ -12,7 +12,7 @@ import com.jme.util.export.JMEImporter;
  * @author Mara
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
-public class AccessPoint extends Entity {
+public class AccessPoint extends Entity implements IAccessPoint{
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
@@ -90,10 +90,16 @@ public class AccessPoint extends Entity {
 	 * @see IEntity#getId()
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public Integer getId() {
+	public String getId() {
 		// begin-user-code
 		// TODO Apéndice de método generado automáticamente
 		return null;
 		// end-user-code
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
 	}
 }
