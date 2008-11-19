@@ -1,24 +1,24 @@
-/**
- * 
- */
 package client.game.task;
 
-import client.game.Game;
+import client.game.task.ITask;
 
-/** 
- * @author Imp
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+/**
+ * Define la interfaz de creación para las posteriores tareas que serán
+ * definidas en el Game. 
  */
-public interface ITaskFactory {
+public interface ITaskFactory {		
+	
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @return El identificador de la tarea.
 	 */
 	public String getId();
-
+	
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Este método será implementado por cada tarea definida para el game.
+	 * La clase que define la tarea es la que debe conocer como crear una instancia
+	 * de ella misma.
+	 * @param id El identificador de la tarea.
+	 * @return La <code>ITask<code> creada.
 	 */
-	public void initializeTask(String id, Game game);
+	public ITask createTask(String id);	
 }

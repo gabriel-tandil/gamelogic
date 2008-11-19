@@ -1,6 +1,6 @@
 package client.game.task;
 
-import client.game.Game;
+import java.util.HashMap;
 
 /**
  * Esta clase es un singleton que contendrá las diferentes tareas definidas 
@@ -12,23 +12,21 @@ public class TaskManagerFactory {
 	/**
 	 * La instancia de <code>TaskFactoryManager</code>.
 	 */
-	private static TaskManagerFactory instance=null;
+	private static TaskManagerFactory instance;
 	
-//	/**
-//	 * HashMap que contiene las diferentes <code>ITask<code> del Game relacionadas a
-//	 * sus correspondientes identificadores. 
-//	 */
-//	private HashMap<String,ITask> tasks;
-//
-//	private Logger logger;
+	/**
+	 * HashMap que contiene las diferentes <code>ITask<code> del Game relacionadas a
+	 * sus correspondientes identificadores. 
+	 */
+	private HashMap<String,ITaskFactory> tasks;
 	
 	
-//	/**
-//	 * Constructor <code>TaskFactoryManager</code>.
-//	 */
-//	private TaskManagerFactory(){
-//		this.tasks = new HashMap<String,ITask>();
-//	}
+	/**
+	 * Constructor <code>TaskFactoryManager</code>.
+	 */
+	private TaskManagerFactory(){
+		this.tasks = new HashMap<String,ITaskFactory>();
+	}
 	
 	/**
 	 * Crea la instancia de <code>TaskFactoryManager</code> por primera 
@@ -42,38 +40,20 @@ public class TaskManagerFactory {
 		return TaskManagerFactory.instance;
 	}
 	
-//	/**
-//	 * 
-//	 * @param task Es una nueva tarea definida para el Game.
-//	 */
-//	protected void addTask(ITask task) {
-//		tasks.put(task.getId(), task);
-//	}
+	/**
+	 * 
+	 * @param task Es una nueva tarea definida para el Game.
+	 */
+	public void addTask(ITaskFactory task) {
+		tasks.put(task.getId(), task);
+	}
 	
 	/** 
 	 * @param id Es el identificador de la tarea a ser creada.
-	 * @param c el class de la clase que quiero instanciar
-	 * @param game el juego
 	 * @return La tarea que fue creada.
 	 */
-	@SuppressWarnings("unchecked")
-	public Task createTask(Class<Task> c, Game game,String id) {
-		//return ((ITaskFactory)tasks.get(id)).createTask(id, game);		
-	
-		Task t=null;
-		Class<Task> claseTask;
-	try {
-		claseTask=(Class<Task>) Class.forName(c.getName());
-		t=(Task)claseTask.newInstance();
-		t.initializeTask(id, game);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-//		logger.log.Level.FATAL,"Error al crear la instancia de la clase "+c.getName());
-
+	public ITask createTask(String id) {
+		return ((ITaskFactory)tasks.get(id)).createTask(id);
 	}
-	return t;
-	
-	}
-	
 	
 }

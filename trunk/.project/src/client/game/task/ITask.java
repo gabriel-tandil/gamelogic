@@ -19,7 +19,7 @@ public interface ITask {
 	/**
 	 * Este método contendrá la lógica de ejecución de la tarea. 	
 	 */
-	public  void execute();
+	public void execute();
 	
 	/**
 	 * Chequea si un objeto dado es el mismo que esta tarea.
@@ -38,16 +38,6 @@ public interface ITask {
 	/** 
 	 * @return El time stamp de creación de esta <code>ITask</code>.
 	 */
-	public long getTimer();
-	
-	/**
-	 * @return El identificador de la tarea.
-	 */
-	public String getId();
-	
-	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public ETask getType();
+	public long getTimestamp();
+		
 }
