@@ -6,7 +6,6 @@ package client.manager;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.game.Game;
-import client.game.task.ChangeStateTask;
 import client.game.task.ITask;
 import client.game.task.TaskManagerFactory;
 
@@ -76,7 +75,7 @@ public class TaskManager {
 	 */
 	private float enqueueTime;
 	
-	private static long curentId=0;
+	
 	/**
 	 * Constructor <code>TaskManager</code>.
 	 * @param una instancia del <code>Game</code>.
@@ -146,10 +145,6 @@ public class TaskManager {
 				}		
 		this.taskQueue.add(task);
 	}
-	
-	private void enqueueFirst(ChangeStateTask myTask){
-		//Falta implementar
-	}
 					
 	/** 
 	 * @return La instancia del <code>Game<code>.
@@ -184,8 +179,8 @@ public class TaskManager {
 	 * si corresponde, ser encoladas y ejecutadas.
 	 * @param id El identificador de la tarea que se desea crear.
 	 */
-	public void createTask(Class c) {
-		TaskManagerFactory.getInstance().createTask(c, game, String.valueOf(curentId++));
+	public void createTask(String id) {
+		submitted.add(TaskManagerFactory.getInstance().createTask(id));
 	}
 
 	/**
