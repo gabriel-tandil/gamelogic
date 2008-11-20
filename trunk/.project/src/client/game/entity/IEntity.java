@@ -8,7 +8,7 @@ import com.jme.util.export.Savable;
 
 /** 
  * @author Santiago Michielotto
- * @version Created: 28-10-2008
+ * @version Created: 20-11-2008
  */
 public interface IEntity extends Savable {
 	/**

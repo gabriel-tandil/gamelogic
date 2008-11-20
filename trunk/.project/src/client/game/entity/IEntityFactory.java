@@ -1,27 +1,24 @@
 /**
- * 
+ * Define la interfaz de creación para las posteriores entidades que serán
+ * definidas en el Game. 
  */
 package client.game.entity;
 
-import client.game.Game;
-
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 19-11-2008
  */
 public interface IEntityFactory {
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @return El identificador de la Entidad.
 	 */
 	public String getId();
 
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Este método será implementado por cada Entidad definida para el game.
+	 * La clase que define la Entidad es la que debe conocer como crear una instancia
+	 * de ella misma.
+	 * @return La <code>IEntity<code> creada.
 	 */
-	public void initializeEntity(String id2, Game game) ;
-
-		
-	
+	public IEntity createEntity();
 }

@@ -1,29 +1,57 @@
 /**
+ * Esta clase es un singleton que contendrá las diferentes entidades definidas 
+ * para el <code>Game<code>. Por medio de esta se pueden agregar, crear y obtener 
+ * las entidades del <code>Game<code>. 
  * 
  */
 package client.game.entity;
 
+import java.util.Hashtable;
+import java.util.Set;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 19-11-2008
  */
 public class EntityManagerFactory {
-	
-	private static EntityManagerFactory instance=null;
+	/**
+	 * La instancia de <code>EntityManagerFactory</code>.
+	 */
+	private static EntityManagerFactory instance;
 	
 	/**
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * HashMap que contiene las diferentes <code>IEntityFactory<code> del Game relacionadas a
+	 * sus correspondientes identificadores. 
 	 */
-	protected EntityManagerFactory() {
-		// begin-user-code
-		// TODO Apéndice de constructor generado automáticamente
-		// end-user-code
+	private Hashtable<String,IEntityFactory> has;
+
+	/** 
+	 * Retorna el Hashtable de <code>IEntityFactory<code>.
+	 * @return el Hashtable de <code>IEntityFactory<code>.
+	 */
+	public Hashtable<String,IEntityFactory>  getHas() {
+		return has;
+	}
+
+	/** 
+	 * Aplica un theHas al singleton
+	 * @param theHas el Hashtable a establecer
+	 */
+	public void setHas(Hashtable<String,IEntityFactory>  theHas) {
+		has = theHas;
 	}
 
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Constructor <code>EntityManagerFactory</code>. Crea la instancia de has.
+	 */
+	protected EntityManagerFactory() {
+		this.has = new Hashtable<String,IEntityFactory>();
+	}
+
+	/**
+	 * Crea la instancia de <code>EntityManagerFactory</code> por primera 
+	 * y única vez.
+	 * @return La instancia de <code>EntityManagerFactory</code>.
 	 */
 	public static EntityManagerFactory getInstance() {
 		if(EntityManagerFactory.instance == null) {
@@ -33,24 +61,17 @@ public class EntityManagerFactory {
 	}
 
 	/** 
-	 * @param id Es el identificador de la tarea a ser creada.
-	 * @param c el class de la clase que quiero instanciar
-	 * @param game el juego
-	 * @return La entidad que fue creada.
+	 * Agrega una IEntityFactory para el Game.
 	 */
-	@SuppressWarnings("unchecked")
-	public Entity createEntity(Class<Entity> c, String id) {
-		Entity e=null;
-		Class<Entity> claseEntity;
-	try {
-		claseEntity=(Class<Entity>) Class.forName(c.getName());
-		e=(Entity)claseEntity.newInstance();
-		e.initializeEntity(id);
-	} catch (Exception ex) {
-		// TODO Auto-generated catch block
-//		logger.log.Level.FATAL,"Error al crear la instancia de la clase "+c.getName());
-
+	public void add(IEntityFactory entity) {
+		has.put(entity.getId(), entity);
 	}
-	return e;
+
+	/** 
+	 * Crea una IEntity para el Game.
+	 * @return IEntity Creada
+	 */
+	public IEntity create(String id) {
+		return ((IEntityFactory)has.get(id)).createEntity();
 	}
 }

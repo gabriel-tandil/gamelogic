@@ -5,46 +5,106 @@
   */
 package client.game.entity;
 
-import java.io.IOException;
-
 import com.jme.math.Vector3f;
-import com.jme.util.export.InputCapsule;
+import common.datatypes.Skin;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
-import com.jme.util.export.OutputCapsule;
+
 
 /** 
- * @author Santiago Michielotto
- * @version Created: 29-10-2008
+ * @author Critian Calomino
+ * @version Created: 20-11-2008
  */
 public class DynamicEntity extends Entity implements IDynamicEntity {
-	/** 
-	 * The mass value of this <code>DynamicEntity</code>.
-	 */
-	private float mass;
 	
-	private String avatar;
+	/** 
+	 * The poition of the DinamicEntity
+	 */
+	protected Vector3f position;
 
 	/** 
-	 * Retrieve the mass value of this <code>DynamicEntity</code>.
-	 * @return the mass value of this <code>DynamicEntity</code>.
+	 * Retrieve el position of the DinamicEntity.
+	 * @return el position of the DinamicEntity.
 	 */
-	public float getMass() {
-		return mass;
+	public Vector3f getPosition() {
+		return position;
 	}
 
 	/** 
-	 * Assign a mass value to the <code>DynamicEntity</code>.
-	 * @param theMass value to assign.
+	 * Apply a position to DinamicEntity
+	 * @param thePosition the position to apply.
 	 */
-	public void setMass(float theMass) {
-		mass = theMass;
+	public void setPosition(Vector3f thePosition) {
+		position = thePosition;
+	}
+
+	/** 
+	 * The angle of the DynamicEntity
+	 */
+	protected Vector3f angle;
+
+	/** 
+	 * Retrieve the angle of the DynamicEntity.
+	 * @return the angle of the DynamicEntity
+	 */
+	public Vector3f getAngle() {
+		return angle;
+	}
+
+	/** 
+ 	 * Apply an angle to this DynamicEntity.
+	 * @param theAngle the angle of the DynamicEntity to apply.
+	 */
+	public void setAngle(Vector3f theAngle) {
+		angle = theAngle;
+	}
+
+	/** 
+	 * The skin of this DinamicEntity.
+	 */
+	protected Skin skin;
+
+	/** 
+	 * Retrieve the skin of this DinamicEntity.
+	 * @return the skin of this DinamicEntity.
+	 */
+	public Skin getSkin() {
+		return skin;
+	}
+
+	/** 
+ 	 * Apply a skin to this DynamicEntity.
+	 * @param theSkin the skin of the DynamicEntity to apply.
+	 */
+	public void setSkin(Skin theSkin) {
+		skin = theSkin;
+	}
+
+	/** 
+	 * The mass value of this <code>DynamicEntity</code>.
+	 */
+	protected Float mass;
+
+	/**
+	 * Retrieve the mass of this DynamicEntity.
+	 * @return the mass of this DynamicEntity.
+	 */
+	public Float getMass() {
+		return mass;
+	}
+
+	/**
+	 * Apply a mass to this DynamicEntity.
+	 * @param mass the mass of the DynamicEntity to apply.
+	 */
+	public void setMass(Float mass) {
+		this.mass = mass;
 	}
 
 	/**
 	 * The <code>Vector3f</code> force currently in effect.
-	 * */
-	private Vector3f force;
+	 **/
+	protected Vector3f force;
 
 	/** 
 	 * Retrieve the <code>Vector3f</code> force of this <code>DynamicEntity</code>.
@@ -61,11 +121,12 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	public void setForce(Vector3f theForce) {
 		force = theForce;
 	}
+	
 
 	/** 
-     * The current <code>Vector3f</code> velocity of this <code>DynamicEntity</code>.
+         * The current <code>Vector3f</code> velocity of this <code>DynamicEntity</code>.
 	 */
-	private Vector3f velocity;
+	protected Vector3f velocity;
 
 	/** 
 	 * Retrieve the <code>Vector3f</code> velocity of this <code>DynamicEntity</code>.
@@ -84,12 +145,40 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	}
 
 	/** 
+	 * the actual word where is the DynamicEntity.
+	 */
+	protected String actualWorld;
+
+	/** 
+	 * Retrieve the actual word where is the DynamicEntity.
+	 * @return the actual word where is the DynamicEntity.
+	 */
+	public String getActualWorld() {
+		return actualWorld;
+	}
+
+	/** 
+	 * Apply a Actual Word to this DynamicEntity.
+	 * @param theActualWorld to apply of this DynamicEntity.
+	 */
+	public void setActualWorld(String theActualWorld) {
+		actualWorld = theActualWorld;
+	}
+	
+	/** 
+	 * Constructor of the DynamicEntity.
+	 */
+	public DynamicEntity(String id) {
+		this.setId(id);
+	}
+
+	/** 
 	 * Allow export the <code>DynamicEntity</code> data to a specific location.
 	 * @param arg0 <code>JMEExporter</code> to set the save location of data.
 	 */
-	public void write(JMEExporter arg0) throws IOException {
+	public void write(JMEExporter arg0) {
 		OutputCapsule oc = arg0.getCapsule(this);
-		oc.write(this.getId(), "ID", null);
+		oc.write(this.getId(),"ID",0);
 		oc.write(this.getTipo(),"Type",null);
 		oc.write(this.force.x, "ForceX", 0);
 		oc.write(this.force.y, "ForceY", 0);
@@ -100,13 +189,14 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		oc.write(this.mass, "Mass", 0);
 	}
 
+	
 	/** 
 	 * Allow import the <code>DynamicEntity</code> data from a specific location.
 	 * @param arg0 <code>JMEImporter</code> to set the save location of data.
 	 */
-	public void read(JMEImporter arg0)throws IOException {
+	public void read(JMEImporter arg0) {
 		InputCapsule ic = arg0.getCapsule(this);
-		this.setId(ic.readString("ID", null));
+		this.setId(ic.readInt("ID", 0));
 		this.setTipo(ic.readString("Type", null));
 		this.force.setX(ic.readFloat("ForceX", 0));
 		this.force.setY(ic.readFloat("ForceY", 0));
@@ -117,12 +207,29 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		this.mass=ic.readFloat("Mass", 0);
 	}
 
+	
 	/** 
 	 * Retrieve the Java Class of this <code>DynamicEntity</code>.
 	 * @return the Java Class of this <code>DynamicEntity</code>.
 	 */
 	public Class getClassTag() {
 		return this.getClass();
+	}
+
+	
+	/** 
+	 *  Retrieve the identity of this DynamicEntity.
+	 *  @return the identity of this DynamicEntity.
+	 */
+	public String getId() {
+		return this.id;
+	}
+
+	/**
+	 * Clear the force acting on this DynamicEntity.
+	 */
+	public void resetForce() {
+		this.force.zero();
 	}
 
 	/**
@@ -141,30 +248,4 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		this.force.addLocal(force);
 	}
 	
-	/**
-	 * Clear the force acting on this entity.
-	 */
-	public void resetForce() {
-		this.force.zero();
-	}
-	
-	/**
-	 * (sin Javadoc)
-	 * @see IEntity#getId()
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public String getId() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-		return null;
-		// end-user-code
-	}
-
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
 }

@@ -5,22 +5,34 @@
 package client.game.entity;
 
 import java.util.Hashtable;
+import common.datatypes.PlayerState;
+import common.datatypes.Quest;
+
+import java.util.Set;
 
 /** 
- * @author Santiago Michielotto
- * @version Created: 29-10-2008
+ * @author Cristian Calomino
+ * @version Created: 20-11-2008
  */
 public class Player extends DynamicEntity {
+	
+	/*
+	* Constructor of the Player.
+	*/
+	public Player(String id) {
+		super(id);
+	}
+
 	/** 
 	 * Contains the properties of the <code>Player</code>.
 	 */
-	private Hashtable properties;
+	protected Hashtable properties;
 
 	/** 
 	 * Retrieve the properties of the <code>Player</code>.
 	 * @return the properties of the <code>Player</code>.
 	 */
-	public Hashtable getProperties() {
+	public Hashtable getProperties()  {
 		return properties;
 	}
 
@@ -31,6 +43,50 @@ public class Player extends DynamicEntity {
 	public void setProperties(Hashtable theProperties) {
 		properties = theProperties;
 	}
+
+	/** 
+	 * The state of this Player in the Game.
+	 */
+	protected PlayerState state;
+
+	/** 
+	 * Retrieve the state of this Player in the Game.
+	 * @return the state of this Player in the Game.
+	 */
+	public PlayerState getState() {
+		return state;
+	}
+
+	/** 
+	 * Apply a PlayerState to this <code>Player</code>.
+	 * @param theState <code>PlayerState<code> stats to aplly.
+	 */
+	public void setState(PlayerState theState) {
+		state = theState;
+	}
+
+	/** 
+	 * @uml.annotations for <code>currentQuests</code>
+	 *     collection_type="Quest"
+	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+        //protected Set<Quest> currentQuests;
+
+	/** 
+	 * @return el currentQuests
+	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+//	public Set<Quest> getCurrentQuests() {
+//		return currentQuests;
+//	}
+
+	/** 
+	 * @param theCurrentQuests el currentQuests a establecer
+	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 */
+//	public void setCurrentQuests(Set<Quest> theCurrentQuests) {
+//		currentQuests = theCurrentQuests;
+
 
 	/** 
 	 * Contains the stats of the <code>Player</code>.
@@ -54,30 +110,24 @@ public class Player extends DynamicEntity {
 	}
 
 	/** 
-	 * Save a Stat of this <code>Player</code> whit his key.
-	 * @param stat Stat to save.
-	 * @param key The Key to retrieve the Stat.
+	 * Contains the properties of the <code>Player</code>.
 	 */
-	public void setStat(Object property, String key) {
-		this.stats.put(key,property);
+	private Hashtable properties;
+
+	/** 
+	 * Retrieve the properties of the <code>Player</code>.
+	 * @return the properties of the <code>Player</code>.
+	 */
+	public Hashtable getProperties() {
+		return properties;
 	}
 
 	/** 
-	 * Save a Property of this <code>Player</code> whit his key.
-	 * @param propertie Property to save.
-	 * @param key The Key to retrieve the Property.
+	 * Apply a <code>Hashtable<code> properties to this <code>Player</code>.
+	 * @param theProperties <code>Hashtable<code> properties to aplly
 	 */
-	public void setProperty(Object property, String key) {
-		this.properties.put(key, property);
-	}
-
-	/** 
-	 * Retrieve the Stat usign the key.
-	 * @param key the Key to retrieve the Stat.
-	 * @return the stat of this key.
-	 */
-	public Object getStat(String key) {
-		return this.stats.get(key);
+	public void setProperties(Hashtable theProperties) {
+		properties = theProperties;
 	}
 
 	/** 
@@ -88,4 +138,15 @@ public class Player extends DynamicEntity {
 	public Object getProperty(String key) {
 		return this.properties.get(key);
 	}
+
+	/** 
+	 * Save a Property of this <code>Player</code> whit his key.
+	 * @param propertie Property to save.
+	 * @param key The Key to retrieve the Property.
+	 */
+	public void setProperty(Object propertie, String key) {
+		this.properties.put(key, propertie);
+	}
+
+	
 }

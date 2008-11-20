@@ -4,34 +4,12 @@
  */
 package client.game.entity;
 
-
 /** 
- * @author Santiago Michielotto
- * @version Created: 28-10-2008
+ * @author Cristian Calomino
+ * @version Created: 20-11-2008
  * 
  */
-public abstract class Entity implements IEntity, IEntityFactory {
-	/** 
-	 * The type of this <code>Entity</code>.
-	 */
-	private String tipo;
-
-	/** 
-	 * Retrieve the <code>Entity</code> type.
-	 * @return the <code>Entity</code> type.
-	 */
-	public String getTipo() {
-		return tipo;
-	}
-	
-	/** 
-	 * Set the <code>Entity</code> type.
-	 * @param theTipo the <code>Entity</code> type required.
-	 */
-	public void setTipo(String theTipo) {
-		tipo = theTipo;
-	}
-
+public abstract class Entity implements IEntity {
 	/**
 	 * The identity number of this <code>Entity</code>.
 	 */
@@ -52,8 +30,12 @@ public abstract class Entity implements IEntity, IEntityFactory {
 	public void setId(String theId) {
 		id = theId;
 	}
-	public void initializeEntity(String id){
-	//hacer	
+
+	/*
+	 * Contructor of the Entity.
+	*/
+	public Entity(string theId){
+		this.id=theId
 	}
 
 }
