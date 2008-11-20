@@ -1,70 +1,52 @@
 /**
- * 
+ *<code>PhysicsManager</code> is responsible for updating all properties of the DinamicEntities
+ * of the Game
  */
 package client.gameEngine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.logging.Logger;
 
 import com.jme.math.Vector3f;
-import com.sun.sgs.app.ObjectNotFoundException;
 
 import client.game.entity.IDynamicEntity;
 import client.game.view.View;
-import client.manager.EntityManager;
 import client.manager.ViewManager;
 
 /** 
  * @author Santiago Michielotto
- * @version Created: 30-10-2008
+ * @version Created: 19-11-2008
  */
 public class PhysicsManager {
-	
-	/**
-	 * The <code>Logger</code> instance.
-	 */
-	protected final Logger logger;
-	
-	/**
-	 * The fixed physics update rate in seconds.
-	 */
-	private final float rate;
-	
 	/**
 	 * The gravity of the world.
 	 */
-	private static float gravedad;
-	
-	/**
-	 * Constructor of <code>PhysicsManager</code>.
+	private Float gravedad;
+
+	/** 
+	 * Retrieve the Float magnitude of the Gravity of the World.
+	 * @return the Float magnitude of the Gravity of the World.
 	 */
-	protected PhysicsManager() {
-		this.rate = 0.01f;
-		this.entities =new ArrayList();
-		this.logger = Logger.global;
-		this.gravedad=0.1f;
+	public Float getGravedad() {
+		return gravedad;
 	}
-	
+
+	/** 
+	 * Set the Float magnitude of the Gravity of the World.
+	 * @param theGravedad the Float magnitude of the Gravity of the World to be set.
+	 */
+	public void setGravedad(Float theGravedad) {
+		gravedad = theGravedad;
+	}
+
 	/**
 	 * The <code>PhysicsManager</code> instance.
 	 */
-	protected static PhysicsManager instance;
-	
-	/** 
-	 * Retrieve the Singleton instance PhysicsManager.
-	 * @return the instance of the <code>PhysicsManager</code>.
-	 */
-	public static PhysicsManager getInstance() {
-		if(PhysicsManager.instance == null) {
-			PhysicsManager.instance = new PhysicsManager();
-		}
-		return PhysicsManager.instance;
-	}
+	private static PhysicsManager instance;
+
 	/** 
 	 * Contains the <code>IDinamicEntity's</code> of the Game to be updated in the next iteration.
 	 */
-	private ArrayList<IDynamicEntity> entities;
+	private ArrayList <IDynamicEntity> entities;
 
 	/** 
 	 * Retrieve the <code>IDynamicEntity's</code> ArrayList of the Game to be updated in the next iteration.
@@ -78,8 +60,33 @@ public class PhysicsManager {
 	 * Apply a <code>ArrayList</code>< IDynamicEntity > to the <code>PhysicsManager</code>.
 	 * @param theController <code>ArrayList</code>< IDynamicEntity > to aplly.
 	 */
-	public void setEntities(ArrayList<IDynamicEntity> theController) {
-		entities = theController;
+	public void setEntities(ArrayList<IDynamicEntity> theEntities) {
+		entities = theEntities;
+	}
+
+	/**
+	 * The fixed physics update rate in seconds.
+	 */
+	private final float rate;
+
+	/**
+	 * Constructor of <code>PhysicsManager</code>.
+	 */
+	protected PhysicsManager() {
+		this.rate = 0.01f;
+		this.entities =new ArrayList();
+		this.gravedad=0.1f;
+	}
+
+	/** 
+	 * Retrieve the Singleton instance <code>PhysicsManager</code>.
+	 * @return the instance of the <code>PhysicsManager</code>.
+	 */
+	public static PhysicsManager getInstance() {
+		if(PhysicsManager.instance == null) {
+			PhysicsManager.instance = new PhysicsManager();
+		}
+		return PhysicsManager.instance;
 	}
 
 	/** 
@@ -108,15 +115,11 @@ public class PhysicsManager {
 	private void updateTranslation(IDynamicEntity entity) {
 		Vector3f tempVector = new Vector3f();
 		tempVector.set(entity.getVelocity()).multLocal(this.rate);
-		try {
-			View view = (View)ViewManager.getInstance().getView(entity);
-			view.getLocalTranslation().addLocal(tempVector);
-		} catch (ObjectNotFoundException e) {
-			//this.logger.warning("Entity " + entity.toString() + " does not exist.");
-		}
+		View view = (View)ViewManager.getInstance().getView(entity);
+		view.getLocalTranslation().addLocal(tempVector);
 		entity.resetForce();
 	}
-	
+
 	/**
 	 * Update the velocity of the given dynamic entity based on its current force.
 	 * @param entity The <code>IDynamicEntity</code> to be updated.
@@ -151,7 +154,6 @@ public class PhysicsManager {
 		{
 			updatePhysics(entity);
 		}
-
 		// Clear update list.
 		this.entities.clear();
 	}
