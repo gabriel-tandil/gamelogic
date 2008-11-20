@@ -1,15 +1,17 @@
 /**
- * 
+ * The IAccessPoint is the interface to make a change state in the Game.
  */
 package client.game.state;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Santiago Michielotto
+ * @version Created: 19-11-2008
  */
 public interface IAccessPoint {
-	/**
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/** 
+	 * This method is the interface to create a new <code>ChangeStateTask</code>,
+	 * and this is enqueue first in the list of  task
+	 * to execute calling a singleton <code>TaskManager</code>
 	 */
 	public void show();
 }
