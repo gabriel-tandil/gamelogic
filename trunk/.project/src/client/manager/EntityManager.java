@@ -28,8 +28,8 @@ public class EntityManager {
 	private static int currentId;
 
 	/** 
-	 * Retrieve the current identity of the Entitys of the Game.
-	 * @return the current identity of the Entitys of the Game.
+	 * Retrieve the current identity of the Entities of the Game.
+	 * @return the current identity of the Entities of the Game.
 	 */
 	public Integer getCurrentId() {
 		return currentId;
@@ -75,11 +75,6 @@ public class EntityManager {
 		this.hash=new HashMap();
 	}
 
-	/**
-	 * The <code>EntityManager</code> instance.
-	 */
-	private static EntityManager instance;
-	
 	/** 
 	 * Retrieve the Singleton instance EntityManager.
 	 * @return the instance of the <code>EntityManager<code>.
@@ -94,8 +89,9 @@ public class EntityManager {
 	/** 
 	 * Retrieve a especific <code>IEntity<code> of the game.
 	 * @param entity The <code>IEntity<code> to be retrieved.
+	 * @return 
 	 */ 
-	public void getEntity(IEntity entity) {
+	public IEntity getEntity(IEntity entity) {
 			return hash.get(Integer.valueOf(entity.getId()));
 
 	}
@@ -118,7 +114,7 @@ public class EntityManager {
 			return;
 		}
 		if(currentId > id) currentId = id;
-		hash.put(Integer.valueOf(id), entity);
+		hash.put(id+"", entity);
 	}
 
 	/**
@@ -133,6 +129,7 @@ public class EntityManager {
 		this.entities.put(Integer.valueOf(id), entity);
 		this.logger.fine("Created entity " + enumn.toString() + "with ID number: " + id);
 		return entity;*/
+		return null;
 	}
 
 }

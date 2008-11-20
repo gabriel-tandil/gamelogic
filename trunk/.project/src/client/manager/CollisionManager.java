@@ -4,7 +4,17 @@
  */
 package client.manager;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Set;
+
+import com.jme.intersection.PickData;
+import com.jme.intersection.TrianglePickResults;
+import com.jme.math.Ray;
+import com.jme.math.Vector3f;
+import com.jme.scene.Spatial;
+import com.jme.scene.TriMesh;
+
 import client.game.state.IAccessPoint;
 import client.game.state.AccessPoint;
 
@@ -24,12 +34,12 @@ public class CollisionManager {
 	 * A access point can be a door, a window or other object generator of a task.
 	 * The task can be enter to the isistan for example.
 	 */
-	private HashTable<Integer,IAccessPoint> iaccesspoint;
+	private Hashtable<String,IAccessPoint> iaccesspoint;
 	/** 
 	 * Retrieve the <code>iaccesspoint</code> Set of the model. 
 	 * @return the Access point Set of the model. 
 	 */
-	public HashTable<Integer,IAccessPoint> getIaccesspoint() {
+	public Hashtable<String,IAccessPoint> getIaccesspoint() {
 		return iaccesspoint;
 	}
 
@@ -37,7 +47,7 @@ public class CollisionManager {
 	 * Apply a <code>Set</code> iaccesspoint to this <code>CollisionManager</code>.
 	 * @param theIaccesspoint <code>Set<code> iaccesspoint to aplly
 	 */
-	public void setIaccesspoint(HashTable<Integer,IAccessPoint> theIaccesspoint) {
+	public void setIaccesspoint(Hashtable<String,IAccessPoint> theIaccesspoint) {
 		iaccesspoint = theIaccesspoint;
 	}
 
@@ -57,10 +67,10 @@ public class CollisionManager {
 	 * @return the collision AccessPoint if exist a collision or null if not exists.
 	 */
 	public AccessPoint checkOverAccessPoint() {
-		for(IAccessPoint accesspoint : this.iaccesspoint) 
+		/*for(IAccessPoint accesspoint : this.iaccesspoint) 
 		{
 			//chequeo
-		}
+		}*/
 		return null;
 	}
 

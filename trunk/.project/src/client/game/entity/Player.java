@@ -110,27 +110,6 @@ public class Player extends DynamicEntity {
 	}
 
 	/** 
-	 * Contains the properties of the <code>Player</code>.
-	 */
-	private Hashtable properties;
-
-	/** 
-	 * Retrieve the properties of the <code>Player</code>.
-	 * @return the properties of the <code>Player</code>.
-	 */
-	public Hashtable getProperties() {
-		return properties;
-	}
-
-	/** 
-	 * Apply a <code>Hashtable<code> properties to this <code>Player</code>.
-	 * @param theProperties <code>Hashtable<code> properties to aplly
-	 */
-	public void setProperties(Hashtable theProperties) {
-		properties = theProperties;
-	}
-
-	/** 
 	 * Retrieve the Property usign the key.
 	 * @param key the Key to retrieve the Propertie.
 	 * @return the property of this key.

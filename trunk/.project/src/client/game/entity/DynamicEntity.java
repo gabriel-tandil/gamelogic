@@ -7,8 +7,11 @@ package client.game.entity;
 
 import com.jme.math.Vector3f;
 import common.datatypes.Skin;
+
+import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
+import com.jme.util.export.OutputCapsule;
 
 
 /** 
@@ -89,7 +92,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 * Retrieve the mass of this DynamicEntity.
 	 * @return the mass of this DynamicEntity.
 	 */
-	public Float getMass() {
+	public float getMass() {
 		return mass;
 	}
 
@@ -97,7 +100,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 * Apply a mass to this DynamicEntity.
 	 * @param mass the mass of the DynamicEntity to apply.
 	 */
-	public void setMass(Float mass) {
+	public void setMass(float mass) {
 		this.mass = mass;
 	}
 
@@ -169,7 +172,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 * Constructor of the DynamicEntity.
 	 */
 	public DynamicEntity(String id) {
-		this.setId(id);
+		super(id);
 	}
 
 	/** 
@@ -178,8 +181,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void write(JMEExporter arg0) {
 		OutputCapsule oc = arg0.getCapsule(this);
-		oc.write(this.getId(),"ID",0);
-		oc.write(this.getTipo(),"Type",null);
+		oc.write(this.getId(), "ID", null);
 		oc.write(this.force.x, "ForceX", 0);
 		oc.write(this.force.y, "ForceY", 0);
 		oc.write(this.force.z, "ForceZ", 0);
@@ -196,8 +198,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void read(JMEImporter arg0) {
 		InputCapsule ic = arg0.getCapsule(this);
-		this.setId(ic.readInt("ID", 0));
-		this.setTipo(ic.readString("Type", null));
+		this.setId(ic.readString("ID", null));
 		this.force.setX(ic.readFloat("ForceX", 0));
 		this.force.setY(ic.readFloat("ForceY", 0));
 		this.force.setZ(ic.readFloat("ForceZ", 0));
@@ -222,7 +223,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 *  @return the identity of this DynamicEntity.
 	 */
 	public String getId() {
-		return this.id;
+		return this.getId();
 	}
 
 	/**

@@ -24,6 +24,13 @@ import com.jme.util.export.OutputCapsule;
  */
 public class AccessPoint extends Entity implements IAccessPoint {
 	/** 
+	 * The constructor of the AccessPoint.
+	 */
+	public AccessPoint(String theId) {
+		super(theId);
+	}
+
+	/** 
 	 * The next state of the game.
 	 */
 	private BasicGameState basicgamestate;
@@ -91,7 +98,7 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	 * Get the <code>AccessPoint</code> id.
 	 */
 	public String getId() {
-		return this.id;
+		return this.getId();
 	}
 
 	/** 

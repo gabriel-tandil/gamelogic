@@ -34,8 +34,8 @@ public abstract class Entity implements IEntity {
 	/*
 	 * Contructor of the Entity.
 	*/
-	public Entity(string theId){
-		this.id=theId
+	public Entity(String theId){
+		this.id=theId;
 	}
 
 }
