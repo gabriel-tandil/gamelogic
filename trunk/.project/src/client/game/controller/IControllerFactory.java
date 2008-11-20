@@ -17,12 +17,12 @@ public interface IControllerFactory  {
 	 * creado.
 	 * @return El <code>IControllerFactory<code> creado.
 	 */
-	public IController createController(IDynamicEntity Parámetro2);	
+	public IController createController(String id);	
 	
 	/**
 	 * @return
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public String getId();
-	public void initializeController(String id, Game game);
+
 }

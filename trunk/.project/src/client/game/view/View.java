@@ -17,7 +17,7 @@ import com.jme.scene.Spatial;
  * @author Maria Hansen
  * @version Creation date: 29-10-2008
  */
-public abstract class View extends Node implements IView, IViewFactory {
+public abstract class View extends Node implements IView {
 	/** 
 	 * La <code>IEntity</code> que esta <code>View</code> representa.
 	 */
@@ -76,9 +76,5 @@ public abstract class View extends Node implements IView, IViewFactory {
 		this.entity = theentity;
 	}
 
-	public void initializeView(String id, Game game) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

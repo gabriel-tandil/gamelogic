@@ -27,7 +27,9 @@ public abstract class Task implements ITask {
 		this.timestamp = System.currentTimeMillis();		
 	}			
 	
-	public abstract boolean isLaterThan(ITask task);
+	public boolean isLaterThan(ITask task){
+		return timestamp>task.getTimestamp();
+	}
 
 	public abstract boolean equals(Object o); 
 		

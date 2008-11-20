@@ -3,7 +3,6 @@
  */
 package client.game.controller;
 
-import client.game.Game;
 import client.game.entity.IDynamicEntity;
 
 /**
@@ -18,7 +17,7 @@ import client.game.entity.IDynamicEntity;
  *  modificar la <code>IDynamicEntity</code> continuamente a través de las distintas
  *  iteraciones del update.
  * */
-public abstract class Controller implements IController, IControllerFactory{
+public abstract class Controller implements IController{
 	
 	/**
 	 * La <code>IDynamicEntity<code> controlada por este <code>Controller<code>.
@@ -86,8 +85,4 @@ public abstract class Controller implements IController, IControllerFactory{
 		return this.active;
 	}
 
-	public void initializeController(String id, Game game) {
-		// TODO Auto-generated method stub
-		
-	}
 }

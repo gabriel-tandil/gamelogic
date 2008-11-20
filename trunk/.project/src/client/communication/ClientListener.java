@@ -3,11 +3,13 @@
  */
 package client.communication;
 
-import com.sun.sgs.client.ClientChannelListener;
-import com.sun.sgs.client.ClientChannel;
-import com.sun.sgs.client.simple.SimpleClientListener;
-import java.nio.ByteBuffer;
 import java.net.PasswordAuthentication;
+import java.nio.ByteBuffer;
+
+import com.sun.sgs.client.ClientChannel;
+import com.sun.sgs.client.ClientChannelListener;
+import com.sun.sgs.client.ServerSessionListener;
+import com.sun.sgs.client.simple.SimpleClientListener;
 
 /** 
  *  El receiveMessage{ channel y bytebuffer) hace messageParser.parser(bytebuffer)

@@ -18,14 +18,14 @@ public class TaskManagerFactory {
 	 * HashMap que contiene las diferentes <code>ITask<code> del Game relacionadas a
 	 * sus correspondientes identificadores. 
 	 */
-	private HashMap<String,ITaskFactory> tasks;
+	private HashMap<String,ITaskFactory> taskFactorys;
 	
 	
 	/**
 	 * Constructor <code>TaskFactoryManager</code>.
 	 */
 	private TaskManagerFactory(){
-		this.tasks = new HashMap<String,ITaskFactory>();
+		this.taskFactorys = new HashMap<String,ITaskFactory>();
 	}
 	
 	/**
@@ -42,10 +42,10 @@ public class TaskManagerFactory {
 	
 	/**
 	 * 
-	 * @param task Es una nueva tarea definida para el Game.
+	 * @param task Es una nueva tarea definida.
 	 */
-	public void addTask(ITaskFactory task) {
-		tasks.put(task.getId(), task);
+	public void add(ITaskFactory task) {
+		taskFactorys.put(task.getId(), task);
 	}
 	
 	/** 
@@ -53,7 +53,7 @@ public class TaskManagerFactory {
 	 * @return La tarea que fue creada.
 	 */
 	public ITask createTask(String id) {
-		return ((ITaskFactory)tasks.get(id)).createTask(id);
+		return ((ITaskFactory)taskFactorys.get(id)).createTask(id);
 	}
 	
 }

@@ -28,7 +28,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		Node World=null;
 		Node Player=null;
 		getWorld(World);
-		View hay que hacer el view manager.
+	//TODO:	View hay que hacer el view manager.
 		getPlayer(Player);
 		node.attachChild(World);
 		node.attachChild(Player);

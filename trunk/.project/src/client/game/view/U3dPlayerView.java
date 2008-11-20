@@ -15,14 +15,5 @@ public class U3dPlayerView extends DynamicView {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public Object createView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

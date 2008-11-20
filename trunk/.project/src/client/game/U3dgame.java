@@ -79,7 +79,7 @@ public class U3dgame extends Game {
         this.getGamestatemanager().attachChild(end);
 
         // login immediately with the current system time as the login name
-        TaskManager.getInstance().createTask(U3dSetupPlayerTask.class);
+        TaskManager.getInstance().createTask("U3dSetupPlayerTask.class");
 	}
 
 	@Override

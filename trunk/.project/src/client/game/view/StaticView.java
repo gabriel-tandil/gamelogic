@@ -83,9 +83,4 @@ public abstract class StaticView extends View implements IStaticView {
 		// end-user-code
 	}
 
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

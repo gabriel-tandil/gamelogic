@@ -5,8 +5,11 @@ package client.game.view;
 
 import java.util.Hashtable;
 
+import javax.swing.text.ViewFactory;
+
 import client.game.Game;
 import client.game.controller.Controller;
+import client.game.entity.EntityManagerFactory;
 import client.game.entity.IEntity;
 
 /** 
@@ -17,38 +20,19 @@ public class ViewFactoryManager {
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private Hashtable<IEntity, View> viewfactoryhash;
+	private Hashtable<String, IViewFactory> viewFactorys;
 	private static int id=0;
-	/** 
-	 * @param id Es el identificador de la tarea a ser creada.
-	 * @param c el class de la clase que quiero instanciar
-	 * @param game el juego
-	 * @return El controller que fue creado.
-	 */
-	@SuppressWarnings("unchecked")
-	protected View createView(Class<View> c, Game game,String id) {
-		//return ((ITaskFactory)tasks.get(id)).createTask(id, game);		
-	
-		View v=null;
-		Class<View> claseView;
-	try {
-		claseView=(Class<View>) Class.forName(c.getName());
-		v=(View)claseView.newInstance();
-		v.initializeView(id, game);
-	} catch (Exception ex) {
-		// TODO Auto-generated catch block
-//		logger.log.Level.FATAL,"Error al crear la instancia de la clase "+c.getName());
 
-	}
-	return v;
-	}
-
+	private static ViewFactoryManager instance = null;
 	/**
 	 * @return
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public static ViewFactoryManager getInstance() {
-		return null;
+		if (instance == null) {
+			instance = new ViewFactoryManager();
+		}
+		return instance;
 	}
 
 	/**
@@ -56,6 +40,6 @@ public class ViewFactoryManager {
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public void add(IViewFactory viewFactory) {
-
+		viewFactorys.put(viewFactory.getId(), viewFactory);
 	}
 }

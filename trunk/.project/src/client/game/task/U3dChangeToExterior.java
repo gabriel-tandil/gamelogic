@@ -1,26 +1,19 @@
 package client.game.task;
 
-import client.game.Game;
+import com.jmex.game.state.BasicGameState;
 
 public class U3dChangeToExterior extends ChangeStateTask {
 
-	public U3dChangeToExterior(Game game, String id) {
-		super(game,id);
-	}
-	
-	public ETask getType() {
-		// TODO Auto-generated method stub
-		return null;
+	public U3dChangeToExterior() {
+		super(new BasicGameState(""));//TODO: veer
 	}
 
 	@Override
-	public String getId() {
+	public boolean equals(Object o) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 	
-	public void initializeTask(String id, Game game) {
-		 
-	}
+
 
 }

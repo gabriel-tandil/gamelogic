@@ -52,8 +52,9 @@ public class InputManager {
 	 * @param <code>IDynamicEntity<code> la cual se desea controlar. 
 	 * @return <code>IController<code> creado.
 	 */
-	public IController createController(IDynamicEntity entity) {
-		IController temp=ControllerManagerFactory.getInstance().create(entity);
+	public IController createController(String idController) {
+		
+		IController temp=ControllerManagerFactory.getInstance().createController(idController);
 		if(!controllers.contains(temp))controllers.add(temp);
 		return temp;
 	}
@@ -69,4 +70,5 @@ public class InputManager {
 				controller.update(interpolation);
 		}				
 	}
+	
 }
