@@ -1,77 +1,50 @@
 /**
- * Esta clase es un singleton que contendrá las diferentes entidades definidas 
- * para el <code>Game<code>. Por medio de esta se pueden agregar, crear y obtener 
- * las entidades del <code>Game<code>. 
  * 
  */
 package client.game.entity;
 
-import java.util.Hashtable;
-import java.util.Set;
+import java.util.HashMap;
 
-/** 
- * @author Santiago Michielotto
- * @version Created: 19-11-2008
+/**
+ * @author Mara
+ * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class EntityManagerFactory {
-	/**
-	 * La instancia de <code>EntityManagerFactory</code>.
-	 */
-	private static EntityManagerFactory instance;
-	
-	/**
-	 * HashMap que contiene las diferentes <code>IEntityFactory<code> del Game relacionadas a
-	 * sus correspondientes identificadores. 
-	 */
-	private Hashtable<String,IEntityFactory> has;
 
-	/** 
-	 * Retorna el Hashtable de <code>IEntityFactory<code>.
-	 * @return el Hashtable de <code>IEntityFactory<code>.
-	 */
-	public Hashtable<String,IEntityFactory>  getHas() {
-		return has;
-	}
-
-	/** 
-	 * Aplica un theHas al singleton
-	 * @param theHas el Hashtable a establecer
-	 */
-	public void setHas(Hashtable<String,IEntityFactory>  theHas) {
-		has = theHas;
-	}
+	private static EntityManagerFactory instance = null;
+	private HashMap<String, IEntityFactory> entityFactorys;
 
 	/**
-	 * Constructor <code>EntityManagerFactory</code>. Crea la instancia de has.
+	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	protected EntityManagerFactory() {
-		this.has = new Hashtable<String,IEntityFactory>();
+		this.entityFactorys = new HashMap<String, IEntityFactory>();
 	}
 
 	/**
-	 * Crea la instancia de <code>EntityManagerFactory</code> por primera 
-	 * y única vez.
-	 * @return La instancia de <code>EntityManagerFactory</code>.
+	 * @return
+	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public static EntityManagerFactory getInstance() {
-		if(EntityManagerFactory.instance == null) {
-			EntityManagerFactory.instance = new EntityManagerFactory();			
+		if (EntityManagerFactory.instance == null) {
+			EntityManagerFactory.instance = new EntityManagerFactory();
 		}
 		return EntityManagerFactory.instance;
 	}
 
-	/** 
-	 * Agrega una IEntityFactory para el Game.
+	/**
+	 * 
+	 * @param task
+	 *            Es una nueva tarea definida.
 	 */
-	public void add(IEntityFactory entity) {
-		has.put(entity.getId(), entity);
+	public void add(IEntityFactory entityFactory) {
+		entityFactorys.put(entityFactory.getId(), entityFactory);
 	}
-
 	/** 
-	 * Crea una IEntity para el Game.
-	 * @return IEntity Creada
+	 * @param id Es el identificador de la tarea a ser creada.
+	 * @return La tarea que fue creada.
 	 */
-	public IEntity create(String id) {
-		return ((IEntityFactory)has.get(id)).createEntity();
+	public IEntity createEntity(String id) {
+		return ((IEntityFactory)entityFactorys.get(id)).createEntity(id);
 	}
 }
