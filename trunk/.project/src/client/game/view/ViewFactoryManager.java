@@ -13,33 +13,78 @@ import client.game.entity.EntityManagerFactory;
 import client.game.entity.IEntity;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @author Maria Hansen
+ * @version Creation date: 20-11-2008
  */
 public class ViewFactoryManager {
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private Hashtable<String, IViewFactory> viewFactorys;
-	private static int id=0;
-
-	private static ViewFactoryManager instance = null;
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * La instancia de <code>ViewFactoryManager</code>
+	 */
+	private static ViewFactoryManager instance = null;
+
+	/** 
+	 * 
+	 */
+	private Hashtable<String, IViewFactory> viewfactoryhash;
+
+
+	/**
+	 * Constructor de <code>ViewFactoryManager</code>.
+	 */
+	protected ViewFactoryManager() {
+		this.viewfactoryhash = new Hashtable();
+	}
+
+	/** 
+     * Devuelve la instancia de <code>ViewFactoryManager</code>.
+     * @return La instancia de <code>ViewFactoryManager</code>.
 	 */
 	public static ViewFactoryManager getInstance() {
-		if (instance == null) {
+		if(ViewFactoryManager.instance == null) {
 			instance = new ViewFactoryManager();
 		}
 		return instance;
 	}
 
-	/**
-	 * @param viewFactory
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/** 
+	 * 
+	 */
+	public Object createView(IEntity Parámetro2) {
+		String id;
+		IViewFactory factory;
+		IView view = null;
+		
+		if(Parámetro2 != null) {
+			id = Parámetro2.getId();
+			if(this.viewfactoryhash.containsKey(id)) {
+				factory = this.viewfactoryhash.get(id);
+				view = (IView)factory.createView(Parámetro2);
+			}
+		}
+		return view;
+	}
+
+	/** 
+	 * Regista la factory dada al <code>ViewFactoryManager</code>.
+	 * @param viewFactory La <code>IViewFactory</code> a ser registrada.
 	 */
 	public void add(IViewFactory viewFactory) {
-		viewFactorys.put(viewFactory.getId(), viewFactory);
+		String id = viewFactory.getId();
+		if (!this.viewfactoryhash.containsKey(id))
+			this.viewfactoryhash.put(id, viewFactory);
+	}
+
+	/** 
+	 * 
+	 */
+	public Hashtable getViewfactoryhash() {
+		return viewfactoryhash;
+	}
+
+	/** 
+	 * 
+	 */
+	public void setViewfactoryhash(Hashtable theViewfactoryhash) {
+		viewfactoryhash = theViewfactoryhash;
 	}
 }

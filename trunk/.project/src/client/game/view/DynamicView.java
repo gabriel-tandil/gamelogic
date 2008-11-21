@@ -19,15 +19,14 @@ public abstract class DynamicView extends View implements IDynamicView {
 	 * Constructor de <code>DynamicView</code>.
 	 * @param entity La <code>IDynamicEntity</code> que esta vista reprenta.
 	 */
-	public DynamicView(IDynamicEntity entity){
+	public DynamicView(IDynamicEntity entity) {
 		super(entity);
 	}
 
 	/**
-	 * @see IView#isValidView()
+	 * @see IView#isDynamicView()
 	 */
 	public boolean isDynamicView(){
 		return true;
 	}
-
 }

@@ -21,22 +21,15 @@ public abstract class View extends Node implements IView {
 	/** 
 	 * La <code>IEntity</code> que esta <code>View</code> representa.
 	 */
-	protected IEntity entity;
-
-
-	/**
-	 * Constructor de <code>View</code>.
-	 */
-	public View(){
-		super();
-	}
+	private IEntity entity;
+	
 
 	/**
 	 * Constructor de <code>View</code> dada una <code>IEntity</code>.
 	 * @param entity Le <code>IEntity<code> que esta <code>View</code> representa.
 	 */
 	public View(IEntity entity) {
-		super(entity.getId().toString() + "_View");
+		super(entity.getId() + "_View");
 		this.entity = entity;
 	}
 
@@ -50,8 +43,8 @@ public abstract class View extends Node implements IView {
 	/** 
 	 * @see IView#attachTo(Node).
 	 */
-	public void attachTo(Node parent) {
-		parent.attachChild(this);
+	public void attachToNode(Node node) {
+		node.attachChild(this);
 	}
 
 	/** 
@@ -75,6 +68,4 @@ public abstract class View extends Node implements IView {
 	public void setEntity(IEntity theentity) {
 		this.entity = theentity;
 	}
-
-
 }

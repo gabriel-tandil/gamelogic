@@ -7,25 +7,28 @@ import client.game.Game;
 import client.game.entity.IEntity;
 
 /** 
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * <code>IViewFactory</code> define la interface para la creación de vistas dada
+ * una <code>IEntity</code>.
+ * 
+ * @author Maria Hansen
+ * @version Creation date: 20-11-2008
  */
 public interface IViewFactory {
+	//no va!
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * 
 	 */
 	ViewFactoryManager viewfactorymanager = null;
 
-	/**
+	/** 
 	 * @param entity
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * @return IView La <code>IView</code> creada.
 	 */
-	public void initializeView(String id, Game game);
+	public Object createView(IEntity entity);
 
-	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	/** 
+	 * Devuelve el id correspondiente a cada factory.
+	 * @return String El Id correspondienta al factory.
 	 */
 	public String getId();
 }

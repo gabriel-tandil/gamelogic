@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Set;
 import client.game.view.IView;
 import client.game.view.IDynamicView;
+import client.game.view.ViewFactoryManager;
 import client.game.entity.IEntity;
 import client.game.entity.IDynamicEntity;
 
@@ -35,7 +36,7 @@ public class ViewManager {
 	/** 
 	 * El almacenamiento de <code>IView</code>.
 	 */
-	private HashMap<IEntity, IView> views;
+	private HashMap<IEntity, IView> hash;
 	/**
 	 * El almacenamietno de <code>IDynamic</code> sucias.
 	 */
@@ -45,8 +46,8 @@ public class ViewManager {
 	/**
 	 * Constructor de <code>ViewManager</code>.
 	 */
-	private ViewManager() {
-		this.views = new HashMap<IEntity, IView>();
+	protected ViewManager() {
+		this.hash = new HashMap<IEntity, IView>();
 		this.dirty = new LinkedList<IDynamicView>();
 	}
 
@@ -80,10 +81,10 @@ public class ViewManager {
 	 */
 	public boolean registerView(IView view) {
 		IEntity entity = view.getEntity();
-		if (this.views.containsKey(entity)) {
+		if (this.hash.containsKey(entity)) {
 			return false;
 		}
-		this.views.put(entity, view);
+		this.hash.put(entity, view);
 		return true;
 	}
 
@@ -93,7 +94,7 @@ public class ViewManager {
 	 * @return True si la vista fue eliminada exitosamente. False en caso contrario.
 	 */
 	public boolean removeView(IEntity entity) {
-		IView view = this.views.remove(entity);
+		IView view = this.hash.remove(entity);
 		if (view == null) {
 			return false;
 		}
@@ -117,7 +118,7 @@ public class ViewManager {
 	 * @return La <code>IView</code> que representa a la entidad dada.
 	 */
 	public IView getView(IEntity entity) {
-		return this.views.get(entity);
+		return this.hash.get(entity);
 	}
 
 	/** 
@@ -133,7 +134,12 @@ public class ViewManager {
 	/** 
 	 * Crea la vista correspondiente a la entidad dada.
 	 */
-	public void createView(String idEntity) { }
+	public void createView(String idEntity) { 
+		IView view = ViewFactoryManager.getInstance().createView(entity);
+		if(view != null){
+			this.hash.put(entity, view);
+		}
+	}
 	
 	/** 
 	 * Devuelve la lista que almacena a las vistas sucias.
@@ -158,7 +164,7 @@ public class ViewManager {
 	 * <code>IView</code>.
 	 */
 	public HashMap getViews() {
-		return views;
+		return hash;
 	}
 
 	/** 
@@ -166,7 +172,7 @@ public class ViewManager {
 	 * @param views Las vistas a ser seteadas.
 	 */
 	public void setViews(HashMap<IEntity, IView> views) {
-		this.views = views;
+		this.hash = views;
 	}
 
 }

@@ -6,13 +6,13 @@ import client.game.entity.IEntity;
 
 public class U3dPlayerView extends DynamicView {
 	
-	public U3dPlayerView(IDynamicEntity theEntity) {
-		super(theEntity);
+	public U3dPlayerView(IDynamicEntity entity) {
+		super(entity);
 	}
 
-	@Override
+
 	public void update(float interpolation) {
-		// TODO Auto-generated method stub
+
 	}
 
 

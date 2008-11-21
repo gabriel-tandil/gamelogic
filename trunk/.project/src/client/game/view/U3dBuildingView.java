@@ -4,16 +4,11 @@ import client.game.entity.IEntity;
 
 public class U3dBuildingView extends StaticView {
 	
-	public U3dBuildingView() {
-		super();
-	}
-	
-	public U3dBuildingView(IEntity theEntity) {
-		super(theEntity);
+	public U3dBuildingView(IEntity entity) {
+		super(entity);
 	}
 
 	public Object createView() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
