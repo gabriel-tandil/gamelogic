@@ -5,7 +5,6 @@ package client.game.view;
 
 import com.jme.scene.Node;
 
-import client.game.Game;
 import client.game.entity.IEntity;
 import com.jme.scene.Spatial;
 
@@ -65,7 +64,7 @@ public abstract class View extends Node implements IView {
 	 * Setea esta entidad con la entidad dada.
 	 * @param entity La entidad a ser seteada.
 	 */
-	public void setEntity(IEntity theentity) {
-		this.entity = theentity;
+	public void setEntity(IEntity entity) {
+		this.entity = entity;
 	}
 }

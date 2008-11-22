@@ -3,9 +3,6 @@
  */
 package client.game.view;
 
-import com.jme.scene.Node;
-import com.jme.scene.Spatial;
-
 import client.game.entity.IEntity;
 
 /** 

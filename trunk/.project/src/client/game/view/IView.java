@@ -7,6 +7,7 @@ import client.game.entity.IEntity;
 
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
+import com.jme.util.export.Savable;
 
 /** 
  * <code>IView</code> define la interface para todos los tipos de vistas que
@@ -21,7 +22,7 @@ import com.jme.scene.Spatial;
  * @author Maria Hansen
  * @version Creation date: 29-10-2008
  */
-public interface IView {
+public interface IView extends Savable{
 	/** 
 	 * Agrega el mesh dado a esta vista.
 	 * @param mesh El Spatial a ser agregado.

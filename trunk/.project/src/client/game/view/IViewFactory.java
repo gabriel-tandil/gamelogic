@@ -3,7 +3,6 @@
  */
 package client.game.view;
 
-import client.game.Game;
 import client.game.entity.IEntity;
 
 /** 
@@ -24,7 +23,7 @@ public interface IViewFactory {
 	 * @param entity
 	 * @return IView La <code>IView</code> creada.
 	 */
-	public Object createView(IEntity entity);
+	public IView createView(IEntity entity);
 
 	/** 
 	 * Devuelve el id correspondiente a cada factory.

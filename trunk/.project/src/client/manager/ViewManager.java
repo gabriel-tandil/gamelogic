@@ -5,7 +5,6 @@ package client.manager;
 
 import java.util.LinkedList;
 import java.util.HashMap;
-import java.util.Set;
 import client.game.view.IView;
 import client.game.view.IDynamicView;
 import client.game.view.ViewFactoryManager;
@@ -36,7 +35,7 @@ public class ViewManager {
 	/** 
 	 * El almacenamiento de <code>IView</code>.
 	 */
-	private HashMap<IEntity, IView> hash;
+	private HashMap<IEntity, IView> views;
 	/**
 	 * El almacenamietno de <code>IDynamic</code> sucias.
 	 */
@@ -47,7 +46,7 @@ public class ViewManager {
 	 * Constructor de <code>ViewManager</code>.
 	 */
 	protected ViewManager() {
-		this.hash = new HashMap<IEntity, IView>();
+		this.views = new HashMap<IEntity, IView>();
 		this.dirty = new LinkedList<IDynamicView>();
 	}
 
@@ -81,10 +80,10 @@ public class ViewManager {
 	 */
 	public boolean registerView(IView view) {
 		IEntity entity = view.getEntity();
-		if (this.hash.containsKey(entity)) {
+		if (this.views.containsKey(entity)) {
 			return false;
 		}
-		this.hash.put(entity, view);
+		this.views.put(entity, view);
 		return true;
 	}
 
@@ -94,7 +93,7 @@ public class ViewManager {
 	 * @return True si la vista fue eliminada exitosamente. False en caso contrario.
 	 */
 	public boolean removeView(IEntity entity) {
-		IView view = this.hash.remove(entity);
+		IView view = this.views.remove(entity);
 		if (view == null) {
 			return false;
 		}
@@ -109,7 +108,9 @@ public class ViewManager {
 	 */
 	public void markForUpdate(IDynamicEntity entity) {
 		IView view = this.getView(entity);
-		this.addDirtyView(view);
+		if(view.isDynamicView()) {
+			this.addDirtyView((IDynamicView) view);
+		}
 	}
 
 	/** 
@@ -118,27 +119,26 @@ public class ViewManager {
 	 * @return La <code>IView</code> que representa a la entidad dada.
 	 */
 	public IView getView(IEntity entity) {
-		return this.hash.get(entity);
+		return this.views.get(entity);
 	}
 
 	/** 
 	 * Agrega a la lista de vistas sucias la vista dada.
 	 * @param view La vista a ser agregada.
 	 */
-	public void addDirtyView(IView view) {
-		if(view.isDynamicView()) {
-			this.dirty.add((IDynamicView) view);
-		}
+	public void addDirtyView(IDynamicView view) {
+		this.dirty.add((IDynamicView) view);
 	}
 
 	/** 
 	 * Crea la vista correspondiente a la entidad dada.
 	 */
-	public void createView(String idEntity) { 
+	public IView createView(IEntity entity) { 
 		IView view = ViewFactoryManager.getInstance().createView(entity);
 		if(view != null){
-			this.hash.put(entity, view);
+			this.views.put(entity, view);
 		}
+		return view;
 	}
 	
 	/** 
@@ -164,7 +164,7 @@ public class ViewManager {
 	 * <code>IView</code>.
 	 */
 	public HashMap getViews() {
-		return hash;
+		return views;
 	}
 
 	/** 
@@ -172,7 +172,7 @@ public class ViewManager {
 	 * @param views Las vistas a ser seteadas.
 	 */
 	public void setViews(HashMap<IEntity, IView> views) {
-		this.hash = views;
+		this.views = views;
 	}
 
 }

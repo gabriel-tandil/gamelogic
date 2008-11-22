@@ -5,11 +5,6 @@ package client.game.view;
 
 import java.util.Hashtable;
 
-import javax.swing.text.ViewFactory;
-
-import client.game.Game;
-import client.game.controller.Controller;
-import client.game.entity.EntityManagerFactory;
 import client.game.entity.IEntity;
 
 /** 
@@ -32,7 +27,7 @@ public class ViewFactoryManager {
 	 * Constructor de <code>ViewFactoryManager</code>.
 	 */
 	protected ViewFactoryManager() {
-		this.viewfactoryhash = new Hashtable();
+		this.viewfactoryhash = new Hashtable<String, IViewFactory>();
 	}
 
 	/** 
@@ -49,16 +44,16 @@ public class ViewFactoryManager {
 	/** 
 	 * 
 	 */
-	public Object createView(IEntity Parámetro2) {
+	public IView createView(IEntity entity) {
 		String id;
 		IViewFactory factory;
 		IView view = null;
 		
-		if(Parámetro2 != null) {
-			id = Parámetro2.getId();
+		if(entity != null) {
+			id = entity.getId();
 			if(this.viewfactoryhash.containsKey(id)) {
 				factory = this.viewfactoryhash.get(id);
-				view = (IView)factory.createView(Parámetro2);
+				view = (IView)factory.createView(entity);
 			}
 		}
 		return view;
@@ -84,7 +79,7 @@ public class ViewFactoryManager {
 	/** 
 	 * 
 	 */
-	public void setViewfactoryhash(Hashtable theViewfactoryhash) {
+	public void setViewfactoryhash(Hashtable<String, IViewFactory> theViewfactoryhash) {
 		viewfactoryhash = theViewfactoryhash;
 	}
 }
