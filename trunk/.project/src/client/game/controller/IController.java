@@ -27,7 +27,7 @@ public interface IController {
 	 * Recupera la entity controlada por este <code>IController<code>.
 	 * @return Instancia de <code>IDynamicEntity</code>.
 	 */
-	public IDynamicEntity getEntity();
+	public IDynamicEntity getIDynamicEntity();
 
 	/**
 	 * @param Es el valor de la frecuencia de interpolation en segundos.

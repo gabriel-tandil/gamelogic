@@ -63,8 +63,8 @@ private static ControllerManagerFactory instance=null;
 	 * @param id Es el identificador de la tarea a ser creada.
 	 * @return La tarea que fue creada.
 	 */
-	public IController createController(String id) {
-		return ((IControllerFactory)controllers.get(id)).createController(id);
+	public IController createController(String id, IDynamicEntity entity) {
+		return ((IControllerFactory)controllers.get(id)).createController(entity);
 	}
 	
 }

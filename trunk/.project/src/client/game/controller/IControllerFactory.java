@@ -17,7 +17,7 @@ public interface IControllerFactory  {
 	 * creado.
 	 * @return El <code>IControllerFactory<code> creado.
 	 */
-	public IController createController(String id);	
+	public IController createController(IDynamicEntity entity);	
 	
 	/**
 	 * @return
