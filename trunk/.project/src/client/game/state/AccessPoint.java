@@ -26,8 +26,7 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	/** 
 	 * The constructor of the AccessPoint.
 	 */
-	public AccessPoint(String theId) {
-		super(theId);
+	public AccessPoint() {
 	}
 
 	/** 
@@ -106,6 +105,6 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	 * to execute calling a singleton <code>TaskManager</code>
 	 */
 	public void show() {
-		TaskManager.getInstance().enqueueFirst(new ChangeStateTask(this.basicgamestate));
+		//TaskManager.getInstance().enqueueFirst(new ChangeStateTask(this.basicgamestate));
 	}
 }

@@ -1,8 +1,8 @@
 package client.game.state;
 
-import com.jmex.game.state.BasicGameState;
+import com.jme.scene.Node;
 
-public class U3dExteriorState extends BasicGameState {
+public class U3dExteriorState extends WorldGameState {
 	
 	private XMLWorldBuilder builder;
 
@@ -51,6 +51,21 @@ public class U3dExteriorState extends BasicGameState {
 		//this.world.updateWorldBound();
 		builder=new XMLWorldBuilder();
 		builder.buildWorld(this.rootNode);
+	}
+	@Override
+	public void initializeState() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void updateState() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public WorldGameState getWorld() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

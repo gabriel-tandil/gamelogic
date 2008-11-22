@@ -3,8 +3,10 @@
  */
 package client.game.state;
 
-import com.jmex.game.state.BasicGameState;
 import client.game.Game;
+
+import com.jme.scene.Node;
+import com.jmex.game.state.BasicGameState;
 
 /** 
  * @author Martin Sabatini - Sebastian Bisbal
@@ -15,7 +17,7 @@ public abstract class WorldGameState extends BasicGameState implements
 		IGameState {
 	public WorldGameState(String arg0) {
 		super(arg0);
-		// TODO Apéndice de constructor generado automáticamente
+		initializeWorld();
 	}
 
 	/** 
@@ -73,7 +75,7 @@ public abstract class WorldGameState extends BasicGameState implements
 	 *  Siempre llama al construir el mundo del IWorldBuilder
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void initializeWorld() {
+	private void initializeWorld() {
 		// begin-user-code
 		iworldbuilder.buildWorld(this.getRootNode());
 
@@ -89,5 +91,8 @@ public abstract class WorldGameState extends BasicGameState implements
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public abstract void updateState();
-		
+	public Node getRootNode(){
+
+		return this.getRootNode();
+	}	
 }
