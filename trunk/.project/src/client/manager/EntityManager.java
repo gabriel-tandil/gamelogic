@@ -14,7 +14,11 @@ package client.manager;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import client.game.entity.EntityManagerFactory;
 import client.game.entity.IEntity;
+import client.game.view.IView;
+import client.game.view.ViewFactoryManager;
 
 /** 
  * @author Santiago Michielotto
@@ -121,14 +125,13 @@ public class EntityManager {
 	 * Create an entity in the world.
 	 * @return The newly created <code>IEntity</code>.
 	 */
-	public IEntity createEntity()
+	public IEntity createEntity(String factoryId)
 	{
-		//************Llamar al factory
-		/*IEntity entity =new Entity();
-		
-		this.entities.put(Integer.valueOf(id), entity);
-		this.logger.fine("Created entity " + enumn.toString() + "with ID number: " + id);
-		return entity;*/
+		IEntity entity = EntityManagerFactory.getInstance().createEntity(factoryId);
+		if(entity != null){
+			registerEntity(entity);
+			return entity;
+		}
 		return null;
 	}
 
