@@ -25,7 +25,7 @@ public abstract class Game extends BaseGame {
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private Float intervalo;
+	protected float intervalo;
 
 	/** 
 	 * @return el intervalo
@@ -77,15 +77,15 @@ public abstract class Game extends BaseGame {
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private ViewManager viewmanager;
+	private ViewManager viewManager;
 
 	/** 
 	 * @return el viewmanager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public ViewManager getViewmanager() {
+	public ViewManager getViewManager() {
 		// begin-user-code
-		return viewmanager;
+		return viewManager;
 		// end-user-code
 	}
 
@@ -93,24 +93,24 @@ public abstract class Game extends BaseGame {
 	 * @param theViewmanager el viewmanager2 a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setViewmanager(ViewManager theViewmanager) {
+	public void setViewManager(ViewManager theViewmanager) {
 		// begin-user-code
-		viewmanager = theViewmanager;
+		viewManager = theViewmanager;
 		// end-user-code
 	}
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private TaskManager taskmanager;
+	protected TaskManager taskManager;
 
 	/** 
 	 * @return el taskmanager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public TaskManager getTaskmanager() {
+	public TaskManager getTaskManager() {
 		// begin-user-code
-		return taskmanager;
+		return taskManager;
 		// end-user-code
 	}
 
@@ -118,24 +118,24 @@ public abstract class Game extends BaseGame {
 	 * @param theTaskmanager el taskmanager a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setTaskmanager(TaskManager theTaskmanager) {
+	public void setTaskManager(TaskManager theTaskmanager) {
 		// begin-user-code
-		taskmanager = theTaskmanager;
+		taskManager = theTaskmanager;
 		// end-user-code
 	}
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private InputManager inputmanager;
+	protected InputManager inputManager;
 
 	/** 
 	 * @return el inputmanager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public InputManager getInputmanager() {
+	public InputManager getInputManager() {
 		// begin-user-code
-		return inputmanager;
+		return inputManager;
 		// end-user-code
 	}
 
@@ -143,16 +143,16 @@ public abstract class Game extends BaseGame {
 	 * @param theInputmanager el inputmanager a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setInputmanager(InputManager theInputmanager) {
+	public void setInputManager(InputManager theInputmanager) {
 		// begin-user-code
-		inputmanager = theInputmanager;
+		inputManager = theInputmanager;
 		// end-user-code
 	}
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private Timer timer;
+	protected Timer timer;
 
 	/** 
 	 * @return el timer
@@ -175,44 +175,44 @@ public abstract class Game extends BaseGame {
 	}
 
 	/** 
-	 * @uml.annotations for <code>gamestatemanager</code>
+	 * @uml.annotations for <code>gameStateManager</code>
 	 *     collection_type="com.jmex.game.state.GameStateManager"
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private GameStateManager gamestatemanager;
+	protected GameStateManager gameStateManager;
 
 	/** 
-	 * @return el gamestatemanager
+	 * @return el gameStateManager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public GameStateManager getGamestatemanager() {
+	public GameStateManager getGameStateManager() {
 		// begin-user-code
-		return gamestatemanager;
+		return gameStateManager;
 		// end-user-code
 	}
 
 	/** 
-	 * @param theGamestatemanager el gamestatemanager a establecer
+	 * @param theGameStateManager el gameStateManager a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setGamestatemanager(GameStateManager theGamestatemanager) {
+	public void setGameStateManager(GameStateManager theGameStateManager) {
 		// begin-user-code
-		gamestatemanager = theGamestatemanager;
+		gameStateManager = theGameStateManager;
 		// end-user-code
 	}
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private PhysicsManager physicsmanager;
+	protected PhysicsManager physicsManager;
 
 	/** 
 	 * @return el physicsmanager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public PhysicsManager getPhysicsmanager() {
+	public PhysicsManager getPhysicsManager() {
 		// begin-user-code
-		return physicsmanager;
+		return physicsManager;
 		// end-user-code
 	}
 
@@ -220,50 +220,50 @@ public abstract class Game extends BaseGame {
 	 * @param thePhysicsmanager el physicsmanager a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setPhysicsmanager(PhysicsManager thePhysicsmanager) {
-		physicsmanager = thePhysicsmanager;
+	public void setPhysicsManager(PhysicsManager thePhysicsmanager) {
+		physicsManager = thePhysicsmanager;
 	}
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private EntityManager entitymanager;
+	private EntityManager entityManager;
 
 	/** 
 	 * @return el entitymanager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public EntityManager getEntitymanager() {
-		return entitymanager;
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
 	/** 
 	 * @param theEntitymanager el entitymanager a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setEntitymanager(EntityManager theEntitymanager) {
-		entitymanager = theEntitymanager;
+	public void setEntityManager(EntityManager theEntitymanager) {
+		entityManager = theEntitymanager;
 	}
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private IHudManager ihudmanager;
+	private IHudManager hudManager;
 
 	/** 
 	 * @return el ihudmanager
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public IHudManager getIhudmanager() {
-		return ihudmanager;
+	public IHudManager getHudManager() {
+		return hudManager;
 	}
 
 	/** 
 	 * @param theIhudmanager el ihudmanager a establecer
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setIhudmanager(IHudManager theIhudmanager) {
-		ihudmanager = theIhudmanager;
+	public void setHudManager(IHudManager theIhudmanager) {
+		hudManager = theIhudmanager;
 	}
 
 	/** 
