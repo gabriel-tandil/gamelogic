@@ -133,12 +133,22 @@ public class ViewManager {
 	/** 
 	 * Crea la vista correspondiente a la entidad dada.
 	 */
+<<<<<<< .mine
+	public IView createView(String idViewFactory, IEntity entity) { 
+		IView view = ViewFactoryManager.getInstance().createView(idViewFactory,entity);
+=======
 	public IView createView(IEntity entity) { 
 		IView view = ViewFactoryManager.getInstance().createView(entity);
+>>>>>>> .r52
 		if(view != null){
 			this.views.put(entity, view);
+			return view;
 		}
+<<<<<<< .mine
+		return null;
+=======
 		return view;
+>>>>>>> .r52
 	}
 	
 	/** 
