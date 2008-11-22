@@ -52,9 +52,9 @@ public class InputManager {
 	 * @param <code>IDynamicEntity<code> la cual se desea controlar. 
 	 * @return <code>IController<code> creado.
 	 */
-	public IController createController(String idController) {
+	public IController createController(String idController, IDynamicEntity entity) {
 		
-		IController temp=ControllerManagerFactory.getInstance().createController(idController);
+		IController temp=ControllerManagerFactory.getInstance().createController(idController,entity);
 		if(!controllers.contains(temp))controllers.add(temp);
 		return temp;
 	}
