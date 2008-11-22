@@ -5,6 +5,8 @@
   */
 package client.game.entity;
 
+import java.io.IOException;
+
 import com.jme.math.Vector3f;
 import common.datatypes.Skin;
 
@@ -171,8 +173,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	/** 
 	 * Constructor of the DynamicEntity.
 	 */
-	public DynamicEntity(String id) {
-		super(id);
+	public DynamicEntity() {
 	}
 
 	/** 
@@ -181,14 +182,19 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void write(JMEExporter arg0) {
 		OutputCapsule oc = arg0.getCapsule(this);
-		oc.write(this.getId(), "ID", null);
-		oc.write(this.force.x, "ForceX", 0);
-		oc.write(this.force.y, "ForceY", 0);
-		oc.write(this.force.z, "ForceZ", 0);
-		oc.write(this.velocity.x, "VelocityX", 0);
-		oc.write(this.velocity.y, "VelocityY", 0);
-		oc.write(this.velocity.z, "VelocityZ", 0);
-		oc.write(this.mass, "Mass", 0);
+		try {
+			oc.write(this.getId(), "ID", null);
+			oc.write(this.force.x, "ForceX", 0);
+			oc.write(this.force.y, "ForceY", 0);
+			oc.write(this.force.z, "ForceZ", 0);
+			oc.write(this.velocity.x, "VelocityX", 0);
+			oc.write(this.velocity.y, "VelocityY", 0);
+			oc.write(this.velocity.z, "VelocityZ", 0);
+			oc.write(this.mass, "Mass", 0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	
@@ -198,14 +204,19 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void read(JMEImporter arg0) {
 		InputCapsule ic = arg0.getCapsule(this);
-		this.setId(ic.readString("ID", null));
-		this.force.setX(ic.readFloat("ForceX", 0));
-		this.force.setY(ic.readFloat("ForceY", 0));
-		this.force.setZ(ic.readFloat("ForceZ", 0));
-		this.velocity.setX(ic.readFloat("VelocityX", 0));
-		this.velocity.setY(ic.readFloat("VelocityY", 0));
-		this.velocity.setZ(ic.readFloat("VelocityZ", 0));
-		this.mass=ic.readFloat("Mass", 0);
+		try {
+			this.setId(ic.readString("ID", null));
+			this.force.setX(ic.readFloat("ForceX", 0));
+			this.force.setY(ic.readFloat("ForceY", 0));
+			this.force.setZ(ic.readFloat("ForceZ", 0));
+			this.velocity.setX(ic.readFloat("VelocityX", 0));
+			this.velocity.setY(ic.readFloat("VelocityY", 0));
+			this.velocity.setZ(ic.readFloat("VelocityZ", 0));
+			this.mass=ic.readFloat("Mass", 0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	

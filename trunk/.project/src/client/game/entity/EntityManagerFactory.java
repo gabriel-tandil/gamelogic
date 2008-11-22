@@ -45,6 +45,6 @@ public class EntityManagerFactory {
 	 * @return La tarea que fue creada.
 	 */
 	public IEntity createEntity(String id) {
-		return ((IEntityFactory)entityFactorys.get(id)).createEntity(id);
+		return ((IEntityFactory)entityFactorys.get(id)).createEntity();
 	}
 }

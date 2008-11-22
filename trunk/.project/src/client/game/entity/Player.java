@@ -7,8 +7,12 @@ package client.game.entity;
 import java.util.Hashtable;
 import common.datatypes.PlayerState;
 import common.datatypes.Quest;
+import common.datatypes.Skin;
 
 import java.util.Set;
+
+import com.jme.math.Vector3f;
+import common.datatypes.PlayerState;
 
 /** 
  * @author Cristian Calomino
@@ -19,8 +23,23 @@ public class Player extends DynamicEntity {
 	/*
 	* Constructor of the Player.
 	*/
-	public Player(String id) {
-		super(id);
+	public Player() {
+	}
+	
+	public void initPlayer(String id,Vector3f force,float mass,Hashtable<String,Object> Properties,
+			Hashtable<String,Object> stats,Vector3f velocity, Vector3f  angle, String actualWorld,
+			Vector3f thePosition,Skin theSkin, PlayerState theState) {
+		this.setId(id);
+		this.setAngle(angle);
+		this.setActualWorld(actualWorld);
+		this.setForce(force);
+		this.setMass(mass);
+		this.setProperties(Properties);
+		this.setStats(stats);
+		this.setVelocity(velocity);
+		this.setPosition(thePosition);
+		this.setSkin(theSkin);
+		this.setState(theState);
 	}
 
 	/** 

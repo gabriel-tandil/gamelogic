@@ -9,10 +9,8 @@ import com.jme.util.export.OutputCapsule;
 
 public class U3DBuildingEntity extends Entity {
 
-	public U3DBuildingEntity(String id, String tipo)
+	public U3DBuildingEntity()
 	{
-		this.setId(id);
-		this.setTipo(tipo);
 	}
 
 	/** 
@@ -22,7 +20,6 @@ public class U3DBuildingEntity extends Entity {
 	public void write(JMEExporter arg0) throws IOException {
 		OutputCapsule oc = arg0.getCapsule(this);
 		oc.write(this.getId(), "ID", null);
-		oc.write(this.getTipo(),"Type",null);
 	}
 
 	/** 
@@ -32,7 +29,6 @@ public class U3DBuildingEntity extends Entity {
 	public void read(JMEImporter arg0)throws IOException {
 		InputCapsule ic = arg0.getCapsule(this);
 		this.setId(ic.readString("ID", null));
-		this.setTipo(ic.readString("Type", null));
 	}
 
 	/** 
