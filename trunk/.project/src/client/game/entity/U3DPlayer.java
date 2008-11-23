@@ -8,7 +8,8 @@ import common.datatypes.Skin;
 
 public class U3DPlayer extends Player {
 
-	public U3DPlayer()
+	public U3DPlayer(String theTipo)
 	{
+		super(theTipo);
 	}
 }

@@ -173,7 +173,8 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	/** 
 	 * Constructor of the DynamicEntity.
 	 */
-	public DynamicEntity() {
+	public DynamicEntity(String theTipo) {
+		super(theTipo);
 	}
 
 	/** 

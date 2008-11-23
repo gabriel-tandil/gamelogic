@@ -6,7 +6,7 @@ public class U3DPlayerFactory implements IEntityFactory {
 	@Override
 	public IEntity createEntity() {
 		
-		return new U3DPlayer();
+		return new U3DPlayer(id);
 	}
 
 	@Override

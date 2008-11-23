@@ -122,31 +122,23 @@ public class CollisionManager {
 
 	/**
      * Retrieve the valid destination point based on the given coordinate values.
-     * @param xInicio The x coordinate of the starting position.
-     * @param yInicio The y coordinate of the starting position.
-     * @param zInicio The z coordinate of the starting position.
-     * @param xFin The x coordinate of the clicking position.
-     * @param yFin The y coordinate of the starting position.
-     * @param zFin The z coordinate of the clicking position.
+     * @param origin the starting position.
+     * @param destination the end position.
      * This coordinates are locals.
      * @param spatial The <code>Spatial</code> instance to check against.
      * @return 
      * @return The valid <code>Vector3f</code> destination.
      */
-	public Vector3f getDestination(float xInicio, float yInicio, float zInicio, float xFin, float yFin, float zFin, Spatial spatial){
-		//start point
-		Vector3f start= new Vector3f(xInicio,yInicio,zInicio);
-        //destination point
-        Vector3f destination = new Vector3f(xFin, yFin, xFin);
+	public Vector3f getDestination(Vector3f origin, Vector3f destination, Spatial spatial){
         //convert start point to world coordinate system
-        spatial.localToWorld(start, start);
+        spatial.localToWorld(origin, origin);
         //convert destination point to world coordinate system
         spatial.localToWorld(destination, destination);
         
         //build the direction Vector3f
-        Vector3f direction = destination.subtract(start).normalizeLocal();
+        Vector3f direction = destination.subtract(origin).normalizeLocal();
         //generate Ray for intersection detection
-        Ray moveRay = new Ray(start, direction);
+        Ray moveRay = new Ray(origin, direction);
         
         //calculate the intersection between the move ray and the spatial
         Vector3f hitPoint = getIntersection(moveRay, spatial, false);

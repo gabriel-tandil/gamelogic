@@ -20,10 +20,11 @@ import common.datatypes.PlayerState;
  */
 public class Player extends DynamicEntity {
 	
-	/*
+	/**
 	* Constructor of the Player.
 	*/
-	public Player() {
+	public Player(String theTipo) {
+		super(theTipo);
 	}
 	
 	public void initPlayer(String id,Vector3f force,float mass,Hashtable<String,Object> Properties,
@@ -83,40 +84,17 @@ public class Player extends DynamicEntity {
 	public void setState(PlayerState theState) {
 		state = theState;
 	}
-
-	/** 
-	 * @uml.annotations for <code>currentQuests</code>
-	 *     collection_type="Quest"
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-        //protected Set<Quest> currentQuests;
-
-	/** 
-	 * @return el currentQuests
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-//	public Set<Quest> getCurrentQuests() {
-//		return currentQuests;
-//	}
-
-	/** 
-	 * @param theCurrentQuests el currentQuests a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-//	public void setCurrentQuests(Set<Quest> theCurrentQuests) {
-//		currentQuests = theCurrentQuests;
-
-
+	
 	/** 
 	 * Contains the stats of the <code>Player</code>.
 	 */
-	private Hashtable stats;
+	private Hashtable<String,Object> stats;
 
 	/** 
 	 * Retrieve the <code>Hashtable<code> stats of this <code>Player<code>.
 	 * @return the <code>Hashtable<code> stats of this <code>Player<code>.
 	 */
-	public Hashtable getStats() {
+	public Hashtable<String,Object> getStats() {
 		return stats;
 	}
 
@@ -124,7 +102,7 @@ public class Player extends DynamicEntity {
 	 * Apply a <code>Hashtable<code> stats to this <code>Player</code>.
 	 * @param theStats <code>Hashtable<code> stats to aplly
 	 */
-	public void setStats(Hashtable theStats) {
+	public void setStats(Hashtable<String,Object> theStats) {
 		stats = theStats;
 	}
 

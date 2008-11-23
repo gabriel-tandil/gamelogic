@@ -16,4 +16,10 @@ public interface IEntity extends Savable {
 	 * @return The integer ID number.
 	 */
 	public String getId();
+	
+	/** 
+	 * Retrieve the <code>Entity</code> type.
+	 * @return the <code>Entity</code> type.
+	 */
+	public String getTipo();
 }

@@ -33,16 +33,17 @@ public class EntityManagerFactory {
 	}
 
 	/**
-	 * 
-	 * @param task
-	 *            Es una nueva tarea definida.
-	 */
+	 * Add a Entity Type can be create.
+	 * @param entityFactory the Entity Type to add.
+	 *            
+	 **/
 	public void add(IEntityFactory entityFactory) {
 		entityFactorys.put(entityFactory.getId(), entityFactory);
 	}
 	/** 
-	 * @param id Es el identificador de la tarea a ser creada.
-	 * @return La tarea que fue creada.
+	 * Create a Entity in the world.
+	 * @param id the identifier of the Entity to be created.
+	 * @return The IEntity created.
 	 */
 	public IEntity createEntity(String id) {
 		return ((IEntityFactory)entityFactorys.get(id)).createEntity();

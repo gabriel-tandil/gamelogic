@@ -67,7 +67,7 @@ public class PhysicsManager {
 	/**
 	 * The fixed physics update rate in seconds.
 	 */
-	private final float rate;
+	private float rate;
 
 	/**
 	 * Constructor of <code>PhysicsManager</code>.
@@ -75,6 +75,7 @@ public class PhysicsManager {
 	protected PhysicsManager() {
 		this.rate = 0.01f;
 		this.entities =new ArrayList();
+		this.rate = 0.01f;
 		this.gravedad=0.1f;
 	}
 

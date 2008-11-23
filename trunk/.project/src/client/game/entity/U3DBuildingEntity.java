@@ -9,8 +9,9 @@ import com.jme.util.export.OutputCapsule;
 
 public class U3DBuildingEntity extends Entity {
 
-	public U3DBuildingEntity()
+	public U3DBuildingEntity(String theTipo)
 	{
+		super(theTipo);
 	}
 
 	/** 

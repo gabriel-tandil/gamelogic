@@ -31,10 +31,33 @@ public abstract class Entity implements IEntity {
 		id = theId;
 	}
 
-	/*
+	/**
 	 * Contructor of the Entity.
 	*/
-	public Entity(){
+	public Entity(String theTipo){
+		this.tipo=theTipo;
 	}
+	
+	/** 
+	 * The type of this <code>Entity</code>.
+	 */
+	private String tipo;
+
+	/** 
+	 * Retrieve the <code>Entity</code> type.
+	 * @return the <code>Entity</code> type.
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	
+	/** 
+	 * Set the <code>Entity</code> type.
+	 * @param theTipo the <code>Entity</code> type required.
+	 */
+	public void setTipo(String theTipo) {
+		tipo = theTipo;
+	}
+
 
 }

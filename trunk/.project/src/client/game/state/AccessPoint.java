@@ -26,7 +26,8 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	/** 
 	 * The constructor of the AccessPoint.
 	 */
-	public AccessPoint() {
+	public AccessPoint(String theTipo) {
+		super(theTipo);
 	}
 
 	/** 
@@ -38,7 +39,7 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	 * Retrieve the BasicGameState associated to this <code>AccessPoint</code>.
 	 * @return the BasicGameState associated to this <code>AccessPoint</code>.
 	 */
-	public BasicGameState getBasicgamestate() {
+	public BasicGameState getState() {
 		return this.basicgamestate;
 	}
 
