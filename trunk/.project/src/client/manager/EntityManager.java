@@ -127,9 +127,9 @@ public class EntityManager {
 	 */
 	public IEntity createEntity(String factoryId)
 	{
-		IEntity entity = EntityManagerFactory.getInstance().createEntity(factoryId);
+		IEntity entity = EntityManagerFactory.getInstance().create(factoryId);
 		if(entity != null){
-			registerEntity(entity);
+//			registerEntity(entity);
 			return entity;
 		}
 		return null;

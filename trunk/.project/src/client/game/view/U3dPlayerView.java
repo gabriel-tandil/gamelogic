@@ -15,5 +15,4 @@ public class U3dPlayerView extends DynamicView {
 
 	}
 
-
 }

@@ -45,7 +45,7 @@ public class EntityManagerFactory {
 	 * @param id the identifier of the Entity to be created.
 	 * @return The IEntity created.
 	 */
-	public IEntity createEntity(String id) {
+	public IEntity create(String id) {
 		return ((IEntityFactory)entityFactorys.get(id)).createEntity();
 	}
 }

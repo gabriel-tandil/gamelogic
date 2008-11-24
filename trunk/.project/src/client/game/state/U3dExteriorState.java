@@ -1,47 +1,56 @@
 package client.game.state;
 
+import com.jme.light.PointLight;
+import com.jme.math.Vector3f;
+import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
+import com.jme.scene.state.LightState;
+import com.jme.scene.state.ZBufferState;
+import com.jme.system.DisplaySystem;
 
 public class U3dExteriorState extends WorldGameState {
 	
 	private XMLWorldBuilder builder;
 
 	private boolean initialized;
-	
-	public boolean isInitialized() {
-		return initialized;
-	}
 
-	public void setInitialized(boolean initialized) {
-		this.initialized = initialized;
-	}
 
 	public U3dExteriorState(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void cleanup() {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void render(float arg0) {
-		// TODO Auto-generated method stub
-
+		super.render(arg0);
 	}
 
-	@Override
 	public void update(float arg0) {
-		// TODO Auto-generated method stub
-
+		super.update(arg0);
 	}
 	
-	public void initialize() {
+	public void initialize() {		
+		
+		PointLight light = new PointLight();
+		light.setDiffuse(ColorRGBA.blue);
+		light.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
+		light.setLocation(new Vector3f(50,100,100));
+		light.setEnabled(true);
+		
+		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().
+			createLightState();
+		lightState.setEnabled(true);
+		lightState.attach(light);
+
+		rootNode.setRenderState(lightState);
+		
 		this.initializeWorld();
 		this.initialized = true;
+		
+		rootNode.updateGeometricState(0.0f, true);
+		rootNode.updateRenderState();
 	}
 
 	private void initializeWorld() {
@@ -62,10 +71,17 @@ public class U3dExteriorState extends WorldGameState {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
 	public WorldGameState getWorld() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean isInitialized() {
+		return initialized;
+	}
 
+	public void setInitialized(boolean initialized) {
+		this.initialized = initialized;
+	}
 }

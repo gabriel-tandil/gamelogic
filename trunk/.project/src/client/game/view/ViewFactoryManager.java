@@ -50,7 +50,7 @@ public class ViewFactoryManager {
 		IView view = null;
 		
 		if(entity != null) {
-			id = entity.getId();
+			id = entity.getTipo();
 			if(this.viewfactoryhash.containsKey(id)) {
 				factory = this.viewfactoryhash.get(id);
 				view = (IView)factory.createView(entity);

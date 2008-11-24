@@ -235,7 +235,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 *  @return the identity of this DynamicEntity.
 	 */
 	public String getId() {
-		return this.getId();
+		return this.id;
 	}
 
 	/**

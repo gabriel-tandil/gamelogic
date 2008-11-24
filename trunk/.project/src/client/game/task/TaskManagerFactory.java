@@ -53,7 +53,7 @@ public class TaskManagerFactory {
 	 * @return La tarea que fue creada.
 	 */
 	public ITask createTask(String id) {
-		return ((ITaskFactory)taskFactorys.get(id)).createTask(id);
+		return ((ITaskFactory)taskFactorys.get(id)).createTask();
 	}
 	
 }

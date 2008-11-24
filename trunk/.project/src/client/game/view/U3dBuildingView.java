@@ -8,7 +8,4 @@ public class U3dBuildingView extends StaticView {
 		super(entity);
 	}
 
-	public Object createView() {
-		return null;
-	}
 }

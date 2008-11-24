@@ -6,6 +6,7 @@ package client.manager;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.game.Game;
+import client.game.entity.EntityManagerFactory;
 import client.game.task.ITask;
 import client.game.task.TaskManagerFactory;
 
@@ -130,7 +131,7 @@ public class TaskManager {
 	 * la tarea dada es descartada.	 
 	 * @param La <code>ITask</code> a ser agregada.	 
 	 */
-	private void enqueue(ITask task) {				
+	public void enqueue(ITask task) {				
 		ITask given = task;
 		ITask inQueue = null;
 		for(ITask t : this.taskQueue) {
@@ -179,8 +180,8 @@ public class TaskManager {
 	 * si corresponde, ser encoladas y ejecutadas.
 	 * @param id El identificador de la tarea que se desea crear.
 	 */
-	public void createTask(String id) {
-		submitted.add(TaskManagerFactory.getInstance().createTask(id));
+	public ITask createTask(String id) {
+		return (TaskManagerFactory.getInstance().createTask(id));
 	}
 
 	/**

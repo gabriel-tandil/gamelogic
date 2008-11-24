@@ -17,8 +17,7 @@ public interface ITaskFactory {
 	 * Este método será implementado por cada tarea definida para el game.
 	 * La clase que define la tarea es la que debe conocer como crear una instancia
 	 * de ella misma.
-	 * @param id El identificador de la tarea.
 	 * @return La <code>ITask<code> creada.
 	 */
-	public ITask createTask(String id);	
+	public ITask createTask();	
 }

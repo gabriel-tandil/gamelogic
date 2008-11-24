@@ -26,7 +26,6 @@ public class NPCController extends Controller {
 	}
 	
 
-	@Override
 	public IDynamicEntity getEntity() {
 		// TODO Auto-generated method stub
 		return null;

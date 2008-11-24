@@ -6,17 +6,27 @@ package client.gameEngine;
 
 import java.util.ArrayList;
 
-import com.jme.math.Vector3f;
-
 import client.game.entity.IDynamicEntity;
+import client.game.entity.Player;
 import client.game.view.View;
 import client.manager.ViewManager;
+
+import com.jme.math.Vector3f;
 
 /** 
  * @author Santiago Michielotto
  * @version Created: 19-11-2008
  */
 public class PhysicsManager {
+	
+	/**
+	 * The time elapsed since last physics iteration.
+	 */
+	private float time;
+	/**
+	 * The flag indicates if the marked entities have been updated.
+	 */
+	private boolean updated;
 	/**
 	 * The gravity of the world.
 	 */
@@ -117,7 +127,9 @@ public class PhysicsManager {
 		Vector3f tempVector = new Vector3f();
 		tempVector.set(entity.getVelocity()).multLocal(this.rate);
 		View view = (View)ViewManager.getInstance().getView(entity);
-		view.getLocalTranslation().addLocal(tempVector);
+		Vector3f rrr=view.getLocalTranslation().addLocal(tempVector);
+		((Player)entity).setPosition(rrr);
+		//((Player)entity).updateTimeStamp();
 		entity.resetForce();
 	}
 
@@ -147,15 +159,24 @@ public class PhysicsManager {
 	/**
 	 * Update the <code>PhysicsManager</code>.
 	 */
-	public void update() {
+	public void update(float interpolation) {
 		// Return if there is no entities need to be updated.
 		if(this.entities.size() <= 0) return;
 		// Perform as many iterations as needed.
-		for(IDynamicEntity entity : this.entities) 
-		{
-			updatePhysics(entity);
+		this.time += interpolation;
+		if(this.time >= this.rate) this.updated = true;
+		while(this.time >= this.rate) {
+			for(IDynamicEntity entity : this.entities) {
+				this.applyForce(entity);
+				this.updateVelocity(entity);
+				this.updateTranslation(entity);
+			}
+			this.time -= this.rate;
 		}
 		// Clear update list.
-		this.entities.clear();
+		if(this.updated) {
+			this.entities.clear();
+			this.updated = false;
+		}
 	}
 }

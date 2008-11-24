@@ -13,7 +13,7 @@ public abstract class Entity implements IEntity {
 	/**
 	 * The identity number of this <code>Entity</code>.
 	 */
-	private String id;
+	protected String id;
 
 	/** 
 	 * Retrieve the identity(id) number of this <code>Entity</code>.

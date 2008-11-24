@@ -22,6 +22,11 @@ import client.manager.IHudManager;
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public abstract class Game extends BaseGame {
+	
+	public Game(){
+		super();
+	}
+	
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
@@ -198,7 +203,7 @@ public abstract class Game extends BaseGame {
 	public void setGameStateManager(GameStateManager theGameStateManager) {
 		// begin-user-code
 		gameStateManager = theGameStateManager;
-		// end-user-code
+
 	}
 
 	/** 

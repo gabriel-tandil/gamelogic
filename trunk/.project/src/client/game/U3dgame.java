@@ -49,6 +49,7 @@ public class U3dgame extends Game {
 		this.initCamera();
 		this.initManagers();
 		this.initHotKeys();
+		TaskManager.create(this);
 	}
 
 	protected void initWindow() {
@@ -113,19 +114,23 @@ public class U3dgame extends Game {
        // TaskManager.getInstance().createTask("U3dSetupPlayerTask.class");
 	}
 
-	protected void update(float arg0) {
+	protected void update(float arg01) {
+		float arg0=0.5f;
 		this.timer.update();
 		this.intervalo = this.timer.getTimePerFrame();
 		
 		GameTaskQueueManager.getManager().getQueue(GameTaskQueue.UPDATE).execute();
+		this.inputManager.update(arg0);
 /*		
 		// Update input manager.
 		this.inputManager.update(this.intervalo);
-		// Execute tasks.
-		this.taskManager.update();
+		
 		// Update physics.
 		this.physicsManager.update();
 */		// Update the game states.
+		// Execute tasks.
+		this.taskManager.getInstance().update();
+		PhysicsManager.getInstance().update(arg0);
 		
 		this.gameStateManager.update(this.intervalo);
 
