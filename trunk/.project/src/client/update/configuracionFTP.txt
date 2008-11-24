@@ -1,0 +1,6 @@
+Host FTP=ftp.clubloop.x56.xentina.net
+Usuario FTP=clubloop
+Password FTP=ClubVtest1
+Carpeta Remota=/clubloop.x56.xentina.net
+Carpeta Local=test/
+Archivo XML Remoto=update.xml
