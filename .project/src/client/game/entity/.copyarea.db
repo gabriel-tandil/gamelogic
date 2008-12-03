@@ -1,0 +1,15 @@
+ClearCase CopyAreaDB|4
+2BSoftTI_Datos\Client\src\client\game\entity
+2
+b
+15:U3DPlayerFactory.java|1|11ddff80096|f1|c6144a83|1b1e5e2326a04661af5bab98ea1e789a|0
+b:Entity.java|1|11ddff7fc2a|4fb|8a967efc|790b13cd1cd64abb8a62410dcf8d7605|0
+19:EntityManagerFactory.java|1|11ddff7fa3f|57d|9ae3c073|842123130bfd40109eb8a9b489ead5d4|0
+12:DynamicEntity.java|1|11dfe80a61d|1744|e7da3270|02a0643b33624c77b8143ee5305ba854|0
+b:Player.java|1|11dfe80a6ec|cab|2fdc0ebb|d7fa054f0cf54e69959190307b01fe69|0
+13:IDynamicEntity.java|1|11ddff7fd0f|639|cdffeeb9|086ec7690e574963b7794187c2bb83ab|0
+c:IEntity.java|1|11ddff7fdb2|218|bcca4e5|e8cbefdf138c4e8ebac97d572783558e|0
+1d:U3DBuildingEntityFactory.java|1|11ddff7ff8c|ff|92050ec|cba542797ab94560a4021eeda8a748a6|0
+16:U3DBuildingEntity.java|1|11ddff7fede|4bb|62c98896|df1a35dc1d1f4b0d901b6587800193da|0
+e:U3DPlayer.java|1|11dfe80a85d|1b7|56e68f9c|b3f3ad6365e6430590b79b2bb3aa06f4|0
+13:IEntityFactory.java|1|11ddff7fae1|261|2594c0b0|040de2be7c41478789995c481f52e746|0
