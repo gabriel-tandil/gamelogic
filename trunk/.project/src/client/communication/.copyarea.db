@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+2BSoftTI_Datos\Client\src\client\communication
+2
+8
+1b:ChannelTypeForMsgTypes.java|1|11ddff821c2|dea|cc0c68b2|7c6770fe3e504bdc983895863ebc9f74|0
+18:ClientCommunication.java|1|11ddff82282|1370|61c739d1|f27116c53fc44c17886e27fb9eb3a2d0|0
+15:ChannelConteiner.java|1|11ddff820fc|af5|1a1386b9|73c1abb4d4164411939d41bad084cb83|0
+a:exceptions|2|0|0|0|c162c6cdb9524023bf17711dfdd60a0d|0
+13:ClientListener.java|1|11ddff8234c|2299|a1a3b0b|02fa7cede7624afa846c29fc7891733d|0
+10:GameContext.java|1|11ddff82488|e83|ce02b4ba|88d7fed32c3b465d88e2543709844587|0
+5:tasks|2|0|0|0|f4e32bde8d2b43e39435e244bed5b7b5|0
+c:msgprocessor|2|0|0|0|6954aef26c5a4e5398186fc37df67328|0

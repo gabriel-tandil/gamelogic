@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<node model="Isistanint">
+		<!--Inherit, Always, Dynamic,Never-->
+		<cullHint param1="Inherit"></cullHint>
+		<isCollidable param1="true"></isCollidable>
+		<!-- Inside, Intersects, Outside-->
+		<lastFrustrumIntersection param1="1"></lastFrustrumIntersection>
+		<!-- CombineClosest, CombineClosestEnabled, CombineFirst, Inherit, Off, Replace -->
+		<lightCombineMode param1="CombineClosest"></lightCombineMode>
+		<localRotationMatrix>
+			<matrix3f param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0" param5 = "1.0" param6 = "1.0" param7 = "1.0" param8 = "1.0" param9 = "1.0"></matrix3f>
+		</localRotationMatrix>
+		<localRotationQuaternion>
+			<quaternion param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></quaternion>
+		</localRotationQuaternion>
+		<localScaleFloat param1="1.0"></localScaleFloat>
+		<localScaleVector3f>
+			<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+		</localScaleVector3f>
+		<localTranslationVector3f>
+			<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+		</localTranslationVector3f>
+		<localTranslationFloat param1="1.0" param2="1.0" param3="1.0"></localTranslationFloat>
+		<!--este tiene fijo el int y de ultima no le pasan el renderer-->
+		<locks param1="1">
+			<renderer param1="1" param2="1">
+				<backgroundColor param1="1" param2="1" param3="1" param4="1"></backgroundColor>
+				<!-- LWJGLCamera, JOGLCamera -->
+				<camera param1="LWJGLCamera">
+					<Axes>
+						<quaternion param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></quaternion>
+					</Axes>
+					<Axes>
+						<vector3f1 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f1>
+						<vector3f2 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f2>
+						<vector3f3 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f3>
+
+					</Axes>
+					<DataOnly param1 = "true"></DataOnly>
+					<Direction>
+						<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+					</Direction>
+					<Frame>
+						<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+						<quaternion param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></quaternion>
+					</Frame>
+					<Frame>
+						<vector3f1 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f1>
+						<vector3f2 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f2>
+						<vector3f3 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f3>
+						<vector3f4 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f4>
+					</Frame>
+					<Frustum param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0" param5 = "1.0" param6 = "1.0"></Frustum>
+					<FrustumBottom param1 = "1.0"></FrustumBottom> 
+					<FrustumFar param1 = "1.0"></FrustumFar> 
+					<FrustumNear param1 = "1.0"></FrustumNear> 
+					<FrustumPerspective param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0" ></FrustumPerspective> 
+					<FrustumRight param1 = "1.0"></FrustumRight>
+					<FrustumTop param1 = "1.0"></FrustumTop>
+					<Left>
+						<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+					</Left>
+					<Location>
+						<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+					</Location>
+					<ParallelPrjection param1 = "true"></ParallelPrjection>
+					<PlaneState param1 = "1"></PlaneState>
+					<Up>
+						<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+					</Up>
+					<ViewPort param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0" ></ViewPort> 
+					<ViewPortBottom param1 = "1.0" ></ViewPortBottom> 
+					<ViewPortLeft param1 = "1.0" ></ViewPortLeft> 
+					<ViewPortRight param1 = "1.0" ></ViewPortRight> 
+					<ViewPortTop param1 = "1.0" ></ViewPortTop> 
+				</camera>
+				<headless param1="true"></headless>
+				<ortho></ortho>
+				<orthoCenter></orthoCenter>
+				<polygonOffset param1="1.0" param2="1.0"></polygonOffset>
+			</renderer>
+		</locks>
+		<modelBound>
+			<boundingVolume>
+				<boundingBoxNull>
+				</boundingBoxNull>
+				<boundingBoxComposed param1="1.0" param2="1.0" param3="1.0">
+					<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+				</boundingBoxComposed>
+				<boundingCapsuleNull>
+				</boundingCapsuleNull>
+				<boundingCapsuleComposed param1="1.0">
+					<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+					<lineSegment>
+						<lineSegmentNull>
+						</lineSegmentNull>
+						<lineSegmentComposed param1="1.0">
+							<vector3f1 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f1>
+							<vector3f2 param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f2>
+						</lineSegmentComposed>
+						<direction>
+							<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+						</direction>
+						<extent param1="1.0"></extent>
+						<origin>
+							<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+						</origin>
+					</lineSegment>
+					<checkPlain>int</checkPlain>
+					<center>
+						<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+					</center>
+				</boundingCapsuleComposed>
+				<boundingSphereNull>
+				</boundingSphereNull>
+				<boundingSphereComposed param1="1.0">
+					<vector3f param1 = "1.0" param2 = "1.0" param3 = "1.0"></vector3f>
+				</boundingSphereComposed>
+				<boundingOrientedBoxNull>
+				</boundingOrientedBoxNull>
+				<checkPlane param1="1"></checkPlane>
+			</boundingVolume>
+		</modelBound>
+		<name param1="string"></name>
+		<!-- AlwaysNormalize, Inherit, NormalizeIfScaled, Off, UseProvided -->
+		<normalsMode param1="AlwaysNormalize"></normalsMode>
+		<renderQueueMode param1="1"></renderQueueMode>
+		<renderState>
+			<renderState>
+				<blendState>
+					<blendEnable param1 = "true"></blendEnable>
+					<!-- Add, Max, Min, ReverseSubtract, Subtract -->
+					<blendEquation param1="Add"></blendEquation>
+					<!-- Add, Max, Min, ReverseSubtract, Subtract -->
+					<blendEquationAlpha param1="Add"></blendEquationAlpha>
+					<!-- Add, Max, Min, ReverseSubtract, Subtract -->
+					<blendEquationRGB param1="Add"></blendEquationRGB>
+					<constantColor>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</constantColor>
+					<!-- ConstantAlpha, ConstantColor, DestinationAlpha, One, OneMinusConstantAlpha, OneMinusConstantColor, OneMinusDestinationAlpha, OneMinusSourceAlpha, OneMinusSourceColor, SourceAlpha, SourceColor, Zero -->
+					<destinationFunction param1="ConstantAlpha"></destinationFunction>
+					<!-- ConstantAlpha, ConstantColor, DestinationAlpha, One, OneMinusConstantAlpha, OneMinusConstantColor, OneMinusDestinationAlpha, OneMinusSourceAlpha, OneMinusSourceColor, SourceAlpha, SourceColor, Zero -->
+					<destinationFunctionAlpha param1="ConstantAlpha"></destinationFunctionAlpha>
+					<!-- ConstantAlpha, ConstantColor, DestinationAlpha, One, OneMinusConstantAlpha, OneMinusConstantColor, OneMinusDestinationAlpha, OneMinusSourceAlpha, OneMinusSourceColor, SourceAlpha, SourceColor, Zero -->
+					<destinationFunctionRGB param1="ConstantAlpha"></destinationFunctionRGB>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<reference param1 = "1.0"></reference>
+					<!-- ConstantAlpha, ConstantColor, DestinationAlpha, DestinationColor, One, OneMinusConstantAlpha, OneMinusConstantColor, OneMinusDestinationAlpha, OneMinusSourceAlpha, SourceAlpha, SourceAlphaSaturate, Zero -->
+					<sourceFunction param1="ConstantAlpha"></sourceFunction>
+					<!-- ConstantAlpha, ConstantColor, DestinationAlpha, DestinationColor, One, OneMinusConstantAlpha, OneMinusConstantColor, OneMinusDestinationAlpha, OneMinusSourceAlpha, SourceAlpha, SourceAlphaSaturate, Zero -->
+					<sourceFunctionAlpha param1="ConstantAlpha"></sourceFunctionAlpha>
+					<!-- ConstantAlpha, ConstantColor, DestinationAlpha, DestinationColor, One, OneMinusConstantAlpha, OneMinusConstantColor, OneMinusDestinationAlpha, OneMinusSourceAlpha, SourceAlpha, SourceAlphaSaturate, Zero -->
+					<sourceFunctionRGB param1="ConstantAlpha"></sourceFunctionRGB>
+					<testEnable param1 = "true"></testEnable>
+					<!-- Always, EqualTo, GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo, Never, NotEqualTo -->
+					<testFunction param1 = "Always"></testFunction>
+					<quickCompares param1 = "true"></quickCompares>
+				</blendState>
+				<clipState>
+					<clipPlaneEquation param1 = "1" param2 = "double" param3 = "double" param4 = "double" param5 = "double"></clipPlaneEquation>
+					<enableClipPlane param1 = "1" param2 = "true"></enableClipPlane>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<planeEq param1 = "1" param2 = "1" param3 = "double"></planeEq>
+					<quickCompares param1 = "true"></quickCompares>
+				</clipState>
+				<colorMaskState>
+					<all param1 = "true"></all>
+					<alpha param1 = "true"></alpha>
+					<blue param1 = "true"></blue>
+					<enabled param1 = "true"></enabled>
+					<green param1 = "true"></green>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<red param1 = "true"></red>
+					<quickCompares param1 = "true"></quickCompares>
+				</colorMaskState>
+				<cullState>
+					<!-- Back, Front, FrontAndBack, None -->
+					<cullFace param1 = "FrontAndBack"></cullFace>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<!-- ClockWise, CounterClockWise -->
+					<polygonWind param1 = "ClockWise"></polygonWind>
+				</cullState>
+				<fogState>
+					<color>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</color>
+					<density param1 = "1.0"></density>
+					<!-- Exponential, ExponentialSquared, Linear -->
+					<densityFunction param1 = "Exponential"></densityFunction>
+					<enabled param1 = "true"></enabled>
+					<end param1 = "1.0"></end>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<!-- PerPixel, PerVertex -->
+					<quality param1="PerPixel"></quality>
+					<!-- Depth, FogCoords -->
+					<source param1="Depth"></source>
+					<start param1 = "1.0"></start>
+				</fogState>
+				<FragmentProgramState>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<parameter>
+						<arreFloat param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></arreFloat>
+						<param2 param = "1"></param2>
+					</parameter>
+					<quickCompares param1 = "true"></quickCompares>
+				</FragmentProgramState>
+				<GLSLShaderObjectsState>
+					Clase muy complicada falta definir
+				</GLSLShaderObjectsState>
+				<LightState>
+					<enabled param1 = "true"></enabled>
+					<globalAmbient>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</globalAmbient>
+					<lightMask param1 = "1"></lightMask>
+					<localViewer param1 = "true"></localViewer>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<separateSpecular param1 = "true"></separateSpecular>
+					<twoSidedLighting param1 = "true"></twoSidedLighting>
+					<quickCompares param1 = "true"></quickCompares>
+				</LightState>
+				<materialState>
+					<ambient>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</ambient>
+					<!-- Ambient, AmbientAndDiffuse, Diffuse, Emissive, None, Specular -->
+					<colorMaterial param1 = "Ambient"></colorMaterial>
+					<diffuse>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</diffuse>
+					<emissive>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</emissive>
+					<enabled param1 = "true"></enabled>
+					<!-- Back, Front, FrontAndBack-->
+					<materialFace param1 = "FrontAndBack"></materialFace>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<shininess param1 = "1.0"></shininess>
+					<specular>
+						<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></colorRGBA>
+					</specular>
+					<quickCompares param1 = "true"></quickCompares>
+				</materialState>
+				<shadeState>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<!-- Flat, Smooth -->
+					<shadeMode param1 = "Flat"></shadeMode>
+					<quickCompares param1 = "true"></quickCompares>
+				</shadeState>
+				<!--
+				<stencilState>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<stencilFunc param1 = "1"></stencilFunc>
+					<stencilFuncMask param1 = "1"></stencilFuncMask>
+					<stencilMask param1 = "1"></stencilMask>
+					<stencilOpFail param1 = "1"></stencilOpFail>
+					<stencilOpZFail param1 = "1"></stencilOpZFail>
+					<stencilOpZPass param1 = "1"></stencilOpZPass>
+					<stencilRef param1 = "1"></stencilRef>
+					<stencilWriteMask param1 = "1"></stencilWriteMask>
+					<quickCompares param1 = "true"></quickCompares>
+				</stencilState>
+				-->
+				<TextureState>
+					<!-- Affine, Perspective -->
+					<correction param1 = "Affine"></correction>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<texture>
+						<textureClass param = "Falta Definir"></textureClass>
+						<param2 param = "1"></param2>
+					</texture>
+					<textureCoordinateOffset param1 = "1"></textureCoordinateOffset>
+					<quickCompares param1 = "true"></quickCompares>
+				</TextureState>
+				<vertexProgramState>
+					<enabled param1 = "true"></enabled>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<parameter>
+						<arreFloat param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></arreFloat>
+						<param2 param = "1"></param2>
+					</parameter>
+					<envParameter>
+						<arreFloat param1 = "1.0" param2 = "1.0" param3 = "1.0" param4 = "1.0"></arreFloat>
+						<param2 param = "1"></param2>
+					</envParameter>
+					<quickCompares param1 = "true"></quickCompares>
+				</vertexProgramState>
+				<WireFrameState>
+					<antialiased param1 = "true"></antialiased>
+					<enabled param1 = "true"></enabled>
+					<!-- Back, Front, FrontAndBack -->
+					<face param1 = "FrontAndBack"></face>
+					<lineWidth param1 = "1.0"></lineWidth>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<quickCompares param1 = "true"></quickCompares>
+				</WireFrameState>
+				<ZBufferState>
+					<enabled param1 = "true"></enabled>
+					<!-- Always, EqualTo, GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo, Never, NotEqualTo -->
+					<testFunction param1 = "Always"></testFunction>
+					<needsRefresh param1 = "true"></needsRefresh>
+					<writable param1 = "true"></writable>
+					<quickCompares param1 = "true"></quickCompares>
+				</ZBufferState>
+			</renderState>
+		</renderState>
+		<!-- CombineClosest, CombineClosestEnabled, CombineFirst, Inherit, Off, Replace -->
+		<textureCombineMode param1="1"></textureCombineMode>
+		<!--
+		<userData param1="string">
+			<savable>"asdhasj"</savable>
+		</userData>
+		-->
+		<zOrder param1="1">
+			<param2 param2="true"></param2>
+		</zOrder>	
+	</node>
+</map>
