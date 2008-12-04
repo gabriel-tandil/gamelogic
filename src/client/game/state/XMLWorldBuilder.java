@@ -131,7 +131,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		
 		player = new Box("TestBox", new Vector3f(0f,0f,0f), new Vector3f(10f,20f,10f));
 		player.setLocalTranslation(new Vector3f(0f, 0f, 0f));
-		player.setModelBound(new BoundingBox());
+		player.setModelBound(new BoundingCapsule());
 				
 		player.updateModelBound();
         node.attachChild(player);	
