@@ -111,7 +111,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 	
 	private void getWorld(Node campus){	
-	 for(int i= 1; i<= 1000;i=i+1){
+	 for(int i= 1; i<= 1087;i=i+1){
 		 Node hijo = new Node("Hijo"+i);
 		 hijo=cargarModelo("protCampus/data/campus_parte"+i+".3ds");
 		 Quaternion q = hijo.getLocalRotation();
