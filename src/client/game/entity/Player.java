@@ -38,7 +38,7 @@ public class Player extends DynamicEntity {
 		this.setProperties(Properties);
 		this.setStats(stats);
 		this.setVelocity(velocity);
-		//this.setPosition(thePosition);
+		this.setPosition(thePosition);
 		this.setSkin(theSkin);
 		this.setState(theState);
 	}

@@ -76,7 +76,10 @@ public abstract class WorldGameState extends BasicGameState implements
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	private void initializeWorld() {
+		// begin-user-code
 		iworldbuilder.buildWorld(this.getRootNode());
+
+		// end-user-code
 	}
 
 	public void update(float interpolation) {

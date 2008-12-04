@@ -57,7 +57,7 @@ public class U3DAddPlayerTask extends Task {
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
-
+		
 		playerView.attachChild(getPlayer());
 		playerView.updateModelBound();
 		playerView.updateWorldBound();
@@ -67,11 +67,11 @@ public class U3DAddPlayerTask extends Task {
 /*		playerView.getLocalTranslation().x = this.x;
 		playerView.getLocalTranslation().z = this.z;*/
 		
-		if(state.getWorldNode().getWorldBound() == null) {
-			state.getWorldNode().updateGeometricState(0, true);
+		if(state.getRootNode().getWorldBound() == null) {
+			state.getRootNode().updateGeometricState(0, true);
 		}
-		if(state.getWorldNode().getWorldBound() != null){
-			Vector3f center = state.getWorldNode().getWorldBound().getCenter();
+		if(state.getRootNode().getWorldBound() != null){
+			Vector3f center = state.getRootNode().getWorldBound().getCenter();
 			if(center != null) {
 				Vector3f direction = center.subtract(this.x, 0, this.z);
 				direction.y = 0;
@@ -86,7 +86,7 @@ public class U3DAddPlayerTask extends Task {
 		controllerPlayer.setActive(true);
 		KeyInput.get().addListener(controllerPlayer);
 		
-		state.initializeCamera(playerView);
+		state.initialize();
 	}
 
 	private Sphere getPlayer()

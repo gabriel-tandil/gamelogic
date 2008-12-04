@@ -24,21 +24,19 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 		x = player.getPosition().x;
 		z = player.getPosition().z;
 		if (flags.contains(KeyInput.KEY_D))
-			x -= .1f;
-		if (flags.contains(KeyInput.KEY_A))
 			x += .1f;
+		if (flags.contains(KeyInput.KEY_A))
+			x -= .1f;
 
 		if (flags.contains(KeyInput.KEY_S))
-			z -= .1f;
-		if (flags.contains(KeyInput.KEY_W))
 			z += .1f;
-		if ((x != player.getPosition().x) || (z != player.getPosition().z)) {
-			U3DMoveCharacterTask task = (U3DMoveCharacterTask) TaskManager
-					.getInstance().createTask("1");
+		if (flags.contains(KeyInput.KEY_W))
+			z -= .1f;
+		U3DMoveCharacterTask task = (U3DMoveCharacterTask) TaskManager
+				.getInstance().createTask("1");
 
-			task.initTask(player, false, x, player.getPosition().y, z);
-			TaskManager.getInstance().enqueue(task);
-		}
+		task.initTask(player, false, x, player.getPosition().y, z);
+		TaskManager.getInstance().enqueue(task);
 
 	}
 
