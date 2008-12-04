@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 import client.game.entity.IDynamicEntity;
 import client.game.entity.Player;
-import client.game.entity.U3DPlayer;
+import client.game.view.IDynamicView;
 import client.game.view.View;
 import client.manager.ViewManager;
 
 import com.jme.math.Vector3f;
+import com.jmex.game.state.GameStateManager;
 
 /** 
  * @author Santiago Michielotto
@@ -41,8 +42,6 @@ public class PhysicsManager {
 	public Float getGravedad() {
 		return gravedad;
 	}
-	
-	private Vector3f tempVector;
 
 	/** 
 	 * Set the Float magnitude of the Gravity of the World.
@@ -87,10 +86,10 @@ public class PhysicsManager {
 	 * Constructor of <code>PhysicsManager</code>.
 	 */
 	protected PhysicsManager() {
-		this.rate = 0.01f;
+		this.rate = 0.005f;
 		this.entities =new ArrayList();
 		this.gravedad=0.1f;
-		this.tempVector = new Vector3f();
+		this.updated=true;
 	}
 
 	/** 
@@ -128,14 +127,16 @@ public class PhysicsManager {
 	 * @param entity The <code>IDynamicEntity</code> to be updated.
 	 */
 	private void updateTranslation(IDynamicEntity entity) {
+		Vector3f tempVector = new Vector3f();
 		tempVector.set(entity.getVelocity()).multLocal(this.rate);
-		
 		View view = (View)ViewManager.getInstance().getView(entity);
-		view.getLocalTranslation().addLocal(tempVector);
-		
-		System.out.println("P. Manager: poscicion movido a: "+view.getLocalTranslation());
-		
-		entity.resetForce();
+	//	view.getLocalTranslation().addLocal(tempVector);
+		//Vector3f rrr=view.getLocalTranslation().addLocal(tempVector);
+		((Player)entity).getPosition().addLocal(tempVector);
+		ViewManager.getInstance().addDirtyView((IDynamicView) view);
+		//System.out.println(((Player)entity).getPosition());
+		//((Player)entity).updateTimeStamp();
+		//entity.resetForce();
 	}
 
 	/**
@@ -145,7 +146,7 @@ public class PhysicsManager {
 	private void updateVelocity(IDynamicEntity entity) {
 		Vector3f velocity = entity.getForce().divideLocal(entity.getMass()).multLocal(this.rate);
 		entity.addVelocity(velocity);
-		System.out.println("P. manager: Actualiza la velocidad: "+entity.getVelocity());
+		//System.out.println(velocity.x+" "+velocity.z+" "+entity.getMass()+" "+entity.getVelocity().z);
 	}
 
 	/**
@@ -154,6 +155,7 @@ public class PhysicsManager {
 	 */
 	private void applyForce(IDynamicEntity entity) {
 		// Apply gravity and air friction when the entity is moving vertically.
+		Vector3f tempVector = new Vector3f();
 		if(entity.getVelocity().y != 0) {
 			tempVector.y = -1;
 			tempVector.multLocal(this.gravedad);
