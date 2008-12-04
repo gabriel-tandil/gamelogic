@@ -12,14 +12,4 @@ public class U3DPlayer extends Player {
 	{
 		super(theTipo);
 	}
-	
-	private Vector3f destino;
-
-	public Vector3f getDestino() {
-		return destino;
-	}
-
-	public void setDestino(Vector3f destino) {
-		this.destino = destino;
-	}
 }

@@ -38,7 +38,7 @@ public class U3dgame extends Game {
 		this.display = DisplaySystem.getDisplaySystem(this.settings.getRenderer());
 		this.display.setTitle("U3d");
 		this.timer = new NanoTimer();
-		dibujaBounds=true;
+		dibujaBounds=false;
 		this.initWindow();
 		this.initCamera();
 		this.initManagers();
@@ -62,7 +62,7 @@ public class U3dgame extends Game {
 				this.display.getHeight());
 		camera.setFrustumPerspective(45.0f, this.display.getWidth()/this.display.getHeight(), 
 				1f, 5000);
-		Vector3f location = new Vector3f(0.0f, 15.0f, 40.0f);
+		Vector3f location = new Vector3f(0.0f, 35.0f, 600f);
 		Vector3f left = new Vector3f(-1.0f, 0.0f, 0.0f);
 		Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
 		Vector3f direction = new Vector3f(0.0f, 0.0f, 1.0f);
@@ -71,23 +71,7 @@ public class U3dgame extends Game {
 		camera.update();
 		// Assign Camera.
 		this.display.getRenderer().setCamera(camera);
-		/*Camera camera = this.display.getRenderer().createCamera(this.display.getWidth(),
-				this.display.getHeight());
-		camera.setFrustumPerspective(45.0f, this.display.getWidth()/this.display.getHeight(), 
-				1f, 5000);
-		/*Vector3f location = new Vector3f(0.0f, 15.0f, 40.0f);
-		Vector3f left = new Vector3f(-1.0f, 0.0f, 0.0f);
-		Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
-		Vector3f direction = new Vector3f(0.0f, 0.0f, -1.0f);
-		Vector3f location = new Vector3f(0.0f, 15.0f, -40.0f);
-		Vector3f left = new Vector3f(-1.0f, 0.0f, 0.0f);
-		Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
-		Vector3f direction = new Vector3f(0.0f, 0.0f, -1.0f);
-		camera.setFrame(location, left, up, direction);
-		camera.setParallelProjection(false);
-		camera.update();
-		// Assign Camera.
-		this.display.getRenderer().setCamera(camera);*/
+
 	}
 
 	protected void initManagers() {
