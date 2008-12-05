@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.Hashtable;
 
 import client.game.Game;
+import client.game.PersonaDae;
 import client.game.controller.ControllerManagerFactory;
 import client.game.controller.U3DPlayerController;
 import client.game.controller.U3DPlayerControllerFactory;
@@ -43,14 +44,11 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.shape.Box;
-
 import com.jme.scene.state.CullState;
 import com.jme.util.TextureManager;
-
 import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
-import com.jmex.game.state.GameStateManager;
 import com.jmex.model.converters.AseToJme;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.MaxToJme;
@@ -114,10 +112,8 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		worldView.attachChild(campus);
 		KeyInput.get().addListener(controllerPlayer);
 		playerView.attachChild(player);
-		playerView.updateWorldBound();
 		node.attachChild(worldView);
 		node.attachChild(playerView);
-
 		Skybox sb=setupSky();
 		node.attachChild(sb);
 
@@ -140,15 +136,27 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	
 	private void getPlayer(Node node)
 	{
-		Box player;
+	/*	Box player;
 		
-		player = new Box("TestBox", new Vector3f(0f,0f,0f), new Vector3f(10f,20f,10f));
+		player = new Box("TestBox", new Vector3f(-5f,0f,0f), new Vector3f(5f,20f,10f));
 		player.setLocalTranslation(new Vector3f(0f, 0f, 0f));
-		player.setModelBound(new BoundingCapsule());
+		player.setModelBound(new BoundingBox());
 				
 		player.updateModelBound();
-        node.attachChild(player);
-        node.updateWorldBound();
+        node.attachChild(player);*/	
+		PersonaDae p = new PersonaDae(node);
+    	p.setPaquete("jmetest/data/model/collada/");
+    	p.setPersonaje("jmetest/data/model/collada/man.dae");
+    	p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
+    	p.cargar();
+    	Quaternion q1 = new Quaternion(); 
+    	q1 = q1.fromAngleAxis((float)-Math.PI/2, new Vector3f(0,0,1));    	
+    	Quaternion q2 = new Quaternion();
+    	q2 = q2.fromAngleAxis((float)-Math.PI/2, new Vector3f(0,1,0));
+    	p.setLocalRotation(q1.mult(q2));
+    	p.setLocalScale(0.8f);  
+    	
+    	node.attachChild(p);
 	}
 	
 	public Node cargarModelo(String modelFile){
@@ -203,7 +211,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 	
     private Skybox setupSky() {
-        Skybox sb = new Skybox( "cielo", 1800, 200, 1800 );
+        Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
 // las texturas las esta tomando porque estan en el mismo path del resourseloader del campus, sino agregar
         sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
         sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
