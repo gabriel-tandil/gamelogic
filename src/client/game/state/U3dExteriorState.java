@@ -74,7 +74,7 @@ public class U3dExteriorState extends WorldGameState {
 		player.updateWorldBound();
 		
 		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = 10 * 1.5f;
+		targetOffset.y = 15 * 1.5f;
 		HashMap props = new HashMap();
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
 		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
@@ -85,8 +85,8 @@ public class U3dExteriorState extends WorldGameState {
 
 		chaser = new ChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
 				getCamera(), player, props);
-		chaser.setMaxDistance(30);
-		chaser.setMinDistance(10);	
+		chaser.setMaxDistance(90);
+		chaser.setMinDistance(60);	
 	}
 	
 	public void initializeState() {
