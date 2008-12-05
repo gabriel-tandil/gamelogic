@@ -5,10 +5,13 @@ import java.util.Hashtable;
 import client.game.entity.IDynamicEntity;
 import client.game.entity.Player;
 import client.game.task.U3DMoveCharacterTask;
+import client.game.task.U3DRotateCharacterTask;
 import client.manager.TaskManager;
+import client.manager.ViewManager;
 
 import com.jme.input.KeyInput;
 import com.jme.input.KeyInputListener;
+import com.jme.scene.Spatial;
 
 public class U3DPlayerController extends Controller implements KeyInputListener {
 
@@ -20,23 +23,34 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 	@Override
 	public void updateLogic(float interpolation) {
 		Player player = (Player) this.getIDynamicEntity();
-		float x, z;
-		x = player.getPosition().x;
-		z = player.getPosition().z;
+		boolean adelante=true;
+		boolean move=false;
+		float rot=0;
 		if (flags.contains(KeyInput.KEY_D))
-			x -= .1f;
+			rot -= .025f;
 		if (flags.contains(KeyInput.KEY_A))
-			x += .1f;
+			rot += .025f;
 
-		if (flags.contains(KeyInput.KEY_S))
-			z -= .1f;
-		if (flags.contains(KeyInput.KEY_W))
-			z += .1f;
-		if ((x != player.getPosition().x) || (z != player.getPosition().z)) {
+		if (flags.contains(KeyInput.KEY_S)){
+			move=true;
+			adelante=true;
+		}	
+		if (flags.contains(KeyInput.KEY_W)){
+			move=true;
+			adelante=false;
+		}
+		if(rot!=0){
+			U3DRotateCharacterTask task = (U3DRotateCharacterTask) TaskManager
+			.getInstance().createTask("2");
+
+			task.initTask(player,rot);
+			TaskManager.getInstance().enqueue(task);
+		}
+		if (move) {
 			U3DMoveCharacterTask task = (U3DMoveCharacterTask) TaskManager
 					.getInstance().createTask("1");
 
-			task.initTask(player, false, x, player.getPosition().y, z);
+			task.initTask(player, false, adelante);
 			TaskManager.getInstance().enqueue(task);
 		}
 
