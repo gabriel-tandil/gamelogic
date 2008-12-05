@@ -112,6 +112,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		worldView.attachChild(campus);
 		KeyInput.get().addListener(controllerPlayer);
 		playerView.attachChild(player);
+		playerView.updateWorldBound();
 		node.attachChild(worldView);
 		node.attachChild(playerView);
 		Skybox sb=setupSky();
@@ -149,6 +150,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
     	p.setPersonaje("jmetest/data/model/collada/man.dae");
     	p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
     	p.cargar();
+    	p.setModelBound(new BoundingBox());
     	Quaternion q1 = new Quaternion(); 
     	q1 = q1.fromAngleAxis((float)-Math.PI/2, new Vector3f(0,0,1));    	
     	Quaternion q2 = new Quaternion();
@@ -157,6 +159,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
     	p.setLocalScale(0.8f);  
     	
     	node.attachChild(p);
+    	node.updateWorldBound();
 	}
 	
 	public Node cargarModelo(String modelFile){
