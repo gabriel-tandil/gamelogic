@@ -23,27 +23,6 @@ import com.jme.util.export.OutputCapsule;
 public class DynamicEntity extends Entity implements IDynamicEntity {
 	
 	/** 
-	 * The poition of the DinamicEntity
-	 */
-	protected Vector3f position;
-
-	/** 
-	 * Retrieve el position of the DinamicEntity.
-	 * @return el position of the DinamicEntity.
-	 */
-	public Vector3f getPosition() {
-		return position;
-	}
-
-	/** 
-	 * Apply a position to DinamicEntity
-	 * @param thePosition the position to apply.
-	 */
-	public void setPosition(Vector3f thePosition) {
-		position = thePosition;
-	}
-
-	/** 
 	 * The angle of the DynamicEntity
 	 */
 	protected Vector3f angle;

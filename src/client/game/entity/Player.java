@@ -28,8 +28,7 @@ public class Player extends DynamicEntity {
 	}
 	
 	public void initPlayer(String id,Vector3f force,float mass,Hashtable<String,Object> Properties,
-			Hashtable<String,Object> stats,Vector3f velocity, Vector3f  angle, String actualWorld,
-			Vector3f thePosition,Skin theSkin, PlayerState theState) {
+			Hashtable<String,Object> stats,Vector3f velocity, Vector3f  angle, String actualWorld, Skin theSkin, PlayerState theState) {
 		this.setId(id);
 		this.setAngle(angle);
 		this.setActualWorld(actualWorld);
@@ -38,7 +37,6 @@ public class Player extends DynamicEntity {
 		this.setProperties(Properties);
 		this.setStats(stats);
 		this.setVelocity(velocity);
-		this.setPosition(thePosition);
 		this.setSkin(theSkin);
 		this.setState(theState);
 	}
