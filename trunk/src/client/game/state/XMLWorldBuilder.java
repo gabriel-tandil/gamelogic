@@ -77,7 +77,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		//Edificio:1
 		//******texturas: anda lento
 		try{
-      	 ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, new SimpleResourceLocator(Game.class.getClassLoader().getResource("protCampus/images/")));
+      	 ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, new SimpleResourceLocator(Game.class.getClassLoader().getResource("protCampus/imagenes/")));
         }catch(Exception e){}
 		//**********
 		Node campus = new Node("Campus");
