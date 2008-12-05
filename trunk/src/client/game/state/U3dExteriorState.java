@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import client.game.view.U3dPlayerView;
 
-import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingCapsule;
 import com.jme.input.ChaseCamera;
 import com.jme.input.thirdperson.ThirdPersonMouseLook;
@@ -12,11 +11,9 @@ import com.jme.light.PointLight;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
-import com.jme.scene.Node;
+import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
-import com.jme.scene.shape.Box;
 import com.jme.scene.state.LightState;
-import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 
 public class U3dExteriorState extends WorldGameState {
@@ -106,7 +103,12 @@ public class U3dExteriorState extends WorldGameState {
 	}
 
 	public void updateState(float interpolation) {
-		chaser.update(interpolation);	
+		chaser.update(interpolation);
+        Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
+		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
+        		chaser.getCamera().getLocation().z);
+
+		
 	}
 
 	public WorldGameState getWorld() {
