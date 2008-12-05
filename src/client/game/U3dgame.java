@@ -14,14 +14,18 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 import com.jme.renderer.ColorRGBA;
 import com.jme.renderer.Renderer;
+import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueue;
 import com.jme.util.GameTaskQueueManager;
 import com.jme.util.NanoTimer;
 import com.jme.util.geom.Debugger;
+import com.jmex.game.state.GameState;
 import com.jmex.game.state.GameStateManager;
 
 public class U3dgame extends Game {
+	
+	
 	
 	private int numPlayers;
     private int realPlayers = 0;
@@ -86,8 +90,11 @@ public class U3dgame extends Game {
 		setTaskManager(TaskManager.getInstance());
 		setViewManager(ViewManager.getInstance());
 	}
+	
+	
 
 	protected void initHotKeys() {
+		KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
 		KeyBindingManager.getKeyBindingManager().set("exit", KeyInput.KEY_ESCAPE);
 	}
 
@@ -96,7 +103,8 @@ public class U3dgame extends Game {
 		//this.getGamestatemanager().attachChild(login);
         //login.setActive(true);
         //login.initialize();
-	
+		
+		
         U3dExteriorState campus = new U3dExteriorState("U3dExteriorState");
         this.getGameStateManager().attachChild(campus);
         campus.setActive(true);
@@ -130,7 +138,11 @@ public class U3dgame extends Game {
 		ViewManager.getInstance().update(this.intervalo);
 		
 		this.gameStateManager.update(this.intervalo);
-
+		
+		if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false))
+		{
+			
+		}
 		if(KeyBindingManager.getKeyBindingManager().isValidCommand("exit", false)) 
 			this.finish();
 		
