@@ -36,11 +36,15 @@ import client.manager.ViewManager;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingCapsule;
+import com.jme.image.Texture;
 import com.jme.input.KeyInput;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
+import com.jme.scene.Skybox;
 import com.jme.scene.shape.Box;
+import com.jme.scene.state.CullState;
+import com.jme.util.TextureManager;
 import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
@@ -60,7 +64,8 @@ import common.datatypes.Skin;
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class XMLWorldBuilder implements IWorldBuilder {
-    
+
+
 	public void buildWorld(Node node) {
 
 		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
@@ -108,6 +113,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		playerView.attachChild(player);
 		node.attachChild(worldView);
 		node.attachChild(playerView);
+		Skybox sb=setupSky();
+		node.attachChild(sb);
+
 	}
 	
 	private void getWorld(Node campus){	
@@ -186,5 +194,21 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		}
  
 		return loadedModel;
-	}  
+	}
+	
+    private Skybox setupSky() {
+        Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
+// las texturas las esta tomando porque estan en el mismo path del resourseloader del campus, sino agregar
+        sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
+        sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
+        sb.setTexture( Skybox.Face.South, TextureManager.loadTexture("cielo_3.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.East, TextureManager.loadTexture("cielo_2.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.Up, TextureManager.loadTexture("cielo_6.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.Down, TextureManager.loadTexture("cielo_5.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.preloadTextures();
+         
+        sb.updateRenderState();
+        return sb;
+    }
+
 }
