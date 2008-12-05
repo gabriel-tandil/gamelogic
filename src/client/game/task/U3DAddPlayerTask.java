@@ -45,15 +45,15 @@ public class U3DAddPlayerTask extends Task {
 	}
 
 	public void addPlayer() {
-		Vector3f position = new Vector3f(this.x, 0, this.z);
+		Vector3f position = new Vector3f(this.x, 5, this.z);
 		
 		U3dExteriorState state = (U3dExteriorState)GameStateManager.getInstance().
 			getChild("U3dExteriorState");
 		
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
-		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
+		playerEntity.initPlayer("player1", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
-				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
+				position, "ExteriorWorld", new Skin(), 
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
@@ -65,8 +65,8 @@ public class U3DAddPlayerTask extends Task {
 		state.getRootNode().attachChild(playerView);
 
 /*		playerView.getLocalTranslation().x = this.x;
-		playerView.getLocalTranslation().z = this.z;*/
-		
+		playerView.getLocalTranslation().z = this.z;
+*/	
 		if(state.getRootNode().getWorldBound() == null) {
 			state.getRootNode().updateGeometricState(0, true);
 		}
@@ -85,8 +85,8 @@ public class U3DAddPlayerTask extends Task {
 			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
 		KeyInput.get().addListener(controllerPlayer);
-		
-		state.initialize();
+		state.initializeCamera(playerView);
+//		state.initialize();
 	}
 
 	private Sphere getPlayer()
