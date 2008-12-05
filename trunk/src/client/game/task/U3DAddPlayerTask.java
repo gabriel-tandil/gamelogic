@@ -53,11 +53,11 @@ public class U3DAddPlayerTask extends Task {
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
-				Vector3f.ZERO.clone(), "ExteriorWorld", position, new Skin(), 
+				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
-		
+		playerView.setLocalTranslation(position);
 		playerView.attachChild(getPlayer());
 		playerView.updateModelBound();
 		playerView.updateWorldBound();
