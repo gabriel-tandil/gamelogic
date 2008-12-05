@@ -5,6 +5,7 @@ import java.util.HashMap;
 import client.game.view.U3dPlayerView;
 
 import com.jme.bounding.BoundingBox;
+import com.jme.bounding.BoundingCapsule;
 import com.jme.input.ChaseCamera;
 import com.jme.input.thirdperson.ThirdPersonMouseLook;
 import com.jme.light.PointLight;
@@ -37,7 +38,7 @@ public class U3dExteriorState extends WorldGameState {
 		this.initializeLight();
 		this.initializeWorld(); 
 
-//		this.initializeCamera();
+		this.initializeCamera(null);
 		
 		this.initialized = true;
 		
@@ -70,20 +71,25 @@ public class U3dExteriorState extends WorldGameState {
 	}
 
 	public void initializeCamera(U3dPlayerView playerView) {
+		Spatial player = this.rootNode.getChild("Player");
+		player.setModelBound(new BoundingCapsule());
+		player.updateModelBound();
+		player.updateWorldBound();
+		
 		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = ((Box)player).yExtent * 1.5f;
+		targetOffset.y = 10 * 1.5f;
 		HashMap props = new HashMap();
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
 		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
 		props.put(ChaseCamera.PROP_TARGETOFFSET, targetOffset);
 		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, ""+45 * FastMath.DEG_TO_RAD);
-		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(5, 0, 
+		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(15, 0, 
 				30 * FastMath.DEG_TO_RAD));
 
 		chaser = new ChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
 				getCamera(), player, props);
-		chaser.setMaxDistance(8);
-		chaser.setMinDistance(2);	
+		chaser.setMaxDistance(30);
+		chaser.setMinDistance(10);	
 	}
 	
 	public void initializeState() {
@@ -100,9 +106,7 @@ public class U3dExteriorState extends WorldGameState {
 	}
 
 	public void updateState(float interpolation) {
-//		chaser.update(interpolation);
-
-		rootNode.updateGeometricState(interpolation, true);		
+		chaser.update(interpolation);	
 	}
 
 	public WorldGameState getWorld() {
