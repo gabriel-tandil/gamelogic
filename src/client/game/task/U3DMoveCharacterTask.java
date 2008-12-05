@@ -1,16 +1,15 @@
 package client.game.task;
 
-import com.jme.math.Vector3f;
-import com.jme.scene.Spatial;
-import com.jmex.game.state.GameStateManager;
-import common.datatypes.PlayerState;
-
-import client.game.Game;
 import client.game.entity.Player;
 import client.game.state.U3dExteriorState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
 import client.manager.ViewManager;
+
+import com.jme.math.Vector3f;
+import com.jme.scene.Spatial;
+import com.jmex.game.state.GameStateManager;
+import common.datatypes.PlayerState;
 
 public class U3DMoveCharacterTask extends Task {
 	
@@ -38,6 +37,7 @@ public class U3DMoveCharacterTask extends Task {
 	 * The z coordinate of the destination position.
 	 */
 	private float endZ;
+	private boolean adelante;
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof U3DMoveCharacterTask) {
@@ -59,35 +59,42 @@ public class U3DMoveCharacterTask extends Task {
 			this.character.resetForce();
 			Vector3f origin=new Vector3f();
 			Vector3f destine=new Vector3f();
-			origin.set(this.character.getPosition().x,this.character.getPosition().y, this.character.getPosition().z);
-			destine.set(endX,endY,endZ);
+			Spatial view = (Spatial)ViewManager.getInstance().getView(this.character);
+			Vector3f direction=view.getLocalRotation().getRotationColumn(0);
+			if(!adelante)direction=direction.mult(-1);
+			Vector3f position=view.getLocalTranslation();
+			
+			origin.set(position.x,position.y, position.z);
+			destine.set(direction.x+position.x,direction.y+position.y,direction.z+position.z);
+			
 			U3dExteriorState a=((U3dExteriorState)GameStateManager.getInstance().getChild("U3dExteriorState"));
+			
+
+			a.getRootNode().detachChild(view);
 			Vector3f destination = CollisionManager.getInstace().getDestination(origin, destine,a.getRootNode());
+			a.getRootNode().attachChild(view);
 			if (destination != null) {
-				//this.character.setPosition(thePosition).setDestination(destination);
-				Spatial view = (Spatial)ViewManager.getInstance().getView(this.character);
-				if(!this.local) {
-					//view.getLocalTranslation().x = this.character.getPosition().x;
-					//view.getLocalTranslation().y = this.character.getPosition().y;
-					//view.getLocalTranslation().z = this.character.getPosition().z;
-				}
-				destination.y = 0;
-				Vector3f lcoal =character.getPosition().clone();
-				lcoal.y = 0;
-				Vector3f direction = destination.subtract(lcoal);
-				direction.y = 0;
-				direction.normalizeLocal();
-				//view.getLocalRotation().lookAt(direction, Vector3f.UNIT_Y);
-				float movement=50000;
-				Vector3f force = direction.multLocal(movement);
-				this.character.getForce().addLocal(force);
-				//character.addVelocity(new Vector3f(0.001f,0,0.001f));
-				PhysicsManager.getInstance().markForUpdate(this.character);
-				// Step 9.
-				PlayerState ps= new PlayerState();
-				ps.setState(PlayerState.STATE_MOVING);
-				this.character.setState(ps);
-				//ViewManager.getInstance().markForUpdate(this.character);
+				if((origin.x==destination.x)&&(origin.z==destination.z)) destination=destine;
+				if(((origin.x-destine.x>0)&&(destination.x-origin.x>0))) destination.x=origin.x;//X --->
+				if(((origin.x-destine.x<0)&&(destination.x-origin.x<0))) destination.x=origin.x;//X <----
+				if(((origin.z-destine.z>0)&&(destination.z-origin.z>0))) destination.z=origin.z;//Z --->
+				if(((origin.z-destine.z<0)&&(destination.z-origin.z<0))) destination.z=origin.z;//Z <----
+					
+					Vector3f lcoal =position.clone();
+					direction = destination.subtract(lcoal);
+					direction.normalizeLocal();
+					
+					
+					float movement=70000;
+					Vector3f force = direction.multLocal(movement);
+					this.character.getForce().addLocal(force);
+					
+					PhysicsManager.getInstance().markForUpdate(this.character);
+					// Step 9.
+					PlayerState ps= new PlayerState();
+					ps.setState(PlayerState.STATE_MOVING);
+					this.character.setState(ps);
+					
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,14 +102,12 @@ public class U3DMoveCharacterTask extends Task {
 
 	}
 	
-	public void initTask(Player theCharacter, boolean isLocal,float eX,float eY,float eZ)
+	public void initTask(Player theCharacter, boolean isLocal,boolean adelante)
 	{
 
 		character=theCharacter;
 		local=isLocal;
-		endY=eY;
-		endX=eX;
-		endZ=eZ;
+		this.adelante=adelante;
 		
 	}
 
