@@ -197,7 +197,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 	
     private Skybox setupSky() {
-        Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
+        Skybox sb = new Skybox( "cielo", 1800, 200, 1800 );
 // las texturas las esta tomando porque estan en el mismo path del resourseloader del campus, sino agregar
         sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
         sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
