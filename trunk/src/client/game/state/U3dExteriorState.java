@@ -79,7 +79,7 @@ public class U3dExteriorState extends WorldGameState {
 
 	public void initializeCamera(U3dPlayerView playerView) {
 		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = ((BoundingCapsule)playerView.getWorldBound()).getCenter().y * 1.5f;
+		targetOffset.y = 10 * 1.5f;
 
 		HashMap props = new HashMap();
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
