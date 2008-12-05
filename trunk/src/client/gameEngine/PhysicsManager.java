@@ -13,7 +13,7 @@ import client.game.view.View;
 import client.manager.ViewManager;
 
 import com.jme.math.Vector3f;
-import com.jmex.game.state.GameStateManager;
+import com.jme.scene.Spatial;
 
 /** 
  * @author Santiago Michielotto
@@ -132,7 +132,7 @@ public class PhysicsManager {
 		View view = (View)ViewManager.getInstance().getView(entity);
 	//	view.getLocalTranslation().addLocal(tempVector);
 		//Vector3f rrr=view.getLocalTranslation().addLocal(tempVector);
-		((Player)entity).getPosition().addLocal(tempVector);
+		((Spatial)ViewManager.getInstance().getView(entity)).getLocalTranslation().addLocal(tempVector);
 		ViewManager.getInstance().addDirtyView((IDynamicView) view);
 		//System.out.println(((Player)entity).getPosition());
 		//((Player)entity).updateTimeStamp();
