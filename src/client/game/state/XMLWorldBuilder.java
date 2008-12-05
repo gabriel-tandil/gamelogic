@@ -24,6 +24,7 @@ import client.game.entity.U3DPlayer;
 import client.game.entity.U3DPlayerFactory;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DMoveCharacterTaskFactory;
+import client.game.task.U3DRotateCharacterTaskFactory;
 import client.game.view.U3DBuildingViewFactory;
 import client.game.view.U3DPlayerViewFactory;
 import client.game.view.U3dBuildingView;
@@ -35,14 +36,11 @@ import client.manager.ViewManager;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingCapsule;
-import com.jme.bounding.BoundingSphere;
 import com.jme.input.KeyInput;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.shape.Box;
-import com.jme.scene.shape.Pyramid;
-import com.jme.scene.shape.Sphere;
 import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
@@ -72,6 +70,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		ViewFactoryManager.getInstance().add(new U3DPlayerViewFactory());
 		
 		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
+		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());
 		
 		ControllerManagerFactory.getInstance().add(new U3DPlayerControllerFactory());
 		
@@ -96,10 +95,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
-				Vector3f.ZERO.clone(), "ExteriorWorld",new Vector3f(0.000000f, 0.500000f, 850.00000f), new Skin(), 
+				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
+		playerView.setLocalTranslation(new Vector3f(0.000000f, 0.500000f, 850.00000f));
 		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
 			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
