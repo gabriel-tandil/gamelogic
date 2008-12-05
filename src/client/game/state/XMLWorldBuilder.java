@@ -43,11 +43,14 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.shape.Box;
+
 import com.jme.scene.state.CullState;
 import com.jme.util.TextureManager;
+
 import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
+import com.jmex.game.state.GameStateManager;
 import com.jmex.model.converters.AseToJme;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.MaxToJme;
@@ -111,8 +114,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		worldView.attachChild(campus);
 		KeyInput.get().addListener(controllerPlayer);
 		playerView.attachChild(player);
+		playerView.updateWorldBound();
 		node.attachChild(worldView);
 		node.attachChild(playerView);
+
 		Skybox sb=setupSky();
 		node.attachChild(sb);
 
@@ -142,7 +147,8 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		player.setModelBound(new BoundingCapsule());
 				
 		player.updateModelBound();
-        node.attachChild(player);	
+        node.attachChild(player);
+        node.updateWorldBound();
 	}
 	
 	public Node cargarModelo(String modelFile){
