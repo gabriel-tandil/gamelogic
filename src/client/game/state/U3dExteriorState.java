@@ -2,8 +2,11 @@ package client.game.state;
 
 import java.util.HashMap;
 
+import client.game.task.U3DAddPlayerTask;
+import client.game.view.DynamicView;
 import client.game.view.U3dPlayerView;
 
+import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingCapsule;
 import com.jme.input.ChaseCamera;
 import com.jme.input.thirdperson.ThirdPersonMouseLook;
@@ -35,7 +38,14 @@ public class U3dExteriorState extends WorldGameState {
 		this.initializeLight();
 		this.initializeWorld(); 
 
-		this.initializeCamera(null);
+		this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
+
+		//Habilitar esta opción si se quierer probar la ejecución de la tarea.
+		//Deshabilitar el método anterior initializeCamera(..)
+		//Desabilitar el controlador del player (setActive(false)) en XMLWorldBuilder.
+		
+/*		U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0, 800, true);
+		newPlayer.execute();*/
 		
 		this.initialized = true;
 		
@@ -63,28 +73,24 @@ public class U3dExteriorState extends WorldGameState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		builder=new XMLWorldBuilder();
+		builder = new XMLWorldBuilder();
 		builder.buildWorld(this.rootNode);
 	}
 
 	public void initializeCamera(U3dPlayerView playerView) {
-		Spatial player = this.rootNode.getChild("Player");
-		player.setModelBound(new BoundingCapsule());
-		player.updateModelBound();
-		player.updateWorldBound();
-		
 		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = 15 * 1.5f;
+		targetOffset.y = ((BoundingCapsule)playerView.getWorldBound()).getCenter().y * 1.5f;
+
 		HashMap props = new HashMap();
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
 		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
 		props.put(ChaseCamera.PROP_TARGETOFFSET, targetOffset);
 		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, ""+45 * FastMath.DEG_TO_RAD);
-		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(15, 0, 
+		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(20, 0, 
 				30 * FastMath.DEG_TO_RAD));
 
 		chaser = new ChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
-				getCamera(), player, props);
+				getCamera(), playerView, props);
 		chaser.setMaxDistance(90);
 		chaser.setMinDistance(60);	
 	}
