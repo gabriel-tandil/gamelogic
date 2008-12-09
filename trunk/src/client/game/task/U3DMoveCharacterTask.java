@@ -13,6 +13,8 @@ import common.datatypes.PlayerState;
 
 public class U3DMoveCharacterTask extends Task {
 	
+	private static final int MOVIMIENTO_CAMINANDO = 70000;
+	private static final int MOVIMIENTO_CORRIENDO = 270000;
 	public U3DMoveCharacterTask() {
 		super();
 	}
@@ -38,6 +40,7 @@ public class U3DMoveCharacterTask extends Task {
 	 */
 	private float endZ;
 	private boolean adelante;
+	private float movement=MOVIMIENTO_CAMINANDO;
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof U3DMoveCharacterTask) {
@@ -85,7 +88,7 @@ public class U3DMoveCharacterTask extends Task {
 					direction.normalizeLocal();
 					
 					
-					float movement=70000;
+					
 					Vector3f force = direction.multLocal(movement);
 					this.character.getForce().addLocal(force);
 					
@@ -102,13 +105,26 @@ public class U3DMoveCharacterTask extends Task {
 
 	}
 	
-	public void initTask(Player theCharacter, boolean isLocal,boolean adelante)
+	public void initTask(Player theCharacter, boolean isLocal,boolean adelante, boolean corriendo)
 	{
-
+		if (corriendo)
+			movement=MOVIMIENTO_CORRIENDO ;
+		else
+			movement=MOVIMIENTO_CAMINANDO;
 		character=theCharacter;
 		local=isLocal;
 		this.adelante=adelante;
 		
+	}
+
+
+	public float getMovement() {
+		return movement;
+	}
+
+
+	public void setMovement(float movement) {
+		this.movement = movement;
 	}
 
 }

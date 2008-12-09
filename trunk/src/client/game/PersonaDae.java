@@ -2,12 +2,9 @@ package client.game;
 
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 
-import jmetest.renderer.loader.TestColladaLoading;
 import com.jme.animation.AnimationController;
 import com.jme.animation.Bone;
-import com.jme.animation.BoneAnimation;
 import com.jme.animation.SkinNode;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -44,17 +41,15 @@ public class PersonaDae extends Node {
     	try {
             ResourceLocatorTool.addResourceLocator(
                     ResourceLocatorTool.TYPE_TEXTURE,
-                    new SimpleResourceLocator(TestColladaLoading.class
-                            .getClassLoader().getResource(
-                                    this.paquete)));
+                    new SimpleResourceLocator(Game.class.getClassLoader().getResource(this.paquete)));
         } catch (URISyntaxException e1) {            
         }
 
         KeyBindingManager.getKeyBindingManager().set( "bones", KeyInput.KEY_SPACE );
         
-        InputStream mobboss = TestColladaLoading.class.getClassLoader()
+        InputStream mobboss = Game.class.getClassLoader()
                 .getResourceAsStream(this.personaje);
-        InputStream animation = TestColladaLoading.class.getClassLoader()
+        InputStream animation = Game.class.getClassLoader()
         		.getResourceAsStream(this.animaciones);
     
         ColladaImporter.load(mobboss, "model");
