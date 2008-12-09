@@ -1,9 +1,0 @@
-ClearCase CopyAreaDB|4
-2BSoftTI_Datos\Client\src\client\communication\tasks\darkstarevents
-2
-5
-11:TaskLoggedIn.java|1|11ddff830e1|3bb|681f1dc2|6b4a39e4d3c24f3ba7b4e74ef806f296|0
-15:TaskDisconnected.java|1|11ddff83063|5c5|3d03cba8|5055da4cd21c41ce9362bce9631ae0fc|0
-14:TaskReconnected.java|1|11ddff831c2|3cd|24a42488|2f9a1ed2c9104fc49c35271133ecc7ea|0
-15:TaskLogginFailed.java|1|11ddff83154|3d5|53d926a0|0de718b6ce9d4015bfe048fdd2f6aa64|0
-15:TaskReconnecting.java|1|11ddff8323b|3d3|1c6426e6|ae56915d795f4a4bbd3c44ec67d1f35a|0
