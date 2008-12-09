@@ -50,7 +50,8 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 			U3DMoveCharacterTask task = (U3DMoveCharacterTask) TaskManager
 					.getInstance().createTask("1");
 
-			task.initTask(player, false, adelante);
+			boolean corriendo=flags.contains(KeyInput.KEY_LSHIFT);
+			task.initTask(player, false, adelante,corriendo);
 			TaskManager.getInstance().enqueue(task);
 		}
 
