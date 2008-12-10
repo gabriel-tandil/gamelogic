@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<texture text= "protCampusXML/images/"></texture>
+	<cantPartes int = "1333"></cantPartes>
+	
+	<node model="campus">
+		<localScaleFloat param1="1.0" /> 
+		<modelBound>
+			<boundingVolume>
+				<boundingBoxNull>
+				</boundingBoxNull>
+			</boundingVolume>
+		</modelBound>		
+		<name param1="string"></name>
+	</node>
+</map>

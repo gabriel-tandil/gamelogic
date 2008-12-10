@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+2BSoftTI_Datos\Client\src\client\game\state
+2
+8
+14:XMLWorldBuilder.java|1|11ddec23c2f|14216|94e8e366|589799902e444d86b2be354531aa09a0|0
+13:WorldGameState.java|1|11ddb351d90|a4c|4fab3944|05c93f08aa154474a0cc62e1a0c2d35f|0
+12:U3dLoginState.java|1|11ddb351dbf|1b1|e7c984ea|aa6ca93606474feebca3f7227ad829ca|0
+15:U3dExteriorState.java|1|11ddec2255b|c4c|88a4f817|6cbeb72fdb9b4da8bd5e532bbdd8e58e|0
+10:AccessPoint.java|1|11ddb351979|c08|3810d73b|409eb918a4d644bf8c328de337acc215|0
+f:IGameState.java|1|11ddb351999|2ac|41dcd7d3|c435853c8a59481f80d1cdb20d9f71f4|0
+11:IAccessPoint.java|1|11ddb35195a|1c5|3f418e84|aa0ccf93a1ae4015ad120047614edc6d|0
+12:IWorldBuilder.java|1|11ddb3519a8|198|cb767dc1|168b829713c748eea850c768255c055d|0

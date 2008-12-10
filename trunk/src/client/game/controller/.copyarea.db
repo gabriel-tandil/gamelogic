@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+2BSoftTI_Datos\Client\src\client\game\controller
+2
+7
+10:IController.java|1|11ddff7f6fd|640|be2a0c0b|df893fb833204a11ae875564cf195a2a|0
+18:U3DPlayerController.java|1|11df4398853|57d|f5e6bef1|a88a1813ee52463a8d2ec7ecfe733d4f|0
+f:Controller.java|1|11ddff7f657|a73|f9eb63e6|a5229d6207994ca0b01799c4c60b8bdd|0
+12:NPCController.java|1|11ddff7f799|2a7|2d4ad5d0|692b761495ac4eaa890bd6e95bd022a7|0
+17:IControllerFactory.java|1|11ddff7f5c5|33d|74a11028|9fc44b1b04b04847b1e9d0b78ea1f966|0
+1d:ControllerManagerFactory.java|1|11ddff7f4ea|786|e28e73fd|eb3b1ee00d254a33bae92581ec9d5805|0
+1f:U3DPlayerControllerFactory.java|1|11ddff7f980|158|61947365|d5538a9e2b91455f8fd88bb545d1a23a|0
