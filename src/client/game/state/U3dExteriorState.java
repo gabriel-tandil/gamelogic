@@ -73,7 +73,8 @@ public class U3dExteriorState extends WorldGameState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		builder = new XMLWorldBuilder();
+		// ECONOMICAS !! builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml");
+		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
 		builder.buildWorld(this.rootNode);
 	}
 
