@@ -40,8 +40,8 @@ public class U3dExteriorState extends WorldGameState {
 
 		this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
-		//Habilitar esta opción si se quierer probar la ejecución de la tarea.
-		//Deshabilitar el método anterior initializeCamera(..)
+		//Habilitar esta opciï¿½n si se quierer probar la ejecuciï¿½n de la tarea.
+		//Deshabilitar el mï¿½todo anterior initializeCamera(..)
 		//Desabilitar el controlador del player (setActive(false)) en XMLWorldBuilder.
 		
 /*		U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0, 800, true);
@@ -112,7 +112,8 @@ public class U3dExteriorState extends WorldGameState {
 	public void updateState(float interpolation) {
 		chaser.update(interpolation);
         Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
-		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
+		if (sb!=null)
+          sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
 
 		
