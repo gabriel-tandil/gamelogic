@@ -2,6 +2,7 @@ package client.game.state;
 
 import java.util.HashMap;
 
+import client.game.U3DChaseCamera;
 import client.game.task.U3DAddPlayerTask;
 import client.game.view.DynamicView;
 import client.game.view.U3dPlayerView;
@@ -25,7 +26,7 @@ public class U3dExteriorState extends WorldGameState {
 
 	private boolean initialized;
 	
-	private ChaseCamera chaser;
+	private U3DChaseCamera chaser;
 	
 	private Spatial player;
 
@@ -73,8 +74,8 @@ public class U3dExteriorState extends WorldGameState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml");
-		//builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
+//		builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml");
+		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
 		builder.buildWorld(this.rootNode);
 	}
 
@@ -86,11 +87,12 @@ public class U3dExteriorState extends WorldGameState {
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
 		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
 		props.put(ChaseCamera.PROP_TARGETOFFSET, targetOffset);
-		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, ""+45 * FastMath.DEG_TO_RAD);
+		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, "" + 30 * FastMath.DEG_TO_RAD);
+		props.put(ThirdPersonMouseLook.PROP_MINASCENT, "" + 0);
 		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(20, 0, 
 				30 * FastMath.DEG_TO_RAD));
 
-		chaser = new ChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
+		chaser = new U3DChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
 				getCamera(), playerView, props);
 		chaser.setMaxDistance(90);
 		chaser.setMinDistance(60);	
