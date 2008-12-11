@@ -4,7 +4,7 @@
 	<cantPartes int = "118"></cantPartes>
 	
 	<node model="ECONInt">
-		<localScaleFloat param1="1.0" /> 
+		<localScaleFloat param1="0.5" /> 
 		<modelBound>
 			<boundingVolume>
 				<boundingBoxNull>
