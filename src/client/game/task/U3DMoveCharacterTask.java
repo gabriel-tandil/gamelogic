@@ -73,9 +73,9 @@ public class U3DMoveCharacterTask extends Task {
 			U3dExteriorState a=((U3dExteriorState)GameStateManager.getInstance().getChild("U3dExteriorState"));
 			
 
-			a.getRootNode().detachChild(view);
-			Vector3f destination = CollisionManager.getInstace().getDestination(origin, destine,a.getRootNode());
-			a.getRootNode().attachChild(view);
+			//a.getRootNode().detachChild(view);
+			Vector3f destination = CollisionManager.getInstace().getDestination(origin, destine,a.getRootNode().getChild(0));
+			//a.getRootNode().attachChild(view);
 			if (destination != null) {
 				if((origin.x==destination.x)&&(origin.z==destination.z)) destination=destine;
 				if(((origin.x-destine.x>0)&&(destination.x-origin.x>0))) destination.x=origin.x;//X --->
