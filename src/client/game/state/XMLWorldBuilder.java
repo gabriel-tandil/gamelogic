@@ -138,11 +138,6 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		ControllerManagerFactory.getInstance().add(new U3DPlayerControllerFactory());
 		
 		//Edificio:1
-		//******texturas: anda lento
-		try{
-      	 ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, new SimpleResourceLocator(Game.class.getClassLoader().getResource("protCampus/imagenes/")));
-        }catch(Exception e){}
-		//**********
         Node campus = new Node("Campus");
 		getWorld(campus);	
 		campus.setLocalScale(0.3f);
@@ -163,7 +158,8 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
-		playerView.setLocalTranslation(new Vector3f(0.000000f, 0.500000f, 850.00000f));
+		playerView.setLocalTranslation(new Vector3f(450.000000f, 0.500000f, -300.00000f));
+		//playerView.setLocalTranslation(new Vector3f(0.000000f, 0.500000f, 850.00000f));
 		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
 			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
@@ -180,14 +176,6 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	
 	private void getPlayer(Node node)
 	{
-	/*	Box player;
-		
-		player = new Box("TestBox", new Vector3f(-5f,0f,0f), new Vector3f(5f,20f,10f));
-		player.setLocalTranslation(new Vector3f(0f, 0f, 0f));
-		player.setModelBound(new BoundingBox());
-				
-		player.updateModelBound();
-        node.attachChild(player);*/	
 		PersonaDae p = new PersonaDae(node);
     	p.setPaquete("jmetest/data/model/collada/");
     	p.setPersonaje("jmetest/data/model/collada/man.dae");
@@ -208,12 +196,12 @@ public class XMLWorldBuilder implements IWorldBuilder {
     private Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
 // las texturas las esta tomando porque estan en el mismo path del resourseloader del campus, sino agregar
-        sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
-        sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
-        sb.setTexture( Skybox.Face.South, TextureManager.loadTexture("cielo_3.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
-        sb.setTexture( Skybox.Face.East, TextureManager.loadTexture("cielo_2.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
-        sb.setTexture( Skybox.Face.Up, TextureManager.loadTexture("cielo_6.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
-        sb.setTexture( Skybox.Face.Down, TextureManager.loadTexture("cielo_5.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("../../Cielo/cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
+        sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("../../Cielo/cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
+        sb.setTexture( Skybox.Face.South, TextureManager.loadTexture("../../Cielo/cielo_3.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.East, TextureManager.loadTexture("../../Cielo/cielo_2.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.Up, TextureManager.loadTexture("../../Cielo/cielo_6.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.Down, TextureManager.loadTexture("../../Cielo/cielo_5.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
         sb.preloadTextures();
          
         sb.updateRenderState();
@@ -256,10 +244,15 @@ public class XMLWorldBuilder implements IWorldBuilder {
 						Attribute a=e.getAttribute("int");
 						cant = Integer.valueOf(a.getValue());
 				}
-					        
+				float scale=0;
 		        for(Iterator<Element> i=root.getChildren("node").iterator();i.hasNext();){
 		        	Element node=i.next();
 		        	Attribute model=node.getAttribute("model");
+		        	for(Iterator<Element> j=node.getChildren("localScaleFloat").iterator();j.hasNext();)
+			        	{Element ElemScale=j.next();
+			        	Attribute AttScale=ElemScale.getAttribute("param1");
+			        	scale = Float.valueOf(AttScale.getValue());
+			        	}
 		              	
 		        	for(int k= 1; k<= cant;k++){		
 		    			Node hijo = new Node("Hijo"+i);
@@ -268,6 +261,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		    			Quaternion q = hijo.getLocalRotation();
 		    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 		    			hijo.setLocalRotation(q);
+		    			hijo.setLocalScale(scale);
 		    		   	world.attachChild(hijo);
 		    			
 		    		}
@@ -276,6 +270,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	    			Quaternion q = hijo.getLocalRotation();
 	    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 	    			hijo.setLocalRotation(q);
+	    			hijo.setLocalScale(scale);
 	    			world.attachChild(hijo);  
 		        	parseNode(world, node);
 		        	BlendState as = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
