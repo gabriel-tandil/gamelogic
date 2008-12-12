@@ -195,13 +195,20 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	
     private Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
-// las texturas las esta tomando porque estan en el mismo path del resourseloader del campus, sino agregar
-        sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("../../Cielo/cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
-        sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("../../Cielo/cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
-        sb.setTexture( Skybox.Face.South, TextureManager.loadTexture("../../Cielo/cielo_3.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
-        sb.setTexture( Skybox.Face.East, TextureManager.loadTexture("../../Cielo/cielo_2.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
-        sb.setTexture( Skybox.Face.Up, TextureManager.loadTexture("../../Cielo/cielo_6.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
-        sb.setTexture( Skybox.Face.Down, TextureManager.loadTexture("../../Cielo/cielo_5.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        try {
+			ResourceLocatorTool.addResourceLocator(
+			        ResourceLocatorTool.TYPE_TEXTURE,
+			        new SimpleResourceLocator(Game.class.getClassLoader().getResource("cielo/")));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        sb.setTexture( Skybox.Face.North, TextureManager.loadTexture("cielo_1.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
+        sb.setTexture( Skybox.Face.West, TextureManager.loadTexture("cielo_4.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor ) );
+        sb.setTexture( Skybox.Face.South, TextureManager.loadTexture("cielo_3.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.East, TextureManager.loadTexture("cielo_2.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.Up, TextureManager.loadTexture("cielo_6.jpg",  Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
+        sb.setTexture( Skybox.Face.Down, TextureManager.loadTexture("cielo_5.jpg", Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor  ) );
         sb.preloadTextures();
          
         sb.updateRenderState();
