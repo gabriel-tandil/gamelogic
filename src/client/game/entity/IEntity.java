@@ -1,6 +1,5 @@
 /**
- * <code>IEntity</code> defines the interface for all 
- * types of entity.
+ * <code>IEntity</code> define la interface de todas las entitades
  */
 package client.game.entity;
 
@@ -12,14 +11,14 @@ import com.jme.util.export.Savable;
  */
 public interface IEntity extends Savable {
 	/**
-	 * Retrieve the identity(id) number of this entity.
-	 * @return The integer ID number.
+	 * Retorna la identity de esta entidad
+	 * @return ID number.
 	 */
 	public String getId();
 	
 	/** 
-	 * Retrieve the <code>Entity</code> type.
-	 * @return the <code>Entity</code> type.
+	 * Retorna el tipo de la <code>Entity</code>.
+	 * @return tipo de <code>Entity</code>.
 	 */
 	public String getTipo();
 }
