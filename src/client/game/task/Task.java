@@ -27,13 +27,23 @@ public abstract class Task implements ITask {
 		this.timestamp = System.currentTimeMillis();		
 	}			
 	
+	/**
+	 * @param task <code>ITask</code> 
+	 * @return True Si la tarea <code>tast</code> fue creada antes a dicha tarea 
+	 */
 	public boolean isLaterThan(ITask task){
 		return timestamp>task.getTimestamp();
 	}
 
+	/**
+	 * @param o objeto <code>Object</code> 
+	 */
 	public abstract boolean equals(Object o); 
 		
-	
+	/**
+	 * Retorna el tiempo de creacion. 
+	 * @return <code>timestamp</code> de dicha tarea 
+	 */
 	public long getTimestamp() {
 		return this.timestamp;
 	}		
