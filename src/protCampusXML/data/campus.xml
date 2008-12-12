@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map>
 	<texture text= "protCampusXML/images/"></texture>
-	<cantPartes int = "1333"></cantPartes>
+	<cantPartes int = "1511"></cantPartes>
 	
 	<node model="campus">
 		<localScaleFloat param1="1.0" /> 
