@@ -43,7 +43,7 @@ public class U3dgame extends Game {
 		this.display = DisplaySystem.getDisplaySystem(this.settings.getRenderer());
 		this.display.setTitle("U3d");
 		this.timer = new NanoTimer();
-		dibujaBounds=true;
+		dibujaBounds=false;
 		this.initWindow();
 		this.initCamera();
 		this.initManagers();
