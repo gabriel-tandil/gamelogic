@@ -1,7 +1,7 @@
 /**
- * The AccessPoint is a type <code>Entity</code>. The <code>AccessPoint</code> represents a access point to a
- * new BasicGameState of the Game.
- * When a entity collision whit the <code>AccessPoint</code> <code>Entity</code>, the game change to a new state.
+ * El AccessPoint es del tipo <code>Entity</code>. El <code>AccessPoint</code> representa los 
+ * nuevos puntos de acceso BasicGameState del juego.
+ * Cuado una entidad colisiona con el <code>AccessPoint</code> <code>Entity</code>, El juego cambia a un nuevo estado.
  */
 package client.game.state;
 
@@ -24,28 +24,29 @@ import com.jme.util.export.OutputCapsule;
  */
 public class AccessPoint extends Entity implements IAccessPoint {
 	/** 
-	 * The constructor of the AccessPoint.
+	 * Constructor de AccessPoint.
 	 */
 	public AccessPoint(String theTipo) {
 		super(theTipo);
 	}
 
 	/** 
-	 * The next state of the game.
+	 * Poximo estado del juego.
 	 */
 	private BasicGameState basicgamestate;
 
+
 	/** 
-	 * Retrieve the BasicGameState associated to this <code>AccessPoint</code>.
-	 * @return the BasicGameState associated to this <code>AccessPoint</code>.
+	 * Devuelve el BasicGameState asociado al <code>AccessPoint</code>.
+	 * @return el BasicGameState asociado al <code>AccessPoint</code>.
 	 */
 	public BasicGameState getState() {
 		return this.basicgamestate;
 	}
 
 	/** 
-	 * Apply a <code>BasicGameState</code> to this <code>AccessPoint</code>.
-	 * @param theBasicgamestate <code>BasicGameState</code> to apply.
+	 * Aplica un <code>BasicGameState</code> al <code>AccessPoint</code>.
+	 * @param theBasicgamestate <code>BasicGameState</code> a aplicar.
 	 */
 	public void setBasicgamestate(BasicGameState theBasicgamestate) {
 		this.basicgamestate=theBasicgamestate;
@@ -53,8 +54,8 @@ public class AccessPoint extends Entity implements IAccessPoint {
 
 
 	/** 
-	 * Allow export the <code>AccessPoint</code> data to a specific location.
-	 * @param arg0 <code>JMEExporter</code> to set the save location of data.
+	 * Permite exportar los datos del <code>AccessPoint</code> a un localizacion espesificada.
+	 * @param arg0 <code>JMEExporter</code> conjunto de datos a guardar.
 	 */
 	public void write(JMEExporter arg0) {
 		OutputCapsule oc = arg0.getCapsule(this);
@@ -69,9 +70,10 @@ public class AccessPoint extends Entity implements IAccessPoint {
 		
 	}
 
+
 	/** 
-	 * Allow import the <code>AccessPoint</code> data from a specific location.
-	 * @param arg0 <code>JMEImporter</code> to set the save location of data.
+	 * Permite importa los datos del <code>AccessPoint</code> desde una localizacion especifica.
+	 * @param arg0 <code>JMEImporter</code>conjunto de datos guardado.
 	 */
 	public void read(JMEImporter arg0) {
 		InputCapsule ic = arg0.getCapsule(this);
@@ -87,15 +89,16 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	}
 
 	/** 
-	 * Retrieve the Java Class of this <code>AccessPoint</code>.
-	 * @return the Java Class of this <code>AccessPoint</code>.
+	 * Retorna la clase de java de dicho <code>AccessPoint</code>.
+	 * @return la clase de java del <code>AccessPoint</code>.
 	 */
 	public Class getClassTag() {
 		return this.getClass();
 	}
 
 	/** 
-	 * Get the <code>AccessPoint</code> id.
+	 * Retorna el identificador del <code>AccessPoint</code>.
+	 * @return el identificador del <code>AccessPoint</code>.
 	 */
 	public String getId() {
 		return this.getId();
