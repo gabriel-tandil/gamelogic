@@ -45,41 +45,40 @@ public abstract class Controller implements IController{
 	public abstract void updateLogic(float interpolation);
 	
 	/**
+	 * Retorna la idynamicentity
 	 * @return el idynamicentity
-	 * @generated "De UML a Java V5.0 
-	 * (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public IDynamicEntity getIDynamicEntity() {
 		return this.idynamicentity;
 	}
 	
 	/**
+	 * Setea la idynamicentity con la theIdynamicentity pasada como parametro
 	 * @param theIdynamicentity el idynamicentity a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public void setIDynamicEntity(IDynamicEntity theIdynamicentity) {
-		// begin-user-code
 		this.idynamicentity = theIdynamicentity;
-		// end-user-code
 	}
 	
 	/**
-	 * (sin Javadoc)
-	 * @see IController#update()
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Aplica el update
 	 */
 	public void update(float interpolation) {
 		this.updateLogic(interpolation);
 	}	
 	
+
+	/**
+	 * Setea el flag active con la varibale pasada como parametro
+	 * @param active el flag a establecer
+	 */
 	public void setActive(boolean active) {
 		this.active = active;
 	}
 	
 	/**
-	 * (sin Javadoc)
-	 * @see IController#isActive()
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Retorna el flag active, muestra si se encuentra activo o no
+	 * @return active, flag muestra si se encuentra activo o no
 	 */
 	public boolean isActive() {
 		return this.active;
