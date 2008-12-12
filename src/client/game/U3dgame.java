@@ -1,6 +1,7 @@
 package client.game;
 
 import client.game.state.U3dExteriorState;
+import client.game.state.U3dLoginState;
 import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
 import client.manager.EntityManager;
@@ -42,7 +43,7 @@ public class U3dgame extends Game {
 		this.display = DisplaySystem.getDisplaySystem(this.settings.getRenderer());
 		this.display.setTitle("U3d");
 		this.timer = new NanoTimer();
-		dibujaBounds=false;
+		dibujaBounds=true;
 		this.initWindow();
 		this.initCamera();
 		this.initManagers();
@@ -104,11 +105,14 @@ public class U3dgame extends Game {
         //login.setActive(true);
         //login.initialize();
 		
-		
+       U3dLoginState login = new U3dLoginState("login");
+       this.getGameStateManager().attachChild(login);
+       login.setActive(true);
+        login.initialize();
         U3dExteriorState campus = new U3dExteriorState("U3dExteriorState");
         this.getGameStateManager().attachChild(campus);
-        campus.setActive(true);
-        campus.initialize();
+        campus.setActive(false);
+      //  campus.initialize();
 /*       
         U3dEndState end = new U3dEndState();
         end.setActive(false);
@@ -153,7 +157,7 @@ public class U3dgame extends Game {
 		r.clearBuffers();
 		GameTaskQueueManager.getManager().getQueue(GameTaskQueue.RENDER).execute();
         if ( dibujaBounds ) {
-            Debugger.drawBounds( ((U3dExteriorState)gameStateManager.getChild(0)).getRootNode(), r, true );
+            Debugger.drawBounds( ((U3dExteriorState)gameStateManager.getChild("U3dExteriorState")).getRootNode(), r, true );
         }
 		this.gameStateManager.render(arg0);
 	}
