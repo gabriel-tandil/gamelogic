@@ -21,12 +21,25 @@ import common.datatypes.PlayerState;
 public class Player extends DynamicEntity {
 	
 	/**
-	* Constructor of the Player.
+	* Constructor de la clase Player.
 	*/
 	public Player(String theTipo) {
 		super(theTipo);
 	}
 	
+	/**
+	 * Inicializa la clase Player con sus parametros
+	 * @param id identificador
+	 * @param force vector de la fuerza de la entidad
+	 * @param mass vector de la masa de la entidad
+	 * @param Properties
+	 * @param stats
+	 * @param velocity
+	 * @param angle
+	 * @param actualWorld
+	 * @param theSkin
+	 * @param theState
+	 */
 	public void initPlayer(String id,Vector3f force,float mass,Hashtable<String,Object> Properties,
 			Hashtable<String,Object> stats,Vector3f velocity, Vector3f  angle, String actualWorld, Skin theSkin, PlayerState theState) {
 		this.setId(id);
@@ -42,81 +55,85 @@ public class Player extends DynamicEntity {
 	}
 
 	/** 
-	 * Contains the properties of the <code>Player</code>.
+	 * Contiene las propiedades de un <code>Player</code>.
 	 */
 	protected Hashtable properties;
 
 	/** 
-	 * Retrieve the properties of the <code>Player</code>.
-	 * @return the properties of the <code>Player</code>.
+	 * Retorna las propiedades de un <code>Player</code>.
+	 * @return properties Propiedades de un <code>Player</code>.
 	 */
 	public Hashtable getProperties()  {
 		return properties;
 	}
 
 	/** 
-	 * Apply a <code>Hashtable<code> properties to this <code>Player</code>.
-	 * @param theProperties <code>Hashtable<code> properties to aplly
+	 * Aplica las propiedades <code>Hashtable<code> al <code>Player</code>.
+	 * @param theProperties propiedades <code>Hashtable<code> a aplicar.
 	 */
 	public void setProperties(Hashtable theProperties) {
 		properties = theProperties;
 	}
 
+
 	/** 
-	 * The state of this Player in the Game.
+	 * El estado del jugador en el juego. 
 	 */
 	protected PlayerState state;
 
+
 	/** 
-	 * Retrieve the state of this Player in the Game.
-	 * @return the state of this Player in the Game.
+	 * Retorna el estado del <code>Player</code> en el juego
+	 * @return state estado del <code>Player</code>.
 	 */
 	public PlayerState getState() {
 		return state;
 	}
 
 	/** 
-	 * Apply a PlayerState to this <code>Player</code>.
-	 * @param theState <code>PlayerState<code> stats to aplly.
+	 * Aplica un estado PlayerState al <code>Player</code>.
+	 * @param theState estado <code>PlayerState<code> a aplicar.
 	 */
 	public void setState(PlayerState theState) {
 		state = theState;
 	}
 	
 	/** 
-	 * Contains the stats of the <code>Player</code>.
+	 * Contiene el estado del <code>Player</code>.
 	 */
 	private Hashtable<String,Object> stats;
 
 	/** 
-	 * Retrieve the <code>Hashtable<code> stats of this <code>Player<code>.
-	 * @return the <code>Hashtable<code> stats of this <code>Player<code>.
+	 * Retorna el estado <code>Hashtable<code> del <code>Player<code>.
+	 * @return stats estado <code>Hashtable<code> del <code>Player<code>.
 	 */
 	public Hashtable<String,Object> getStats() {
 		return stats;
 	}
 
 	/** 
-	 * Apply a <code>Hashtable<code> stats to this <code>Player</code>.
-	 * @param theStats <code>Hashtable<code> stats to aplly
+	 * Aplica un estado <code>Hashtable<code> al jugador.
+	 * @param theStats estado <code>Hashtable<code> a aplicar.
 	 */
 	public void setStats(Hashtable<String,Object> theStats) {
 		stats = theStats;
 	}
 
+
 	/** 
-	 * Retrieve the Property usign the key.
-	 * @param key the Key to retrieve the Propertie.
-	 * @return the property of this key.
+	 * Retorna las propiedades usando una clave key
+	 * @param key La clave para retornar la porpiedad.
+	 * @return Object propiedad a ser retornada segun la clave.
 	 */
 	public Object getProperty(String key) {
 		return this.properties.get(key);
 	}
 
+
 	/** 
-	 * Save a Property of this <code>Player</code> whit his key.
-	 * @param propertie Property to save.
-	 * @param key The Key to retrieve the Property.
+	 * Guarda una propiedad del <code>Player</code> con su clave key
+	 * @param propertie Propiedad a ser guardada. 
+	 * @param key clave para retornar la propiedad.
 	 */
 	public void setProperty(Object propertie, String key) {
 		this.properties.put(key, propertie);
