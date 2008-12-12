@@ -12,13 +12,11 @@ package client.game.state;
 public interface IGameState {
 	/** 
 	 * inicializa el estado correspondiente
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public void initialize();
 
 	/** 
 	 * @return el WorldGameState
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public WorldGameState getWorld();
 }
