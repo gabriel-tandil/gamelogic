@@ -18,19 +18,19 @@ import client.game.task.TaskManagerFactory;
 
 /** 
  * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * @version Creation date: 20-11-2008
  */
 public class ControllerManagerFactory {
-	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
 	/**
 	 * HashMap que contiene las diferentes <code>controllers<code> del Game relacionadas a
 	 * sus correspondientes identificadores. 
 	 */
 	private HashMap<String,IControllerFactory> controllers;	
 
-private static ControllerManagerFactory instance=null;
+	/**
+	 * La instancia de <code>ControllerManagerFactory</code>
+	 */
+	private static ControllerManagerFactory instance=null;
 	
 	/**
 	 * Constructor <code>TaskFactoryManager</code>.
@@ -52,7 +52,7 @@ private static ControllerManagerFactory instance=null;
 	}
 	
 	/**
-	 * 
+	 * Agrega un <code>IControllerFactory</code> 
 	 * @param task Es una nueva tarea definida para el Game.
 	 */
 	public void add(IControllerFactory controller) {
@@ -60,6 +60,7 @@ private static ControllerManagerFactory instance=null;
 	}
 	
 	/** 
+ 	 * Retorna el controller
 	 * @param id Es el identificador de la tarea a ser creada.
 	 * @return La tarea que fue creada.
 	 */
