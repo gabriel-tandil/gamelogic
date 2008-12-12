@@ -11,49 +11,49 @@ package client.game.entity;
  */
 public abstract class Entity implements IEntity {
 	/**
-	 * The identity number of this <code>Entity</code>.
+	 * La identity de la <code>Entity</code>.
 	 */
 	protected String id;
 
 	/** 
-	 * Retrieve the identity(id) number of this <code>Entity</code>.
-	 * @return The identity of this <code>Entity</code>.
+	 * Retorna la identity de la entidad <code>Entity</code>.
+	 * @return la identity de <code>Entity</code>.
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/** 
-	 * Set the <code>Entity</code> id.
-	 * @param theId the identity(id) number of the <code>Entity</code>.
+	 * Setea la id de la <code>Entity</code>.
+	 * @param theId la id a setear en <code>Entity</code>.
 	 */
 	public void setId(String theId) {
 		id = theId;
 	}
 
 	/**
-	 * Contructor of the Entity.
+	 * Contructor de la Entity.
 	*/
 	public Entity(String theTipo){
 		this.tipo=theTipo;
 	}
 	
 	/** 
-	 * The type of this <code>Entity</code>.
+	 * El tipo de <code>Entity</code>.
 	 */
 	private String tipo;
 
 	/** 
-	 * Retrieve the <code>Entity</code> type.
-	 * @return the <code>Entity</code> type.
+	 * Retorna el tipo de <code>Entity</code>. 
+	 * @return tipo de <code>Entity</code>.
 	 */
 	public String getTipo() {
 		return tipo;
 	}
 	
 	/** 
-	 * Set the <code>Entity</code> type.
-	 * @param theTipo the <code>Entity</code> type required.
+	 * Setea el tipo de <code>Entity</code>.
+	 * @param theTipo el tipo a setear a <code>Entity</code>
 	 */
 	public void setTipo(String theTipo) {
 		tipo = theTipo;
