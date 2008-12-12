@@ -7,14 +7,14 @@ import client.game.entity.IDynamicEntity;
 
 /**
  * <code>Controller</code> implementa <code>IController</code> para definir la
- * abstracciï¿½n bï¿½sica del controlador de una entidad. Este es responsable de monitorear
+ * abstracciónn básica del controlador de una entidad. Este es responsable de monitorear
  * y procesar las entradas del usuario. Genera las correspondientes <code>ITask</code>
- * en respuesta a los eventos de entrada. 2
+ * en respuesta a los eventos de entrada.
  * <p>
- * <code>Controller</code> es, ademï¿½s, responsable de monitorear el estado de la
+ * <code>Controller</code> es, además, responsable de monitorear el estado de la
  * <code>IDynamicEntity</code> que este controla para generar las correspondientes
  *  <code>ITask</code> durante el ciclo de update. Esto permite al <code>Controller</code>
- *  modificar la <code>IDynamicEntity</code> continuamente a travï¿½s de las distintas
+ *  modificar la <code>IDynamicEntity</code> continuamente a través de las distintas
  *  iteraciones del update.
  * */
 public abstract class Controller implements IController{
