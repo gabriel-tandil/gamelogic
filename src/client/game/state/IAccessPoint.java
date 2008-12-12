@@ -1,5 +1,5 @@
 /**
- * The IAccessPoint is the interface to make a change state in the Game.
+ * IAccessPoint es una interface para hacer el cambio de estado en el juego.
  */
 package client.game.state;
 
@@ -9,9 +9,9 @@ package client.game.state;
  */
 public interface IAccessPoint {
 	/** 
-	 * This method is the interface to create a new <code>ChangeStateTask</code>,
-	 * and this is enqueue first in the list of  task
-	 * to execute calling a singleton <code>TaskManager</code>
+	 * Es una interface para crear nuevos  <code>ChangeStateTask</code>, y 
+	 * estos son encolados al principio de la lista de tareas a ser 
+	 * ejecutadas llamandas por el singleton <code> TaskManager</code>
 	 */
 	public void show();
 }
