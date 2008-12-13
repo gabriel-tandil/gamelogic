@@ -6,7 +6,9 @@ import java.nio.FloatBuffer;
 import client.game.Game;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DChangeToExteriorTaskFactory;
+import client.game.task.U3DChangeToIntEcoTaskFactory;
 import client.game.task.U3dChangeToExterior;
+import client.game.task.U3dChangeToIntEco;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
@@ -47,17 +49,23 @@ public class U3dLoginState extends U3dState {
 
 	@Override
 	public void update(float arg0) {
-		if(KeyBindingManager.getKeyBindingManager().isValidCommand("login")){
+		if(KeyBindingManager.getKeyBindingManager().isValidCommand("campus")){
 			U3dChangeToExterior task =(U3dChangeToExterior) TaskManager.getInstance().createTask("3");
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
 		}
-
+		if(KeyBindingManager.getKeyBindingManager().isValidCommand("economicas")){
+			U3dChangeToIntEco task =(U3dChangeToIntEco) TaskManager.getInstance().createTask("4");
+			task.initTask();
+			TaskManager.getInstance().enqueue(task);
+		}
 	}
 	
 	public void initialize(){
 		TaskManagerFactory.getInstance().add(new U3DChangeToExteriorTaskFactory());		
-		KeyBindingManager.getKeyBindingManager().set("login", KeyInput.KEY_L);
+		KeyBindingManager.getKeyBindingManager().set("campus", KeyInput.KEY_L);
+		TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());
+		KeyBindingManager.getKeyBindingManager().set("economicas", KeyInput.KEY_K);
 		
         Quad hudQuad = new Quad("hud", DisplaySystem.getDisplaySystem().getWidth(), DisplaySystem.getDisplaySystem().getHeight());
         

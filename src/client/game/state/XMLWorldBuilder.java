@@ -119,9 +119,12 @@ import common.datatypes.Skin;
 public class XMLWorldBuilder implements IWorldBuilder {
 
 	private String url;
-	private Vector3f localTranslation;
-	public XMLWorldBuilder(String urlxml, Vector3f localTranslation){
-		this.localTranslation = localTranslation;
+	
+	private Vector3f initialPosition=null;
+	
+	private Quaternion Rotation=null;
+	
+	public XMLWorldBuilder(String urlxml){
 		this.url = urlxml;
 	}
 
@@ -157,11 +160,15 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
 				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
-		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().createView(playerEntity);
-		//playerView.setLocalTranslation(new Vector3f(450.000000f, 0.500000f, -300.00000f));
-		//playerView.setLocalTranslation(new Vector3f(0.000000f, 0.500000f, 850.00000f));
-		playerView.setLocalTranslation(this.localTranslation);
-		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.getInstance().createController(playerEntity);
+		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
+			createView(playerEntity);
+		if (initialPosition!=null)
+			playerView.setLocalTranslation(initialPosition);
+		if(Rotation!=null)
+			if(Rotation.w!=0 || Rotation.x!=0 || Rotation.y!=0 || Rotation.z!=0)
+				playerView.setLocalRotation(Rotation);
+		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
+			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
 		worldView.attachChild(campus);
 		KeyInput.get().addListener(controllerPlayer);
@@ -215,12 +222,12 @@ public class XMLWorldBuilder implements IWorldBuilder {
         return sb;
     }
     
-    private void getWorld(Node world){	
-		URL filename=java.lang.ClassLoader.getSystemClassLoader().getSystemResource(url);			
+    private void getWorld(Node nodeRoot){	
+    	Node world = new Node("TestWorld");
+    	URL filename=java.lang.ClassLoader.getSystemClassLoader().getSystemResource(url);			
 		if (filename != null) {
 			try {
 				SAXBuilder builder = new SAXBuilder(false);
-				
 				//se carga el arbol xml en memoria
 		        Document doc = builder.build(filename);
 		        Element root = doc.getRootElement();
@@ -251,49 +258,49 @@ public class XMLWorldBuilder implements IWorldBuilder {
 						Attribute a=e.getAttribute("int");
 						cant = Integer.valueOf(a.getValue());
 				}
-				float scale=0;
+					        
 		        for(Iterator<Element> i=root.getChildren("node").iterator();i.hasNext();){
 		        	Element node=i.next();
 		        	Attribute model=node.getAttribute("model");
-		        	for(Iterator<Element> j=node.getChildren("localScaleFloat").iterator();j.hasNext();)
-			        	{Element ElemScale=j.next();
-			        	Attribute AttScale=ElemScale.getAttribute("param1");
-			        	scale = Float.valueOf(AttScale.getValue());
-			        	}
 		              	
-		        	for(int k= 1; k<= cant;k++){		
+		        	for(int k= 1; k<= cant;k++){
 		    			Node hijo = new Node("Hijo"+i);
 		    			hijo=cargarModelo(textures + model.getValue()+"_parte"+k+".3ds");
 		    			
 		    			Quaternion q = hijo.getLocalRotation();
 		    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 		    			hijo.setLocalRotation(q);
-		    			hijo.setLocalScale(scale);
-		    		   	world.attachChild(hijo);
-		    			
-		    		}
+		    		   	world.attachChild(hijo);		    			
+		    		}  	
 		        	Node hijo = new Node("Piso");
-	    			hijo=cargarModelo(textures + model.getValue() + "_Piso.3ds");
+	    			hijo=cargarModelo(textures + model.getValue()+ "_piso.3ds");
 	    			Quaternion q = hijo.getLocalRotation();
 	    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 	    			hijo.setLocalRotation(q);
-	    			hijo.setLocalScale(scale);
-	    			world.attachChild(hijo);  
+	    			world.attachChild(hijo);   			
+	    			
 		        	parseNode(world, node);
+		        	        	
+		        	hijo.setModelBound(null);
+		        	hijo.updateModelBound();
+		        	
 		        	BlendState as = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
 		            as.setBlendEnabled(false);
 		            as.setTestEnabled(true);
 		            as.setTestFunction(BlendState.TestFunction.GreaterThan);
 		            as.setReference(0.5f);
 		            as.setEnabled(true);		                  
-		            world.setRenderState(as); 
+		            nodeRoot.setRenderState(as); 
+		        	
+		        	nodeRoot.attachChild(world);	        	
+		        	
 		        }
 		  
 			} catch (JDOMException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}			
+			}
 		}
 	}
 	
@@ -420,8 +427,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		if(list!=null)
 			for(i=list.iterator();i.hasNext(); ){
 				e=(Element) i.next();
-				Quaternion param1=parseQuaternion(e.getChildren("quaternion"));
-				child.setLocalRotation(param1);
+				Rotation=parseQuaternion(e.getChildren("quaternion"));
+				//Quaternion param1=parseQuaternion(e.getChildren("quaternion"));
+				//child.setLocalRotation(param1);
 			}
 		list=node.getChildren("localScaleFloat");
 		if(list!=null)
@@ -442,8 +450,8 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		if(list!=null)
 			for(i=list.iterator();i.hasNext(); ){
 				e=(Element) i.next();
-				Vector3f param1=parseVector3f(e.getChildren("vector3f"));
-				child.setLocalTranslation(param1);
+				initialPosition=parseVector3f(e.getChildren("vector3f"));
+				child.setLocalTranslation(initialPosition);
 			}
 		list=node.getChildren("localTranslationFloat");
 		if(list!=null)
