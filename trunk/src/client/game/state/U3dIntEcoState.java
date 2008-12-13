@@ -80,6 +80,10 @@ public class U3dIntEcoState extends U3dState {
 	}
 	
 	private void initializeWorld() {
+		//this.world = (World) DataManager.getInstance().getWorld(EWorld.Battle);
+		//this.world.setModelBound(new BoundingBox());
+		//this.world.updateModelBound();
+		//this.world.updateWorldBound();
 		builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml");
 		builder.buildWorld(this.rootNode);
 	}
