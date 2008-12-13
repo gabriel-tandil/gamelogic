@@ -23,7 +23,6 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-
 import client.game.Game;
 import client.game.PersonaDae;
 import client.game.controller.ControllerManagerFactory;
@@ -54,9 +53,9 @@ import com.jme.bounding.OrientedBoundingBox;
 import com.jme.image.Texture;
 import com.jme.input.KeyInput;
 import com.jme.math.LineSegment;
+import com.jme.math.Matrix3f;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
-import com.jme.math.Matrix3f;
 import com.jme.renderer.AbstractCamera;
 import com.jme.renderer.Camera;
 import com.jme.renderer.ColorRGBA;
@@ -153,7 +152,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			createView(worldEntity);
 
 		//Player:2
-		Node player = new Node("Player");
+		Node player = new Node("Player"); 
 		getPlayer(player);
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
@@ -181,23 +180,16 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 	}
 	
-	private void getPlayer(Node node)
-	{
+	private void getPlayer(Node node) {
+		
 		PersonaDae p = new PersonaDae(node);
-    	p.setPaquete("jmetest/data/model/collada/");
-    	p.setPersonaje("jmetest/data/model/collada/man.dae");
-    	p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
-    	p.cargar();
-    	p.setModelBound(new BoundingBox());
-    	Quaternion q1 = new Quaternion(); 
-    	q1 = q1.fromAngleAxis((float)-Math.PI/2, new Vector3f(0,0,1));    	
-    	Quaternion q2 = new Quaternion();
-    	q2 = q2.fromAngleAxis((float)-Math.PI/2, new Vector3f(0,1,0));
-    	p.setLocalRotation(q1.mult(q2));
-    	p.setLocalScale(0.8f);  
-    	
-    	node.attachChild(p);
-    	node.updateWorldBound();
+		p.setPaquete("jmetest/data/model/collada/");
+		p.setPersonaje("jmetest/data/model/collada/man.dae");
+		p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
+		p.cargar();
+		p.setModelBound(new BoundingBox());
+		p.setLocalScale(0.8f);
+
 	}
 	
     private Skybox setupSky() {
