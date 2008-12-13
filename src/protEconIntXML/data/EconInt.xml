@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map>
 	<texture text= "protEconIntXML/images/"></texture>
-	<cantPartes int = "118"></cantPartes>
+	<cantPartes int = "128"></cantPartes>
 	
 	<node model="ECONInt">
 		<localScaleFloat param1="0.5" /> 
