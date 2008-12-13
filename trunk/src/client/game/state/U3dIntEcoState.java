@@ -3,9 +3,7 @@ package client.game.state;
 import java.util.HashMap;
 
 import client.game.U3DChaseCamera;
-import client.game.task.TaskManagerFactory;
-import client.game.task.U3DChangeToIntEcoTaskFactory;
-import client.game.task.U3dChangeToIntEco;
+import client.game.task.U3dChangeToExterior;
 import client.game.view.U3dPlayerView;
 import client.manager.TaskManager;
 
@@ -22,7 +20,7 @@ import com.jme.scene.Spatial;
 import com.jme.scene.state.LightState;
 import com.jme.system.DisplaySystem;
 
-public class U3dExteriorState extends U3dState {
+public class U3dIntEcoState extends U3dState {
 	
 	private XMLWorldBuilder builder;
 
@@ -33,18 +31,17 @@ public class U3dExteriorState extends U3dState {
 	private Spatial player;
 
 
-	public U3dExteriorState(String name) {
+	public U3dIntEcoState(String name) {
 		super(name);
 	}
 	
 	public void initialize() {
 		if (!this.initialized) {
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());		
-			KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
 			this.initializeLight();
 			this.initializeWorld();
 
-		this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
+			this.initializeCamera((U3dPlayerView) this.rootNode
+					.getChild("player_View"));
 
 			// Habilitar esta opción si se quierer probar la ejecución de la
 			// tarea.
@@ -58,6 +55,9 @@ public class U3dExteriorState extends U3dState {
 			 */
 
 			this.initialized = true;
+			
+			KeyBindingManager.getKeyBindingManager().set("change",
+					KeyInput.KEY_L);
 
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
@@ -84,8 +84,8 @@ public class U3dExteriorState extends U3dState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		//builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml");
-		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml", new Vector3f(0.000000f, 0.500000f, 850.00000f));
+		builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml", new Vector3f(450.000000f, 0.500000f, -300.00000f));
+		//builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
 		builder.buildWorld(this.rootNode);
 	}
 
@@ -126,9 +126,8 @@ public class U3dExteriorState extends U3dState {
         Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
-		
 		if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
-			U3dChangeToIntEco task =(U3dChangeToIntEco) TaskManager.getInstance().createTask("4");
+			U3dChangeToExterior task =(U3dChangeToExterior) TaskManager.getInstance().createTask("3");
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
 		}

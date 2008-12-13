@@ -157,13 +157,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
 				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
-		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
-			createView(playerEntity);
+		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().createView(playerEntity);
 		//playerView.setLocalTranslation(new Vector3f(450.000000f, 0.500000f, -300.00000f));
 		//playerView.setLocalTranslation(new Vector3f(0.000000f, 0.500000f, 850.00000f));
 		playerView.setLocalTranslation(this.localTranslation);
-		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
-			getInstance().createController(playerEntity);
+		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
 		worldView.attachChild(campus);
 		KeyInput.get().addListener(controllerPlayer);
