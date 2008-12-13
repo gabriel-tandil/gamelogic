@@ -119,8 +119,9 @@ import common.datatypes.Skin;
 public class XMLWorldBuilder implements IWorldBuilder {
 
 	private String url;
-	
-	public XMLWorldBuilder(String urlxml){
+	private Vector3f localTranslation;
+	public XMLWorldBuilder(String urlxml, Vector3f localTranslation){
+		this.localTranslation = localTranslation;
 		this.url = urlxml;
 	}
 
@@ -158,8 +159,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
-		playerView.setLocalTranslation(new Vector3f(450.000000f, 0.500000f, -300.00000f));
+		//playerView.setLocalTranslation(new Vector3f(450.000000f, 0.500000f, -300.00000f));
 		//playerView.setLocalTranslation(new Vector3f(0.000000f, 0.500000f, 850.00000f));
+		playerView.setLocalTranslation(this.localTranslation);
 		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
 			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);

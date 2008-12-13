@@ -14,6 +14,10 @@ import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.model.collada.ColladaImporter;
 
 public class PersonaDae extends Node {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private AnimationController ac;
 	private Bone skel;
 	private SkinNode sn;
