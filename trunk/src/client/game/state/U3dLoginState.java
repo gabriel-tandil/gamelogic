@@ -15,20 +15,17 @@ import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
-import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Quad;
-import com.jme.scene.state.BlendState;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jme.util.geom.BufferUtils;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
-import com.jmex.game.state.BasicGameState;
 
-public class U3dLoginState extends BasicGameState {
+public class U3dLoginState extends U3dState {
     private int textureWidth;
     // initialize texture height
     private int textureHeight;
@@ -135,8 +132,8 @@ public class U3dLoginState extends BasicGameState {
         hudQuad.setLightCombineMode(Spatial.LightCombineMode.Off);
         hudQuad.updateRenderState();
 
-HudManager.getInstance().addHud(hudQuad);
-HudManager.getInstance().update();
+		HudManager.getInstance().addHud(hudQuad);
+		HudManager.getInstance().update();
 	}
     private float getUForPixel(int xPixel) {
         return (float) xPixel / textureWidth;
@@ -145,4 +142,22 @@ HudManager.getInstance().update();
     private float getVForPixel(int yPixel) {
         return 1f - (float) yPixel / textureHeight;
     }
+
+	@Override
+	public void initializeState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateState(float interpolation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public WorldGameState getWorld() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

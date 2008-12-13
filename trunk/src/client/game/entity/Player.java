@@ -5,14 +5,10 @@
 package client.game.entity;
 
 import java.util.Hashtable;
-import common.datatypes.PlayerState;
-import common.datatypes.Quest;
-import common.datatypes.Skin;
-
-import java.util.Set;
 
 import com.jme.math.Vector3f;
 import common.datatypes.PlayerState;
+import common.datatypes.Skin;
 
 /** 
  * @author Cristian Calomino

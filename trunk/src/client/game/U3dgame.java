@@ -1,7 +1,9 @@
 package client.game;
 
 import client.game.state.U3dExteriorState;
+import client.game.state.U3dIntEcoState;
 import client.game.state.U3dLoginState;
+import client.game.state.U3dState;
 import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
 import client.manager.EntityManager;
@@ -15,13 +17,11 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 import com.jme.renderer.ColorRGBA;
 import com.jme.renderer.Renderer;
-import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
 import com.jme.util.GameTaskQueue;
 import com.jme.util.GameTaskQueueManager;
 import com.jme.util.NanoTimer;
 import com.jme.util.geom.Debugger;
-import com.jmex.game.state.GameState;
 import com.jmex.game.state.GameStateManager;
 
 public class U3dgame extends Game {
@@ -95,31 +95,35 @@ public class U3dgame extends Game {
 	
 
 	protected void initHotKeys() {
-		KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
 		KeyBindingManager.getKeyBindingManager().set("exit", KeyInput.KEY_ESCAPE);
 	}
 
 	protected void initGame() {
-		//U3dLoginState login = new U3dLoginState();
-		//this.getGamestatemanager().attachChild(login);
-        //login.setActive(true);
-        //login.initialize();
-		
-       U3dLoginState login = new U3dLoginState("login");
-       this.getGameStateManager().attachChild(login);
-       login.setActive(true);
-        login.initialize();
-        U3dExteriorState campus = new U3dExteriorState("U3dExteriorState");
-        this.getGameStateManager().attachChild(campus);
-        campus.setActive(false);
-      //  campus.initialize();
-/*       
-        U3dEndState end = new U3dEndState();
-        end.setActive(false);
-        this.getGameStateManager().attachChild(end);*/
+		// U3dLoginState login = new U3dLoginState();
+		// this.getGamestatemanager().attachChild(login);
+		// login.setActive(true);
+		// login.initialize();
 
-        // login immediately with the current system time as the login name
-       // TaskManager.getInstance().createTask("U3dSetupPlayerTask.class");
+		U3dLoginState login = new U3dLoginState("login");
+		this.getGameStateManager().attachChild(login);
+		login.setActive(true);
+		login.initialize();
+		
+		U3dExteriorState exterior = new U3dExteriorState("Exterior");
+		this.getGameStateManager().attachChild(exterior);
+		exterior.setActive(false);
+		
+		U3dIntEcoState eco = new U3dIntEcoState("Eco");
+		this.getGameStateManager().attachChild(eco);
+		eco.setActive(false);
+		
+		/*
+		 * U3dEndState end = new U3dEndState(); end.setActive(false);
+		 * this.getGameStateManager().attachChild(end);
+		 */
+
+		// login immediately with the current system time as the login name
+		// TaskManager.getInstance().createTask("U3dSetupPlayerTask.class");
 	}
 
 	protected void update(float arg0) {
@@ -142,11 +146,6 @@ public class U3dgame extends Game {
 		ViewManager.getInstance().update(this.intervalo);
 		
 		this.gameStateManager.update(this.intervalo);
-		
-		if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false))
-		{
-			
-		}
 		if(KeyBindingManager.getKeyBindingManager().isValidCommand("exit", false)) 
 			this.finish();
 		
@@ -157,7 +156,7 @@ public class U3dgame extends Game {
 		r.clearBuffers();
 		GameTaskQueueManager.getManager().getQueue(GameTaskQueue.RENDER).execute();
         if ( dibujaBounds ) {
-            Debugger.drawBounds( ((U3dExteriorState)gameStateManager.getChild("U3dExteriorState")).getRootNode(), r, true );
+            Debugger.drawBounds( ((U3dState)gameStateManager.getChild("Exterior")).getRootNode(), r, true );
         }
 		this.gameStateManager.render(arg0);
 	}

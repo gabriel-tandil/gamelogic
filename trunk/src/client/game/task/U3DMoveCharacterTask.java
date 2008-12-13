@@ -1,13 +1,16 @@
 package client.game.task;
 
+import java.util.ArrayList;
+
 import client.game.entity.Player;
-import client.game.state.U3dExteriorState;
+import client.game.state.U3dState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
 import client.manager.ViewManager;
 
 import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
+import com.jmex.game.state.GameState;
 import com.jmex.game.state.GameStateManager;
 import common.datatypes.PlayerState;
 
@@ -70,34 +73,47 @@ public class U3DMoveCharacterTask extends Task {
 			origin.set(position.x,position.y, position.z);
 			destine.set(direction.x+position.x,direction.y+position.y,direction.z+position.z);
 			
-			U3dExteriorState a=((U3dExteriorState)GameStateManager.getInstance().getChild("U3dExteriorState"));
+			ArrayList<GameState> states = GameStateManager.getInstance().getChildren();
+			U3dState aux = null;
+			for(int i =0; i < states.size(); i++){
+				aux = (U3dState)states.get(i);
+				if(aux.isActive())
+					break;
+			}
 			
+			if (aux != null) {
 
-			//a.getRootNode().detachChild(view);
-			Vector3f destination = CollisionManager.getInstace().getDestination(origin, destine,a.getRootNode().getChild(0));
-			//a.getRootNode().attachChild(view);
-			if (destination != null) {
-				if((origin.x==destination.x)&&(origin.z==destination.z)) destination=destine;
-				if(((origin.x-destine.x>0)&&(destination.x-origin.x>0))) destination.x=origin.x;//X --->
-				if(((origin.x-destine.x<0)&&(destination.x-origin.x<0))) destination.x=origin.x;//X <----
-				if(((origin.z-destine.z>0)&&(destination.z-origin.z>0))) destination.z=origin.z;//Z --->
-				if(((origin.z-destine.z<0)&&(destination.z-origin.z<0))) destination.z=origin.z;//Z <----
-					
-					Vector3f lcoal =position.clone();
+				// a.getRootNode().detachChild(view);
+				Vector3f destination = CollisionManager.getInstace()
+						.getDestination(origin, destine,
+								aux.getRootNode().getChild(0));
+				// a.getRootNode().attachChild(view);
+				if (destination != null) {
+					if ((origin.x == destination.x)	&& (origin.z == destination.z))
+						destination = destine;
+					if (((origin.x - destine.x > 0) && (destination.x - origin.x > 0)))
+						destination.x = origin.x;// X --->
+					if (((origin.x - destine.x < 0) && (destination.x - origin.x < 0)))
+						destination.x = origin.x;// X <----
+					if (((origin.z - destine.z > 0) && (destination.z - origin.z > 0)))
+						destination.z = origin.z;// Z --->
+					if (((origin.z - destine.z < 0) && (destination.z - origin.z < 0)))
+						destination.z = origin.z;// Z <----
+
+					Vector3f lcoal = position.clone();
 					direction = destination.subtract(lcoal);
 					direction.normalizeLocal();
-					
-					
-					
+
 					Vector3f force = direction.multLocal(movement);
 					this.character.getForce().addLocal(force);
-					
+
 					PhysicsManager.getInstance().markForUpdate(this.character);
 					// Step 9.
-					PlayerState ps= new PlayerState();
+					PlayerState ps = new PlayerState();
 					ps.setState(PlayerState.STATE_MOVING);
 					this.character.setState(ps);
-					
+
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

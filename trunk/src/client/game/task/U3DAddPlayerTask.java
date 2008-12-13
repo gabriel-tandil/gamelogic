@@ -48,7 +48,7 @@ public class U3DAddPlayerTask extends Task {
 		Vector3f position = new Vector3f(this.x, 5, this.z);
 		
 		U3dExteriorState state = (U3dExteriorState)GameStateManager.getInstance().
-			getChild("U3dExteriorState");
+			getChild("Exterior");
 		
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player1", Vector3f.ZERO.clone(), 8, new Hashtable<String,
