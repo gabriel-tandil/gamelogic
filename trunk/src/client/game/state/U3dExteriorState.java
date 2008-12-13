@@ -44,7 +44,7 @@ public class U3dExteriorState extends U3dState {
 			this.initializeLight();
 			this.initializeWorld();
 
-		this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
+			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
 			// Habilitar esta opción si se quierer probar la ejecución de la
 			// tarea.
@@ -84,7 +84,6 @@ public class U3dExteriorState extends U3dState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		//builder = new XMLWorldBuilder("protEconIntXML/data/EconInt.xml");
 		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
 		builder.buildWorld(this.rootNode);
 	}
