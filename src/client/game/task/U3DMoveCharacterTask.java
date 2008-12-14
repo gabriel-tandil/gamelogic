@@ -3,7 +3,6 @@ package client.game.task;
 import java.util.ArrayList;
 
 import client.game.entity.Player;
-import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
@@ -82,12 +81,9 @@ public class U3DMoveCharacterTask extends Task {
 					break;
 			}
 			if (aux != null) {
-
-				// a.getRootNode().detachChild(view);
 				Vector3f destination = CollisionManager.getInstace()
 						.getDestination(origin, destine,
 								aux.getRootNode().getChild(0));
-				// a.getRootNode().attachChild(view);
 				if (destination != null) {
 					if ((origin.x == destination.x)	&& (origin.z == destination.z))
 						destination = destine;
