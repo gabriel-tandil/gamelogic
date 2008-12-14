@@ -4,14 +4,13 @@ import java.util.Hashtable;
 
 import client.game.entity.IDynamicEntity;
 import client.game.entity.Player;
+import client.game.entity.U3DPlayer;
 import client.game.task.U3DMoveCharacterTask;
 import client.game.task.U3DRotateCharacterTask;
 import client.manager.TaskManager;
-import client.manager.ViewManager;
 
 import com.jme.input.KeyInput;
 import com.jme.input.KeyInputListener;
-import com.jme.scene.Spatial;
 
 public class U3DPlayerController extends Controller implements KeyInputListener {
 
@@ -53,7 +52,8 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 			boolean corriendo=flags.contains(KeyInput.KEY_LSHIFT);
 			task.initTask(player, false, adelante,corriendo);
 			TaskManager.getInstance().enqueue(task);
-		}
+			((U3DPlayer)player).isMoving(true, corriendo);
+		}else ((U3DPlayer)player).isMoving(false, false);
 
 	}
 
