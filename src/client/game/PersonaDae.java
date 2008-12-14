@@ -113,7 +113,11 @@ public class PersonaDae extends Node {
 	        skel.addController(ac);
         }
     }     
-    public void mover(boolean state, boolean run){
+    public void mover(boolean state, boolean run, boolean forward){
+    	if(forward)
+    		this.skel.getController(0).setRepeatType(Controller.RT_WRAP);
+    	else
+    		this.skel.getController(0).setRepeatType(Controller.RT_BACK);
     	this.skel.getController(0).setActive(state);
     	this.run(run);
     }

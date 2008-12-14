@@ -15,7 +15,7 @@ public class U3DPlayer extends Player {
 		this.p=p;
 	}
 	
-	public void isMoving(boolean state, boolean running){
-		p.mover(state,running);
+	public void isMoving(boolean state, boolean running, boolean forward){
+		p.mover(state,running, forward);
 	}
 }
