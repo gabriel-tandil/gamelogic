@@ -100,7 +100,7 @@ public class U3DMoveCharacterTask extends Task {
 					direction = destination.subtract(lcoal);
 					direction.normalizeLocal();
 
-					//aux.updateCamera(direction);
+					aux.updateCamera(direction);
 
 					Vector3f force = direction.multLocal(movement);
 					this.character.getForce().addLocal(force);
