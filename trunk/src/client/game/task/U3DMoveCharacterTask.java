@@ -81,7 +81,6 @@ public class U3DMoveCharacterTask extends Task {
 				if(aux.isActive())
 					break;
 			}
-			
 			if (aux != null) {
 
 				// a.getRootNode().detachChild(view);
@@ -104,6 +103,8 @@ public class U3DMoveCharacterTask extends Task {
 					Vector3f lcoal = position.clone();
 					direction = destination.subtract(lcoal);
 					direction.normalizeLocal();
+
+					aux.updateCamera(direction);
 
 					Vector3f force = direction.multLocal(movement);
 					this.character.getForce().addLocal(force);
