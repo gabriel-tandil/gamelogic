@@ -3,6 +3,7 @@ package client.game.task;
 import java.util.ArrayList;
 
 import client.game.entity.Player;
+import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
@@ -74,9 +75,9 @@ public class U3DMoveCharacterTask extends Task {
 			destine.set(direction.x+position.x,direction.y+position.y,direction.z+position.z);
 			
 			ArrayList<GameState> states = GameStateManager.getInstance().getChildren();
-			WorldGameState aux = null;
+			U3dState aux = null;
 			for(int i =0; i < states.size(); i++){
-				aux = (WorldGameState)states.get(i);
+				aux = (U3dState)states.get(i);
 				if(aux.isActive())
 					break;
 			}
