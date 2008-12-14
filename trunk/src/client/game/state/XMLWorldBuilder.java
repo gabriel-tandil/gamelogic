@@ -4,9 +4,6 @@
 package client.game.state;
 
 
-
-
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -142,7 +139,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		
 		//Edificio:1
         Node campus = new Node("Campus");
-		getWorld(campus);	
+		getWorld(campus);
 		campus.setLocalScale(0.3f);
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
 			getInstance().createEntity("1");
@@ -161,11 +158,13 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				new PlayerState());
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
+
 		if (initialPosition!=null)
 			playerView.setLocalTranslation(initialPosition);
 		if(Rotation!=null)
 			if(Rotation.w!=0 || Rotation.x!=0 || Rotation.y!=0 || Rotation.z!=0)
 				playerView.setLocalRotation(Rotation);
+
 		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
 			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
@@ -194,6 +193,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	
     private Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
+
         try {
 			ResourceLocatorTool.addResourceLocator(
 			        ResourceLocatorTool.TYPE_TEXTURE,
@@ -272,7 +272,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	    			world.attachChild(hijo);   			
 	    			
 		        	parseNode(world, node);
-		        	        	
+		        	world.setName("TestWorld");     	
 		        	hijo.setModelBound(null);
 		        	hijo.updateModelBound();
 		        	
@@ -297,17 +297,17 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 	
 	public Node cargarModelo(String modelFile){
-		Node			loadedModel	= null;
-		FormatConverter		formatConverter = null;		
-		ByteArrayOutputStream 	BO 		= new ByteArrayOutputStream();
-		String			modelFormat 	= modelFile.substring(modelFile.lastIndexOf(".") + 1, modelFile.length());
-		String			modelBinary	= modelFile.substring(0, modelFile.lastIndexOf(".") + 1) + "jbin";
-		URL			modelURL	= ModelLoader.class.getClassLoader().getResource(modelBinary);
+		Node loadedModel	= null;
+		FormatConverter	formatConverter = null;		
+		ByteArrayOutputStream BO = new ByteArrayOutputStream();
+		String modelFormat = modelFile.substring(modelFile.lastIndexOf(".") + 1, modelFile.length());
+		String modelBinary = modelFile.substring(0, modelFile.lastIndexOf(".") + 1) + "jbin";
+		URL modelURL = ModelLoader.class.getClassLoader().getResource(modelBinary);
  
 		//verify the presence of the jbin model
 		if (modelURL == null){
  
-			modelURL		= ModelLoader.class.getClassLoader().getResource(modelFile);
+			modelURL = ModelLoader.class.getClassLoader().getResource(modelFile);
  
 			//evaluate the format
 			if (modelFormat.equals("3ds")){
