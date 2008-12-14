@@ -1,15 +1,21 @@
 package client.game.entity;
 
-import java.util.Hashtable;
-
-import com.jme.math.Vector3f;
-import common.datatypes.PlayerState;
-import common.datatypes.Skin;
+import client.game.PersonaDae;
 
 public class U3DPlayer extends Player {
 
+	private PersonaDae p;
+	
 	public U3DPlayer(String theTipo)
 	{
 		super(theTipo);
+	}
+	
+	public void setDae(PersonaDae p){
+		this.p=p;
+	}
+	
+	public void isMoving(boolean state, boolean running){
+		p.mover(state,running);
 	}
 }
