@@ -113,7 +113,13 @@ public class PersonaDae extends Node {
 	        skel.addController(ac);
         }
     }     
-    public void mover(){
-    	this.skel.getController(0).setActive(true);
+    public void mover(boolean state, boolean run){
+    	this.skel.getController(0).setActive(state);
+    	this.run(run);
+    }
+    
+    private void run(boolean running){
+    	if(running) this.skel.getController(0).setSpeed(2);
+    	else this.skel.getController(0).setSpeed(1);
     }
 }
