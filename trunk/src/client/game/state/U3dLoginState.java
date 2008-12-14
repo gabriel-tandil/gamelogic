@@ -163,9 +163,11 @@ public class U3dLoginState extends U3dState {
 		
 	}
 
-	@Override
+
 	public WorldGameState getWorld() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void updateCamera(Vector3f direction) {}
 }
