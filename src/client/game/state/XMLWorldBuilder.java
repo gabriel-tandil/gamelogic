@@ -4,6 +4,9 @@
 package client.game.state;
 
 
+
+
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -139,7 +142,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		
 		//Edificio:1
         Node campus = new Node("Campus");
-		getWorld(campus);
+		getWorld(campus);	
 		campus.setLocalScale(0.3f);
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
 			getInstance().createEntity("1");
@@ -150,21 +153,20 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 		//Player:2
 		Node player = new Node("Player"); 
-		getPlayer(player);
+		PersonaDae p=getPlayer(player);
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
 				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
+		playerEntity.setDae(p);
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
-
 		if (initialPosition!=null)
 			playerView.setLocalTranslation(initialPosition);
 		if(Rotation!=null)
 			if(Rotation.w!=0 || Rotation.x!=0 || Rotation.y!=0 || Rotation.z!=0)
 				playerView.setLocalRotation(Rotation);
-
 		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
 			getInstance().createController(playerEntity);
 		controllerPlayer.setActive(true);
@@ -179,8 +181,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 	}
 	
-	private void getPlayer(Node node) {
-		
+	private PersonaDae getPlayer(Node node) {
 		PersonaDae p = new PersonaDae(node);
 		p.setPaquete("jmetest/data/model/collada/");
 		p.setPersonaje("jmetest/data/model/collada/man.dae");
@@ -188,12 +189,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		p.cargar();
 		p.setModelBound(new BoundingBox());
 		p.setLocalScale(0.8f);
-
+		return p;
 	}
 	
     private Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
-
         try {
 			ResourceLocatorTool.addResourceLocator(
 			        ResourceLocatorTool.TYPE_TEXTURE,
@@ -272,7 +272,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	    			world.attachChild(hijo);   			
 	    			
 		        	parseNode(world, node);
-		        	world.setName("TestWorld");     	
+		        	        	
 		        	hijo.setModelBound(null);
 		        	hijo.updateModelBound();
 		        	
@@ -297,17 +297,17 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 	
 	public Node cargarModelo(String modelFile){
-		Node loadedModel	= null;
-		FormatConverter	formatConverter = null;		
-		ByteArrayOutputStream BO = new ByteArrayOutputStream();
-		String modelFormat = modelFile.substring(modelFile.lastIndexOf(".") + 1, modelFile.length());
-		String modelBinary = modelFile.substring(0, modelFile.lastIndexOf(".") + 1) + "jbin";
-		URL modelURL = ModelLoader.class.getClassLoader().getResource(modelBinary);
+		Node			loadedModel	= null;
+		FormatConverter		formatConverter = null;		
+		ByteArrayOutputStream 	BO 		= new ByteArrayOutputStream();
+		String			modelFormat 	= modelFile.substring(modelFile.lastIndexOf(".") + 1, modelFile.length());
+		String			modelBinary	= modelFile.substring(0, modelFile.lastIndexOf(".") + 1) + "jbin";
+		URL			modelURL	= ModelLoader.class.getClassLoader().getResource(modelBinary);
  
 		//verify the presence of the jbin model
 		if (modelURL == null){
  
-			modelURL = ModelLoader.class.getClassLoader().getResource(modelFile);
+			modelURL		= ModelLoader.class.getClassLoader().getResource(modelFile);
  
 			//evaluate the format
 			if (modelFormat.equals("3ds")){
