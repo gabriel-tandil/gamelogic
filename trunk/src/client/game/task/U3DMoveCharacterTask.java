@@ -67,7 +67,7 @@ public class U3DMoveCharacterTask extends Task {
 			Vector3f destine=new Vector3f();
 			Spatial view = (Spatial)ViewManager.getInstance().getView(this.character);
 			Vector3f direction=view.getLocalRotation().getRotationColumn(0);
-			if(!adelante)direction=direction.mult(-1);
+			if(adelante)direction=direction.mult(-1);
 			Vector3f position=view.getLocalTranslation();
 			
 			origin.set(position.x,position.y, position.z);

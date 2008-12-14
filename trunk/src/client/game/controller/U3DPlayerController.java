@@ -22,7 +22,7 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 	@Override
 	public void updateLogic(float interpolation) {
 		Player player = (Player) this.getIDynamicEntity();
-		boolean adelante=true;
+		boolean forward=false;
 		boolean move=false;
 		float rot=0;
 		if (flags.contains(KeyInput.KEY_D))
@@ -32,11 +32,11 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 
 		if (flags.contains(KeyInput.KEY_S)){
 			move=true;
-			adelante=true;
+			forward=false;
 		}	
 		if (flags.contains(KeyInput.KEY_W)){
 			move=true;
-			adelante=false;
+			forward=true;
 		}
 		if(rot!=0){
 			U3DRotateCharacterTask task = (U3DRotateCharacterTask) TaskManager
@@ -50,10 +50,10 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 					.getInstance().createTask("1");
 
 			boolean corriendo=flags.contains(KeyInput.KEY_LSHIFT);
-			task.initTask(player, false, adelante,corriendo);
+			task.initTask(player, false, forward,corriendo);
 			TaskManager.getInstance().enqueue(task);
-			((U3DPlayer)player).isMoving(true, corriendo);
-		}else ((U3DPlayer)player).isMoving(false, false);
+			((U3DPlayer)player).isMoving(true, corriendo, forward);
+		}else ((U3DPlayer)player).isMoving(false, false, forward);
 
 	}
 
