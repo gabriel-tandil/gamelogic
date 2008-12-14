@@ -272,7 +272,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	    			world.attachChild(hijo);   			
 	    			
 		        	parseNode(world, node);
-		        	        	
+		        	world.setName("TestWorld");      	
 		        	hijo.setModelBound(null);
 		        	hijo.updateModelBound();
 		        	
