@@ -265,7 +265,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		    		   	world.attachChild(hijo);		    			
 		    		}  	
 		        	Node hijo = new Node("Piso");
-	    			hijo=cargarModelo(textures + model.getValue()+ "_piso.3ds");
+	    			hijo=cargarModelo(textures + model.getValue()+ "_Piso.3ds");
 	    			Quaternion q = hijo.getLocalRotation();
 	    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 	    			hijo.setLocalRotation(q);
