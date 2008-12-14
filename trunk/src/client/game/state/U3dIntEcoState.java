@@ -15,6 +15,7 @@ import com.jme.light.PointLight;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.ColorRGBA;
+import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
 import com.jme.scene.state.LightState;
@@ -27,8 +28,6 @@ public class U3dIntEcoState extends U3dState {
 	private boolean initialized;
 	
 	private U3DChaseCamera chaser;
-	
-	private Spatial player;
 
 
 	public U3dIntEcoState(String name) {
@@ -96,15 +95,15 @@ public class U3dIntEcoState extends U3dState {
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
 		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
 		props.put(ChaseCamera.PROP_TARGETOFFSET, targetOffset);
-		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, "" + 30 * FastMath.DEG_TO_RAD);
+		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, "" + 25 * FastMath.DEG_TO_RAD);
 		props.put(ThirdPersonMouseLook.PROP_MINASCENT, "" + 0);
-		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(20, 0, 
-				30 * FastMath.DEG_TO_RAD));
+		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(15, 0, 
+				25 * FastMath.DEG_TO_RAD));
 
 		chaser = new U3DChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
 				getCamera(), playerView, props);
-		chaser.setMaxDistance(90);
-		chaser.setMinDistance(60);	
+		chaser.setMaxDistance(60);
+		chaser.setMinDistance(40);	
 	}
 	
 	public void initializeState() {
@@ -144,8 +143,13 @@ public class U3dIntEcoState extends U3dState {
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;
 	}
- 
-	public void setPlayer(Spatial node) {
-		player = node;
+	
+	public void updateCamera(Vector3f direction) {
+		boolean intersects = false;
+		Spatial worldView = this.rootNode.getChild("world_View");
+		Spatial campus = ((Node)worldView).getChild("Campus");
+		Spatial world = ((Node)campus).getChild("TestWorld");
+		intersects = chaser.verifyIntersection(world, direction);
+//		System.out.println(intersects);
 	}
 }
