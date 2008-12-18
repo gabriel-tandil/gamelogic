@@ -96,7 +96,5 @@ public abstract class WorldGameState extends BasicGameState implements
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public abstract void updateState(float interpolation);
-	
-	public abstract void updateCamera(Vector3f direction);
 		
 }
