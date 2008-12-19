@@ -2,7 +2,7 @@ package client.game.state;
 
 import java.util.HashMap;
 
-import client.game.U3DChaseCamera;
+import client.game.input.U3DChaseCamera;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DChangeToIntEcoTaskFactory;
 import client.game.task.U3dChangeToIntEco;
@@ -45,9 +45,9 @@ public class U3dExteriorState extends U3dState {
 
 			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
-			// Habilitar esta opción si se quierer probar la ejecución de la
+			// Habilitar esta opciï¿½n si se quierer probar la ejecuciï¿½n de la
 			// tarea.
-			// Deshabilitar el método anterior initializeCamera(..)
+			// Deshabilitar el mï¿½todo anterior initializeCamera(..)
 			// Desabilitar el controlador del player (setActive(false)) en
 			// XMLWorldBuilder.
 
