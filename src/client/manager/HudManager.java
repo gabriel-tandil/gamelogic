@@ -1,25 +1,47 @@
 package client.manager;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 
-import com.jme.scene.Node;
-import com.jme.scene.Spatial;
+import client.game.U3dgame;
+
+import com.jme.app.SimpleGame;
+import com.jme.input.FirstPersonHandler;
+import com.jme.input.MouseInput;
+import com.jme.renderer.Camera;
+import com.jme.system.DisplaySystem;
+import com.jme.util.Timer;
+import com.jmex.bui.BStyleSheet;
+import com.jmex.bui.BuiSystem;
+import com.jmex.bui.PolledRootNode;
+import com.jmex.bui.provider.DefaultResourceProvider;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
 public class HudManager implements IHudManager {
 	private static HudManager instance=null;
-	private Node huds;
-	
+	protected PolledRootNode _root;
+	BStyleSheet style = null;
 	public HudManager() {
-		this.huds = new Node("huds");
+		
 	}
 
 	public static HudManager getInstance(){
 		if(instance==null) instance=new HudManager();
 		return instance;
 	}
+	public void initialize(Timer timer){
+
 	
+        BuiSystem.init(new PolledRootNode(timer), "/HUD/style2.bss");
+        _root  = (PolledRootNode) BuiSystem.getRootNode();
+		MouseInput.get().setCursorVisible(true);
+
+
+			style = BuiSystem.getStyle();
+	}
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
@@ -32,19 +54,23 @@ public class HudManager implements IHudManager {
 		for (Iterator iterator =GameStateManager.getInstance().getChildren().iterator(); iterator.hasNext();) {
 			BasicGameState gs= (BasicGameState) iterator.next();
 			if (gs.isActive()){
-				gs.getRootNode().attachChild(huds);
+				gs.getRootNode().attachChild(_root);
 			}
 			else{
-				gs.getRootNode().detachChild(huds);
+				gs.getRootNode().detachChild(_root);
 			}
+			_root.updateGeometricState(0.0f, true);
+			_root.updateRenderState();
 		}
 
 	}
-	public void addHud(Spatial elHud){
-		huds.attachChild(elHud);
+
+	public PolledRootNode getRoot() {
+		return _root;
 	}
-	public void removeHud(Spatial elHud){
-		huds.detachChild(elHud);
+
+	public BStyleSheet getStyle() {
+		return style;
 	}
 
 }

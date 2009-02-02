@@ -86,10 +86,12 @@ public class U3dgame extends Game {
 		this.gameStateManager.setActive(true);
 
 		setInputManager(InputManager.getInstance());
-		setHudManager(HudManager.getInstance());
+
 		setPhysicsManager(PhysicsManager.getInstance());
 		setTaskManager(TaskManager.getInstance());
 		setViewManager(ViewManager.getInstance());
+		setHudManager(HudManager.getInstance());
+		getHudManager().initialize(timer);
 	}
 	
 	
