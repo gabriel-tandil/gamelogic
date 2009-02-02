@@ -15,6 +15,7 @@ import client.manager.TaskManager;
 import com.jme.image.Texture;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
+import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
 import com.jme.scene.Spatial;
@@ -22,16 +23,38 @@ import com.jme.scene.TexCoords;
 import com.jme.scene.shape.Quad;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
+import com.jme.util.NanoTimer;
 import com.jme.util.TextureManager;
 import com.jme.util.geom.BufferUtils;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
+import com.jmex.bui.BButton;
+import com.jmex.bui.BComponent;
+import com.jmex.bui.BDecoratedWindow;
+import com.jmex.bui.BPasswordField;
+import com.jmex.bui.BRootNode;
+import com.jmex.bui.BScrollingList;
+import com.jmex.bui.BStyleSheet;
+import com.jmex.bui.BTextField;
+import com.jmex.bui.BWindow;
+import com.jmex.bui.BuiSystem;
+import com.jmex.bui.PolledRootNode;
+import com.jmex.bui.event.ActionEvent;
+import com.jmex.bui.event.ActionListener;
+import com.jmex.bui.layout.GroupLayout;
 
 public class U3dLoginState extends U3dState {
     private int textureWidth;
     // initialize texture height
     private int textureHeight;
-	public U3dLoginState(String name) {
+
+    private BWindow login;
+
+	private BTextField userNameField;
+
+	private BComponent passwordField;
+	
+    public U3dLoginState(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
@@ -59,15 +82,19 @@ public class U3dLoginState extends U3dState {
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
 		}
+		rootNode.updateGeometricState(0.0f, true);
+		rootNode.updateRenderState();
 	}
 	
 	public void initialize(){
+
 		TaskManagerFactory.getInstance().add(new U3DChangeToExteriorTaskFactory());		
 		KeyBindingManager.getKeyBindingManager().set("campus", KeyInput.KEY_L);
 		TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());
 		KeyBindingManager.getKeyBindingManager().set("economicas", KeyInput.KEY_K);
-		
-        Quad hudQuad = new Quad("hud", DisplaySystem.getDisplaySystem().getWidth(), DisplaySystem.getDisplaySystem().getHeight());
+		inicializaHUD();		
+
+        Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem().getWidth(), DisplaySystem.getDisplaySystem().getHeight());
         
         // create the texture state to handle the texture
         final TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
@@ -94,7 +121,6 @@ public class U3dLoginState extends U3dState {
         textureHeight = ts.getTexture().getImage().getHeight();
         // activate the texture state
         ts.setEnabled(true); 
-
         // correct texture application:
         final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
         // coordinate (0,0) for vertex 0
@@ -106,43 +132,68 @@ public class U3dLoginState extends U3dState {
         // coordinate (40,0) for vertex 3
         texCoords.put(getUForPixel(800)).put(getVForPixel(0));
         // assign texture coordinates to the quad
-        hudQuad.setTextureCoords(new TexCoords(texCoords));
+        imagenFondo.setTextureCoords(new TexCoords(texCoords));
         // apply the texture state to the quad
-        hudQuad.setRenderState(ts);
-        
-        // to handle texture transparency:
-        // create a blend state
-//        final BlendState bs = display.getRenderer().createBlendState();
-//        // activate blending
-//        bs.setBlendEnabled(true);
-//        // set the source function
-//        bs.setSourceFunctionAlpha(BlendState.SourceFunction.SourceAlpha);
-//        // set the destination function
-//        bs.setDestinationFunctionAlpha(BlendState.DestinationFunction.OneMinusSourceAlpha);
-//        // set the blend equation between source and destination
-//        bs.setBlendEquation(BlendState.BlendEquation.Subtract);
-//        bs.setTestEnabled(false);
-//        // activate the blend state
-//        bs.setEnabled(true);
-        // assign the blender state to the quad
-//        hudQuad.setRenderState(bs);
-           
-        
-        hudQuad.setRenderQueueMode(Renderer.QUEUE_ORTHO);        
+        imagenFondo.setRenderState(ts);
+        imagenFondo.setRenderQueueMode(Renderer.QUEUE_ORTHO);        
+        imagenFondo.setLocalTranslation(new Vector3f(DisplaySystem.getDisplaySystem().getWidth()/2,DisplaySystem.getDisplaySystem().getHeight()/2,0));
+        imagenFondo.setLightCombineMode(Spatial.LightCombineMode.Off);
+        imagenFondo.updateRenderState();
+       
+        rootNode.attachChild(imagenFondo);
 
-        hudQuad.setLocalTranslation(new Vector3f(DisplaySystem.getDisplaySystem().getWidth()/2,DisplaySystem.getDisplaySystem().getHeight()/2,0));
-
-        /* does not work to disable light under v0.10 */
-        // LightState ls = display.getRenderer().createLightState();
-        // ls.setEnabled(false);
-        // hudQuad.setRenderState(ls);
-
-        hudQuad.setLightCombineMode(Spatial.LightCombineMode.Off);
-        hudQuad.updateRenderState();
-
-		HudManager.getInstance().addHud(hudQuad);
 		HudManager.getInstance().update();
 	}
+    private ActionListener listener2 = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+            handleInput(event);
+        }
+    };
+    public void handleInput(ActionEvent event) {
+        String action = event.getAction();
+        if (action.equals("login")) {
+System.out.println("loguear");
+
+U3dChangeToExterior task =(U3dChangeToExterior) TaskManager.getInstance().createTask("3");
+task.initTask();
+TaskManager.getInstance().enqueue(task);
+
+        } else if (action.equals("back")) {
+        	System.out.println("no loguear");
+        }
+    }
+	private void inicializaHUD() {
+        login = new BWindow(HudManager.getInstance().getStyle(), GroupLayout.makeVStretch());
+        
+        userNameField = new BTextField();
+        userNameField.setLocation(470, 285);
+        userNameField.setSize(129, 23);
+        login.add(userNameField);
+        
+        passwordField = new BPasswordField();
+        passwordField.setLocation(475, 330);
+        passwordField.setSize(129, 23);
+        login.add(passwordField);
+
+        //set the size of our login window to 400x400
+        login.setSize(640, 480);
+
+        //create a new BButton called "loginButton" with the display "Login" and an "actionMessage" of "login"
+        BButton loginButton = new BButton("Login", "login");
+
+        //add our listener2 to the loginButton so it knows what to do with the "actionMessage" when the button is clicked
+        loginButton.addListener(listener2);
+
+        //add the loginButton to our login window
+        login.add(loginButton);
+
+        //add our login window to our BRootNode
+         HudManager.getInstance().getRoot().addWindow(login);
+
+        //center our window -- this could go anywhere in the code I simply place it after my addWindow so I remember that I did it
+        login.center();
+     }
+
     private float getUForPixel(int xPixel) {
         return (float) xPixel / textureWidth;
     }
@@ -157,11 +208,7 @@ public class U3dLoginState extends U3dState {
 		
 	}
 
-	@Override
-	public void updateState(float interpolation) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 	public WorldGameState getWorld() {
@@ -170,4 +217,11 @@ public class U3dLoginState extends U3dState {
 	}
 	
 	public void updateCamera(Vector3f direction) {}
+
+
+
+	public void updateState(float interpolation) {
+
+	}	
+	
 }
