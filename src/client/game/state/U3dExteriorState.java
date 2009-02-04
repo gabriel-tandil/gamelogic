@@ -7,6 +7,7 @@ import client.game.task.TaskManagerFactory;
 import client.game.task.U3DChangeToIntEcoTaskFactory;
 import client.game.task.U3dChangeToIntEco;
 import client.game.view.U3dPlayerView;
+import client.manager.HudManager;
 import client.manager.TaskManager;
 
 import com.jme.input.ChaseCamera;
@@ -57,7 +58,7 @@ public class U3dExteriorState extends U3dState {
 			 */
 
 			this.initialized = true;
-
+//HudManager.getInstance().update();
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
 		}
