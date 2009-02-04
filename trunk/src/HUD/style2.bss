@@ -11,7 +11,7 @@ root:disabled {
 }
 
 window {
-  border: 1 solid #FFFFFF;
+   border: 1 solid #FFFFFF;
 }
 
 decoratedwindow {
@@ -48,7 +48,7 @@ label {
 button {
   background: image "HUD/textures/button_up.png" framexy;
   padding: 3 5;
-  font: "Dialog" bold 24;
+  font: "Dialog" bold 14;
   text-align: center;
   text-effect: outline;
   effect-color: #442288;
@@ -87,9 +87,10 @@ combobox {
   padding: 3 5;
 }
 
-textfield {
-  background: solid #00000088;
-  padding: 5;
+textfield{
+  /*background: #79C471#00000088;*/
+  font: "Arial" plain 10;
+  padding: 2;
 }
 
 textarea {

@@ -43,6 +43,7 @@ import client.game.view.U3dPlayerView;
 import client.game.view.ViewFactoryManager;
 import client.gameEngine.InputManager;
 import client.manager.EntityManager;
+import client.manager.HudManager;
 import client.manager.ViewManager;
 
 import com.jme.bounding.BoundingBox;
@@ -254,8 +255,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		        for(Iterator<Element> i=root.getChildren("node").iterator();i.hasNext();){
 		        	Element node=i.next();
 		        	Attribute model=node.getAttribute("model");
-		              	
+	//        		HudManager.getInstance().getBarraProgreso().setMax(cant);		              	
 		        	for(int k= 1; k<= cant;k++){
+//		        		HudManager.getInstance().setProgreso(k);
 		    			Node hijo = new Node("Hijo"+i);
 		    			hijo=cargarModelo(textures + model.getValue()+"_parte"+k+".3ds");
 		    			
