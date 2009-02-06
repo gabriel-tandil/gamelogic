@@ -9,83 +9,66 @@ import java.io.IOException;
 
 import client.game.entity.Entity;
 import client.game.task.ChangeStateTask;
+import client.game.task.Task;
+import client.game.task.U3dChangeToExterior;
+import client.game.task.U3dChangeToIntEco;
 import client.manager.TaskManager;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
+import com.jme.scene.Node;
+import com.jme.scene.Spatial;
 import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
 import com.jme.util.export.OutputCapsule;
+import com.sun.corba.se.spi.orbutil.fsm.State;
 
 /** 
  * @author Santiago Michielotto
  * @version Created: 19-11-2008
+ * @version Modified: 06-02-2009
  */
-public class AccessPoint extends Entity implements IAccessPoint {
+public class AccessPoint implements IAccessPoint {
+	
+	/**
+	 * Nodo al que esta asociado el AccessPoint
+	 */
+	private Node nodo;
+	
+	/**
+	 * Proximo Estado
+	 */
+	private String nextState;
+	
 	/** 
 	 * Constructor de AccessPoint.
 	 */
-	public AccessPoint(String theTipo) {
-		super(theTipo);
+	public AccessPoint(Node N, BasicGameState next) {
+		nodo=N;
+		proxEstado=next;
+	}
+	
+	public Node getNodo()
+	{
+		return nodo;
 	}
 
 	/** 
 	 * Poximo estado del juego.
 	 */
-	private BasicGameState basicgamestate;
+	private BasicGameState proxEstado;
 
-
-	/** 
-	 * Devuelve el BasicGameState asociado al <code>AccessPoint</code>.
-	 * @return el BasicGameState asociado al <code>AccessPoint</code>.
-	 */
-	public BasicGameState getState() {
-		return this.basicgamestate;
+	public BasicGameState getProxEstado() {
+		return this.proxEstado;
 	}
 
 	/** 
 	 * Aplica un <code>BasicGameState</code> al <code>AccessPoint</code>.
 	 * @param theBasicgamestate <code>BasicGameState</code> a aplicar.
 	 */
-	public void setBasicgamestate(BasicGameState theBasicgamestate) {
-		this.basicgamestate=theBasicgamestate;
-	}
-
-
-	/** 
-	 * Permite exportar los datos del <code>AccessPoint</code> a un localizacion espesificada.
-	 * @param arg0 <code>JMEExporter</code> conjunto de datos a guardar.
-	 */
-	public void write(JMEExporter arg0) {
-		OutputCapsule oc = arg0.getCapsule(this);
-		try 
-		{
-			oc.write(this.getId(), "ID", null);
-			oc.write(basicgamestate.getName(),"BasicGameStateName",null);
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-
-
-	/** 
-	 * Permite importa los datos del <code>AccessPoint</code> desde una localizacion especifica.
-	 * @param arg0 <code>JMEImporter</code>conjunto de datos guardado.
-	 */
-	public void read(JMEImporter arg0) {
-		InputCapsule ic = arg0.getCapsule(this);
-		try 
-		{
-			this.setId(ic.readString("ID", null));
-			this.basicgamestate.setName(ic.readString("BasicGameStateName", null));
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	public void setBasicgamestate(BasicGameState state) {
+		proxEstado=state;
 	}
 
 	/** 
@@ -97,18 +80,28 @@ public class AccessPoint extends Entity implements IAccessPoint {
 	}
 
 	/** 
-	 * Retorna el identificador del <code>AccessPoint</code>.
-	 * @return el identificador del <code>AccessPoint</code>.
-	 */
-	public String getId() {
-		return this.getId();
-	}
-
-	/** 
 	 * This method create a new <code>ChangeStateTask</code>, and this is enqueue first in the list of  task
 	 * to execute calling a singleton <code>TaskManager</code>
 	 */
-	public void show() {
-		//TaskManager.getInstance().enqueueFirst(new ChangeStateTask(this.basicgamestate));
+	public void show() 
+	{
+		//if (!GameStateManager.getInstance().getChild("Eco").isActive())
+		if(!proxEstado.isActive())
+		{
+			if (proxEstado.getClass().equals(U3dIntEcoState.class))
+				{
+					U3dChangeToIntEco task =(U3dChangeToIntEco) TaskManager.getInstance().createTask("4");
+					task.initTask();
+					TaskManager.getInstance().enqueue(task);
+				}
+			else
+				if (proxEstado.getClass().equals(U3dExteriorState.class))
+				{	
+					U3dChangeToExterior task =(U3dChangeToExterior) TaskManager.getInstance().createTask("3");
+					task.initTask();
+					TaskManager.getInstance().enqueue(task);
+				}
+		}
+		
 	}
 }

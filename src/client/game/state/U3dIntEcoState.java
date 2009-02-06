@@ -5,7 +5,10 @@ import java.util.HashMap;
 import client.game.input.U3DChaseCamera;
 import client.game.task.U3dChangeToExterior;
 import client.game.view.U3dPlayerView;
+import client.manager.EntityManager;
+import client.manager.HudManager;
 import client.manager.TaskManager;
+import client.manager.ViewManager;
 
 import com.jme.input.ChaseCamera;
 import com.jme.input.KeyBindingManager;
@@ -60,6 +63,7 @@ public class U3dIntEcoState extends U3dState {
 
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
+
 		}
 	}
 
@@ -124,11 +128,14 @@ public class U3dIntEcoState extends U3dState {
         Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
-		if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
+		
+		/*Ya no va mas con los AccessPoints
+		  if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
+		 
 			U3dChangeToExterior task =(U3dChangeToExterior) TaskManager.getInstance().createTask("3");
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
-		}
+		}*/
 	}
 
 	public WorldGameState getWorld() {

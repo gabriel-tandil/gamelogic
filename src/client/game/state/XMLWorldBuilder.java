@@ -42,6 +42,7 @@ import client.game.view.U3dBuildingView;
 import client.game.view.U3dPlayerView;
 import client.game.view.ViewFactoryManager;
 import client.gameEngine.InputManager;
+import client.manager.CollisionManager;
 import client.manager.EntityManager;
 import client.manager.HudManager;
 import client.manager.ViewManager;
@@ -100,6 +101,8 @@ import com.jme.util.export.Savable;
 import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
+import com.jmex.game.state.BasicGameState;
+import com.jmex.game.state.GameStateManager;
 import com.jmex.model.converters.AseToJme;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.MaxToJme;
@@ -163,6 +166,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		playerEntity.setDae(p);
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
+		
 		if (initialPosition!=null)
 			playerView.setLocalTranslation(initialPosition);
 		if(Rotation!=null)
@@ -258,13 +262,19 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	//        		HudManager.getInstance().getBarraProgreso().setMax(cant);		              	
 		        	for(int k= 1; k<= cant;k++){
 //		        		HudManager.getInstance().setProgreso(k);
-		    			Node hijo = new Node("Hijo"+i);
+		        		Node hijo = new Node("Hijo"+i);
 		    			hijo=cargarModelo(textures + model.getValue()+"_parte"+k+".3ds");
 		    			
 		    			Quaternion q = hijo.getLocalRotation();
 		    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 		    			hijo.setLocalRotation(q);
-		    		   	world.attachChild(hijo);		    			
+		    		   	world.attachChild(hijo);
+		    		   	//***AccessPoint por ahora
+		    		   	if(k==1019 && url=="protCampusXML/data/campus.xml")
+		    		   		CollisionManager.getInstace().addAccessPoint(k+"", new AccessPoint(hijo,(BasicGameState) GameStateManager.getInstance().getChild("Eco")));
+		    		   	if(k==5 && url!="protCampusXML/data/campus.xml")
+		    		   		CollisionManager.getInstace().addAccessPoint(k+"", new AccessPoint(hijo,(BasicGameState) GameStateManager.getInstance().getChild("Exterior")));
+		    			//***************************
 		    		}  	
 		        	Node hijo = new Node("Piso");
 	    			hijo=cargarModelo(textures + model.getValue()+ "_Piso.3ds");
