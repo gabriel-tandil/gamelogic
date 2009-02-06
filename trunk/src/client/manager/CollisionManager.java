@@ -5,13 +5,17 @@
 package client.manager;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
 
+import com.jme.intersection.CollisionResults;
 import com.jme.intersection.PickData;
+import com.jme.intersection.PickResults;
 import com.jme.intersection.TrianglePickResults;
 import com.jme.math.Ray;
 import com.jme.math.Vector3f;
+import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
 
@@ -43,6 +47,16 @@ public class CollisionManager {
 		return iaccesspoint;
 	}
 
+	public void init()
+	{
+		iaccesspoint=new Hashtable<String,IAccessPoint>();
+	}
+	
+	public void addAccessPoint(String id, IAccessPoint ap)
+	{
+		iaccesspoint.put(id, ap);
+	}
+	
 	/** 
 	 * Apply a <code>Set</code> iaccesspoint to this <code>CollisionManager</code>.
 	 * @param theIaccesspoint <code>Set<code> iaccesspoint to aplly
@@ -66,12 +80,25 @@ public class CollisionManager {
 	 * Retrieve the collision AccessPoint if exist a collision or null if not exists.
 	 * @return the collision AccessPoint if exist a collision or null if not exists.
 	 */
-	public AccessPoint checkOverAccessPoint() {
-		/*for(IAccessPoint accesspoint : this.iaccesspoint) 
+	public boolean checkOverAccessPoint(Node node) {
+		Enumeration e = iaccesspoint.elements();
+		boolean cond = false; 
+		AccessPoint temp=null;
+		while( e. hasMoreElements() && !cond)
 		{
-			//chequeo
-		}*/
-		return null;
+			temp=(AccessPoint)e.nextElement();
+			Node abuelo = node.getParent().getParent();
+			while (abuelo!=null && cond==false)
+			{
+			if (temp.getNodo().equals(abuelo))
+				{cond=true;
+				temp.show();
+				}
+			else
+				abuelo=abuelo.getParent();
+			}
+		}
+		return cond;
 	}
 
 	/**
@@ -117,6 +144,42 @@ public class CollisionManager {
             }
         }
       //intersection found
+        return null;
+    }
+	
+	public Spatial getIntersectObject(Ray ray, Node root, Class<? extends Spatial> reference, boolean iterate) {
+        PickResults results = new TrianglePickResults();
+        results.setCheckDistance(true);
+        root.findPick(ray, results);
+        if (iterate) {
+            for (int i = 0; i < results.getNumber(); i++) {
+            	if(results.getPickData(i).getDistance()<=2)
+            	{
+	            	Spatial collision = this.validateClass(root, results.getPickData(i).getTargetMesh(), reference);
+	                if (collision != null) 
+	                	return collision;
+            	}
+            }
+        } else if (results.getNumber() > 0) {
+            return this.validateClass(root, results.getPickData(0).getTargetMesh(), reference);
+        }
+        return null;
+    }
+	
+	private Spatial validateClass(Node root, Spatial spatial, Class<? extends Spatial> reference) {
+        if (spatial.getClass().equals(reference)) {
+            return spatial;
+        } else {
+            while (spatial.getParent() != null) {
+                spatial = spatial.getParent();
+                if (spatial == root) {
+                    return null; // TODO Should throw an exception here saying reached parent.
+                } else if (spatial.getClass().equals(reference)) {
+                    return spatial;
+                }
+            }
+        // TODO Should throw an exception here saying that cannot find the referencing class.
+        }
         return null;
     }
 
