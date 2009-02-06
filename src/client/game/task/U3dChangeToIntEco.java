@@ -1,6 +1,7 @@
 package client.game.task;
 
 import client.game.state.U3dIntEcoState;
+import client.manager.HudManager;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
@@ -14,8 +15,6 @@ public class U3dChangeToIntEco extends ChangeStateTask {
 
 	@Override
 	public void execute() {
-		GameStateManager.getInstance().deactivateAllChildren();
-		GameStateManager.getInstance().activateChildNamed("Eco");
 		super.execute();
 	}
 
@@ -26,8 +25,9 @@ public class U3dChangeToIntEco extends ChangeStateTask {
 	}
 
 	public void initTask() {
-		((U3dIntEcoState) GameStateManager.getInstance().getChild(
-				"Eco")).initialize();
+		GameStateManager.getInstance().deactivateAllChildren();
+		GameStateManager.getInstance().activateChildNamed("Eco");
+		((U3dIntEcoState) GameStateManager.getInstance().getChild("Eco")).initialize();
 	}
 
 }

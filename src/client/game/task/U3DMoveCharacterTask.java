@@ -9,7 +9,9 @@ import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
 import client.manager.ViewManager;
 
+import com.jme.math.Ray;
 import com.jme.math.Vector3f;
+import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jmex.game.state.GameState;
 import com.jmex.game.state.GameStateManager;
@@ -111,6 +113,10 @@ public class U3DMoveCharacterTask extends Task {
 					PlayerState ps = new PlayerState();
 					ps.setState(PlayerState.STATE_MOVING);
 					this.character.setState(ps);
+					
+					Node nodeIntersect=(Node) CollisionManager.getInstace().getIntersectObject(new Ray(origin, direction),(Node)aux.getRootNode().getChild(0),Node.class , true);
+					if(nodeIntersect!=null)
+						CollisionManager.getInstace().checkOverAccessPoint(nodeIntersect);
 
 				}
 			}
