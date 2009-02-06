@@ -254,17 +254,7 @@ public class U3dLoginState extends U3dState {
 		// center our window -- this could go anywhere in the code I simply
 		// place it after my addWindow so I remember that I did it
 		login.center();
-		
-		HashMap<String, String> botones =new HashMap<String, String>();
-		botones.put("quiero", "Quiero");
-		botones.put("noquiero", "No Quiero");
-		HudManager.getInstance().muestraDialogo("Pero. ¿Estas seguro que queres?",botones ,null);
-//		HudManager.getInstance().muestraDialogo("Pero. ¿Estas seguro que queres?",botones ,new ActionListener() {
-//			public void actionPerformed(ActionEvent event) {
-//				
-//				System.out.print(event.getAction());
-//			}
-//		});
+
 	}
 
 	private float getUForPixel(int xPixel) {
