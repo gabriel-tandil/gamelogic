@@ -6,6 +6,7 @@ import client.game.state.U3dLoginState;
 import client.game.state.U3dState;
 import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
+import client.manager.CollisionManager;
 import client.manager.EntityManager;
 import client.manager.HudManager;
 import client.manager.TaskManager;
@@ -92,6 +93,7 @@ public class U3dgame extends Game {
 		setViewManager(ViewManager.getInstance());
 		setHudManager(HudManager.getInstance());
 		getHudManager().initialize(timer);
+		CollisionManager.getInstace().init();
 	}
 	
 	
