@@ -126,11 +126,12 @@ public class U3dExteriorState extends U3dState {
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
 		
-		if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
+		/* Ya no va mas con los AccessPoints
+		 * if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
 			U3dChangeToIntEco task =(U3dChangeToIntEco) TaskManager.getInstance().createTask("4");
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
-		}
+		}*/
 	}
 
 	public WorldGameState getWorld() {
