@@ -6,12 +6,16 @@ import java.util.Iterator;
 import com.jme.input.MouseInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.util.Timer;
+import com.jmex.bui.BButton;
 import com.jmex.bui.BLabel;
 import com.jmex.bui.BStyleSheet;
 import com.jmex.bui.BWindow;
 import com.jmex.bui.BuiSystem;
 import com.jmex.bui.PolledRootNode;
 import com.jmex.bui.background.TintedBackground;
+import com.jmex.bui.event.ActionEvent;
+import com.jmex.bui.event.ActionListener;
+import com.jmex.bui.event.ComponentListener;
 import com.jmex.bui.layout.GroupLayout;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
@@ -109,4 +113,35 @@ public class HudManager implements IHudManager {
 		ventanas.put(id, ventTexto);
 
 	}
+	
+	public void muestraDialogo(String texto, HashMap<String, String> botones,
+			ComponentListener listener) {
+
+		final BWindow ventDialogo = new BWindow(style,
+				GroupLayout.makeVStretch());
+
+		ventDialogo.setSize(250, 70+(50*botones.size()));
+		BLabel label = new BLabel(texto);
+		ventDialogo.add(label);
+		ventDialogo.setBackground(0, new TintedBackground(ColorRGBA.darkGray));
+		for (Iterator iterator = botones.keySet().iterator(); iterator
+				.hasNext();) {
+			String clave = (String) iterator.next();
+			BButton button = new BButton(botones.get(clave), clave);
+			ventDialogo.add(button);
+			button.addListener(new ActionListener() {
+				public void actionPerformed(ActionEvent event) {
+					
+					ventDialogo.dispatchEvent(event);
+					ventDialogo.getRootNode().removeWindow(ventDialogo);
+				}
+			});
+		}
+
+		ventDialogo.addListener(listener);
+		ventDialogo.center();
+
+		_root.addWindow(ventDialogo); // a esta ventana no preciso agregarla ya que se saca sola al cerrarse el dialogo
+
+	}	
 }

@@ -2,6 +2,8 @@ package client.game.state;
 
 import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import client.game.Game;
 import client.game.task.TaskManagerFactory;
@@ -28,12 +30,15 @@ import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BComponent;
+import com.jmex.bui.BLabel;
 import com.jmex.bui.BPasswordField;
 import com.jmex.bui.BTextField;
 import com.jmex.bui.BWindow;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
+import com.jmex.bui.event.ComponentListener;
 import com.jmex.bui.layout.AbsoluteLayout;
+import com.jmex.bui.layout.GroupLayout;
 
 public class U3dLoginState extends U3dState {
 	private int textureWidth;
@@ -80,7 +85,7 @@ public class U3dLoginState extends U3dState {
 			TaskManager.getInstance().enqueue(task);
 		}
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
-											// nodos del hud
+				// nodos del hud
 				.updateGeometricState(0.0f, true);
 		HudManager.getInstance().getRoot().updateRenderState();
 		if (loguear && espera) {
@@ -90,7 +95,8 @@ public class U3dLoginState extends U3dState {
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
 		}
-		if (loguear) // cosa medio fea para que muestre el cartel de cargando, sino empieza a cargar el campus y no actualiza
+		if (loguear) // cosa medio fea para que muestre el cartel de cargando,
+						// sino empieza a cargar el campus y no actualiza
 			espera = true;
 	}
 
@@ -191,9 +197,7 @@ public class U3dLoginState extends U3dState {
 
 			loguear = true;
 
-		} else if (action.equals("back")) {
-			System.out.println("no loguear");
-		}
+		} 
 	}
 
 	private void inicializaHUD() {
@@ -213,7 +217,8 @@ public class U3dLoginState extends U3dState {
 		this.currentResolution[1] = (new Integer(DisplaySystem
 				.getDisplaySystem().getHeight())).intValue();
 
-		login.setSize(this.currentResolution[0], this.currentResolution[1]);
+		login.setSize(this.currentResolution[0],
+				this.currentResolution[1]);
 
 		userNameField = new BTextField();
 		userNameField.setLocation(/* 470, 288 */this.getAbsoluteX(58.75), this
@@ -249,6 +254,17 @@ public class U3dLoginState extends U3dState {
 		// center our window -- this could go anywhere in the code I simply
 		// place it after my addWindow so I remember that I did it
 		login.center();
+		
+		HashMap<String, String> botones =new HashMap<String, String>();
+		botones.put("quiero", "Quiero");
+		botones.put("noquiero", "No Quiero");
+		HudManager.getInstance().muestraDialogo("Pero. ¿Estas seguro que queres?",botones ,null);
+//		HudManager.getInstance().muestraDialogo("Pero. ¿Estas seguro que queres?",botones ,new ActionListener() {
+//			public void actionPerformed(ActionEvent event) {
+//				
+//				System.out.print(event.getAction());
+//			}
+//		});
 	}
 
 	private float getUForPixel(int xPixel) {
