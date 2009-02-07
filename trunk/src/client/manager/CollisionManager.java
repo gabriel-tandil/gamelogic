@@ -92,7 +92,7 @@ public class CollisionManager {
 			{
 			if (temp.getNodo().equals(abuelo))
 				{cond=true;
-				temp.show();
+				temp.dialogoIngresar();
 				}
 			else
 				abuelo=abuelo.getParent();

@@ -58,7 +58,6 @@ public class U3dExteriorState extends U3dState {
 			 */
 
 			this.initialized = true;
-//HudManager.getInstance().update();
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
 		}
@@ -125,7 +124,10 @@ public class U3dExteriorState extends U3dState {
         Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
-		
+		HudManager.getInstance().getRoot()// solo necesito actualizar los
+		// nodos del hud
+		.updateGeometricState(0.0f, true);
+HudManager.getInstance().getRoot().updateRenderState();
 		/* Ya no va mas con los AccessPoints
 		 * if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
 			U3dChangeToIntEco task =(U3dChangeToIntEco) TaskManager.getInstance().createTask("4");
@@ -155,4 +157,5 @@ public class U3dExteriorState extends U3dState {
 		intersects = chaser.verifyIntersection(world, direction);
 //		System.out.println(intersects);
 	}
+
 }
