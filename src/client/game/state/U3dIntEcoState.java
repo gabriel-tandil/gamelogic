@@ -128,7 +128,11 @@ public class U3dIntEcoState extends U3dState {
         Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
-		
+		HudManager.getInstance().getRoot()// solo necesito actualizar los
+		// nodos del hud
+		.updateGeometricState(0.0f, true);
+HudManager.getInstance().getRoot().updateRenderState();
+
 		/*Ya no va mas con los AccessPoints
 		  if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
 		 

@@ -17,6 +17,7 @@ import client.manager.TaskManager;
 import com.jme.image.Texture;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
+import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
 import com.jme.scene.Spatial;
@@ -45,11 +46,7 @@ public class U3dLoginState extends U3dState {
 	// initialize texture height
 	private int textureHeight;
 
-	private BWindow login;
 
-	private BTextField userNameField;
-
-	private BComponent passwordField;
 	private boolean loguear;
 	private boolean espera;
 
@@ -71,19 +68,6 @@ public class U3dLoginState extends U3dState {
 
 	@Override
 	public void update(float arg0) {
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand("campus")) {
-			U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
-					.getInstance().createTask("3");
-			task.initTask();
-			TaskManager.getInstance().enqueue(task);
-		}
-		if (KeyBindingManager.getKeyBindingManager().isValidCommand(
-				"economicas")) {
-			U3dChangeToIntEco task = (U3dChangeToIntEco) TaskManager
-					.getInstance().createTask("4");
-			task.initTask();
-			TaskManager.getInstance().enqueue(task);
-		}
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 				// nodos del hud
 				.updateGeometricState(0.0f, true);
@@ -94,6 +78,8 @@ public class U3dLoginState extends U3dState {
 
 			task.initTask();
 			TaskManager.getInstance().enqueue(task);
+			HudManager.getInstance().unSetCargando();
+			HudManager.getInstance().removeWindow("login");
 		}
 		if (loguear) // cosa medio fea para que muestre el cartel de cargando,
 						// sino empieza a cargar el campus y no actualiza
@@ -112,11 +98,7 @@ public class U3dLoginState extends U3dState {
 
 		TaskManagerFactory.getInstance().add(
 				new U3DChangeToExteriorTaskFactory());
-		KeyBindingManager.getKeyBindingManager().set("campus", KeyInput.KEY_L);
-		TaskManagerFactory.getInstance()
-				.add(new U3DChangeToIntEcoTaskFactory());
-		KeyBindingManager.getKeyBindingManager().set("economicas",
-				KeyInput.KEY_K);
+
 		inicializaHUD();
 
 		Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem()
@@ -194,14 +176,17 @@ public class U3dLoginState extends U3dState {
 			System.out.println("loguear");
 			HudManager.getInstance().setCargando();
 			HudManager.getInstance().update();
-
+			MouseInput.get().setCursorVisible(false);
 			loguear = true;
 
 		} 
 	}
 
 	private void inicializaHUD() {
+		BWindow login;
+		BTextField userNameField;
 
+		BComponent passwordField;
 		// instantiate our login window
 		// set our style from our BuiSystem and set our layout to stretch
 		// everything vertically
@@ -249,7 +234,7 @@ public class U3dLoginState extends U3dState {
 		login.add(loginButton, loginButton.getBounds());
 
 		// add our login window to our BRootNode
-		HudManager.getInstance().getRoot().addWindow(login);
+		HudManager.getInstance().addWindow(login,"login");
 
 		// center our window -- this could go anywhere in the code I simply
 		// place it after my addWindow so I remember that I did it

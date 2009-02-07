@@ -2,8 +2,11 @@ package client.manager;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
+import com.jme.input.InputHandler;
 import com.jme.input.MouseInput;
+import com.jme.input.MouseInputListener;
 import com.jme.renderer.ColorRGBA;
 import com.jme.util.Timer;
 import com.jmex.bui.BButton;
@@ -37,12 +40,11 @@ public class HudManager implements IHudManager {
 	}
 
 	public void initialize(Timer timer) {
-
 		BuiSystem.init(new PolledRootNode(timer), "/HUD/style2.bss");
 		_root = (PolledRootNode) BuiSystem.getRootNode();
-		MouseInput.get().setCursorVisible(true);
 		ventanas = new HashMap<String, BWindow>();
 		style = BuiSystem.getStyle();
+		MouseInput.get().setCursorVisible(true);
 	}
 
 	@Override
@@ -113,14 +115,14 @@ public class HudManager implements IHudManager {
 		ventanas.put(id, ventTexto);
 
 	}
-	
+
 	public void muestraDialogo(String texto, HashMap<String, String> botones,
 			ComponentListener listener) {
+		MouseInput.get().setCursorVisible(true);
+		final BWindow ventDialogo = new BWindow(style, GroupLayout
+				.makeVStretch());
 
-		final BWindow ventDialogo = new BWindow(style,
-				GroupLayout.makeVStretch());
-
-		ventDialogo.setSize(250, 70+(50*botones.size()));
+		ventDialogo.setSize(270, 150 + (50 * botones.size()));
 		BLabel label = new BLabel(texto);
 		ventDialogo.add(label);
 		ventDialogo.setBackground(0, new TintedBackground(ColorRGBA.darkGray));
@@ -131,7 +133,7 @@ public class HudManager implements IHudManager {
 			ventDialogo.add(button);
 			button.addListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					
+					MouseInput.get().setCursorVisible(false);
 					ventDialogo.dispatchEvent(event);
 					ventDialogo.getRootNode().removeWindow(ventDialogo);
 				}
@@ -141,7 +143,19 @@ public class HudManager implements IHudManager {
 		ventDialogo.addListener(listener);
 		ventDialogo.center();
 
-		_root.addWindow(ventDialogo); // a esta ventana no preciso agregarla ya que se saca sola al cerrarse el dialogo
+		_root.addWindow(ventDialogo); // a esta ventana no preciso agregarla
+										// ya que se saca sola al cerrarse el
+										// dialogo
 
-	}	
+	}
+
+	public void addWindow(BWindow wind, String id) {
+		ventanas.put(id, wind);
+		_root.addWindow(wind);
+	}
+
+	public void removeWindow(String id) {
+		_root.removeWindow(ventanas.get(id));
+	}
+
 }
