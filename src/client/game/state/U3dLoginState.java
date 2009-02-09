@@ -2,21 +2,16 @@ package client.game.state;
 
 import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
-import java.util.HashMap;
-import java.util.Iterator;
 
+import client.communication.GameContext;
 import client.game.Game;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DChangeToExteriorTaskFactory;
-import client.game.task.U3DChangeToIntEcoTaskFactory;
 import client.game.task.U3dChangeToExterior;
-import client.game.task.U3dChangeToIntEco;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
 import com.jme.image.Texture;
-import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.input.MouseInput;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
@@ -31,24 +26,24 @@ import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BComponent;
-import com.jmex.bui.BLabel;
 import com.jmex.bui.BPasswordField;
 import com.jmex.bui.BTextField;
 import com.jmex.bui.BWindow;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
-import com.jmex.bui.event.ComponentListener;
 import com.jmex.bui.layout.AbsoluteLayout;
-import com.jmex.bui.layout.GroupLayout;
 
 public class U3dLoginState extends U3dState {
+	private static final String LOGUEO_OK = "loggin Ok";
+	private static final String LOGUEO_ERROR = "login Failed";
+
 	private int textureWidth;
 	// initialize texture height
 	private int textureHeight;
 
-
 	private boolean loguear;
 	private boolean espera;
+	private String respuestaLogueo = null;
 
 	public U3dLoginState(String name) {
 		super(name);
@@ -68,21 +63,49 @@ public class U3dLoginState extends U3dState {
 
 	@Override
 	public void update(float arg0) {
+
+		// HudManager.getInstance().getRoot()// solo necesito actualizar los
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 				// nodos del hud
 				.updateGeometricState(0.0f, true);
 		HudManager.getInstance().getRoot().updateRenderState();
-		if (loguear && espera) {
-			U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
-					.getInstance().createTask("3");
+		manejaLogueo();
+	}
 
-			task.initTask();
-			TaskManager.getInstance().enqueue(task);
+	private void manejaLogueo() {
+		if (loguear && espera) {
+			if (respuestaLogueo!=null){
+				loguear=false;
+				espera=false;
+			}
+				
+			if (LOGUEO_OK.equals(respuestaLogueo)) {
+				HudManager.getInstance().quitarEscrito("errorLogueo");
+				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
+						.getInstance().createTask("3");
+
+				task.initTask();
+				TaskManager.getInstance().enqueue(task);
+
+			}
+			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
+				MouseInput.get().setCursorVisible(true);
+				HudManager
+						.getInstance()
+						.escribir(
+								"Fallo al intentar ingresar, verifique los datos e intente luevamente",
+								"errorLogueo");
+				BWindow win=HudManager
+				.getInstance().getWindow("errorLogueo");
+				win.setSize(200, 100);
+				win.setLocation(win.getLocation()[0], win.getLocation()[1]+90);
+				
+
+			}
 			HudManager.getInstance().unSetCargando();
-			HudManager.getInstance().removeWindow("login");
 		}
 		if (loguear) // cosa medio fea para que muestre el cartel de cargando,
-						// sino empieza a cargar el campus y no actualiza
+			// sino empieza a cargar el campus y no actualiza
 			espera = true;
 	}
 
@@ -174,18 +197,31 @@ public class U3dLoginState extends U3dState {
 		String action = event.getAction();
 		if (action.equals("login")) {
 			System.out.println("loguear");
+			respuestaLogueo = null;
+			loguear = true;
+			MouseInput.get().setCursorVisible(false);
 			HudManager.getInstance().setCargando();
 			HudManager.getInstance().update();
-			MouseInput.get().setCursorVisible(false);
-			loguear = true;
+			try {
+				GameContext.setUserName(((BTextField) HudManager.getInstance()
+						.getWindow("login").getComponent(0)).getText());
 
-		} 
+				GameContext.setPassword(((BPasswordField) HudManager.getInstance()
+						.getWindow("login").getComponent(1)).getText());
+
+				GameContext.getClientCommunication().login();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//TODO cuando se integre con el modulo de comuniocacion eliminar el try y catch y la linea proxima 
+		//	setRespuestaLogueo(LOGUEO_ERROR);
+			setRespuestaLogueo(LOGUEO_OK);
+		}
 	}
 
 	private void inicializaHUD() {
 		BWindow login;
 		BTextField userNameField;
-
 		BComponent passwordField;
 		// instantiate our login window
 		// set our style from our BuiSystem and set our layout to stretch
@@ -202,8 +238,7 @@ public class U3dLoginState extends U3dState {
 		this.currentResolution[1] = (new Integer(DisplaySystem
 				.getDisplaySystem().getHeight())).intValue();
 
-		login.setSize(this.currentResolution[0],
-				this.currentResolution[1]);
+		login.setSize(this.currentResolution[0], this.currentResolution[1]);
 
 		userNameField = new BTextField();
 		userNameField.setLocation(/* 470, 288 */this.getAbsoluteX(58.75), this
@@ -234,7 +269,7 @@ public class U3dLoginState extends U3dState {
 		login.add(loginButton, loginButton.getBounds());
 
 		// add our login window to our BRootNode
-		HudManager.getInstance().addWindow(login,"login");
+		HudManager.getInstance().addWindow(login, "login");
 
 		// center our window -- this could go anywhere in the code I simply
 		// place it after my addWindow so I remember that I did it
@@ -268,4 +303,7 @@ public class U3dLoginState extends U3dState {
 
 	}
 
+	public void setRespuestaLogueo(String respuesta) {
+		respuestaLogueo = respuesta;
+	}
 }
