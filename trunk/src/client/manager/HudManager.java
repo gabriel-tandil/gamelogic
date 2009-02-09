@@ -10,6 +10,7 @@ import com.jme.input.MouseInputListener;
 import com.jme.renderer.ColorRGBA;
 import com.jme.util.Timer;
 import com.jmex.bui.BButton;
+import com.jmex.bui.BContainer;
 import com.jmex.bui.BLabel;
 import com.jmex.bui.BStyleSheet;
 import com.jmex.bui.BWindow;
@@ -92,6 +93,7 @@ public class HudManager implements IHudManager {
 	}
 
 	public void quitarEscrito(String id) {
+		if (ventanas.get(id)!=null)
 		_root.removeWindow(ventanas.get(id));
 	}
 
@@ -155,7 +157,13 @@ public class HudManager implements IHudManager {
 	}
 
 	public void removeWindow(String id) {
-		_root.removeWindow(ventanas.get(id));
+		if (ventanas.get(id)!=null)
+			_root.removeWindow(ventanas.get(id));
+		ventanas.remove("id");
+	}
+
+	public BWindow getWindow(String id) {
+		return ventanas.get(id);
 	}
 
 }
