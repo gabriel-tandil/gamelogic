@@ -80,10 +80,10 @@ public class U3dLoginState extends U3dState {
 			}
 				
 			if (LOGUEO_OK.equals(respuestaLogueo)) {
+				HudManager.getInstance().removeWindow("login");
 				HudManager.getInstance().quitarEscrito("errorLogueo");
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
-
 				task.initTask();
 				TaskManager.getInstance().enqueue(task);
 
