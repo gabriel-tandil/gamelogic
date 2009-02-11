@@ -7,6 +7,7 @@ package client.game.state;
 
 import java.util.HashMap;
 
+import client.game.task.U3dCargandoTask;
 import client.game.task.U3dChangeToExterior;
 import client.game.task.U3dChangeToIntEco;
 import client.manager.HudManager;
@@ -85,14 +86,14 @@ public class AccessPoint implements IAccessPoint {
 			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
 				U3dChangeToIntEco task = (U3dChangeToIntEco) TaskManager
 						.getInstance().createTask("4");
-				task.initTask();
 				TaskManager.getInstance().enqueue(task);
+				
 			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
-				task.initTask();
 				TaskManager.getInstance().enqueue(task);
 			}
+
 		}
 
 	}
@@ -115,6 +116,9 @@ public class AccessPoint implements IAccessPoint {
 					new ActionListener() {
 						public void actionPerformed(ActionEvent event) {
 							if (event.getAction().equals("abrirPuerta")) {
+								U3dCargandoTask task = (U3dCargandoTask) TaskManager
+								.getInstance().createTask("7"); // lo hago con un task poruqe sino gana la otra tarea y no llega a mostrar el cartel de cargando
+						TaskManager.getInstance().enqueue(task);
 								show();
 							}
 						}

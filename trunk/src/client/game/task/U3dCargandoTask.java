@@ -1,24 +1,22 @@
 package client.game.task;
 
-import client.game.state.U3dIntEcoState;
+import client.game.state.U3dExteriorState;
 import client.manager.HudManager;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
-public class U3dChangeToIntEco extends ChangeStateTask {
+public class U3dCargandoTask extends ChangeStateTask {
 
-	public U3dChangeToIntEco(BasicGameState state) {
+	public U3dCargandoTask(BasicGameState state) {
 		super(state);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void execute() {
-		GameStateManager.getInstance().deactivateAllChildren();
-		GameStateManager.getInstance().activateChildNamed("Eco");
-		((U3dIntEcoState) GameStateManager.getInstance().getChild("Eco")).initialize();
-		super.execute();		
+		HudManager.getInstance().setCargando();
+		super.execute();
 	}
 
 	@Override

@@ -56,11 +56,17 @@ public class U3dExteriorState extends U3dState {
 			 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
 			 * 800, true); newPlayer.execute();
 			 */
-
+inicializaHUD();
 			this.initialized = true;
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
 		}
+	}
+
+	private void inicializaHUD() {
+HudManager.getInstance().unSetCargando();
+HudManager.getInstance().removeWindow("login");
+HudManager.getInstance().removeWindow("errorLogueo");
 	}
 
 	private void initializeLight() {	
