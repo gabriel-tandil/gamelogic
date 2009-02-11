@@ -3,11 +3,12 @@ package client.game.state;
 import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
 
-import client.communication.GameContext;
 import client.game.Game;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DCargandoTaskFactory;
 import client.game.task.U3DChangeToExteriorTaskFactory;
+import client.game.task.U3DLoginRequestTask;
+import client.game.task.U3DLoginRequestTaskFactory;
 import client.game.task.U3dCargandoTask;
 import client.game.task.U3dChangeToExterior;
 import client.manager.HudManager;
@@ -78,13 +79,17 @@ public class U3dLoginState extends U3dState {
 
 			if (LOGUEO_OK.equals(respuestaLogueo)) {
 				U3dCargandoTask taskCargando = (U3dCargandoTask) TaskManager
-				.getInstance().createTask("7"); // lo hago con un task poruqe sino gana la otra tarea y no llega a mostrar el cartel de cargando
-		TaskManager.getInstance().enqueue(taskCargando);				
+						.getInstance().createTask("7"); // lo hago con un task
+														// poruqe sino gana la
+														// otra tarea y no llega
+														// a mostrar el cartel
+														// de cargando
+				TaskManager.getInstance().enqueue(taskCargando);
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
 				TaskManager.getInstance().enqueue(task);
 				MouseInput.get().setCursorVisible(false);
-//				HudManager.getInstance().setCargando();
+				// HudManager.getInstance().setCargando();
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
 				MouseInput.get().setCursorVisible(true);
@@ -116,9 +121,8 @@ public class U3dLoginState extends U3dState {
 
 		TaskManagerFactory.getInstance().add(
 				new U3DChangeToExteriorTaskFactory());
-		TaskManagerFactory.getInstance().add(
-				new U3DCargandoTaskFactory());
-
+		TaskManagerFactory.getInstance().add(new U3DCargandoTaskFactory());
+		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
 		inicializaHUD();
 
 		Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem()
@@ -197,21 +201,17 @@ public class U3dLoginState extends U3dState {
 			respuestaLogueo = null;
 			loguear = true;
 			HudManager.getInstance().update();
-			try {
-				GameContext.setUserName(((BTextField) HudManager.getInstance()
-						.getWindow("login").getComponent(0)).getText());
 
-				GameContext.setPassword(((BPasswordField) HudManager
-						.getInstance().getWindow("login").getComponent(1))
-						.getText());
+			U3DLoginRequestTask task = (U3DLoginRequestTask) TaskManager
+					.getInstance().createTask("8");
+			task.initTask(((BTextField) HudManager.getInstance().getWindow(
+					"login").getComponent(0)).getText(),
+					((BPasswordField) HudManager.getInstance().getWindow(
+							"login").getComponent(1)).getText());
+			TaskManager.getInstance().enqueue(task);
 
-				GameContext.getClientCommunication().login();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			// TODO cuando se integre con el modulo de comuniocacion eliminar el
-			// try y catch y la linea proxima
-			// setRespuestaLogueo(LOGUEO_ERROR);
+			// TODO cuando se integre con el modulo de comuniocacion eliminar
+			// la linea proxima
 			setRespuestaLogueo(LOGUEO_OK);
 		}
 	}
