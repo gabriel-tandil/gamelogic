@@ -6,7 +6,9 @@ import java.nio.FloatBuffer;
 import client.communication.GameContext;
 import client.game.Game;
 import client.game.task.TaskManagerFactory;
+import client.game.task.U3DCargandoTaskFactory;
 import client.game.task.U3DChangeToExteriorTaskFactory;
+import client.game.task.U3dCargandoTask;
 import client.game.task.U3dChangeToExterior;
 import client.manager.HudManager;
 import client.manager.TaskManager;
@@ -42,7 +44,6 @@ public class U3dLoginState extends U3dState {
 	private int textureHeight;
 
 	private boolean loguear;
-	private boolean espera;
 	private String respuestaLogueo = null;
 
 	public U3dLoginState(String name) {
@@ -73,20 +74,17 @@ public class U3dLoginState extends U3dState {
 	}
 
 	private void manejaLogueo() {
-		if (loguear && espera) {
-			if (respuestaLogueo!=null){
-				loguear=false;
-				espera=false;
-			}
-				
+		if (loguear) {
+
 			if (LOGUEO_OK.equals(respuestaLogueo)) {
-				HudManager.getInstance().removeWindow("login");
-				HudManager.getInstance().quitarEscrito("errorLogueo");
+				U3dCargandoTask taskCargando = (U3dCargandoTask) TaskManager
+				.getInstance().createTask("7"); // lo hago con un task poruqe sino gana la otra tarea y no llega a mostrar el cartel de cargando
+		TaskManager.getInstance().enqueue(taskCargando);				
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
-				task.initTask();
 				TaskManager.getInstance().enqueue(task);
-
+				MouseInput.get().setCursorVisible(false);
+//				HudManager.getInstance().setCargando();
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
 				MouseInput.get().setCursorVisible(true);
@@ -95,18 +93,15 @@ public class U3dLoginState extends U3dState {
 						.escribir(
 								"Fallo al intentar ingresar, verifique los datos e intente luevamente",
 								"errorLogueo");
-				BWindow win=HudManager
-				.getInstance().getWindow("errorLogueo");
+				BWindow win = HudManager.getInstance().getWindow("errorLogueo");
 				win.setSize(200, 100);
-				win.setLocation(win.getLocation()[0], win.getLocation()[1]+90);
-				
+				win
+						.setLocation(win.getLocation()[0],
+								win.getLocation()[1] + 90);
 
 			}
-			HudManager.getInstance().unSetCargando();
+
 		}
-		if (loguear) // cosa medio fea para que muestre el cartel de cargando,
-			// sino empieza a cargar el campus y no actualiza
-			espera = true;
 	}
 
 	private int getAbsoluteX(double porcent) {
@@ -121,6 +116,8 @@ public class U3dLoginState extends U3dState {
 
 		TaskManagerFactory.getInstance().add(
 				new U3DChangeToExteriorTaskFactory());
+		TaskManagerFactory.getInstance().add(
+				new U3DCargandoTaskFactory());
 
 		inicializaHUD();
 
@@ -199,22 +196,22 @@ public class U3dLoginState extends U3dState {
 			System.out.println("loguear");
 			respuestaLogueo = null;
 			loguear = true;
-			MouseInput.get().setCursorVisible(false);
-			HudManager.getInstance().setCargando();
 			HudManager.getInstance().update();
 			try {
 				GameContext.setUserName(((BTextField) HudManager.getInstance()
 						.getWindow("login").getComponent(0)).getText());
 
-				GameContext.setPassword(((BPasswordField) HudManager.getInstance()
-						.getWindow("login").getComponent(1)).getText());
+				GameContext.setPassword(((BPasswordField) HudManager
+						.getInstance().getWindow("login").getComponent(1))
+						.getText());
 
 				GameContext.getClientCommunication().login();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//TODO cuando se integre con el modulo de comuniocacion eliminar el try y catch y la linea proxima 
-		//	setRespuestaLogueo(LOGUEO_ERROR);
+			// TODO cuando se integre con el modulo de comuniocacion eliminar el
+			// try y catch y la linea proxima
+			// setRespuestaLogueo(LOGUEO_ERROR);
 			setRespuestaLogueo(LOGUEO_OK);
 		}
 	}

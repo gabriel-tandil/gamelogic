@@ -60,13 +60,14 @@ public class U3dIntEcoState extends U3dState {
 			
 			KeyBindingManager.getKeyBindingManager().set("change",
 					KeyInput.KEY_L);
-
+			inicializaHUD();
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
-
 		}
 	}
-
+	private void inicializaHUD() {
+		HudManager.getInstance().unSetCargando();
+	}
 	private void initializeLight() {	
 		PointLight light = new PointLight();
 		light.setDiffuse(ColorRGBA.white);
