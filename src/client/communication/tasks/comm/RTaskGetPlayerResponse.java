@@ -1,19 +1,18 @@
 /**
  * RTaskGetPlayerResponse.java
- * @author lito
+ * @author Castillo/Santos
  */
 package client.communication.tasks.comm;
 
+import java.util.Hashtable;
+
 import common.messages.IMessage;
+import common.messages.responses.MsgGetPlayerResponse;
 
 import client.communication.tasks.TaskCommunication;
+import client.game.entity.Player;
+import common.datatypes.IPlayerProperty;
 
-/**
- * TODO hacer javaDoc
- *
- * @author lito
- * 01/11/2008
- */
 public class RTaskGetPlayerResponse extends TaskCommunication {
 	
 	/**
@@ -24,10 +23,10 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 	}
 	
 	/**
-	 * TODO hacer javaDoc
+	 * Crea una tarea de tipo <I>RTaskGetPlayerResponse</I> y setea el mensaje.
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
-	 * @return
+	 * @return RTaskGetPlayerResponse
 	 */
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
@@ -35,15 +34,26 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 	}
 	
 	/**
-	 * TODO hacer javaDoc
+	 * Crea un player {@link Player}, setea todos sus atributos y se agrega al mundo actual.
 	 * @see client.game.task.ITask#execute()
-	 * 01/11/2008
-	 * @author lito
+	 * 04/02/2009
+	 * @author Castillo/Santos
 	 */
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		
+		MsgGetPlayerResponse msg = (MsgGetPlayerResponse)this.getMessage();
+		
+		Player player = new Player(msg.getType());
+		player.setAngle(msg.getAngle());
+		player.setId(msg.getIdPlayer());
+		player.setProperties((Hashtable<String, IPlayerProperty>) msg.getProperties());
+		player.setSkin(msg.getSkin());
+		player.setState(msg.getPlayerState());
+		
+		//Preguntar si de esta manera agregamos al jugador
+		
+		player.setActualWorld(msg.getActualWorld());
 	}
 	
 }

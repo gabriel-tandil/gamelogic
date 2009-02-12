@@ -1,19 +1,18 @@
 /**
- * RTaskLeave.java
- * @author lito
+ * RTaskLeft.java
+ * @author Castillo/Santos
  */
 package client.communication.tasks.comm;
 
 import common.messages.IMessage;
+import common.messages.MsgPlainText;
 
 import client.communication.tasks.TaskCommunication;
+import client.manager.EntityManager;
 
-/**
- * TODO hacer javaDoc
- *
- * @author lito
- * 01/11/2008
- */
+import client.game.entity.EntityManagerFactory;
+
+
 public class RTaskLeft extends TaskCommunication {
 	
 	/**
@@ -24,10 +23,10 @@ public class RTaskLeft extends TaskCommunication {
 	}
 	
 	/**
-	 * TODO hacer javaDoc
+	 * Crea una tarea de tipo <I>RTaskLeft</I> y setea el mensaje.
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
-	 * @return
+	 * @return RTaskLeft
 	 */
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
@@ -35,14 +34,17 @@ public class RTaskLeft extends TaskCommunication {
 	}
 	
 	/**
-	 * TODO hacer javaDoc
+	 * Remueve una entidad del EntityManager {@link EntityManager}
 	 * @see client.game.task.ITask#execute()
-	 * 01/11/2008
-	 * @author lito
+	 * 04/02/2009
+	 * @author Castillo/Santos
 	 */
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		MsgPlainText msg = (MsgPlainText)this.getMessage();
+		String idEntity = msg.toString();
+		
+		EntityManager.getInstance().removeEntity(EntityManagerFactory.getInstance().create(idEntity));
 		
 	}
 	
