@@ -1,19 +1,21 @@
 /**
  * RTaskMove.java
- * @author lito
+ * @author Castillo/Santos
  */
 package client.communication.tasks.comm;
 
+import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
+import common.messages.MessageFactory;
+import common.messages.MsgTypes;
+import common.messages.notify.MsgMove;
 
+import client.communication.GameContext;
+import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
+import client.game.task.ITask;
+import client.manager.TaskManager;
 
-/**
- * TODO hacer javaDoc
- *
- * @author lito
- * 01/11/2008
- */
 public class RTaskMove extends TaskCommunication {
 	
 	/**
@@ -24,10 +26,10 @@ public class RTaskMove extends TaskCommunication {
 	}
 	
 	/**
-	 * TODO hacer javaDoc
+	 * Crea una tarea de tipo <I>RTaskMove</I> y setea el mensaje.
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
-	 * @return
+	 * @return RTaskMove
 	 */
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
@@ -35,14 +37,32 @@ public class RTaskMove extends TaskCommunication {
 	}
 	
 	/**
-	 * TODO hacer javaDoc
+	 * Se crea un mensaje de movimiento {@link MsgMove}, se setean todos los atributos y<BR>
+	 * con el se crea una tarea, la cual es enviada al TaskManager {@link TaskManager}
 	 * @see client.game.task.ITask#execute()
-	 * 01/11/2008
-	 * @author lito
+	 * 04/02/2009
+	 * @author Castillo/Santos
 	 */
+	
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		MsgMove thisMsg = (MsgMove)this.getMessage();
+		
+		try {
+			
+			MsgMove msg = (MsgMove) MessageFactory.getInstance().createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
+			msg.setIdDynamicEntity(GameContext.getUserName());
+			
+			msg.setPosOrigen(thisMsg.getPosOrigen());
+			msg.setPosDestino(thisMsg.getPosDestino());
+			
+			ITask task = TaskCommFactory.getInstance().createComTask(msg);
+			TaskManager.getInstance().submit(task);
+			
+		} catch (UnsopportedMessageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
