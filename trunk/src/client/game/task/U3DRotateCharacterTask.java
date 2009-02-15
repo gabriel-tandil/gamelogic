@@ -25,7 +25,6 @@ public class U3DRotateCharacterTask extends Task {
 		return false;
 	}
 
-	@Override
 	public void execute() {
 		Spatial view = ((Spatial)ViewManager.getInstance().getView(this.character));
 		float[] angles=new float[3];

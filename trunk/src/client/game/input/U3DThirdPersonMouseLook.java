@@ -15,16 +15,15 @@ import com.jmex.game.state.GameStateManager;
 
 public class U3DThirdPersonMouseLook extends ThirdPersonMouseLook {
 	
-	private Vector3f oldDirection = new Vector3f();
+	public boolean hasCollition = false;
 
+	
 	public U3DThirdPersonMouseLook(RelativeMouse mouse, ChaseCamera camera, Spatial target) {
 		super(mouse, camera, target);
 	}
 	
 	public void performAction(InputActionEvent event) {
-		Vector3f direction = new Vector3f(this.mouse.getLocalTranslation());
-		Vector3f newDirection = direction.normalizeLocal().subtract(oldDirection);
-		newDirection = newDirection.normalize().negate();
+		Vector3f position = this.mouse.getLocalTranslation();
 		
 		ArrayList<GameState> states = GameStateManager.getInstance().getChildren();
 		U3dState state = null;
@@ -34,16 +33,18 @@ public class U3DThirdPersonMouseLook extends ThirdPersonMouseLook {
 			if(state.isActive())
 				break;
 		}
-		
-		if(state != null) {
-			state.updateCamera(new Vector3f(newDirection));
+
+		if((state != null)) {
+			if ((position.x != 0) || (position.y != 0) || (position.z != 0)){
+				state.updateCamera();
+			}
 		}
 		else {
-			System.out.println(state.getName() + "no existe");
+			System.out.println(state.getName() + " no existe");
 		}
 		
-		this.oldDirection = direction;
-		
-		super.performAction(event);
+		if(!hasCollition) {
+			super.performAction(event);
+		}
 	}
 }

@@ -293,7 +293,7 @@ public class U3dLoginState extends U3dState {
 		return null;
 	}
 
-	public void updateCamera(Vector3f direction) {
+	public void updateCamera() {
 	}
 
 	public void updateState(float interpolation) {
