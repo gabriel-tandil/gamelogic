@@ -63,7 +63,7 @@ public class U3dgame extends Game {
 
 	protected void initCamera() {
 		// Create the camera.
-		// Create the camera.
+
 		Camera camera = this.display.getRenderer().createCamera(this.display.getWidth(),
 				this.display.getHeight());
 		camera.setFrustumPerspective(45.0f, this.display.getWidth()/this.display.getHeight(), 

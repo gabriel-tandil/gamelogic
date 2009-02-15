@@ -11,5 +11,5 @@ public abstract class U3dState extends WorldGameState {
 
 	public abstract void initialize();
 	
-	public abstract void updateCamera(Vector3f direction);
+	public abstract void updateCamera();
 }

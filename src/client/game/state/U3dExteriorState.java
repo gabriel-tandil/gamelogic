@@ -14,6 +14,7 @@ import com.jme.input.ChaseCamera;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.input.thirdperson.ThirdPersonMouseLook;
+import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
 import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
@@ -56,7 +57,7 @@ public class U3dExteriorState extends U3dState {
 			 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
 			 * 800, true); newPlayer.execute();
 			 */
-inicializaHUD();
+			inicializaHUD();
 			this.initialized = true;
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
@@ -64,21 +65,20 @@ inicializaHUD();
 	}
 
 	private void inicializaHUD() {
-HudManager.getInstance().unSetCargando();
-HudManager.getInstance().removeWindow("login");
-HudManager.getInstance().removeWindow("errorLogueo");
+		HudManager.getInstance().unSetCargando();
+		HudManager.getInstance().removeWindow("login");
+		HudManager.getInstance().removeWindow("errorLogueo");
 	}
 
-	private void initializeLight() {	
-		PointLight light = new PointLight();
-		light.setDiffuse(ColorRGBA.white);
-		light.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light.setLocation(new Vector3f(50,100,100));
+	private void initializeLight() {
+		DirectionalLight light = new DirectionalLight();
+		light.setDiffuse(new ColorRGBA(1, 1, 1, 1));
+		light.setAmbient(new ColorRGBA(.7f, .7f, .7f, 1f));
+		light.setDirection(new Vector3f(0, -1, -0.5f).normalizeLocal());
 		light.setEnabled(true);
 		
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().
 			createLightState();
-		lightState.setEnabled(true);
 		lightState.attach(light);
 
 		rootNode.setRenderState(lightState);
@@ -95,7 +95,7 @@ HudManager.getInstance().removeWindow("errorLogueo");
 
 	public void initializeCamera(U3dPlayerView playerView) {
 		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = 10 * 1.5f;
+		targetOffset.y = 5 * 1.0f;
 
 		HashMap props = new HashMap();
 		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
@@ -133,7 +133,7 @@ HudManager.getInstance().removeWindow("errorLogueo");
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 		// nodos del hud
 		.updateGeometricState(0.0f, true);
-HudManager.getInstance().getRoot().updateRenderState();
+		HudManager.getInstance().getRoot().updateRenderState();
 		/* Ya no va mas con los AccessPoints
 		 * if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
 			U3dChangeToIntEco task =(U3dChangeToIntEco) TaskManager.getInstance().createTask("4");
@@ -155,12 +155,12 @@ HudManager.getInstance().getRoot().updateRenderState();
 		this.initialized = initialized;
 	}
 	
-	public void updateCamera(Vector3f direction) {
+	public void updateCamera() {
 		boolean intersects = false;
 		Spatial worldView = this.rootNode.getChild("world_View");
 		Spatial campus = ((Node)worldView).getChild("Campus");
 		Spatial world = ((Node)campus).getChild("TestWorld");
-		intersects = chaser.verifyIntersection(world, direction);
+		intersects = chaser.verifyIntersection(world);
 //		System.out.println(intersects);
 	}
 

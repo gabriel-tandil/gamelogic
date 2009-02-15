@@ -44,13 +44,11 @@ public class HudManager implements IHudManager {
 		MouseInput.get().setCursorVisible(true);
 	}
 
-	@Override
 	public void render() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void update() {
 
 		for (Iterator iterator = GameStateManager.getInstance().getChildren()

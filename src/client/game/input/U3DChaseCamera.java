@@ -3,17 +3,13 @@ package client.game.input;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-
 import com.jme.bounding.BoundingSphere;
 import com.jme.input.ChaseCamera;
-
 import com.jme.input.RelativeMouse;
 import com.jme.math.Vector3f;
-
 import com.jme.renderer.Camera;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
-
 import com.jme.scene.shape.Sphere;
 
 
@@ -54,7 +50,7 @@ public class U3DChaseCamera extends ChaseCamera {
 		super.update(time);
 	}
 	
-	public boolean verifyIntersection(Spatial world, Vector3f direction) {
+	public boolean verifyIntersection(Spatial world) {
 		boolean intersects = false;
 		LinkedList results = new LinkedList();
 		
@@ -63,10 +59,16 @@ public class U3DChaseCamera extends ChaseCamera {
 			if(results.size() > 0){
 				intersects = true;
 				Vector3f actual = this.cam.getLocation();
-				Vector3f res = actual.add(direction.clone().mult(-1000));
+				Vector3f res = this.target.getWorldTranslation().subtract(actual);
+				res.normalizeLocal().multLocal(10).addLocal(actual);
+//				System.out.println(res);
 //				System.out.println(results);
 				cam.setLocation(res);
 				cam.update();
+				((U3DThirdPersonMouseLook)this.mouseLook).hasCollition = true;
+			}
+			else {
+				((U3DThirdPersonMouseLook)this.mouseLook).hasCollition = false;
 			}
 		}
 		else
