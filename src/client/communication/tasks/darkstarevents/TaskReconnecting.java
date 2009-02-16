@@ -1,12 +1,23 @@
 package client.communication.tasks.darkstarevents;
 
-import common.messages.IMessage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
+import client.communication.tasks.comm.RTaskChangeState;
+import client.manager.HudManager;
+import client.manager.TaskManager;
+
+import common.exceptions.UnsopportedMessageException;
+import common.messages.IMessage;
+import common.messages.MessageFactory;
+import common.messages.MsgTypes;
+import common.messages.notify.MsgChangePlayerState;
 
 /**
- * @author lito
- * 
+ * TaskReconnecting.java
+ * @author Castillo/Santos
  */
 public class TaskReconnecting extends TaskCommunication {
 	
@@ -27,19 +38,40 @@ public class TaskReconnecting extends TaskCommunication {
 	 * @see client.communication.tasks.TaskCommunication#
 	 *      factoryMethod(common.messages.IMessage)
 	 */
-	@Override
+	
 	public TaskCommunication factoryMethod(final IMessage msg) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	/**
-	 * 
+	 * La tarea que tenga el mensaje tendria que mostrar el dialogo 
+	 * y cambie de estado de ser necesario, invocando al {@link HudManager}
+	 * @author Castillo/Santos.
 	 * @see client.game.task.ITask#execute()
 	 */
-	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		HashMap<String, String> botones =new HashMap<String, String>();
+		botones.put("Reconnecting", "Reconnecting");
+		HudManager.getInstance().muestraDialogo(
+		 "Reconnectando?",botones ,
+		 new ActionListener() {
+		   public void actionPerformed(ActionEvent event) {
+			   try {
+					
+				   MsgChangePlayerState msg = (MsgChangePlayerState) MessageFactory.getInstance().createMessage(MsgTypes.MSG_CHANGE_PLAYER_STATE_SEND_TYPE);
+					RTaskChangeState taskChangeState = new RTaskChangeState(msg);
+					TaskManager.getInstance().submit(taskChangeState);
+					
+				} catch (UnsopportedMessageException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			   
+		   }
+		});
+
+		HudManager.getInstance().update();
 		
 	}
 	
