@@ -1,17 +1,17 @@
 package client.game.entity;
 
-import client.game.PersonaDae;
+import client.game.IPersonaje;
 
 public class U3DPlayer extends Player {
 
-	private PersonaDae p;
+	private IPersonaje p;
 	
 	public U3DPlayer(String theTipo)
 	{
 		super(theTipo);
 	}
 	
-	public void setDae(PersonaDae p){
+	public void setPlayerAvatar(IPersonaje p){
 		this.p=p;
 	}
 	

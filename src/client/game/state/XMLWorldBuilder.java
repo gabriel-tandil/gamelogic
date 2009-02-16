@@ -24,7 +24,8 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import client.game.Game;
-import client.game.PersonaDae;
+import client.game.IPersonaje;
+import client.game.PersonaMD5;
 import client.game.controller.ControllerManagerFactory;
 import client.game.controller.U3DPlayerController;
 import client.game.controller.U3DPlayerControllerFactory;
@@ -44,7 +45,6 @@ import client.game.view.ViewFactoryManager;
 import client.gameEngine.InputManager;
 import client.manager.CollisionManager;
 import client.manager.EntityManager;
-import client.manager.HudManager;
 import client.manager.ViewManager;
 
 import com.jme.bounding.BoundingBox;
@@ -157,13 +157,13 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 		//Player:2
 		Node player = new Node("Player"); 
-		PersonaDae p=getPlayer(player);
+		IPersonaje p= this.getPlayer(player);
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
 				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
-		playerEntity.setDae(p);
+		playerEntity.setPlayerAvatar(p);
 		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
 		
@@ -186,14 +186,30 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 	}
 	
-	private PersonaDae getPlayer(Node node) {
-		PersonaDae p = new PersonaDae(node);
+	private IPersonaje getPlayer(Node node) {
+		
+		/* PERSONAJE COLLADA*/
+		
+		/*IPersonaje p = new PersonaDae(node);
 		p.setPaquete("jmetest/data/model/collada/");
 		p.setPersonaje("jmetest/data/model/collada/man.dae");
 		p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
 		p.cargar();
 		p.setModelBound(new BoundingBox());
+		p.setLocalScale(0.8f);*/
+		
+		/* PERSONAJE MD5*/
+		
+		IPersonaje p = new PersonaMD5(node);
+		p.setPaquete("jmetest/data/model/MD5/");
+		p.setPersonaje("jmetest/data/model/MD5/Mesh.md5mesh");
+		p.setAnimaciones("jmetest/data/model/MD5/MeshAnim.md5anim");
+		p.cargar();
+		p.setModelBound(new BoundingBox());
 		p.setLocalScale(0.8f);
+		
+		/*--------------*/
+		
 		return p;
 	}
 	
