@@ -11,7 +11,7 @@ import com.jme.scene.Node;
 import com.jme.util.resource.MultiFormatResourceLocator;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
-import com.model.md5.MD5Node;
+import com.model.md5.ModelNode;
 import com.model.md5.importer.MD5Importer;
 
 
@@ -19,7 +19,7 @@ public class PersonaMD5 extends IPersonaje {
 
 	
 	private static final long serialVersionUID = 1L;
-	private MD5Node md5n;
+	private ModelNode md5n;
 	
 	
 	public PersonaMD5(Node p) {
@@ -64,7 +64,7 @@ public class PersonaMD5 extends IPersonaje {
 			e.printStackTrace();
 		}
 		
-		this.md5n = (MD5Node)MD5Importer.getInstance().getModelNode();
+		this.md5n = (ModelNode)MD5Importer.getInstance().getModelNode();
 		this.padre.attachChild(md5n);
         this.padre.updateGeometricState(0, true);
       
