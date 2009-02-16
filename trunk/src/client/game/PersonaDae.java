@@ -18,34 +18,33 @@ import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.model.collada.ColladaImporter;
 
-public class PersonaDae extends Node {
-	/**
-	 * 
-	 */
+
+public class PersonaDae extends IPersonaje {
+
 	private static final long serialVersionUID = 1L;
-	private AnimationController ac;
 	private Bone skel;
-	private SkinNode sn;
-	private Node padre;	
-	private String paquete, personaje,animaciones;	
+	private SkinNode sn;	
 	
 	
 	public PersonaDae(Node p)
 	{
-		this.padre = p;	
+		super(p);
 	}
-	public void setPaquete(String p)
-	{
-		this.paquete = p;
-	}
-	public void setPersonaje(String p)
-	{
-		this.personaje = p;
-	}
-	public void setAnimaciones(String a)
-	{
-		this.animaciones = a;
-	}
+	
+    protected void run(boolean running){
+    	if(running) this.skel.getController(0).setSpeed(2);
+    	else this.skel.getController(0).setSpeed(1);
+    }
+	
+    public void mover(boolean state, boolean run, boolean forward){
+    	if(forward)
+    		this.skel.getController(0).setRepeatType(Controller.RT_WRAP);
+    	else
+    		this.skel.getController(0).setRepeatType(Controller.RT_BACK);
+    	this.skel.getController(0).setActive(state);
+    	this.run(run);
+    }
+	
 	public Node cargar() {
     	try {
             ResourceLocatorTool.addResourceLocator(
@@ -69,7 +68,7 @@ public class PersonaDae extends Node {
         ColladaImporter.cleanUp();                
         ColladaImporter.load(animation, "anim");
         
-        this.cargarAnimacion(0);
+        this.cargarAnimacion();
         
         Quaternion q1 = new Quaternion();
 		q1 = q1.fromAngleAxis((float) -Math.PI / 2, new Vector3f(0, 0, 1));
@@ -92,7 +91,7 @@ public class PersonaDae extends Node {
         
         return this.sn;
     }	
-    private void cargarAnimacion(int n)
+    public void cargarAnimacion()
     {
     	ArrayList<String> animations = ColladaImporter.getControllerNames();
     	if(animations != null) {
@@ -113,17 +112,4 @@ public class PersonaDae extends Node {
 	        skel.addController(ac);
         }
     }     
-    public void mover(boolean state, boolean run, boolean forward){
-    	if(forward)
-    		this.skel.getController(0).setRepeatType(Controller.RT_WRAP);
-    	else
-    		this.skel.getController(0).setRepeatType(Controller.RT_BACK);
-    	this.skel.getController(0).setActive(state);
-    	this.run(run);
-    }
-    
-    private void run(boolean running){
-    	if(running) this.skel.getController(0).setSpeed(2);
-    	else this.skel.getController(0).setSpeed(1);
-    }
 }
