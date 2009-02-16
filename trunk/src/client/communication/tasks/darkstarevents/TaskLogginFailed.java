@@ -1,12 +1,13 @@
 package client.communication.tasks.darkstarevents;
 
+import client.communication.tasks.TaskCommunication;
+import client.game.state.U3dLoginState;
+import com.jmex.game.state.GameStateManager;
 import common.messages.IMessage;
 
-import client.communication.tasks.TaskCommunication;
-
 /**
- * @author lito
- * 
+ * TaskLogginFailed.java
+ * @author Castillo/Santos
  */
 public class TaskLogginFailed extends TaskCommunication {
 	
@@ -23,11 +24,10 @@ public class TaskLogginFailed extends TaskCommunication {
 	}
 	
 	/**
-	 * 
 	 * @see client.communication.tasks.TaskCommunication#
 	 *      factoryMethod(common.messages.IMessage)
 	 */
-	@Override
+	
 	public TaskCommunication factoryMethod(final IMessage msg) {
 		// TODO Auto-generated method stub
 		return null;
@@ -35,12 +35,15 @@ public class TaskLogginFailed extends TaskCommunication {
 	
 	/**
 	 * 
-	 * @see client.game.task.ITask#execute()
-	 */
-	@Override
+	 * Envia una respuesta de loggin failed al {@link GameStateManager}, donde esa<br>
+	 * respuesta es tomado por el <b>HUD manager</b> y en el cual se mostrara el HUD<br>
+	 * de logueo incorrecto con el error.<br>
+	 * @author Castillo/Santos
+	 */	
 	public void execute() {
-		// TODO Auto-generated method stub
+		String respuesta = "Loggin Failed";
 		
+		((U3dLoginState)GameStateManager.getInstance().getChild("login")).setRespuestaLogueo(respuesta);
 	}
 	
 	/**

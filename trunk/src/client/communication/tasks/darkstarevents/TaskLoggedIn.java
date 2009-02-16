@@ -1,12 +1,14 @@
 package client.communication.tasks.darkstarevents;
 
+import client.communication.tasks.TaskCommunication;
+import client.game.state.U3dLoginState;
+
+import com.jmex.game.state.GameStateManager;
 import common.messages.IMessage;
 
-import client.communication.tasks.TaskCommunication;
-
 /**
- * @author lito
- * 
+ * TaskLoggedIn.java
+ * @author Castillo/Santos
  */
 public class TaskLoggedIn extends TaskCommunication {
 	
@@ -27,19 +29,23 @@ public class TaskLoggedIn extends TaskCommunication {
 	 * @see client.communication.tasks.TaskCommunication#
 	 *      factoryMethod(common.messages.IMessage)
 	 */
-	@Override
+	
 	public TaskCommunication factoryMethod(final IMessage msg) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	/**
-	 * 
-	 * @see client.game.task.ITask#execute()
+	 * Envia una respuesta de loggin al {@link GameStateManager}, donde esa<br>
+	 * respuesta es tomado por el <b>HUD manager</b> y en el cual se mostrara el HUD<br>
+	 * de loggin satisfatorio y se hara la transicion de estado pertinente.<br>
+	 * @author Castillo/Santos
 	 */
-	@Override
+	
 	public void execute() {
-		// TODO Auto-generated method stub
+		
+		String respuesta = "Loggin OK";
+		((U3dLoginState)GameStateManager.getInstance().getChild("login")).setRespuestaLogueo(respuesta);
 		
 	}
 	
