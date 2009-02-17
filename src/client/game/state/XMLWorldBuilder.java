@@ -278,6 +278,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	//        		HudManager.getInstance().getBarraProgreso().setMax(cant);		              	
 		        	for(int k= 1; k<= cant;k++){
 //		        		HudManager.getInstance().setProgreso(k);
+
 		        		Node hijo = new Node("Hijo"+i);
 		    			hijo=cargarModelo(textures + model.getValue()+"_parte"+k+".3ds");
 		    			
@@ -285,13 +286,8 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 		    			hijo.setLocalRotation(q);
 		    		   	world.attachChild(hijo);
-		    		   	//***AccessPoint por ahora
-		    		   	if(k==1019 && url=="protCampusXML/data/campus.xml")
-		    		   		CollisionManager.getInstace().addAccessPoint(k+"", new AccessPoint(hijo,(BasicGameState) GameStateManager.getInstance().getChild("Eco")));
-		    		   	if(k==5 && url!="protCampusXML/data/campus.xml")
-		    		   		CollisionManager.getInstace().addAccessPoint(k+"", new AccessPoint(hijo,(BasicGameState) GameStateManager.getInstance().getChild("Exterior")));
-		    			//***************************
-		    		}  	
+		    		}
+  	
 		        	Node hijo = new Node("Piso");
 	    			hijo=cargarModelo(textures + model.getValue()+ "_Piso.3ds");
 	    			Quaternion q = hijo.getLocalRotation();
@@ -315,6 +311,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		        	nodeRoot.attachChild(world);	        	
 		        	
 		        }
+		        for(Iterator<Element> i=root.getChildren("accesspoints").iterator();i.hasNext();){
+		        	Element node=i.next();
+		        	parseAccessPoints(world, node);
+		        }	        
 		  
 			} catch (JDOMException e) {
 				e.printStackTrace();
@@ -2390,6 +2390,23 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				m3f= new Matrix3f(Float.valueOf(param1), Float.valueOf(param2), Float.valueOf(param3), Float.valueOf(param4), Float.valueOf(param5), Float.valueOf(param6), Float.valueOf(param7), Float.valueOf(param8), Float.valueOf(param9));
 			}
 		return m3f;
+	}
+	
+	private void parseAccessPoints(Node world, Element node){
+		List list;
+		Iterator i;
+		Element e;
+		Attribute a;	
+		list=node.getChildren("accesspoint");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				a=e.getAttribute("param2");
+				String param2=a.getValue();
+				CollisionManager.getInstace().addAccessPoint(param1, new AccessPoint((Node)world.getChild(Integer.parseInt(param1)), (BasicGameState) GameStateManager.getInstance().getChild(param2)));
+			}
 	}
 
 }
