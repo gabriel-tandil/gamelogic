@@ -1,7 +1,5 @@
 package client.game.state;
 
-import java.util.HashMap;
-
 import client.game.input.U3DChaseCamera;
 import client.game.task.U3dChangeToExterior;
 import client.game.view.U3dPlayerView;
@@ -10,19 +8,12 @@ import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 
-import com.jme.input.ChaseCamera;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
-import com.jme.input.thirdperson.ThirdPersonMouseLook;
-import com.jme.light.PointLight;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
-import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
-import com.jme.scene.state.LightState;
-import com.jme.system.DisplaySystem;
+
 
 public class U3dIntEcoState extends U3dState {
 	
@@ -69,66 +60,7 @@ public class U3dIntEcoState extends U3dState {
 		HudManager.getInstance().unSetCargando();
 	}
 	private void initializeLight() {	
-		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().
-		createLightState();
-		
-		PointLight light1 = new PointLight();
-		light1.setDiffuse(ColorRGBA.white);
-		light1.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light1.setLocation(new Vector3f(1250,10,-350));
-		light1.setAttenuate(true);
-		light1.setEnabled(true);
-		lightState.attach(light1);
-		
-		PointLight light2 = new PointLight();
-		light2.setDiffuse(ColorRGBA.white);
-		light2.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light2.setLocation(new Vector3f(1084,10,-281));
-		light2.setAttenuate(true);
-		light2.setEnabled(true);
-		lightState.attach(light2);
-		
-		PointLight light3 = new PointLight();
-		light3.setDiffuse(ColorRGBA.white);
-		light3.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light3.setLocation(new Vector3f(720,10,-358));
-		light3.setAttenuate(true);
-		light3.setEnabled(true);
-		lightState.attach(light3);
-		
-		PointLight light4 = new PointLight();
-		light4.setDiffuse(ColorRGBA.white);
-		light4.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light4.setLocation(new Vector3f(1050,10,-156));
-		light4.setAttenuate(true);
-		light4.setEnabled(true);
-		lightState.attach(light4);
-		
-		PointLight light5 = new PointLight();
-		light5.setDiffuse(ColorRGBA.white);
-		light5.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light5.setLocation(new Vector3f(670,10,-209));
-		light5.setAttenuate(true);
-		light5.setEnabled(true);
-		lightState.attach(light5);
-		
-		PointLight light6 = new PointLight();
-		light6.setDiffuse(ColorRGBA.white);
-		light6.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light6.setLocation(new Vector3f(280,10,-405));
-		light6.setAttenuate(true);
-		light6.setEnabled(true);
-		lightState.attach(light6);
-		
-		PointLight light7 = new PointLight();
-		light7.setDiffuse(ColorRGBA.white);
-		light7.setAmbient(new ColorRGBA(0.5f,0.5f,0.5f,1.0f));
-		light7.setLocation(new Vector3f(224,10,-280));
-		light7.setAttenuate(true);
-		light7.setEnabled(true);
-		lightState.attach(light7);
-
-		rootNode.setRenderState(lightState);
+		builder.buildLight(rootNode);
 	}
 	
 	private void initializeWorld() {
@@ -141,22 +73,7 @@ public class U3dIntEcoState extends U3dState {
 	}
 
 	public void initializeCamera(U3dPlayerView playerView) {
-		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = 10 * 1.5f;
-
-		HashMap props = new HashMap();
-		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
-		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
-		props.put(ChaseCamera.PROP_TARGETOFFSET, targetOffset);
-		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, "" + 25 * FastMath.DEG_TO_RAD);
-		props.put(ThirdPersonMouseLook.PROP_MINASCENT, "" + 0);
-		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(15, 0, 
-				25 * FastMath.DEG_TO_RAD));
-
-		chaser = new U3DChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
-				getCamera(), playerView, props);
-		chaser.setMaxDistance(15);
-		chaser.setMinDistance(10);	
+		chaser = this.builder.buildCamera(playerView);
 	}
 	
 	public void initializeState() {

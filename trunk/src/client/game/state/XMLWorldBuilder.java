@@ -3,15 +3,12 @@
  */
 package client.game.state;
 
-
-
-
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +31,7 @@ import client.game.entity.U3DBuildingEntity;
 import client.game.entity.U3DBuildingEntityFactory;
 import client.game.entity.U3DPlayer;
 import client.game.entity.U3DPlayerFactory;
+import client.game.input.U3DChaseCamera;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DMoveCharacterTaskFactory;
 import client.game.task.U3DRotateCharacterTaskFactory;
@@ -53,7 +51,13 @@ import com.jme.bounding.BoundingSphere;
 import com.jme.bounding.BoundingVolume;
 import com.jme.bounding.OrientedBoundingBox;
 import com.jme.image.Texture;
+import com.jme.input.ChaseCamera;
 import com.jme.input.KeyInput;
+import com.jme.input.thirdperson.ThirdPersonMouseLook;
+import com.jme.light.DirectionalLight;
+import com.jme.light.PointLight;
+import com.jme.light.SpotLight;
+import com.jme.math.FastMath;
 import com.jme.math.LineSegment;
 import com.jme.math.Matrix3f;
 import com.jme.math.Quaternion;
@@ -2407,6 +2411,395 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				String param2=a.getValue();
 				CollisionManager.getInstace().addAccessPoint(param1, new AccessPoint((Node)world.getChild(Integer.parseInt(param1)), (BasicGameState) GameStateManager.getInstance().getChild(param2)));
 			}
+	}
+	
+//**********************************************************************************	
+//Iluminación
+//**********************************************************************************
+	/**
+	 * Metodo encargado de leer un archivo de extension ".xml" y cargar desde el mismo
+	 * clases para realizar la iluminacion. 
+	 * @param nodeRoot: nodo "Padre".
+	 */
+	public void buildLight(Node nodeRoot){
+		//Lee la ruta donde se haya el archivo ".xml"
+		URL filename=java.lang.ClassLoader.getSystemClassLoader().getSystemResource(url);			
+		LightState lightState = null;
+		
+		if (filename != null) {
+			try {
+				SAXBuilder builder = new SAXBuilder(false);
+				//Se carga el arbol xml en memoria
+		        Document doc = builder.build(filename);
+		        Element root = doc.getRootElement();
+		        List list;
+				Element e;
+				Attribute a;
+				
+				lightState = DisplaySystem.getDisplaySystem().getRenderer().
+				createLightState();
+				
+				list=root.getChildren("lightState");
+				if(list!=null) {
+					for(Iterator i=list.iterator();i.hasNext(); ){
+						Element ls=(Element) i.next();
+						parseLightState(lightState, ls);
+					}
+				}
+				list=root.getChildren("pointLigh");
+				if(list!=null){
+					PointLight pLight;
+					for(Iterator i=list.iterator();i.hasNext(); ){
+						Element pl=(Element) i.next();
+						pLight = new PointLight();
+						parsePointLight(pLight, pl);
+						lightState.attach(pLight);
+					}
+				}
+				list=root.getChildren("directionalLight");
+				if(list!=null){
+					DirectionalLight dLight;
+					for(Iterator i=list.iterator();i.hasNext(); ){
+						Element pl=(Element) i.next();
+						dLight = new DirectionalLight();
+						parseDirectionalLight(dLight, pl);
+						lightState.attach(dLight);
+					}
+				}
+				list=root.getChildren("spotLight");
+				if(list!=null){
+					SpotLight sLight;
+					for(Iterator i=list.iterator();i.hasNext(); ){
+						Element pl=(Element) i.next();
+						sLight = new SpotLight();
+						parseSpotLight(sLight, pl);
+						lightState.attach(sLight);
+					}
+				}
+				nodeRoot.setRenderState(lightState);
+				nodeRoot.updateGeometricState(0.0f, true);
+				nodeRoot.updateRenderState();
+
+			} catch (JDOMException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+    }
+	
+	/**
+	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
+	 * "SETERS" correspondiente a "PointLight". Este método busca el ".set" que es llamado desde 
+	 * el codigo y busca su correspondiente defincion en el ".xml".
+	 * @param child: clase  PointLight.
+	 * @param node: Element, permite realizar la lectura del ".xml".
+	 * @return PointLight: retorna una "PointLight". 
+	 */		
+	private PointLight parsePointLight(PointLight child, Element node)throws DataConversionException {
+		List list;
+		Iterator i;
+		Element e;
+		Attribute a;
+		
+		list=node.getChildren("diffuse");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setDiffuse(param1);
+			}
+		list=node.getChildren("ambient");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setAmbient(param1);
+			}
+		list=node.getChildren("specular");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setSpecular(param1);
+			}
+		list=node.getChildren("location");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				Vector3f param1=parseVector3f(e.getChildren("vector3f"));
+				child.setLocation(param1);
+			}
+		
+		list=node.getChildren("attenuate");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				child.setAttenuate(Boolean.valueOf(param1));
+			}
+		list=node.getChildren("enabled");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				child.setEnabled(Boolean.valueOf(param1));
+			}
+
+		return child;
+	}
+
+	/**
+	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
+	 * "SETERS" correspondiente a "LightState". Este método busca el ".set" que es llamado desde 
+	 * el codigo y busca su correspondiente defincion en el ".xml".
+	 * @param child: clase  LightState.
+	 * @param node: Element, permite realizar la lectura del ".xml".
+	 * @return PointLight: retorna  "LightState". 
+	 */		
+	private LightState parseLightState(LightState child, Element node)throws DataConversionException {
+		List list;
+		Iterator i;
+		Element e;
+		Attribute a;
+				
+		list=node.getChildren("enabled");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				child.setEnabled(Boolean.valueOf(param1));
+			}
+
+		return child;
+	}
+
+	/**
+	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
+	 * "SETERS" correspondiente a "DirectionalLight". Este método busca el ".set" que es llamado desde 
+	 * el codigo y busca su correspondiente defincion en el ".xml".
+	 * @param child: clase  DirectionalLight.
+	 * @param node: Element, permite realizar la lectura del ".xml".
+	 * @return PointLight: retorna una "DirectionalLight". 
+	 */		
+	private DirectionalLight parseDirectionalLight(DirectionalLight child, Element node)throws DataConversionException {
+		List list;
+		Iterator i;
+		Element e;
+		Attribute a;
+		
+		list=node.getChildren("diffuse");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setDiffuse(param1); 
+			}
+		list=node.getChildren("ambient");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setAmbient(param1);
+			}
+		list=node.getChildren("specular");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setSpecular(param1);
+			}
+		
+		list=node.getChildren("direction");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				Vector3f param1=parseVector3f(e.getChildren("vector3f"));
+				child.setDirection(param1);
+			}
+		
+		list=node.getChildren("enabled");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				child.setEnabled(Boolean.valueOf(param1));
+			}
+
+		return child;
+	}	
+
+	/**
+	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
+	 * "SETERS" correspondiente a "SpotLight". Este método busca el ".set" que es llamado desde 
+	 * el codigo y busca su correspondiente defincion en el ".xml".
+	 * @param child: clase  SpotLight.
+	 * @param node: Element, permite realizar la lectura del ".xml".
+	 * @return PointLight: retorna una "SpotLight". 
+	 */		
+	private SpotLight parseSpotLight(SpotLight child, Element node)throws DataConversionException {
+		List list;
+		Iterator i;
+		Element e;
+		Attribute a;
+		
+		list=node.getChildren("diffuse");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setDiffuse(param1);
+			}
+		list=node.getChildren("ambient");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setAmbient(param1);
+			}
+		list=node.getChildren("specular");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				ColorRGBA param1=parseColor(e.getChildren("colorRGBA"));
+				child.setSpecular(param1);
+			}
+		list=node.getChildren("location");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				Vector3f param1=parseVector3f(e.getChildren("vector3f"));
+				child.setLocation(param1);
+			}
+		list=node.getChildren("direction");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				Vector3f param1=parseVector3f(e.getChildren("vector3f"));
+				child.setDirection(param1);
+			}
+		list=node.getChildren("lexponent");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				child.setExponent(Float.valueOf(param1));
+			}
+		list=node.getChildren("enabled");
+		if(list!=null)
+			for(i=list.iterator();i.hasNext(); ){
+				e=(Element) i.next();
+				a=e.getAttribute("param1");
+				String param1=a.getValue();
+				child.setEnabled(Boolean.valueOf(param1));
+			}
+
+		return child;
+	}	
+
+//*********************************************************************************
+//  Cámaras
+//*********************************************************************************
+	/**
+	 * Construye una U3DChaseCamera para el U3dPlayerView a partir de parametros
+	 * obtenidos del archivo xml que indica la variable url
+	 * @param playerView es la vista del jugador requerida para la Chasecamera
+	 * @author Carlos Fritz
+	 */
+	public U3DChaseCamera buildCamera(U3dPlayerView playerView) {
+		URL filename = java.lang.ClassLoader.getSystemClassLoader().getSystemResource(url);
+		Vector3f targetOffset = null;
+		Vector3f initialspherecoords = null;
+		HashMap props = new HashMap();
+		U3DChaseCamera chaser = null;
+		Attribute a;
+		
+		if (filename != null) {
+			try {
+				SAXBuilder builder = new SAXBuilder(false);
+				// se carga el arbol xml en memoria
+				Document doc = builder.build(filename);
+				Element root = doc.getRootElement();
+
+				List list = root.getChildren("u3dChaseCam");
+				if (list != null) {
+					Iterator i = list.iterator();
+					if (i.hasNext()) {
+						Element e = (Element) i.next();
+						//Carga el Vector3f targetOffset
+						List list1 = e.getChildren("targetOffset");
+						if (list1 != null)
+							for (i = list1.iterator(); i.hasNext();) {
+								Element e1 = (Element) i.next();
+								targetOffset = parseVector3f(e1
+										.getChildren("vector3f"));
+							}
+						//Carga el hash props
+						list1 = e.getChildren("properties");
+						if (list1 != null) {
+							for (i = list1.iterator(); i.hasNext();) {
+								Element e1 = (Element) i.next();
+								a = e1.getAttribute("prop_Maxrollout");
+								String prop_maxr = a.getValue();
+								a = e1.getAttribute("prop_Minrollout");
+								String prop_minr = a.getValue();
+								a = e1.getAttribute("prop_Maxascent");
+								String prop_maxas = a.getValue();
+								a = e1.getAttribute("prop_Minascent");
+								String prop_minas = a.getValue();
+								List list2 = e1
+								.getChildren("prop_initialspherecoords");
+								if (list2 != null)
+									for (i = list2.iterator(); i.hasNext();) {
+										Element e2 = (Element) i.next();
+										initialspherecoords = parseVector3f(e2
+												.getChildren("vector3f"));
+									}
+								props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT,
+										prop_maxr);
+								props.put(ThirdPersonMouseLook.PROP_MINROLLOUT,
+										prop_minr);
+								props.put(ChaseCamera.PROP_TARGETOFFSET,
+										targetOffset);
+								props.put(ThirdPersonMouseLook.PROP_MAXASCENT,
+										"" + Integer.valueOf(prop_maxas)
+										* FastMath.DEG_TO_RAD);
+								props.put(ThirdPersonMouseLook.PROP_MINASCENT,
+										"" + Integer.valueOf(prop_minas));
+								initialspherecoords.z *= FastMath.DEG_TO_RAD;
+								props.put(ChaseCamera.PROP_INITIALSPHERECOORDS,
+										initialspherecoords);
+							}
+							//Crea la U3DChaseCamera y carga los atributos max y min distance 
+							list1 = e.getChildren("chase_Settings");
+							if (list1 != null) {
+								for (i = list1.iterator(); i.hasNext();) {
+									Element e3 = (Element) i.next();
+									a = e3.getAttribute("maxDistance");
+									String maxDistance = a.getValue();
+									a = e3.getAttribute("minDistance");
+									String minDistance = a.getValue();
+									chaser = new U3DChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().getCamera(), playerView, props);
+									chaser.setMaxDistance(Integer.valueOf(maxDistance));
+									chaser.setMinDistance(Integer.valueOf(minDistance));
+								}
+							}
+						}
+					}
+				}
+				return chaser;
+			} catch (JDOMException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 }

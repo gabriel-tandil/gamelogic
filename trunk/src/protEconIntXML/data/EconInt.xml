@@ -22,4 +22,113 @@
 	<accesspoints>
 		<accesspoint param1="4" param2="Exterior" />
 	</accesspoints>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "1250" param2 = "10" param3 = "-350"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "1084" param2 = "10" param3 = "-281"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "720" param2 = "10" param3 = "-358"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "1050" param2 = "10" param3 = "-156"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "670" param2 = "10" param3 = "-209"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "280" param2 = "10" param3 = "-415"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "224" param2 = "10" param3 = "-280"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<u3dChaseCam>
+		<targetOffset>
+			<vector3f param1 = "0" param2 = "15" param3 = "0"/>
+		</targetOffset>
+		<properties prop_Maxrollout = "6" prop_Minrollout = "3" prop_Maxascent = "25" prop_Minascent = "0"> 
+			<prop_initialspherecoords>
+				<vector3f param1 = "15" param2 = "0" param3 = "25"/>
+			</prop_initialspherecoords>	
+		</properties>
+		<chase_Settings maxDistance = "15" minDistance = "10"/>
+	</u3dChaseCam>
 </map>
