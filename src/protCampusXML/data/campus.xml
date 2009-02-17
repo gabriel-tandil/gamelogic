@@ -19,4 +19,7 @@
 		</modelBound>		
 		<name param1="string"></name>
 	</node>
+	<accesspoints>
+		<accesspoint param1="1019" param2="Eco" />
+	</accesspoints>
 </map>
