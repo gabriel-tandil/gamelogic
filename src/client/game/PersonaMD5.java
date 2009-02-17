@@ -66,7 +66,7 @@ public class PersonaMD5 extends IPersonaje {
 		
 		this.md5n = (ModelNode)MD5Importer.getInstance().getModelNode();
 		this.padre.attachChild(md5n);
-        this.padre.updateGeometricState(0, true);
+        this.padre.updateGeometricState(1, true);
       
         /*q sino se ve chico xDDDDDDD!!!*/
         padre.setLocalScale(14);
