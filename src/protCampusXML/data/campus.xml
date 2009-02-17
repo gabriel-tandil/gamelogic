@@ -22,4 +22,44 @@
 	<accesspoints>
 		<accesspoint param1="1019" param2="Eco" />
 	</accesspoints>
+	<directionalLight>
+		<diffuse>
+			<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "0.5" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.7" param2 = "0.7" param3 = "0.7" param4 = "1"></colorRGBA>
+		</ambient>
+		
+		<direction>
+			<vector3f param1 = "-0.5" param2 = "-1" param3 = "-0.5"></vector3f>
+		</direction>
+		<enabled param1="true"></enabled>
+	</directionalLight>
+	<directionalLight>
+		<diffuse>
+			<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "0.5" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.7" param2 = "0.7" param3 = "0.7" param4 = "1"></colorRGBA>
+		</ambient>
+		
+		<direction>
+			<vector3f param1 = "0.5" param2 = "-1" param3 = "-0.5"></vector3f>
+		</direction>
+		<enabled param1="true"></enabled>
+	</directionalLight>		
+	<lightState>
+		<enabled param1="true"></enabled>
+	</lightState>
+	<u3dChaseCam>
+		<targetOffset>
+			<vector3f param1 = "0" param2 = "5" param3 = "0"/>
+		</targetOffset>
+		<properties prop_Maxrollout = "6" prop_Minrollout = "3" prop_Maxascent = "25" prop_Minascent = "0"> 
+			<prop_initialspherecoords>
+				<vector3f param1 = "20" param2 = "0" param3 = "30"/>
+			</prop_initialspherecoords>	
+		</properties>
+		<chase_Settings maxDistance = "80" minDistance = "50"/>
+	</u3dChaseCam>
 </map>

@@ -61,8 +61,9 @@ public class U3DChaseCamera extends ChaseCamera {
 				Vector3f actual = this.cam.getLocation();
 				Vector3f res = this.target.getWorldTranslation().subtract(actual);
 				res.normalizeLocal().multLocal(10).addLocal(actual);
-//				System.out.println(res);
-//				System.out.println(results);
+				if(res.y < 3) {
+					res.y = 15;
+				}
 				cam.setLocation(res);
 				cam.update();
 				((U3DThirdPersonMouseLook)this.mouseLook).hasCollition = true;

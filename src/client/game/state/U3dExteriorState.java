@@ -10,20 +10,12 @@ import client.game.view.U3dPlayerView;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
-import com.jme.input.ChaseCamera;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
-import com.jme.input.thirdperson.ThirdPersonMouseLook;
-import com.jme.light.DirectionalLight;
-import com.jme.light.PointLight;
-import com.jme.math.FastMath;
-import com.jme.math.Vector3f;
-import com.jme.renderer.ColorRGBA;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
-import com.jme.scene.state.LightState;
-import com.jme.system.DisplaySystem;
+
 
 public class U3dExteriorState extends U3dState {
 	
@@ -42,8 +34,9 @@ public class U3dExteriorState extends U3dState {
 		if (!this.initialized) {
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());		
 			KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
-			this.initializeLight();
+
 			this.initializeWorld();
+			this.initializeLight();
 
 			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
@@ -71,17 +64,7 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	private void initializeLight() {
-		DirectionalLight light = new DirectionalLight();
-		light.setDiffuse(new ColorRGBA(1, 1, 1, 1));
-		light.setAmbient(new ColorRGBA(.7f, .7f, .7f, 1f));
-		light.setDirection(new Vector3f(0, -1, -0.5f).normalizeLocal());
-		light.setEnabled(true);
-		
-		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().
-			createLightState();
-		lightState.attach(light);
-
-		rootNode.setRenderState(lightState);
+		this.builder.buildLight(rootNode);
 	}
 	
 	private void initializeWorld() {
@@ -94,22 +77,7 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	public void initializeCamera(U3dPlayerView playerView) {
-		Vector3f targetOffset = new Vector3f();
-		targetOffset.y = 5 * 1.0f;
-
-		HashMap props = new HashMap();
-		props.put(ThirdPersonMouseLook.PROP_MAXROLLOUT, "6");
-		props.put(ThirdPersonMouseLook.PROP_MINROLLOUT, "3");
-		props.put(ChaseCamera.PROP_TARGETOFFSET, targetOffset);
-		props.put(ThirdPersonMouseLook.PROP_MAXASCENT, "" + 25 * FastMath.DEG_TO_RAD);
-		props.put(ThirdPersonMouseLook.PROP_MINASCENT, "" + 0);
-		props.put(ChaseCamera.PROP_INITIALSPHERECOORDS, new Vector3f(20, 0, 
-				30 * FastMath.DEG_TO_RAD));
-
-		chaser = new U3DChaseCamera(DisplaySystem.getDisplaySystem().getRenderer().
-				getCamera(), playerView, props);
-		chaser.setMaxDistance(80);
-		chaser.setMinDistance(50);	
+		chaser = this.builder.buildCamera(playerView);
 	}
 	
 	public void initializeState() {
