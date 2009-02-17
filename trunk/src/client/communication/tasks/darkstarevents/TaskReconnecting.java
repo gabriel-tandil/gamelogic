@@ -1,7 +1,7 @@
 package client.communication.tasks.darkstarevents;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.jmex.bui.event.ActionEvent;
+import com.jmex.bui.event.ActionListener;
 import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
