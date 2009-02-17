@@ -69,7 +69,7 @@ public class PersonaMD5 extends IPersonaje {
         this.padre.updateGeometricState(1, true);
       
         /*q sino se ve chico xDDDDDDD!!!*/
-        padre.setLocalScale(14);
+        padre.setLocalScale(11);
         
         MD5Importer.getInstance().cleanup();
         
