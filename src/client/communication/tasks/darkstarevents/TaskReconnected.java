@@ -1,7 +1,7 @@
 package client.communication.tasks.darkstarevents;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.jmex.bui.event.ActionEvent;
+import com.jmex.bui.event.ActionListener;
 import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
@@ -45,8 +45,8 @@ public class TaskReconnected extends TaskCommunication {
 	}
 	
 	/**
-	 * Se invoca al {@link HudManager} para mostrar el dialogo de reconexión, con los botones 
-	 * correspondientes y la acción de cambio de estado.   
+	 * Se invoca al {@link HudManager} para mostrar el dialogo de reconexiï¿½n, con los botones 
+	 * correspondientes y la acciï¿½n de cambio de estado.   
 	 * @author Castillo/Santos.
 	 * @see client.game.task.ITask#execute()
 	  */	

@@ -1,7 +1,5 @@
 package client.communication.tasks.darkstarevents;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
@@ -9,6 +7,8 @@ import client.communication.tasks.comm.RTaskChangeState;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
+import com.jmex.bui.event.ActionEvent;
+import com.jmex.bui.event.ActionListener;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
@@ -50,7 +50,7 @@ public class TaskDisconnected extends TaskCommunication {
 	
 	/**
 	 * Se muestra el dialogo de consulta para volver a conectar, invocando al {@link HudManager}
-	 * con los botones correspondientes y la acción de cambio de estado.
+	 * con los botones correspondientes y la acciï¿½n de cambio de estado.
 	 * @see client.game.task.ITask#execute()
 	 * @author Castillo/Santos.	 
 	 */	
