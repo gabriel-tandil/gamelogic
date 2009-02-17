@@ -7,9 +7,11 @@ package client.manager;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Set;
+import java.util.Vector;
 
-import com.jme.intersection.CollisionResults;
+import client.game.state.AccessPoint;
+import client.game.state.IAccessPoint;
+
 import com.jme.intersection.PickData;
 import com.jme.intersection.PickResults;
 import com.jme.intersection.TrianglePickResults;
@@ -18,9 +20,6 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
-
-import client.game.state.IAccessPoint;
-import client.game.state.AccessPoint;
 
 /** 
  * @author Santiago Michielotto
@@ -115,7 +114,6 @@ public class CollisionManager {
 	public Vector3f getIntersection(Ray ray, Spatial parent, boolean local) {
 		//Intersection vector
 		Vector3f store = new Vector3f();
-		
         TrianglePickResults results = new TrianglePickResults();
         results.setCheckDistance(true);
         Vector3f[] vertices = new Vector3f[3];
@@ -153,7 +151,7 @@ public class CollisionManager {
         root.findPick(ray, results);
         if (iterate) {
             for (int i = 0; i < results.getNumber(); i++) {
-            	if(results.getPickData(i).getDistance()<=2)
+            	if(results.getPickData(i).getDistance()<=10)
             	{
 	            	Spatial collision = this.validateClass(root, results.getPickData(i).getTargetMesh(), reference);
 	                if (collision != null) 
@@ -193,30 +191,39 @@ public class CollisionManager {
      * @return The valid <code>Vector3f</code> destination.
      */
 	public Vector3f getDestination(Vector3f origin, Vector3f destination, Spatial spatial){
-        //convert start point to world coordinate system
+		System.out.println("Origen "+origin);
+		System.out.println("Destino "+destination);
+		
+		//convert start point to world coordinate system
         spatial.localToWorld(origin, origin);
         //convert destination point to world coordinate system
         spatial.localToWorld(destination, destination);
         
         //build the direction Vector3f
         Vector3f direction = destination.subtract(origin).normalizeLocal();
+        Vector3f directionL = new Vector3f(-direction.z,direction.y,direction.x).normalize();// destination.subtract(origin).normalizeLocal();
+        Vector3f directionL2 = direction.add(directionL).normalize();//destination.subtract(origin).normalizeLocal();
+        Vector3f directionR = new Vector3f(direction.z,direction.y,-direction.x).normalize();//destination.subtract(origin).normalizeLocal();
+        Vector3f directionR2 = direction.add(directionR).normalize(); //destination.subtract(origin).normalizeLocal();
         //generate Ray for intersection detection
         Ray moveRay = new Ray(origin, direction);
         
         //calculate the intersection between the move ray and the spatial
-        Vector3f hitPoint = getIntersection(moveRay, spatial, false);
         
-        //if there are no obstacles, return the destination directly
-        if(hitPoint == null) {
-        	//if there are no hit point, return the destination directly
-            spatial.worldToLocal(destination, destination);
-            return destination;
-        }
-        else {
-        	//if there are hit point, calcule the new destination
-            Vector3f newDestination = hitPoint.subtractLocal(direction);
-            spatial.worldToLocal(newDestination, newDestination);
-            return newDestination;
-        }
+        
+        Vector<Vector3f> hitPoints = new Vector<Vector3f>();
+        
+        hitPoints.add(getIntersection(new Ray(origin, direction),spatial, false));        	
+        hitPoints.add(getIntersection(new Ray(origin, directionL),spatial, false));
+        hitPoints.add(getIntersection(new Ray(origin, directionL2),spatial, false));
+        hitPoints.add(getIntersection(new Ray(origin, directionR),spatial, false));
+        hitPoints.add(getIntersection(new Ray(origin, directionR2),spatial, false));
+        
+
+       for (int i= 0;i<5;i++)
+          	if (hitPoints.get(i) != null)
+          		if (hitPoints.get(i).distance(destination) < 5f)
+           			return origin;
+       return destination;
 	}
 }

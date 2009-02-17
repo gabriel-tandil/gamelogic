@@ -84,21 +84,32 @@ public class U3DMoveCharacterTask extends Task {
 					break;
 			}
 			if (aux != null) {
+				
 				Vector3f destination = CollisionManager.getInstace()
-						.getDestination(origin, destine,
-								aux.getRootNode().getChild(0));
+											.getDestination(origin, destine,
+												aux.getRootNode().getChild(0));
+				System.out.println("Haber......................");
+				
+
+				
 				if (destination != null) {
-					if ((origin.x == destination.x)	&& (origin.z == destination.z))
+					/* origin----->destination----->destine   */
+					
+					/*if ((origin.x == destination.x)	&& (origin.z == destination.z))
 						destination = destine;
+					
 					if (((origin.x - destine.x > 0) && (destination.x - origin.x > 0)))
 						destination.x = origin.x;// X --->
+					
 					if (((origin.x - destine.x < 0) && (destination.x - origin.x < 0)))
 						destination.x = origin.x;// X <----
+					
 					if (((origin.z - destine.z > 0) && (destination.z - origin.z > 0)))
 						destination.z = origin.z;// Z --->
+					
 					if (((origin.z - destine.z < 0) && (destination.z - origin.z < 0)))
 						destination.z = origin.z;// Z <----
-
+*/
 					Vector3f lcoal = position.clone();
 					direction = destination.subtract(lcoal);
 					direction.normalizeLocal();
