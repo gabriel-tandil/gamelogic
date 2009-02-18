@@ -6,9 +6,14 @@ package client.game.entity;
 
 import java.util.Hashtable;
 
+import client.game.task.ITask;
+
 import com.jme.math.Vector3f;
 import common.datatypes.PlayerState;
 import common.datatypes.Skin;
+import common.messages.MessageFactory;
+import common.messages.notify.MsgChangePlayerState;
+import common.messages.notify.MsgRotate;
 
 /** 
  * @author Cristian Calomino
@@ -92,6 +97,13 @@ public class Player extends DynamicEntity {
 	 */
 	public void setState(PlayerState theState) {
 		state = theState;
+		
+		//mensaje al servidor
+		MsgChangePlayerState msg = MessageFactory.getInstance().createMessage(MsgTypes.MSG_CHANGE_PLAYER_STATE_SEND_TYPE);
+		msg.setIdPlayer(this.getId());
+		msg.setNewState(theState);
+		ITask task = TaskCommFactory.getInstance().createTask(msg);
+		TaskManager.getInstance().submit(task);	
 	}
 	
 	/** 
