@@ -7,8 +7,17 @@ package client.game.entity;
 
 import java.io.IOException;
 
+import client.communication.tasks.TaskCommFactory;
+import client.game.task.ITask;
+import client.game.task.MsgMove;
+import client.game.task.TaskCommunication;
+
 import com.jme.math.Vector3f;
 import common.datatypes.Skin;
+import common.messages.MessageFactory;
+import common.messages.MsgPlainText;
+import common.messages.MsgTypes;
+import common.messages.notify.MsgChangePlayerState;
 
 import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
@@ -147,6 +156,12 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 */
 	public void setActualWorld(String theActualWorld) {
 		actualWorld = theActualWorld;
+		
+		//mensaje al servidor
+		MsgPlainText msg = MessageFactory.getInstance().createMessage(MsgTypes.MSG_GET_ENTER_WORLD_TYPE);
+		msg.setMsg(theActualWorld);
+		ITask task = TaskCommFactory.getInstance().createTask(msg);
+		TaskManager.getInstance().submit(task);			
 	}
 	
 	/** 
