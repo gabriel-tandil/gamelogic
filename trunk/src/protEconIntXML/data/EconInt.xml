@@ -20,7 +20,7 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="5" param2="Exterior" />
+		<accesspoint param1="4" param2="Exterior" />
 		<accesspoint param1="64" param2="Exterior" />
 	</accesspoints>
 	<pointLigh>
