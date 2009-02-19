@@ -6,8 +6,6 @@ import client.manager.ViewManager;
 
 import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
-import common.messages.notify.MsgMove;
-import common.messages.notify.MsgRotate;
 
 public class U3DRotateCharacterTask extends Task {
 	/**
@@ -27,9 +25,7 @@ public class U3DRotateCharacterTask extends Task {
 		return false;
 	}
 
-	@Override
 	public void execute() {
-		if(!this.character) return;
 		Spatial view = ((Spatial)ViewManager.getInstance().getView(this.character));
 		float[] angles=new float[3];
 		Vector3f ltras=view.getLocalTranslation();
@@ -37,13 +33,6 @@ public class U3DRotateCharacterTask extends Task {
 	    view.getLocalRotation().fromAngles(angles[0],angles[1]+ angle, angles[2]);
 	    view.setLocalTranslation(ltras);
 	    ViewManager.getInstance().markForUpdate(this.character);
-	    
-	    //mensaje al servidor
-	    MsgRotate msg = MessageFactory.getInstance().createMessage(MsgTypes.MSG_ROTATE_SEND_TYPE);
-		msg.setIdDynamicEntity(this.character.getId());
-		msg.setAngle(ltras);		
-		ITask task = TaskCommFactory.getInstance().createTask(msg);
-		TaskManager.getInstance().submit(task);	
 	}
 	
 	public void initTask(Player theCharacter, float theangle)
