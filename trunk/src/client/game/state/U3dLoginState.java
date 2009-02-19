@@ -88,11 +88,11 @@ public class U3dLoginState extends U3dState {
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
 				TaskManager.getInstance().enqueue(task);
-				MouseInput.get().setCursorVisible(false);
+				HudManager.getInstance().setCursorVisible(false);
 				// HudManager.getInstance().setCargando();
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
-				MouseInput.get().setCursorVisible(true);
+				HudManager.getInstance().setCursorVisible(true);
 				HudManager
 						.getInstance()
 						.escribir(
@@ -125,64 +125,64 @@ public class U3dLoginState extends U3dState {
 		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
 		inicializaHUD();
 
-		Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem()
-				.getWidth(), DisplaySystem.getDisplaySystem().getHeight());
-
-		// create the texture state to handle the texture
-		final TextureState ts = DisplaySystem.getDisplaySystem().getRenderer()
-				.createTextureState();
-		// load the image bs a texture (the image should be placed in the same
-		// directory bs this class)
-		try {
-			ResourceLocatorTool.addResourceLocator(
-					ResourceLocatorTool.TYPE_TEXTURE,
-					new SimpleResourceLocator(Game.class.getClassLoader()
-							.getResource("login/")));
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		final Texture texture = TextureManager.loadTexture(
-				"pantallalogin2.PNG", Texture.MinificationFilter.Trilinear, // of
-				// no
-				// use
-				// for
-				// the
-				// quad
-				Texture.MagnificationFilter.Bilinear, // of no use for the
-				// quad
-				1.0f, true);
-		// set the texture for this texture state
-		ts.setTexture(texture);
-		// initialize texture width
-		textureWidth = ts.getTexture().getImage().getWidth();
-		// initialize texture height
-		textureHeight = ts.getTexture().getImage().getHeight();
-		// activate the texture state
-		ts.setEnabled(true);
-		// correct texture application:
-		final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
-		// coordinate (0,0) for vertex 0
-		texCoords.put(getUForPixel(0)).put(getVForPixel(0));
-		// coordinate (0,40) for vertex 1
-		texCoords.put(getUForPixel(0)).put(getVForPixel(600));
-		// coordinate (40,40) for vertex 2
-		texCoords.put(getUForPixel(800)).put(getVForPixel(600));
-		// coordinate (40,0) for vertex 3
-		texCoords.put(getUForPixel(800)).put(getVForPixel(0));
-		// assign texture coordinates to the quad
-		imagenFondo.setTextureCoords(new TexCoords(texCoords));
-		// apply the texture state to the quad
-		imagenFondo.setRenderState(ts);
-		imagenFondo.setRenderQueueMode(Renderer.QUEUE_ORTHO);
-		imagenFondo.setLocalTranslation(new Vector3f(DisplaySystem
-				.getDisplaySystem().getWidth() / 2, DisplaySystem
-				.getDisplaySystem().getHeight() / 2, 0));
-		imagenFondo.setLightCombineMode(Spatial.LightCombineMode.Off);
-		imagenFondo.updateRenderState();
-
-		rootNode.attachChild(imagenFondo);
+//		Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem()
+//				.getWidth(), DisplaySystem.getDisplaySystem().getHeight());
+//
+//		// create the texture state to handle the texture
+//		final TextureState ts = DisplaySystem.getDisplaySystem().getRenderer()
+//				.createTextureState();
+//		// load the image bs a texture (the image should be placed in the same
+//		// directory bs this class)
+//		try {
+//			ResourceLocatorTool.addResourceLocator(
+//					ResourceLocatorTool.TYPE_TEXTURE,
+//					new SimpleResourceLocator(Game.class.getClassLoader()
+//							.getResource("login/")));
+//		} catch (URISyntaxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		final Texture texture = TextureManager.loadTexture(
+//				"pantallalogin2.PNG", Texture.MinificationFilter.Trilinear, // of
+//				// no
+//				// use
+//				// for
+//				// the
+//				// quad
+//				Texture.MagnificationFilter.Bilinear, // of no use for the
+//				// quad
+//				1.0f, true);
+//		// set the texture for this texture state
+//		ts.setTexture(texture);
+//		// initialize texture width
+//		textureWidth = ts.getTexture().getImage().getWidth();
+//		// initialize texture height
+//		textureHeight = ts.getTexture().getImage().getHeight();
+//		// activate the texture state
+//		ts.setEnabled(true);
+//		// correct texture application:
+//		final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
+//		// coordinate (0,0) for vertex 0
+//		texCoords.put(getUForPixel(0)).put(getVForPixel(0));
+//		// coordinate (0,40) for vertex 1
+//		texCoords.put(getUForPixel(0)).put(getVForPixel(600));
+//		// coordinate (40,40) for vertex 2
+//		texCoords.put(getUForPixel(800)).put(getVForPixel(600));
+//		// coordinate (40,0) for vertex 3
+//		texCoords.put(getUForPixel(800)).put(getVForPixel(0));
+//		// assign texture coordinates to the quad
+//		imagenFondo.setTextureCoords(new TexCoords(texCoords));
+//		// apply the texture state to the quad
+//		imagenFondo.setRenderState(ts);
+//		imagenFondo.setRenderQueueMode(Renderer.QUEUE_ORTHO);
+//		imagenFondo.setLocalTranslation(new Vector3f(DisplaySystem
+//				.getDisplaySystem().getWidth() / 2, DisplaySystem
+//				.getDisplaySystem().getHeight() / 2, 0));
+//		imagenFondo.setLightCombineMode(Spatial.LightCombineMode.Off);
+//		imagenFondo.updateRenderState();
+//
+//		rootNode.attachChild(imagenFondo);
 
 		HudManager.getInstance().update();
 	}
@@ -229,6 +229,7 @@ public class U3dLoginState extends U3dState {
 		// Integer(DisplaySystem.getDisplaySystem().getWidth())).toString() +
 		// (new
 		// Integer(DisplaySystem.getDisplaySystem().getHeight())).toString();
+		login.setStyleClass("login-window");
 		this.currentResolution = new int[2];
 		this.currentResolution[0] = (new Integer(DisplaySystem
 				.getDisplaySystem().getWidth())).intValue();

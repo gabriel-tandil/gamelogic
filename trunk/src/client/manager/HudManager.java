@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import com.jme.input.MouseInput;
 import com.jme.renderer.ColorRGBA;
+import com.jme.system.DisplaySystem;
 import com.jme.util.Timer;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BLabel;
@@ -21,6 +22,7 @@ import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
 public class HudManager implements IHudManager {
+	private boolean ocultaCursor = false;
 	private static HudManager instance = null;
 	protected PolledRootNode _root;
 	BStyleSheet style = null;
@@ -41,7 +43,7 @@ public class HudManager implements IHudManager {
 		_root = (PolledRootNode) BuiSystem.getRootNode();
 		ventanas = new HashMap<String, BWindow>();
 		style = BuiSystem.getStyle();
-		MouseInput.get().setCursorVisible(true);
+		setCursorVisible(true);
 	}
 
 	public void render() {
@@ -76,15 +78,17 @@ public class HudManager implements IHudManager {
 	}
 
 	public void setCargando() {
-try { // esto es una cagada pero es porque arrancaba a ejecutar una tarea
-	//encolada antes de hacer el render, con esta espera el task manager
-	//no alcanza a meter mas tareas y todo funciona bien
-	Thread.sleep(100);
-} catch (InterruptedException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
-		escribir("Cargando el mundo", "cargando");
+		try { // esto es una cagada pero es porque arrancaba a ejecutar una
+			// tarea
+			// encolada antes de hacer el render, con esta espera el task
+			// manager
+			// no alcanza a meter mas tareas y todo funciona bien
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		escribir("Cargando el mundo...", "cargando");
 
 	}
 
@@ -120,7 +124,7 @@ try { // esto es una cagada pero es porque arrancaba a ejecutar una tarea
 
 	public void muestraDialogo(String texto, HashMap<String, String> botones,
 			ComponentListener listener) {
-		MouseInput.get().setCursorVisible(true);
+		setCursorVisible(true);
 		final BWindow ventDialogo = new BWindow(style, GroupLayout
 				.makeVStretch());
 
@@ -135,7 +139,7 @@ try { // esto es una cagada pero es porque arrancaba a ejecutar una tarea
 			ventDialogo.add(button);
 			button.addListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					MouseInput.get().setCursorVisible(false);
+					setCursorVisible(false);
 					ventDialogo.dispatchEvent(event);
 					ventDialogo.getRootNode().removeWindow(ventDialogo);
 				}
@@ -146,8 +150,8 @@ try { // esto es una cagada pero es porque arrancaba a ejecutar una tarea
 		ventDialogo.center();
 
 		_root.addWindow(ventDialogo); // a esta ventana no preciso agregarla
-										// ya que se saca sola al cerrarse el
-										// dialogo
+		// ya que se saca sola al cerrarse el
+		// dialogo
 
 	}
 
@@ -157,7 +161,7 @@ try { // esto es una cagada pero es porque arrancaba a ejecutar una tarea
 	}
 
 	public void removeWindow(String id) {
-		if (ventanas.get(id)!=null)
+		if (ventanas.get(id) != null)
 			_root.removeWindow(ventanas.get(id));
 		ventanas.remove("id");
 	}
@@ -166,4 +170,71 @@ try { // esto es una cagada pero es porque arrancaba a ejecutar una tarea
 		return ventanas.get(id);
 	}
 
+	public void muestraControl() {
+		setCursorVisible(true);
+		GroupLayout gl= GroupLayout
+		.makeHoriz(GroupLayout.CENTER);
+		gl.setOffAxisJustification(GroupLayout.BOTTOM);
+		final BWindow ventana = new BWindow(style, gl);
+
+		ventana.setSize(DisplaySystem.getDisplaySystem().getWidth(),
+				DisplaySystem.getDisplaySystem().getHeight());
+		ventana.setStyleClass("control-window");
+
+		ventana.add(crearBoton("minimize",30));
+		ventana.add(crearBoton("map",60));
+		ventana.add(crearBoton("chat",80));
+		ventana.add(crearBoton("help",60));
+		ventana.add(crearBoton("close",30));
+		
+		
+		
+		// button.addListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent event) {
+		// MouseInput.get().setCursorVisible(false);
+		// ventana.dispatchEvent(event);
+		// ventana.getRootNode().removeWindow(ventana);
+		// }
+		// });
+
+		ventana.center();
+
+		_root.addWindow(ventana); // a esta ventana no preciso agregarla
+		// ya que se saca sola al cerrarse el
+		// dialogo
+		this.update();
+	}
+
+	private BButton crearBoton(String tipo,int tam) {
+		BButton button = new BButton("", tipo);
+		button.setStyleClass("button-" + tipo);
+//		button.setSize((int)((float)DisplaySystem.getDisplaySystem().getWidth()
+//				/ 800 * tam), (int)((float)DisplaySystem.getDisplaySystem()
+//				.getWidth()
+//				/ 800 * tam));
+//		button.setPreferredSize((int)((float)DisplaySystem.getDisplaySystem().getWidth()
+//				/ 800 * tam), (int)((float)DisplaySystem.getDisplaySystem()
+//				.getWidth()
+//				/ 800 * tam));
+
+		return button;
+	}
+
+	public void setCursorVisible(boolean sn) {
+		if (sn || ocultaCursor)
+			MouseInput.get().setCursorVisible(sn);
+	}
+
+	public void desvincula() {
+		for (Iterator iterator = GameStateManager.getInstance().getChildren()
+				.iterator(); iterator.hasNext();) {
+			BasicGameState gs = (BasicGameState) iterator.next();
+			if (gs.isActive()) {
+				gs.getRootNode().detachChild(_root);
+			}
+			_root.updateGeometricState(0.0f, true);
+			_root.updateRenderState();
+		}
+		
+	}
 }
