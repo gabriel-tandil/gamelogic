@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<texture text= "protIsistanIntXML/images/"></texture>
+	<cantPartes int = "47"></cantPartes>
+	
+	<node model="ISISTAN">
+		<localScaleFloat param1="0.5" /> 
+		<localRotationQuaternion>
+			<quaternion param1 = "0.0" param2 = "0.707106781" param3 = "0.0" param4 = "0.707106781"></quaternion>
+		</localRotationQuaternion>
+		<localTranslationVector3f>
+        <vector3f param1="1250.0" param2="0.5" param3="-350.0" /> 
+        </localTranslationVector3f>
+		<modelBound>
+			<boundingVolume>
+				<boundingBoxNull>
+				</boundingBoxNull>
+			</boundingVolume>
+		</modelBound>		
+		<name param1="string"></name>
+	</node>
+	<accesspoints>
+		<accesspoint param1="2" param2="Exterior" />
+		<accesspoint param1="43" param2="Exterior" />
+	</accesspoints>
+</map>
