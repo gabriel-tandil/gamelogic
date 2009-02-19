@@ -24,7 +24,7 @@ import com.jmex.game.state.BasicGameState;
  * @version Modified: 06-02-2009
  */
 public class AccessPoint implements IAccessPoint {
-
+long timer;
 	/**
 	 * Nodo al que esta asociado el AccessPoint
 	 */
@@ -41,6 +41,7 @@ public class AccessPoint implements IAccessPoint {
 	public AccessPoint(Node N, BasicGameState next) {
 		nodo = N;
 		proxEstado = next;
+		timer=System.currentTimeMillis();
 	}
 
 	public Node getNodo() {
@@ -99,11 +100,14 @@ public class AccessPoint implements IAccessPoint {
 	}
 
 	public void dialogoIngresar() {
+		
 		// if (!GameStateManager.getInstance().getChild("Eco").isActive())
 		if (!proxEstado.isActive()) {
+			if (System.currentTimeMillis()-timer>2000){
+			timer=System.currentTimeMillis();
 			String textoEdificio = "";
 			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso Economicas. ¿Queres Entrar?";
+				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. ¿Queres Entrar?";
 			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
 				textoEdificio = "Estas frente a la puerta que sale al campus. ¿Queres Salir?";
 
@@ -120,10 +124,13 @@ public class AccessPoint implements IAccessPoint {
 								.getInstance().createTask("7"); // lo hago con un task poruqe sino gana la otra tarea y no llega a mostrar el cartel de cargando
 						TaskManager.getInstance().enqueue(task);
 								show();
+							}else{
+								HudManager.getInstance().desvincula();
 							}
+								
 						}
 					});
-
+			}
 		}
 	}
 }

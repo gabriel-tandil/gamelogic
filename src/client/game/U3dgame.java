@@ -100,6 +100,7 @@ public class U3dgame extends Game {
 
 	protected void initHotKeys() {
 		KeyBindingManager.getKeyBindingManager().set("exit", KeyInput.KEY_ESCAPE);
+	//	KeyBindingManager.getKeyBindingManager().set("control", KeyInput.KEY_C);
 	}
 
 	protected void initGame() {
@@ -152,7 +153,8 @@ public class U3dgame extends Game {
 		this.gameStateManager.update(this.intervalo);
 		if(KeyBindingManager.getKeyBindingManager().isValidCommand("exit", false)) 
 			this.finish();
-		
+//		if(KeyBindingManager.getKeyBindingManager().isValidCommand("control", false)) 
+//			HudManager.getInstance().muestraControl();		
 	}
 
 	protected void render(float arg0) {

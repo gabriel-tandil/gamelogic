@@ -332,3 +332,110 @@ greymessagebg {
 labeltext {
     padding: 5 5;
 }
+
+login-window {
+  background: image "HUD/textures/pantallalogin.png" scalexy;
+}
+control-window {
+  background: image "HUD/textures/bottom_roundtoolbar.png" scalexy;
+}
+button-close {
+  background: image "HUD/textures/close.png" scalexy;
+
+}
+
+button-close:hover {
+  background: image "HUD/textures/close_hover.png" scalexy;
+}
+
+button-close:disabled {
+  background: image "HUD/textures/close.png" scalexy;
+}
+
+button-close:down {
+  background: image "HUD/textures/close_hover.png" scalexy;
+}
+
+button-close:selected {
+  background: image "HUD/textures/close_hover.png" scalexy;
+}
+button-chat {
+  background: image "HUD/textures/chat.png" scalexy;
+
+}
+
+button-chat:hover {
+  background: image "HUD/textures/chat_hover.png" scalexy;
+}
+
+button-chat:disabled {
+  background: image "HUD/textures/chat.png" scalexy;
+}
+
+button-chat:down {
+  background: image "HUD/textures/chat_hover.png" scalexy;
+}
+
+button-chat:selected {
+  background: image "HUD/textures/chat_hover.png" scalexy;
+}
+button-map {
+  background: image "HUD/textures/map.png" scalexy;
+
+}
+
+button-map:hover {
+  background: image "HUD/textures/map_hover.png" scalexy;
+}
+
+button-map:disabled {
+  background: image "HUD/textures/map.png" scalexy;
+}
+
+button-map:down {
+  background: image "HUD/textures/map_hover.png" scalexy;
+}
+
+button-map:selected {
+  background: image "HUD/textures/map_hover.png" scalexy;
+}
+button-help {
+  background: image "HUD/textures/help.png" scalexy;
+
+}
+
+button-help:hover {
+  background: image "HUD/textures/help_hover.png" scalexy;
+}
+
+button-help:disabled {
+  background: image "HUD/textures/help.png" scalexy;
+}
+
+button-help:down {
+  background: image "HUD/textures/help_hover.png" scalexy;
+}
+
+button-help:selected {
+  background: image "HUD/textures/help_hover.png" scalexy;
+}
+button-minimize {
+  background: image "HUD/textures/minimize.png" scalexy;
+ 
+}
+
+button-minimize:hover {
+  background: image "HUD/textures/minimize_hover.png" scalexy;
+}
+
+button-minimize:disabled {
+  background: image "HUD/textures/minimize.png" scalexy;
+}
+
+button-minimize:down {
+  background: image "HUD/textures/minimize_hover.png" scalexy;
+}
+
+button-minimize:selected {
+  background: image "HUD/textures/minimize_hover.png" scalexy;
+}
