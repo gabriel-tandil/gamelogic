@@ -1,0 +1,28 @@
+N de archivo		modelo
+
+1 			entrada				
+2 			pared entrada
+3 			pared pool
+4 			pared cabinas
+5 			pared opuesta a pool
+6 			ensalader frezzer revistero		
+7 			pared cocina	
+8 			baranda				
+9 			cabinas
+10 			barra larga				
+11 			borde barra comida
+12 			galletitero
+13 			pared barra
+14 			dintel interior barrra
+15 			barra corta
+16 			metegol				
+17 			pool
+18 			taco pool
+19 a 21 		cartel publicidad pared
+22 a 25 		calefactores	
+26 a 30 		luces pared			
+31 a 53 		mesas con servilletero
+54 a 197 		sillas
+198 			techo y luces
+199 			mesa (me olvide de una :))
+200 			piso
