@@ -88,8 +88,6 @@ public class U3DMoveCharacterTask extends Task {
 				Vector3f destination = CollisionManager.getInstace()
 											.getDestination(origin, destine,
 												aux.getRootNode().getChild(0));
-				System.out.println("Haber......................");
-				
 
 				
 				if (destination != null) {

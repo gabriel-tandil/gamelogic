@@ -36,7 +36,7 @@ public class PersonaMD5 extends IPersonaje {
     	if(forward)
     		md5n.getController(0).setRepeatType(Controller.RT_WRAP);
     	else
-    		 md5n.getController(0).setRepeatType(Controller.RT_CYCLE);
+    		 md5n.getController(0).setRepeatType(Controller.RT_BACK);
     	md5n.getController(0).setActive(state);
     	this.run(run);
     }
@@ -64,12 +64,12 @@ public class PersonaMD5 extends IPersonaje {
 			e.printStackTrace();
 		}
 		
-		this.md5n = (ModelNode)MD5Importer.getInstance().getModelNode();
+		this.md5n = (ModelNode) MD5Importer.getInstance().getModelNode();
 		this.padre.attachChild(md5n);
         this.padre.updateGeometricState(1, true);
       
         /*q sino se ve chico xDDDDDDD!!!*/
-        padre.setLocalScale(11);
+        padre.setLocalScale(12);
         
         MD5Importer.getInstance().cleanup();
         
