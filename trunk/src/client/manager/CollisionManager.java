@@ -191,8 +191,6 @@ public class CollisionManager {
      * @return The valid <code>Vector3f</code> destination.
      */
 	public Vector3f getDestination(Vector3f origin, Vector3f destination, Spatial spatial){
-		System.out.println("Origen "+origin);
-		System.out.println("Destino "+destination);
 		
 		//convert start point to world coordinate system
         spatial.localToWorld(origin, origin);
@@ -201,15 +199,10 @@ public class CollisionManager {
         
         //build the direction Vector3f
         Vector3f direction = destination.subtract(origin).normalizeLocal();
-        Vector3f directionL = new Vector3f(-direction.z,direction.y,direction.x).normalize();// destination.subtract(origin).normalizeLocal();
-        Vector3f directionL2 = direction.add(directionL).normalize();//destination.subtract(origin).normalizeLocal();
-        Vector3f directionR = new Vector3f(direction.z,direction.y,-direction.x).normalize();//destination.subtract(origin).normalizeLocal();
-        Vector3f directionR2 = direction.add(directionR).normalize(); //destination.subtract(origin).normalizeLocal();
-        //generate Ray for intersection detection
-        Ray moveRay = new Ray(origin, direction);
-        
-        //calculate the intersection between the move ray and the spatial
-        
+        Vector3f directionL = new Vector3f(-direction.z,direction.y,direction.x).normalize();
+        Vector3f directionL2 = direction.add(directionL).normalize();
+        Vector3f directionR = new Vector3f(direction.z,direction.y,-direction.x).normalize();
+        Vector3f directionR2 = direction.add(directionR).normalize(); 
         
         Vector<Vector3f> hitPoints = new Vector<Vector3f>();
         
