@@ -7,6 +7,8 @@ package client.communication.tasks;
 
 import java.util.Hashtable;
 
+import client.communication.tasks.comm.RTaskArrived;
+import client.communication.tasks.comm.RTaskChangeState;
 import client.communication.tasks.comm.RTaskGet2DGamePriceResponse;
 import client.communication.tasks.comm.RTaskGetAvailable2DGamesResponse;
 import client.communication.tasks.comm.RTaskGetBuyable2DGamesResponse;
@@ -14,6 +16,8 @@ import client.communication.tasks.comm.RTaskGetDynamicEntityResponse;
 import client.communication.tasks.comm.RTaskGetPlayerResponse;
 import client.communication.tasks.comm.RTaskGetRankingResponse;
 import client.communication.tasks.comm.RTaskGetTimesPlayedResponse;
+import client.communication.tasks.comm.RTaskMove;
+import client.communication.tasks.comm.RTaskRotate;
 import client.communication.tasks.darkstarevents.TaskDisconnected;
 import client.communication.tasks.darkstarevents.TaskLoggedIn;
 import client.communication.tasks.darkstarevents.TaskLogginFailed;
@@ -164,7 +168,7 @@ public class TaskCommFactory {
 			
 			IMessage arrived = MessageFactory.getInstance().createMessage(
 					MsgTypes.MSG_ARRIVED_TYPE);
-			TaskDirectSender tdsArrived = new TaskDirectSender(arrived);
+			RTaskArrived tdsArrived = new RTaskArrived(arrived);
 			addComTask(tdsArrived);
 			
 			IMessage enterWorld = MessageFactory.getInstance().createMessage(
@@ -201,7 +205,7 @@ public class TaskCommFactory {
 			
 			IMessage moveNotify = MessageFactory.getInstance().createMessage(
 					MsgTypes.MSG_MOVE_NOTIFY_TYPE);
-			TaskChannelSender tdsMoveNotify = new TaskChannelSender(moveNotify);
+			RTaskMove tdsMoveNotify = new RTaskMove(moveNotify);
 			addComTask(tdsMoveNotify);
 			
 			IMessage rotateSend = MessageFactory.getInstance().createMessage(
@@ -211,7 +215,7 @@ public class TaskCommFactory {
 			
 			IMessage rotateNotify = MessageFactory.getInstance().createMessage(
 					MsgTypes.MSG_ROTATE_NOTIFY_TYPE);
-			TaskChannelSender tdsRotateNotify = new TaskChannelSender(
+			RTaskRotate tdsRotateNotify = new RTaskRotate(
 					rotateNotify);
 			addComTask(tdsRotateNotify);
 			
@@ -224,7 +228,7 @@ public class TaskCommFactory {
 			IMessage changePlayerStateNotify = MessageFactory
 					.getInstance()
 					.createMessage(MsgTypes.MSG_CHANGE_PLAYER_STATE_NOTIFY_TYPE);
-			TaskChannelSender tdsChangePlayerStateNotify = new TaskChannelSender(
+			RTaskChangeState tdsChangePlayerStateNotify = new RTaskChangeState(
 					changePlayerStateNotify);
 			addComTask(tdsChangePlayerStateNotify);
 			
