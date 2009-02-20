@@ -34,10 +34,10 @@
 	</accesspoints>
 	<directionalLight>
 		<diffuse>
-			<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "0.5" param4 = "1"></colorRGBA>
+			<colorRGBA param1 = "0.9" param2 = "0.9" param3 = "0.9" param4 = "1"></colorRGBA>
 		</diffuse>
 		<ambient>
-			<colorRGBA param1 = "0.7" param2 = "0.7" param3 = "0.7" param4 = "1"></colorRGBA>
+			<colorRGBA param1 = "0.0" param2 = "0.0" param3 = "0.0" param4 = "1"></colorRGBA>
 		</ambient>
 		
 		<direction>
@@ -47,14 +47,14 @@
 	</directionalLight>
 	<directionalLight>
 		<diffuse>
-			<colorRGBA param1 = "1.0" param2 = "1.0" param3 = "0.5" param4 = "1"></colorRGBA>
+			<colorRGBA param1 = "0.9" param2 = "0.9" param3 = "0.9" param4 = "1"></colorRGBA>
 		</diffuse>
 		<ambient>
-			<colorRGBA param1 = "0.7" param2 = "0.7" param3 = "0.7" param4 = "1"></colorRGBA>
+			<colorRGBA param1 = "0.0" param2 = "0.0" param3 = "0.0" param4 = "1"></colorRGBA>
 		</ambient>
 		
 		<direction>
-			<vector3f param1 = "0.5" param2 = "-1" param3 = "-0.5"></vector3f>
+			<vector3f param1 = "0.5" param2 = "-1" param3 = "0.5"></vector3f>
 		</direction>
 		<enabled param1="true"></enabled>
 	</directionalLight>		
