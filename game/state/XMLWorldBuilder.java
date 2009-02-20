@@ -162,6 +162,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		//Player:2
 		Node player = new Node("Player"); 
 		IPersonaje p= this.getPlayer(player);
+		
 		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 

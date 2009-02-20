@@ -28,9 +28,8 @@ public class TaskLogginFailed extends TaskCommunication {
 	 *      factoryMethod(common.messages.IMessage)
 	 */
 	
-	public TaskCommunication factoryMethod(final IMessage msg) {
-		// TODO Auto-generated method stub
-		return null;
+	public TaskCommunication factoryMethod(final IMessage msg) {		
+		return new TaskLogginFailed();
 	}
 	
 	/**
@@ -41,8 +40,8 @@ public class TaskLogginFailed extends TaskCommunication {
 	 * @author Castillo/Santos
 	 */	
 	public void execute() {
-		String respuesta = "Loggin Failed";
-		
+		String respuesta = U3dLoginState.LOGUEO_ERROR;
+	
 		((U3dLoginState)GameStateManager.getInstance().getChild("login")).setRespuestaLogueo(respuesta);
 	}
 	

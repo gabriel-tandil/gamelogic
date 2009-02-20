@@ -44,7 +44,7 @@ public class TaskLoggedIn extends TaskCommunication {
 	
 	public void execute() {
 		
-		String respuesta = "Loggin OK";
+		String respuesta = U3dLoginState.LOGUEO_OK;
 		((U3dLoginState)GameStateManager.getInstance().getChild("login")).setRespuestaLogueo(respuesta);
 		
 	}

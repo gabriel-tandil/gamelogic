@@ -41,10 +41,10 @@ public class RTaskArrived extends TaskCommunication {
 	 */
 	@Override
 	public void execute() {
-		MsgPlainText msg = (MsgPlainText)this.getMessage();
+		/*MsgPlainText msg = (MsgPlainText)this.getMessage();
 		String idEntity = msg.toString();
 		
-		EntityManager.getInstance().createEntity(idEntity);
+		EntityManager.getInstance().createEntity(idEntity);*/
 	}
 	
 }

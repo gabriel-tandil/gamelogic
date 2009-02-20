@@ -54,4 +54,8 @@ public interface IDynamicEntity extends IEntity {
 	 */
 	public Vector3f getForce();
 	
+	public Vector3f getPosition();
+	
+	public void setPosition(Vector3f thePosition);
+	
 }
