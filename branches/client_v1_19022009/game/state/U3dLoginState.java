@@ -37,8 +37,8 @@ import com.jmex.bui.event.ActionListener;
 import com.jmex.bui.layout.AbsoluteLayout;
 
 public class U3dLoginState extends U3dState {
-	private static final String LOGUEO_OK = "loggin Ok";
-	private static final String LOGUEO_ERROR = "login Failed";
+	public static final String LOGUEO_OK = "loggin Ok";
+	public static final String LOGUEO_ERROR = "login Failed";
 
 	private int textureWidth;
 	// initialize texture height

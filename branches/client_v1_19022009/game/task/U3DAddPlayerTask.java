@@ -45,7 +45,7 @@ public class U3DAddPlayerTask extends Task {
 	}
 
 	public void addPlayer() {
-		Vector3f position = new Vector3f(this.x, 5, this.z);
+		Vector3f position = new Vector3f(this.x, 0, this.z);
 		
 		U3dExteriorState state = (U3dExteriorState)GameStateManager.getInstance().
 			getChild("Exterior");

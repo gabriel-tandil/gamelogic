@@ -132,9 +132,9 @@ public class PhysicsManager {
 		View view = (View)ViewManager.getInstance().getView(entity);
 	//	view.getLocalTranslation().addLocal(tempVector);
 		//Vector3f rrr=view.getLocalTranslation().addLocal(tempVector);
-		((Spatial)ViewManager.getInstance().getView(entity)).getLocalTranslation().addLocal(tempVector);
+		Vector3f actualPosition = ((Spatial)ViewManager.getInstance().getView(entity)).getLocalTranslation().addLocal(tempVector);
+		entity.setPosition(actualPosition);
 		ViewManager.getInstance().addDirtyView((IDynamicView) view);
-		//System.out.println(((Player)entity).getPosition());
 		//((Player)entity).updateTimeStamp();
 		//entity.resetForce();
 	}

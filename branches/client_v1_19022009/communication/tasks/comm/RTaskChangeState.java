@@ -62,7 +62,7 @@ public class RTaskChangeState extends TaskCommunication {
 			e.printStackTrace();
 		}
 
-		
+	
 	}
 	
 }
