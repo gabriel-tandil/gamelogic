@@ -1,14 +1,8 @@
 package client.game.state;
 
-import java.util.HashMap;
-
 import client.game.input.U3DChaseCamera;
-import client.game.task.TaskManagerFactory;
-import client.game.task.U3DChangeToIntEcoTaskFactory;
-import client.game.task.U3dChangeToIntEco;
 import client.game.view.U3dPlayerView;
 import client.manager.HudManager;
-import client.manager.TaskManager;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -24,15 +18,17 @@ public class U3dExteriorState extends U3dState {
 	private boolean initialized;
 	
 	private U3DChaseCamera chaser;
+	
+	private String url;
 
 
-	public U3dExteriorState(String name) {
+	public U3dExteriorState(String name, String url) {
 		super(name);
+		this.url = url;
 	}
 	
 	public void initialize() {
-		if (!this.initialized) {
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());		
+		if (!this.initialized) {		
 			KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
 
 			this.initializeWorld();
@@ -40,7 +36,7 @@ public class U3dExteriorState extends U3dState {
 
 			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
-			// Habilitar esta opci�n si se quierer probar la ejecuci�n de la
+			// Habilitar esta opcion si se quierer probar la ejecucion de la
 			// tarea.
 			// Deshabilitar el m�todo anterior initializeCamera(..)
 			// Desabilitar el controlador del player (setActive(false)) en
@@ -72,7 +68,7 @@ public class U3dExteriorState extends U3dState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
+		builder = new XMLWorldBuilder(url);
 		builder.buildWorld(this.rootNode);
 	}
 

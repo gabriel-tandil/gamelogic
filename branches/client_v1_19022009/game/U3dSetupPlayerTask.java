@@ -6,9 +6,6 @@ import client.game.task.Task;
 
 public class U3dSetupPlayerTask extends Task {
 
-
-
-	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
 
@@ -19,7 +16,5 @@ public class U3dSetupPlayerTask extends Task {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-
+	
 }

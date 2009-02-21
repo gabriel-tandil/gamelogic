@@ -1,15 +1,12 @@
 package client.game.task;
 
-import client.game.state.U3dExteriorState;
 import client.manager.HudManager;
 
-import com.jmex.game.state.BasicGameState;
-import com.jmex.game.state.GameStateManager;
 
 public class U3dCargandoTask extends ChangeStateTask {
 
-	public U3dCargandoTask(BasicGameState state) {
-		super(state);
+	public U3dCargandoTask() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
