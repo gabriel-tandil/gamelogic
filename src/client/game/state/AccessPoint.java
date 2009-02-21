@@ -9,7 +9,11 @@ import java.util.HashMap;
 
 import client.game.task.U3dCargandoTask;
 import client.game.task.U3dChangeToExterior;
+import client.game.task.U3dChangeToIntACI;
+import client.game.task.U3dChangeToIntBuffet;
 import client.game.task.U3dChangeToIntEco;
+import client.game.task.U3dChangeToIntExa;
+import client.game.task.U3dChangeToIntIsistan;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
@@ -88,7 +92,23 @@ long timer;
 				U3dChangeToIntEco task = (U3dChangeToIntEco) TaskManager
 						.getInstance().createTask("4");
 				TaskManager.getInstance().enqueue(task);
-				
+
+			} else if (proxEstado.getClass().equals(U3dIntExaState.class)) {
+				U3dChangeToIntExa task = (U3dChangeToIntExa) TaskManager
+						.getInstance().createTask("5");
+				TaskManager.getInstance().enqueue(task);
+			} else if (proxEstado.getClass().equals(U3dIntIsistanState.class)) {
+				U3dChangeToIntIsistan task = (U3dChangeToIntIsistan) TaskManager
+						.getInstance().createTask("6");
+				TaskManager.getInstance().enqueue(task);
+			} else if (proxEstado.getClass().equals(U3dIntBuffetState.class)) {
+				U3dChangeToIntBuffet task = (U3dChangeToIntBuffet) TaskManager
+						.getInstance().createTask("9");
+				TaskManager.getInstance().enqueue(task);
+			} else if (proxEstado.getClass().equals(U3dIntACIState.class)) {
+				U3dChangeToIntACI task = (U3dChangeToIntACI) TaskManager
+						.getInstance().createTask("10");
+				TaskManager.getInstance().enqueue(task);
 			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
@@ -107,9 +127,17 @@ long timer;
 			timer=System.currentTimeMillis();
 			String textoEdificio = "";
 			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. Â¿Queres Entrar?";
-			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
-				textoEdificio = "Estas frente a la puerta que sale al campus. Â¿Queres Salir?";
+				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. ¿Queres Entrar?";
+			}else if (proxEstado.getClass().equals(U3dIntExaState.class)) {
+				textoEdificio = "Estas frente a la puerta de ingreso a Exactas. ¿Queres Entrar?";
+			}else if (proxEstado.getClass().equals(U3dIntIsistanState.class)) {
+				textoEdificio = "Estas frente a la puerta de ingreso al Isistan. ¿Queres Entrar?";
+			}else if (proxEstado.getClass().equals(U3dIntACIState.class)) {
+				textoEdificio = "Estas frente a la puerta de ingreso a Aulas Comunes I. ¿Queres Entrar?";
+			}else if (proxEstado.getClass().equals(U3dIntBuffetState.class)) {
+				textoEdificio = "Estas frente a la puerta de ingreso al Buffet. ¿Queres Entrar?";
+			}else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
+				textoEdificio = "Estas frente a la puerta que sale al campus. ¿Queres Salir?";
 
 			}
 			HashMap<String, String> botones = new HashMap<String, String>();

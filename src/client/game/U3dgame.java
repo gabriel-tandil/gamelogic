@@ -1,7 +1,12 @@
 package client.game;
 
+
 import client.game.state.U3dExteriorState;
+import client.game.state.U3dIntACIState;
+import client.game.state.U3dIntBuffetState;
 import client.game.state.U3dIntEcoState;
+import client.game.state.U3dIntExaState;
+import client.game.state.U3dIntIsistanState;
 import client.game.state.U3dLoginState;
 import client.game.state.U3dState;
 import client.gameEngine.InputManager;
@@ -121,6 +126,22 @@ public class U3dgame extends Game {
 		U3dIntEcoState eco = new U3dIntEcoState("Eco");
 		this.getGameStateManager().attachChild(eco);
 		eco.setActive(false);
+		
+		U3dIntExaState exa = new U3dIntExaState("Exa");
+		this.getGameStateManager().attachChild(exa);
+		exa.setActive(false);
+		
+		U3dIntIsistanState isistan = new U3dIntIsistanState("Isi");
+		this.getGameStateManager().attachChild(isistan);
+		isistan.setActive(false);
+		
+		U3dIntBuffetState buffet = new U3dIntBuffetState("Buf");
+		this.getGameStateManager().attachChild(buffet);
+		buffet.setActive(false);
+		
+		U3dIntACIState acI = new U3dIntACIState("AC1");
+		this.getGameStateManager().attachChild(acI);
+		acI.setActive(false);
 		
 		/*
 		 * U3dEndState end = new U3dEndState(); end.setActive(false);

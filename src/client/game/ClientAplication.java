@@ -1,6 +1,6 @@
 package client.game;
 
-import client.game.U3dgame;
+
 
 
 public class ClientAplication {
