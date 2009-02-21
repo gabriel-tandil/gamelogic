@@ -76,7 +76,8 @@ public class U3dExteriorState extends U3dState {
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
 		
-		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml", new Vector3f(-1170.1987f, 1.5f, 3935.198f),new Quaternion(0.0f,0.707106781f,0.0f,0.707106781f));
+		//builder = new XMLWorldBuilder("protCampusXML/data/campus.xml", new Vector3f(-1170.1987f, 1.5f, 3935.198f),new Quaternion(0.0f,0.707106781f,0.0f,0.707106781f));
+		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
 		builder.buildWorld(this.rootNode);
 	}
 
