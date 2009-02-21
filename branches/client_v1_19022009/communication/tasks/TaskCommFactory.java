@@ -16,6 +16,7 @@ import client.communication.tasks.comm.RTaskGetDynamicEntityResponse;
 import client.communication.tasks.comm.RTaskGetPlayerResponse;
 import client.communication.tasks.comm.RTaskGetRankingResponse;
 import client.communication.tasks.comm.RTaskGetTimesPlayedResponse;
+import client.communication.tasks.comm.RTaskLeft;
 import client.communication.tasks.comm.RTaskMove;
 import client.communication.tasks.comm.RTaskRotate;
 import client.communication.tasks.darkstarevents.TaskDisconnected;
@@ -171,15 +172,15 @@ public class TaskCommFactory {
 			RTaskArrived tdsArrived = new RTaskArrived(arrived);
 			addComTask(tdsArrived);
 			
-			IMessage enterWorld = MessageFactory.getInstance().createMessage(
-					MsgTypes.MSG_ENTER_WORLD_TYPE);
-			TaskDirectSender tdsEnterWorld = new TaskDirectSender(enterWorld);
-			addComTask(tdsEnterWorld);
-			
 			IMessage left = MessageFactory.getInstance().createMessage(
 					MsgTypes.MSG_LEFT_TYPE);
-			TaskDirectSender tdsLeft = new TaskDirectSender(left);
+			RTaskLeft tdsLeft = new RTaskLeft(left);
 			addComTask(tdsLeft);
+			
+			IMessage changeWorld = MessageFactory.getInstance().createMessage(
+					MsgTypes.MSG_CHANGE_WORLD_TYPE);
+			TaskDirectSender tdsEnterWorld = new TaskDirectSender(changeWorld);
+			addComTask(tdsEnterWorld);
 			
 			IMessage getPlayer = MessageFactory.getInstance().createMessage(
 					MsgTypes.MSG_GET_PLAYER_TYPE);
@@ -215,8 +216,7 @@ public class TaskCommFactory {
 			
 			IMessage rotateNotify = MessageFactory.getInstance().createMessage(
 					MsgTypes.MSG_ROTATE_NOTIFY_TYPE);
-			RTaskRotate tdsRotateNotify = new RTaskRotate(
-					rotateNotify);
+			RTaskRotate tdsRotateNotify = new RTaskRotate(rotateNotify);
 			addComTask(tdsRotateNotify);
 			
 			IMessage changePlayerStateSend = MessageFactory.getInstance()
