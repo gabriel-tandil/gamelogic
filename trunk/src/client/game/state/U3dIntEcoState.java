@@ -1,15 +1,9 @@
 package client.game.state;
 
 import client.game.input.U3DChaseCamera;
-import client.game.task.U3dChangeToExterior;
 import client.game.view.U3dPlayerView;
-import client.manager.EntityManager;
 import client.manager.HudManager;
-import client.manager.TaskManager;
-import client.manager.ViewManager;
 
-import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
@@ -29,14 +23,14 @@ public class U3dIntEcoState extends U3dState {
 	}
 	
 	public void initialize() {
-		if (!this.initialized) {
+		//if (!this.initialized) {
 			
 			this.initializeWorld();
 			this.initializeLight();
 			this.initializeCamera((U3dPlayerView) this.rootNode
 					.getChild("player_View"));
 
-			// Habilitar esta opciï¿½n si se quierer probar la ejecuciï¿½n de la
+			// Habilitar esta opciónn si se quierer probar la ejecuciónn de la
 			// tarea.
 			// Deshabilitar el mï¿½todo anterior initializeCamera(..)
 			// Desabilitar el controlador del player (setActive(false)) en
@@ -49,12 +43,10 @@ public class U3dIntEcoState extends U3dState {
 
 			this.initialized = true;
 			
-			KeyBindingManager.getKeyBindingManager().set("change",
-					KeyInput.KEY_L);
 			inicializaHUD();
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
-		}
+		//}
 	}
 	private void inicializaHUD() {
 		HudManager.getInstance().unSetCargando();
@@ -91,21 +83,15 @@ public class U3dIntEcoState extends U3dState {
 
 	public void updateState(float interpolation) {
 		chaser.update(interpolation);
-        Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
-		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
-        		chaser.getCamera().getLocation().z);
+		Skybox sb = (Skybox) this.getRootNode().getChild("cielo");
+		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x,
+				chaser.getCamera().getLocation().y,
+				chaser.getCamera().getLocation().z);
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
-		// nodos del hud
-		.updateGeometricState(0.0f, true);
-HudManager.getInstance().getRoot().updateRenderState();
-
-		/*Ya no va mas con los AccessPoints
-		  if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
-		 
-			U3dChangeToExterior task =(U3dChangeToExterior) TaskManager.getInstance().createTask("3");
-			task.initTask();
-			TaskManager.getInstance().enqueue(task);
-		}*/
+				// nodos del hud
+				.updateGeometricState(0.0f, true);
+		HudManager.getInstance().getRoot().updateRenderState();
+		
 	}
 
 	public WorldGameState getWorld() {

@@ -1,15 +1,13 @@
 package client.game.task;
 
-import ar.edu.unicen.exa.game2d.wordchallenge.WordChallenge;
-import client.game.state.U3dIntEcoState;
-import client.manager.HudManager;
+import client.game.state.U3dIntExaState;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
-public class U3dChangeToIntEco extends ChangeStateTask {
+public class U3dChangeToIntExa extends ChangeStateTask {
 
-	public U3dChangeToIntEco(BasicGameState state) {
+	public U3dChangeToIntExa(BasicGameState state) {
 		super(state);
 		// TODO Auto-generated constructor stub
 	}
@@ -17,8 +15,8 @@ public class U3dChangeToIntEco extends ChangeStateTask {
 	@Override
 	public void execute() {
 		GameStateManager.getInstance().deactivateAllChildren();
-		GameStateManager.getInstance().activateChildNamed("Eco");
-		((U3dIntEcoState) GameStateManager.getInstance().getChild("Eco")).initialize();
+		GameStateManager.getInstance().activateChildNamed("Exa");
+		((U3dIntExaState) GameStateManager.getInstance().getChild("Exa")).initialize();
 		super.execute();
 	}
 

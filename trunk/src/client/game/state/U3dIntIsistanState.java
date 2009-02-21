@@ -1,23 +1,15 @@
 package client.game.state;
 
 import client.game.input.U3DChaseCamera;
-import client.game.task.TaskManagerFactory;
-import client.game.task.U3DChangeToIntACITaskFactory;
-import client.game.task.U3DChangeToIntBuffetTaskFactory;
-import client.game.task.U3DChangeToIntEcoTaskFactory;
-import client.game.task.U3DChangeToIntExaTaskFactory;
-import client.game.task.U3DChangeToIntIsistanTaskFactory;
 import client.game.view.U3dPlayerView;
 import client.manager.HudManager;
 
-import com.jme.math.Quaternion;
-import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
 
 
-public class U3dExteriorState extends U3dState {
+public class U3dIntIsistanState extends U3dState {
 	
 	private XMLWorldBuilder builder;
 
@@ -26,26 +18,21 @@ public class U3dExteriorState extends U3dState {
 	private U3DChaseCamera chaser;
 
 
-	public U3dExteriorState(String name) {
+	public U3dIntIsistanState(String name) {
 		super(name);
 	}
 	
 	public void initialize() {
-		if (!this.initialized) {
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntExaTaskFactory());
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntIsistanTaskFactory());
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntBuffetTaskFactory());
-			TaskManagerFactory.getInstance().add(new U3DChangeToIntACITaskFactory());
-
+		//if (!this.initialized) {
+			
 			this.initializeWorld();
 			this.initializeLight();
+			this.initializeCamera((U3dPlayerView) this.rootNode
+					.getChild("player_View"));
 
-			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
-
-			// Habilitar esta opción si se quierer probar la ejecuciï¿½n de la
+			// Habilitar esta opciónn si se quierer probar la ejecuciónn de la
 			// tarea.
-			// Deshabilitar el método anterior initializeCamera(..)
+			// Deshabilitar el mï¿½todo anterior initializeCamera(..)
 			// Desabilitar el controlador del player (setActive(false)) en
 			// XMLWorldBuilder.
 
@@ -53,21 +40,19 @@ public class U3dExteriorState extends U3dState {
 			 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
 			 * 800, true); newPlayer.execute();
 			 */
-			inicializaHUD();
+
 			this.initialized = true;
+			
+			inicializaHUD();
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
-		}
+		//}
 	}
-
 	private void inicializaHUD() {
 		HudManager.getInstance().unSetCargando();
-		HudManager.getInstance().removeWindow("login");
-		HudManager.getInstance().removeWindow("errorLogueo");
 	}
-
-	private void initializeLight() {
-		this.builder.buildLight(rootNode);
+	private void initializeLight() {	
+		builder.buildLight(rootNode);
 	}
 	
 	private void initializeWorld() {
@@ -75,8 +60,7 @@ public class U3dExteriorState extends U3dState {
 		//this.world.setModelBound(new BoundingBox());
 		//this.world.updateModelBound();
 		//this.world.updateWorldBound();
-		
-		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml", new Vector3f(-1170.1987f, 1.5f, 3935.198f),new Quaternion(0.0f,0.707106781f,0.0f,0.707106781f));
+		builder = new XMLWorldBuilder("protIsistanIntXML/data/IsistanInt.xml");
 		builder.buildWorld(this.rootNode);
 	}
 
@@ -99,13 +83,15 @@ public class U3dExteriorState extends U3dState {
 
 	public void updateState(float interpolation) {
 		chaser.update(interpolation);
-        Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
-		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
-        		chaser.getCamera().getLocation().z);
+		Skybox sb = (Skybox) this.getRootNode().getChild("cielo");
+		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x,
+				chaser.getCamera().getLocation().y,
+				chaser.getCamera().getLocation().z);
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
-		// nodos del hud
-		.updateGeometricState(0.0f, true);
+				// nodos del hud
+				.updateGeometricState(0.0f, true);
 		HudManager.getInstance().getRoot().updateRenderState();
+		
 	}
 
 	public WorldGameState getWorld() {
@@ -127,6 +113,7 @@ public class U3dExteriorState extends U3dState {
 		Spatial campus = ((Node)worldView).getChild("Campus");
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
+//		System.out.println(intersects);
 	}
 
 }
