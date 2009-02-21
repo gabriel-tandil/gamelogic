@@ -129,23 +129,34 @@ GameContext.setClientCommunication(new ClientCommunication());
 	}
 
 	protected void initGame() {
-		// U3dLoginState login = new U3dLoginState();
-		// this.getGamestatemanager().attachChild(login);
-		// login.setActive(true);
-		// login.initialize();
-
 		U3dLoginState login = new U3dLoginState("login");
 		this.getGameStateManager().attachChild(login);
 		login.setActive(true);
 		login.initialize();
 
-		U3dExteriorState exterior = new U3dExteriorState("Exterior");
+		U3dExteriorState exterior = new U3dExteriorState("Exterior","protCampusXML/data/campus.xml");
 		this.getGameStateManager().attachChild(exterior);
 		exterior.setActive(false);
 
-		U3dIntEcoState eco = new U3dIntEcoState("Eco");
+		U3dIntEcoState eco = new U3dIntEcoState("Eco","protEconIntXML/data/EconInt.xml");
 		this.getGameStateManager().attachChild(eco);
 		eco.setActive(false);
+		
+		U3dIntEcoState exa = new U3dIntEcoState("Exa","protExaIntXML/data/ExaInt.xml");
+		this.getGameStateManager().attachChild(exa);
+		exa.setActive(false);
+		
+		U3dIntEcoState isistan = new U3dIntEcoState("Isi","protIsistanIntXML/data/IsistanInt.xml");
+		this.getGameStateManager().attachChild(isistan);
+		isistan.setActive(false);
+		
+		U3dIntEcoState AC1 = new U3dIntEcoState("AC1","protAC1IntXML/data/AulasComunes1.xml");
+		this.getGameStateManager().attachChild(AC1);
+		AC1.setActive(false);
+		
+		U3dIntEcoState buffet = new U3dIntEcoState("Buf","protBuffetIntXML/data/BuffetInt.xml");
+		this.getGameStateManager().attachChild(buffet);
+		buffet.setActive(false);
 
 		/*
 		 * U3dEndState end = new U3dEndState(); end.setActive(false);

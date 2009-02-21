@@ -12,11 +12,11 @@ public abstract class ChangeStateTask extends Task {
 	 * @param state
 	 * @param game Instancia del juego.	
 	 * @param id dentificador de <code>Task<code>
-	 */
-	public ChangeStateTask(BasicGameState state) {		
-		super();		
-	}	
-		
+	 */	
+	public ChangeStateTask() {
+		super();
+	}
+	
 	public void execute() {
 		// begin-user-code
 		// TODO Apéndice de método generado automáticamente		

@@ -7,9 +7,9 @@ package client.game.state;
 
 import java.util.HashMap;
 
+import client.game.task.ChangeStateTask;
+import client.game.task.ChangeToPlace;
 import client.game.task.U3dCargandoTask;
-import client.game.task.U3dChangeToExterior;
-import client.game.task.U3dChangeToIntEco;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
@@ -82,21 +82,10 @@ long timer;
 	 * <code>TaskManager</code>
 	 */
 	public void show() {
-		// if (!GameStateManager.getInstance().getChild("Eco").isActive())
 		if (!proxEstado.isActive()) {
-			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
-				U3dChangeToIntEco task = (U3dChangeToIntEco) TaskManager
-						.getInstance().createTask("4");
-				TaskManager.getInstance().enqueue(task);
-				
-			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
-				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
-						.getInstance().createTask("3");
-				TaskManager.getInstance().enqueue(task);
-			}
-
+			ChangeStateTask task = new ChangeToPlace(this.proxEstado.getName());
+			TaskManager.getInstance().enqueue(task);
 		}
-
 	}
 
 	public void dialogoIngresar() {

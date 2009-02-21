@@ -4,13 +4,13 @@ import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
 
 import client.game.Game;
+import client.game.task.ChangeStateTask;
+import client.game.task.ChangeToPlace;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DCargandoTaskFactory;
-import client.game.task.U3DChangeToExteriorTaskFactory;
 import client.game.task.U3DLoginRequestTask;
 import client.game.task.U3DLoginRequestTaskFactory;
 import client.game.task.U3dCargandoTask;
-import client.game.task.U3dChangeToExterior;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
@@ -85,8 +85,7 @@ public class U3dLoginState extends U3dState {
 														// a mostrar el cartel
 														// de cargando
 				TaskManager.getInstance().enqueue(taskCargando);
-				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
-						.getInstance().createTask("3");
+				ChangeStateTask task = new ChangeToPlace("Exterior");
 				TaskManager.getInstance().enqueue(task);
 				HudManager.getInstance().setCursorVisible(false);
 				// HudManager.getInstance().setCargando();
@@ -119,8 +118,6 @@ public class U3dLoginState extends U3dState {
 
 	public void initialize() {
 
-		TaskManagerFactory.getInstance().add(
-				new U3DChangeToExteriorTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DCargandoTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
 		inicializaHUD();
