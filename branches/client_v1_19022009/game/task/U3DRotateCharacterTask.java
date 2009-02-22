@@ -1,11 +1,18 @@
 package client.game.task;
 
+import client.communication.tasks.TaskCommFactory;
 import client.game.entity.Player;
 import client.manager.CollisionManager;
+import client.manager.TaskManager;
 import client.manager.ViewManager;
 
 import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
+
+import common.exceptions.UnsopportedMessageException;
+import common.messages.MessageFactory;
+import common.messages.MsgTypes;
+import common.messages.notify.MsgRotate;
 
 public class U3DRotateCharacterTask extends Task {
 	/**
@@ -33,6 +40,20 @@ public class U3DRotateCharacterTask extends Task {
 	    view.getLocalRotation().fromAngles(angles[0],angles[1]+ angle, angles[2]);
 	    view.setLocalTranslation(ltras);
 	    ViewManager.getInstance().markForUpdate(this.character);
+	    
+	  //mensaje al servidor
+	    MsgRotate msg;
+		try {
+			msg = (MsgRotate) MessageFactory.getInstance().createMessage(MsgTypes.MSG_ROTATE_SEND_TYPE);
+			msg.setIdDynamicEntity(this.character.getId());
+			msg.setAngle(ltras);		
+			ITask task = TaskCommFactory.getInstance().createComTask(msg);
+			TaskManager.getInstance().submit(task);
+		} catch (UnsopportedMessageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 	}
 	
 	public void initTask(Player theCharacter, float theangle)

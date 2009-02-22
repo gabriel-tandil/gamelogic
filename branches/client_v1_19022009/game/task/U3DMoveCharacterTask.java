@@ -2,11 +2,13 @@ package client.game.task;
 
 import java.util.ArrayList;
 
+import client.communication.tasks.TaskCommFactory;
 import client.game.entity.Player;
 import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
+import client.manager.TaskManager;
 import client.manager.ViewManager;
 
 import com.jme.math.Ray;
@@ -16,6 +18,9 @@ import com.jme.scene.Spatial;
 import com.jmex.game.state.GameState;
 import com.jmex.game.state.GameStateManager;
 import common.datatypes.PlayerState;
+import common.messages.MessageFactory;
+import common.messages.MsgTypes;
+import common.messages.notify.MsgMove;
 
 public class U3DMoveCharacterTask extends Task {
 	
@@ -127,6 +132,16 @@ public class U3DMoveCharacterTask extends Task {
 					if(nodeIntersect!=null)
 						CollisionManager.getInstace().checkOverAccessPoint(nodeIntersect);
 
+					//FIX
+					//Fijarse si no hayq ue tratar la exception que tira el submit..
+					
+					MsgMove msg = (MsgMove) MessageFactory.getInstance().createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
+					msg.setIdDynamicEntity(this.character.getId());
+					msg.setPosOrigen(origin);
+					msg.setPosDestino(destine);
+					ITask task = TaskCommFactory.getInstance().createComTask(msg);
+					TaskManager.getInstance().submit(task);			
+					
 				}
 			}
 		} catch (Exception e) {
