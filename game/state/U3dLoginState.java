@@ -85,7 +85,12 @@ public class U3dLoginState extends U3dState {
 														// a mostrar el cartel
 														// de cargando
 				TaskManager.getInstance().enqueue(taskCargando);
+				//FIX 
+				//Aca hay que pedir el player no hay que cargarr el campus!!!!!
+				//El change state va a la tarea de player response
 				ChangeStateTask task = new ChangeToPlace("Exterior");
+				//U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
+						//.getInstance().createTask("3");
 				TaskManager.getInstance().enqueue(task);
 				HudManager.getInstance().setCursorVisible(false);
 				// HudManager.getInstance().setCargando();
@@ -196,7 +201,6 @@ public class U3dLoginState extends U3dState {
 		if (action.equals("login")) {
 			System.out.println("loguear");
 			respuestaLogueo = null;
-			loguear = true;
 			HudManager.getInstance().update();
 
 			U3DLoginRequestTask task = (U3DLoginRequestTask) TaskManager
@@ -299,6 +303,7 @@ public class U3dLoginState extends U3dState {
 	}
 
 	public void setRespuestaLogueo(String respuesta) {
+		loguear = true;
 		respuestaLogueo = respuesta;
 	}
 }
