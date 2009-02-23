@@ -13,6 +13,7 @@
 package client.manager;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 import client.game.entity.EntityManagerFactory;
@@ -125,15 +126,19 @@ public class EntityManager {
 	 * Create an entity in the world.
 	 * @return The newly created <code>IEntity</code>.
 	 */
-	public IEntity createEntity(String factoryId)
+	public IEntity createEntity(String factoryId, String id)
 	{
-		IEntity entity = EntityManagerFactory.getInstance().create(factoryId);
+		IEntity entity = EntityManagerFactory.getInstance().create(factoryId, id);
 		if(entity != null){
 //			registerEntity(entity);
 			return entity;
 		}
 		return null;
 	}
-
+	
+	public void removeAll()
+	{
+		hash.clear();
+	}
 }
 	
