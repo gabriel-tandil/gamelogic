@@ -56,6 +56,8 @@ public class ControllerManagerFactory {
 	 * @param task Es una nueva tarea definida para el Game.
 	 */
 	public void add(IControllerFactory controller) {
+		String id = controller.getId();
+		if (!this.controllers.containsKey(id))
 		controllers.put(controller.getId(), controller);
 	}
 	
@@ -66,7 +68,7 @@ public class ControllerManagerFactory {
 	 */
 	public IController createController(IDynamicEntity entity) {
 		
-		return ((IControllerFactory)controllers.get(entity.getTipo())).createController(entity);
+		return ((IControllerFactory)controllers.get(entity.getTipo() + "ControllerFactory")).createController(entity);
 	}
 	
 }
