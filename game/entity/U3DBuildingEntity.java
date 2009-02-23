@@ -9,9 +9,15 @@ import com.jme.util.export.OutputCapsule;
 
 public class U3DBuildingEntity extends Entity {
 
-	public U3DBuildingEntity(String theTipo)
+	public U3DBuildingEntity(String id)
 	{
-		super(theTipo);
+		this.setId(id);
+		this.setTipo("Entity");
+	}
+	
+	public void init(String theActualWord)
+	{
+		this.setActualWorld(theActualWord);
 	}
 
 	/** 

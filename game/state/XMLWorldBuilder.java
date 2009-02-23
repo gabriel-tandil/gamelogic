@@ -156,6 +156,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		campus.setLocalScale(0.3f);
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
 			getInstance().createEntity("EntityFactory","World");
+		if (url=="protCampusXML/data/campus.xml")
+			worldEntity.init("Exterior");
+		else
+			worldEntity.init("Eco");
 		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
 			createView(worldEntity);
 		worldView.attachChild(campus);		
@@ -166,11 +170,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		if (url=="protCampusXML/data/campus.xml")
 		player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
 						  Vector3f.ZERO, 0.50f, "Exterior", new Skin(),new PlayerState(),
-						  new Vector3f(1850.0f,1.5f,1050.0f), node);
+						  new Vector3f(1850.0f,1.5f,1050.0f));
 		else
 			player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
 					  Vector3f.ZERO, 0.50f, "Eco", new Skin(),new PlayerState(),
-					  new Vector3f(1250.0f,1.5f,-350.0f), node);
+					  new Vector3f(1250.0f,1.5f,-350.0f));
 		
 		Skybox sb=setupSky();
 		node.attachChild(sb);

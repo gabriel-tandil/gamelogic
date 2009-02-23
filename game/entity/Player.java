@@ -31,7 +31,7 @@ public class Player extends DynamicEntity {
 	* Constructor de la clase Player.
 	*/
 	public Player(String id) {
-		super(id);
+		this.setId(id);
 		this.setTipo("Player");
 	}
 	
@@ -91,29 +91,6 @@ public class Player extends DynamicEntity {
 	 */
 	public void setProperties(Hashtable theProperties) {
 		properties = theProperties;
-	}
-
-
-	/** 
-	 * El estado del jugador en el juego. 
-	 */
-	protected PlayerState state;
-
-
-	/** 
-	 * Retorna el estado del <code>Player</code> en el juego
-	 * @return state estado del <code>Player</code>.
-	 */
-	public PlayerState getState() {
-		return state;
-	}
-
-	/** 
-	 * Aplica un estado PlayerState al <code>Player</code>.
-	 * @param theState estado <code>PlayerState<code> a aplicar.
-	 */
-	public void setState(PlayerState theState) {
-		state = theState;
 	}
 	
 	/** 
