@@ -4,7 +4,10 @@
  */
 package client.game.entity;
 
+import client.game.IPersonaje;
+
 import com.jme.math.Vector3f;
+import common.datatypes.Skin;
 
 /** 
  * @author Cristian Calomino
@@ -57,5 +60,9 @@ public interface IDynamicEntity extends IEntity {
 	public Vector3f getPosition();
 	
 	public void setPosition(Vector3f thePosition);
+	
+	public void setPlayerAvatar(IPersonaje p);
+	
+	public Skin getSkin();
 	
 }

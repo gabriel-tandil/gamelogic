@@ -7,13 +7,28 @@ package client.game.entity;
 
 import java.io.IOException;
 
+import client.game.IPersonaje;
+import client.game.state.U3dState;
+import client.game.task.TaskManagerFactory;
+import client.game.task.U3DAddDynamicEntityTask;
+import client.game.task.U3DAddDynamicEntityTaskFactory;
+import client.game.task.U3DAddPlayerTask;
+import client.game.task.U3DAddPlayerTaskFactory;
+import client.manager.TaskManager;
+import client.manager.ViewManager;
+
+import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
+
 import common.datatypes.Skin;
 
+import com.jme.scene.Node;
+import com.jme.scene.Spatial;
 import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
 import com.jme.util.export.OutputCapsule;
+import com.jmex.game.state.GameStateManager;
 
 
 /** 
@@ -22,7 +37,25 @@ import com.jme.util.export.OutputCapsule;
  */
 public class DynamicEntity extends Entity implements IDynamicEntity {
 	
-	protected Vector3f position;
+	public void init(Vector3f force,float mass, Vector3f position,
+			Vector3f velocity, float  angle, String actualWorld, Skin theSkin, Vector3f thePosition, Node root) {
+
+		TaskManagerFactory.getInstance().add(new U3DAddDynamicEntityTaskFactory());
+		U3DAddDynamicEntityTask task = (U3DAddDynamicEntityTask) TaskManager
+		.getInstance().createTask("8");
+		task.initTask(root, this, angle, position);
+		TaskManager.getInstance().enqueue(task);
+		
+		this.setAngle(angle);
+		this.setActualWorld(actualWorld);
+		this.setForce(force);
+		this.setMass(mass);
+		this.setVelocity(velocity);
+		this.setSkin(theSkin);
+		this.setPosition(thePosition);
+	}
+	
+	protected Vector3f position;	
 	
 	public Vector3f getPosition() {
 		return position;
@@ -30,18 +63,35 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	
 	public void setPosition(Vector3f thePosition) {
 		position = thePosition;
+		Node view = ((Node)ViewManager.getInstance().getView(this));
+		if (view!=null)
+		{
+			view.setLocalTranslation(thePosition);
+			ViewManager.getInstance().markForUpdate(this);
+		}
+	}
+	
+	private IPersonaje p;
+	
+	public void setPlayerAvatar(IPersonaje p){
+		this.p=p;
+	}
+	
+	public void isMoving(boolean state, boolean running, boolean forward){
+		if (p!=null)
+			p.mover(state,running, forward);
 	}
 	
 	/** 
 	 * El angulo de la <code>DinamicEntity</code>
 	 */
-	protected Vector3f angle;
+	protected float angle;
 
 	/** 
 	 * Retorna el angulo de la <code>DinamicEntity</code>
 	 * @return angle de la DynamicEntity
 	 */
-	public Vector3f getAngle() {
+	public float getAngle() {
 		return angle;
 	}
 
@@ -49,8 +99,18 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 * Aplica el angulo de la DynamicEntity
 	 * @param theAngle el angulo de la DynamicEntity a aplicar.
 	 */
-	public void setAngle(Vector3f theAngle) {
+	public void setAngle(float theAngle) {
 		angle = theAngle;
+		Node view = ((Node)ViewManager.getInstance().getView(this));
+		if (view!=null)
+		{
+			float[] angles=new float[3];
+			Vector3f ltras=view.getLocalTranslation();
+			view.getLocalRotation().toAngles(angles);
+		    view.getLocalRotation().fromAngles(angles[0],angles[1]+ angle, angles[2]);
+		    view.setLocalTranslation(ltras);
+			ViewManager.getInstance().markForUpdate(this);
+		}
 	}
 
 	/** 
@@ -162,8 +222,9 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	/** 
 	 * Constructor de la DynamicEntity.
 	 */
-	public DynamicEntity(String theTipo) {
-		super(theTipo);
+	public DynamicEntity(String id) {
+		super(id);
+		this.setTipo("DynamicEntity");
 	}
 
 	/** 

@@ -34,14 +34,15 @@ public abstract class Entity implements IEntity {
 	/**
 	 * Contructor de la Entity.
 	*/
-	public Entity(String theTipo){
-		this.tipo=theTipo;
+	public Entity(String id){
+		this.setId(id);
+		this.setTipo("Entity");
 	}
 	
 	/** 
 	 * El tipo de <code>Entity</code>.
 	 */
-	private String tipo;
+	private String tipo = "Entity";
 
 	/** 
 	 * Retorna el tipo de <code>Entity</code>. 
