@@ -6,7 +6,17 @@ package client.game.entity;
 
 import java.util.Hashtable;
 
+import client.game.IPersonaje;
+import client.game.state.U3dState;
+import client.game.task.TaskManagerFactory;
+import client.game.task.U3DAddPlayerTask;
+import client.game.task.U3DAddPlayerTaskFactory;
+import client.manager.TaskManager;
+
 import com.jme.math.Vector3f;
+import com.jme.scene.Node;
+import com.jmex.game.state.GameStateManager;
+
 import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
@@ -19,8 +29,9 @@ public class Player extends DynamicEntity {
 	/**
 	* Constructor de la clase Player.
 	*/
-	public Player(String theTipo) {
-		super(theTipo);
+	public Player(String id) {
+		super(id);
+		this.setTipo("Player");
 	}
 	
 	/**
@@ -36,17 +47,26 @@ public class Player extends DynamicEntity {
 	 * @param theSkin
 	 * @param theState
 	 */
-	public void initPlayer(String id,Vector3f force,float mass,Hashtable<String,Object> Properties,
-			Hashtable<String,Object> stats,Vector3f velocity, Vector3f  angle, String actualWorld, Skin theSkin, PlayerState theState) {
-		this.setId(id);
+	public void initPlayer(Vector3f force,float mass,Hashtable<String,Object> Properties,
+			Hashtable<String,Object> stats,Vector3f velocity, float  angle, String actualWorld,
+			Skin theSkin, PlayerState theState, Vector3f thePosition, Node root) {
+
+		TaskManagerFactory.getInstance().add(new U3DAddPlayerTaskFactory());
+		U3DAddPlayerTask task = (U3DAddPlayerTask) TaskManager
+		.getInstance().createTask("8");
+		task.initTask(root, this, angle, thePosition, actualWorld);
+		TaskManager.getInstance().enqueue(task);
+		//task.execute();
+		
 		this.setAngle(angle);
 		this.setActualWorld(actualWorld);
 		this.setForce(force);
 		this.setMass(mass);
-		this.setProperties(Properties);
-		this.setStats(stats);
 		this.setVelocity(velocity);
 		this.setSkin(theSkin);
+		this.setPosition(thePosition);
+		this.setProperties(Properties);
+		this.setStats(stats);
 		this.setState(theState);
 	}
 

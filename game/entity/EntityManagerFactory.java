@@ -45,6 +45,8 @@ public class EntityManagerFactory {
 	 * @param entityFactory <code>IEntityFactory</code> a ser agregado.
 	 */
 	public void add(IEntityFactory entityFactory) {
+		String id = entityFactory.getId();
+		if (!this.entityFactorys.containsKey(id))
 		entityFactorys.put(entityFactory.getId(), entityFactory);
 	}
 	/** 
@@ -52,7 +54,7 @@ public class EntityManagerFactory {
 	 * @param id el identificador de la entidad a ser creada.
 	 * @return IEntity La entidad creada.
 	 */
-	public IEntity create(String id) {
-		return ((IEntityFactory)entityFactorys.get(id)).createEntity();
+	public IEntity create(String id, String idEntity) {
+		return ((IEntityFactory)entityFactorys.get(id)).createEntity(idEntity);
 	}
 }

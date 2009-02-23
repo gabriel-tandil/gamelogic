@@ -9,16 +9,17 @@ package client.game.entity;
  * @version Created: 19-11-2008
  */
 public interface IEntityFactory {
+
 	/**
 	 * @return El identificador de la Entidad.
 	 */
 	public String getId();
-
+	
 	/**
 	 * Este método será implementado por cada Entidad definida para el game.
 	 * La clase que define la Entidad es la que debe conocer como crear una instancia
 	 * de ella misma.
 	 * @return La <code>IEntity<code> creada.
 	 */
-	public IEntity createEntity();
+	public IEntity createEntity(String idEntity);
 }
