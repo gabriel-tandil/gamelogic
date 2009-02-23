@@ -33,27 +33,6 @@ import client.game.view.ViewFactoryManager;
 public class EntityManager {
 
 	/**
-	 * The client side current entity ID number.
-	 */
-	private static int currentId;
-
-	/** 
-	 * Retrieve the current identity of the Entities of the Game.
-	 * @return the current identity of the Entities of the Game.
-	 */
-	public Integer getCurrentId() {
-		return currentId;
-	}
-
-	/** 
-	 * @param theCurrentId to apply to the EntityManager singleton.
-	 * Apply a current identity to the EntityManager singleton.
-	 */
-	public void setCurrentId(Integer theCurrentId) {
-		currentId = theCurrentId;
-	}
-
-	/**
 	 * The <code>EntityManager</code> instance.
 	 */
 	private static EntityManager instance;
@@ -102,12 +81,12 @@ public class EntityManager {
 	 * @return 
 	 */ 
 	public IEntity getEntity(IEntity entity) {
-			return hash.get(Integer.valueOf(entity.getId()));
+			return hash.get(entity.getId());
 
 	}
 	
 	public IEntity getEntity(String id) {
-		return hash.get(Integer.valueOf(id));
+		return hash.get(id);
 
 }
 
@@ -117,16 +96,22 @@ public class EntityManager {
 	 * @param entity The <code>IEntity<code> to be destroyed.
 	 */
 	public void removeEntity(IEntity entity) {
+		if(entity!=null)
+		{
+			Node root =	((BasicGameState) GameStateManager.getInstance().getChild(entity.getActualWorld())).getRootNode();
+			root.getChild(entity.getId());
+		}
 		hash.remove(Integer.valueOf(entity.getId()));
-		Node root =	((BasicGameState) GameStateManager.getInstance().getChild(entity.getActualWorld())).getRootNode();
-		root.getChild(entity.getId());
 	}
 	
 	public void removeEntity(String id) {
 		Entity e= (Entity)getEntity(id);
-		BasicGameState actualState = (BasicGameState) GameStateManager.getInstance().getChild(e.getActualWorld());
-		Node root = actualState.getRootNode();
-		root.getChild(id).removeFromParent();
+		if (e!=null)
+		{
+			BasicGameState actualState = (BasicGameState) GameStateManager.getInstance().getChild(e.getActualWorld());
+			Node root = actualState.getRootNode();
+			root.getChild(id).removeFromParent();
+		}
 		hash.remove(Integer.valueOf(id));
 	}
 
@@ -135,12 +120,10 @@ public class EntityManager {
 	 * @param entity The <code>IEntity</code> to be registered.
 	 */
 	public void registerEntity(IEntity entity) {
-		final int id = Integer.valueOf(entity.getId());
-		if(hash.containsKey(id)) {
+		if(hash.containsKey(entity.getId())) {
 			return;
 		}
-		if(currentId > id) currentId = id;
-		hash.put(id+"", entity);
+		hash.put(entity.getId(), entity);
 	}
 
 	/**
