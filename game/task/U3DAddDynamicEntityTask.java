@@ -57,14 +57,14 @@ private float scale = 0.8f;
 
 	private IPersonaje getPlayer(Node node) 
 	{
-		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))		
+		/*if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))		
 		{
 			return getPlayerPipa(node);
 		}
 		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_TIPO_CON_LA_10))		
 		{
 			return getPlayerDiez(node);
-		}
+		}*/
 		//Si no se dignaron a ponerle un Skin como la gente va el 10
 		return getPlayerDiez(node);
 	}
