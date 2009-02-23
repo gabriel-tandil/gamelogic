@@ -45,7 +45,8 @@ public class TaskManagerFactory {
 	 * @param task Es una nueva tarea definida.
 	 */
 	public void add(ITaskFactory task) {
-		taskFactorys.put(task.getId(), task);
+		if (!contains(task))
+			taskFactorys.put(task.getId(), task);
 	}
 	
 	/** 
@@ -56,4 +57,8 @@ public class TaskManagerFactory {
 		return ((ITaskFactory)taskFactorys.get(id)).createTask();
 	}
 	
+	private boolean contains(ITaskFactory task)
+	{
+		return (taskFactorys.containsValue(task));
+	}
 }
