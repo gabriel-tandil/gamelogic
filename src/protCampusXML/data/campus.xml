@@ -22,15 +22,16 @@
 	<accesspoints>
 		<accesspoint param1="1019" param2="Eco" />
 		<accesspoint param1="809" param2="Exa" />
-		<accesspoint param1="810" param2="Exa" />
-		<accesspoint param1="398" param2="Buf" />
-		<accesspoint param1="194" param2="AC1" />
+		<accesspoint param1="808" param2="Exa" />
+		<accesspoint param1="841" param2="Exa" />
+		<accesspoint param1="397" param2="Buf" />
+		<accesspoint param1="396" param2="Buf" />
+		<accesspoint param1="193" param2="AC1" />
+		<accesspoint param1="220" param2="AC1" />
+		<accesspoint param1="222" param2="AC1" />
 		<accesspoint param1="223" param2="AC1" />
-		<accesspoint param1="224" param2="AC1" />
-		<accesspoint param1="221" param2="AC1" />
-		<accesspoint param1="262" param2="Isi" />
-		<accesspoint param1="283" param2="Isi" />
-		<accesspoint param1="293" param2="Isi" />
+		<accesspoint param1="339" param2="Isi" />
+		<accesspoint param1="318" param2="Isi" />
 	</accesspoints>
 	<directionalLight>
 		<diffuse>
