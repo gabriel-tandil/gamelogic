@@ -4,6 +4,7 @@
 package client.update;
 
 import client.game.state.WorldGameState;
+import client.game.view.DynamicView;
 
 /** 
  * @author Mara
@@ -86,5 +87,8 @@ public class UpdateGameState extends WorldGameState {
 		// TODO Apéndice de método generado automáticamente
 
 		// end-user-code
+	}
+
+	public void initializeCamera(DynamicView playerView) {
 	}
 }
