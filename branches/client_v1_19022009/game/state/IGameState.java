@@ -3,6 +3,9 @@
  */
 package client.game.state;
 
+import client.game.view.DynamicView;
+import client.game.view.U3dPlayerView;
+
 /**
  * <code>IGameState</code> define la interface para todos los tipos de 
  * Game States que representan una etapa particular del juego.
@@ -19,4 +22,6 @@ public interface IGameState {
 	 * @return el WorldGameState
 	 */
 	public WorldGameState getWorld();
+	
+	public void initializeCamera(DynamicView playerView);
 }
