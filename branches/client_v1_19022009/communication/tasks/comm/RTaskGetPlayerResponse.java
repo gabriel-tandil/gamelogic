@@ -6,16 +6,13 @@ package client.communication.tasks.comm;
 
 import java.util.Hashtable;
 
-import com.jme.math.Vector3f;
-
-import common.messages.IMessage;
-import common.messages.responses.MsgGetPlayerResponse;
-
 import client.communication.tasks.TaskCommunication;
-import client.game.entity.DynamicEntity;
 import client.game.entity.Player;
 import client.manager.EntityManager;
-import common.datatypes.IPlayerProperty;
+
+import com.jme.math.Vector3f;
+import common.messages.IMessage;
+import common.messages.responses.MsgGetPlayerResponse;
 
 public class RTaskGetPlayerResponse extends TaskCommunication {
 
@@ -45,6 +42,7 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 	 * @see client.game.task.ITask#execute() 04/02/2009
 	 * @author Castillo/Santos
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void execute() {
 
@@ -56,7 +54,6 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 		player.initPlayer(Vector3f.ZERO, 8f, (Hashtable)msg.getProperties(), null,
 				Vector3f.ZERO, msg.getAngle().x, msg.getActualWorld(), msg
 						.getSkin(), msg.getPlayerState(), msg.getPosition());
-
-		// TODO preguntar si con esto alcanza para inicializar el player.
 	}
+	
 }

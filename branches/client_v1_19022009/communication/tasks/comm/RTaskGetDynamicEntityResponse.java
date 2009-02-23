@@ -1,21 +1,14 @@
 package client.communication.tasks.comm;
 
-import com.jme.math.Vector3f;
-
-import common.exceptions.UnsopportedMessageException;
-import common.messages.IMessage;
-import common.messages.MessageFactory;
-import common.messages.MsgPlainText;
-import common.messages.MsgTypes;
-import common.messages.responses.MsgGetDynamicEntityResponse;
-
-import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
-import client.game.entity.EntityManagerFactory;
-import client.game.task.ITask;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
+
+import com.jme.math.Vector3f;
+import common.messages.IMessage;
+import common.messages.MsgPlainText;
+import common.messages.responses.MsgGetDynamicEntityResponse;
 
 /**
  * @author Castillo/Santos
@@ -37,8 +30,7 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 	 */
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
-		// TODO Auto-generated method stub
-		return null;
+		return new RTaskGetDynamicEntityResponse(msg);
 	}
 
 	/**

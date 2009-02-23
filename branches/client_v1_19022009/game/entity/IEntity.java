@@ -21,4 +21,8 @@ public interface IEntity extends Savable {
 	 * @return tipo de <code>Entity</code>.
 	 */
 	public String getTipo();
+	
+	public String getActualWorld();
+	
+	public void setActualWorld(String theActualWorld);
 }

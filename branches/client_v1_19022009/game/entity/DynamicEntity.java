@@ -20,6 +20,7 @@ import client.manager.ViewManager;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 
+import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
 import com.jme.scene.Node;
@@ -116,6 +117,28 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 			view.setLocalTranslation(ltras);
 			ViewManager.getInstance().markForUpdate(this);
 		}
+	}
+	
+	/** 
+	 * El estado del jugador en el juego. 
+	 */
+	protected PlayerState state;
+
+
+	/** 
+	 * Retorna el estado del <code>Player</code> en el juego
+	 * @return state estado del <code>Player</code>.
+	 */
+	public PlayerState getState() {
+		return state;
+	}
+
+	/** 
+	 * Aplica un estado PlayerState al <code>Player</code>.
+	 * @param theState estado <code>PlayerState<code> a aplicar.
+	 */
+	public void setState(PlayerState theState) {
+		state = theState;
 	}
 
 	/**
@@ -217,37 +240,15 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	public void setVelocity(Vector3f theVelocity) {
 		velocity = theVelocity;
 	}
-
-	/**
-	 * El mundo actual donde esta la DynamicEntity.
-	 */
-	protected String actualWorld;
-
-	/**
-	 * Retorna el mundo actual dodne esta la DynamicEntity.
-	 * 
-	 * @return actualWorld el mundo actual donde esta la DynamicEntity.
-	 */
-	public String getActualWorld() {
-		return actualWorld;
-	}
-
-	/**
-	 * Aplica el mundo actual de la DynamicEntity.
-	 * 
-	 * @param theActualWorld
-	 *            mundo actual a aplicar a DynamicEntity.
-	 */
-	public void setActualWorld(String theActualWorld) {
-		actualWorld = theActualWorld;
-	}
-
 	/**
 	 * Constructor de la DynamicEntity.
 	 */
 	public DynamicEntity(String id) {
-		super(id);
+		this.setId(id);
 		this.setTipo("DynamicEntity");
+	}
+	
+	public DynamicEntity() {
 	}
 
 	/**

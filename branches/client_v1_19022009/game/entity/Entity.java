@@ -39,6 +39,9 @@ public abstract class Entity implements IEntity {
 		this.setTipo("Entity");
 	}
 	
+	public Entity(){
+	}
+	
 	/** 
 	 * El tipo de <code>Entity</code>.
 	 */
@@ -60,5 +63,28 @@ public abstract class Entity implements IEntity {
 		tipo = theTipo;
 	}
 
+	/**
+	 * El mundo actual donde esta la DynamicEntity.
+	 */
+	protected String actualWorld;
+
+	/**
+	 * Retorna el mundo actual dodne esta la DynamicEntity.
+	 * 
+	 * @return actualWorld el mundo actual donde esta la DynamicEntity.
+	 */
+	public String getActualWorld() {
+		return actualWorld;
+	}
+
+	/**
+	 * Aplica el mundo actual de la DynamicEntity.
+	 * 
+	 * @param theActualWorld
+	 *            mundo actual a aplicar a DynamicEntity.
+	 */
+	public void setActualWorld(String theActualWorld) {
+		actualWorld = theActualWorld;
+	}
 
 }

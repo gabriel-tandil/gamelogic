@@ -16,6 +16,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.jme.scene.Node;
+import com.jmex.game.state.BasicGameState;
+import com.jmex.game.state.GameStateManager;
+
+import client.game.entity.Entity;
 import client.game.entity.EntityManagerFactory;
 import client.game.entity.IEntity;
 import client.game.view.IView;
@@ -100,6 +105,12 @@ public class EntityManager {
 			return hash.get(Integer.valueOf(entity.getId()));
 
 	}
+	
+	public IEntity getEntity(String id) {
+		return hash.get(Integer.valueOf(id));
+
+}
+
 
 	/**
 	 * Remove the entity.
@@ -107,6 +118,16 @@ public class EntityManager {
 	 */
 	public void removeEntity(IEntity entity) {
 		hash.remove(Integer.valueOf(entity.getId()));
+		Node root =	((BasicGameState) GameStateManager.getInstance().getChild(entity.getActualWorld())).getRootNode();
+		root.getChild(entity.getId());
+	}
+	
+	public void removeEntity(String id) {
+		Entity e= (Entity)getEntity(id);
+		BasicGameState actualState = (BasicGameState) GameStateManager.getInstance().getChild(e.getActualWorld());
+		Node root = actualState.getRootNode();
+		root.getChild(id).removeFromParent();
+		hash.remove(Integer.valueOf(id));
 	}
 
 	/**
