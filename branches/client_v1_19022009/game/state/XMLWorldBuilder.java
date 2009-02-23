@@ -165,11 +165,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		Player player = (Player)EntityManager.getInstance().createEntity("PlayerFactory", "Player");
 		if (url=="protCampusXML/data/campus.xml")
 		player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
-						  Vector3f.ZERO, 0.50f, "Exterior", new Skin(Skin.PERSONAJE_TIPO_CON_LA_10),new PlayerState(),
+						  Vector3f.ZERO, 0.50f, "Exterior", new Skin(),new PlayerState(),
 						  new Vector3f(1850.0f,1.5f,1050.0f), node);
 		else
 			player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
-					  Vector3f.ZERO, 0.50f, "Eco", new Skin(Skin.PERSONAJE_TIPO_CON_LA_10),new PlayerState(),
+					  Vector3f.ZERO, 0.50f, "Eco", new Skin(),new PlayerState(),
 					  new Vector3f(1250.0f,1.5f,-350.0f), node);
 		
 		Skybox sb=setupSky();
