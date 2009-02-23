@@ -15,6 +15,7 @@ import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
+import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
 import common.datatypes.PlayerState;
@@ -49,14 +50,15 @@ public class Player extends DynamicEntity {
 	 */
 	public void initPlayer(Vector3f force,float mass,Hashtable<String,Object> Properties,
 			Hashtable<String,Object> stats,Vector3f velocity, float  angle, String actualWorld,
-			Skin theSkin, PlayerState theState, Vector3f thePosition, Node root) {
+			Skin theSkin, PlayerState theState, Vector3f thePosition) {
 
 		TaskManagerFactory.getInstance().add(new U3DAddPlayerTaskFactory());
 		U3DAddPlayerTask task = (U3DAddPlayerTask) TaskManager
 		.getInstance().createTask("8");
+		Node root =	((BasicGameState) GameStateManager.getInstance().getChild(actualWorld)).getRootNode();
 		task.initTask(root, this, angle, thePosition, actualWorld);
 		TaskManager.getInstance().enqueue(task);
-		//task.execute();
+		
 		
 		this.setAngle(angle);
 		this.setActualWorld(actualWorld);
