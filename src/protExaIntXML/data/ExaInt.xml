@@ -21,7 +21,7 @@
 	</node>
 	<accesspoints>
 		<accesspoint param1="0" param2="Exterior" />
-		<accesspoint param1="0" param2="Exterior" />
+		<accesspoint param1="90" param2="Exterior" />
 	</accesspoints>
 	<pointLigh>
 		<diffuse>
