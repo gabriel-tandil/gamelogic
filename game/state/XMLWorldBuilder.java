@@ -21,20 +21,20 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import client.game.Game;
-import client.game.IPersonaje;
-import client.game.PersonaMD5;
 import client.game.controller.ControllerManagerFactory;
-import client.game.controller.U3DPlayerController;
-import client.game.controller.U3DPlayerControllerFactory;
+import client.game.controller.PlayerController;
+import client.game.controller.PlayerControllerFactory;
 import client.game.entity.EntityManagerFactory;
+import client.game.entity.Player;
+import client.game.entity.PlayerFactory;
 import client.game.entity.U3DBuildingEntity;
 import client.game.entity.U3DBuildingEntityFactory;
-import client.game.entity.U3DPlayer;
-import client.game.entity.U3DPlayerFactory;
+import client.game.entity.DynamicEntityFactory;
 import client.game.input.U3DChaseCamera;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DMoveCharacterTaskFactory;
 import client.game.task.U3DRotateCharacterTaskFactory;
+import client.game.view.DynamicView;
 import client.game.view.U3DBuildingViewFactory;
 import client.game.view.U3DPlayerViewFactory;
 import client.game.view.U3dBuildingView;
@@ -115,6 +115,7 @@ import com.jmex.model.converters.Md3ToJme;
 import com.jmex.model.converters.MilkToJme;
 import com.jmex.model.converters.ObjToJme;
 import com.jmex.model.util.ModelLoader;
+
 import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
@@ -138,7 +139,8 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	public void buildWorld(Node node) {
 
 		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
-		EntityManagerFactory.getInstance().add(new U3DPlayerFactory());
+		EntityManagerFactory.getInstance().add(new DynamicEntityFactory());
+		EntityManagerFactory.getInstance().add(new PlayerFactory());
 		
 		ViewFactoryManager.getInstance().add(new U3DBuildingViewFactory());
 		ViewFactoryManager.getInstance().add(new U3DPlayerViewFactory());
@@ -146,79 +148,36 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());
 		
-		ControllerManagerFactory.getInstance().add(new U3DPlayerControllerFactory());
+		ControllerManagerFactory.getInstance().add(new PlayerControllerFactory());
 		
 		//Edificio:1
         Node campus = new Node("Campus");
 		getWorld(campus);	
 		campus.setLocalScale(0.3f);
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
-			getInstance().createEntity("1");
-
-		worldEntity.setId("world");
+			getInstance().createEntity("EntityFactory","World");
 		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
 			createView(worldEntity);
+		worldView.attachChild(campus);		
+		node.attachChild(worldView);
 
 		//Player:2
-		Node player = new Node("Player"); 
-		IPersonaje p= this.getPlayer(player);
+		Player player = (Player)EntityManager.getInstance().createEntity("PlayerFactory", "Player");
+		if (url=="protCampusXML/data/campus.xml")
+		player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
+						  Vector3f.ZERO, 0.50f, "Exterior", new Skin(Skin.PERSONAJE_TIPO_CON_LA_10),new PlayerState(),
+						  new Vector3f(1850.0f,1.5f,1050.0f), node);
+		else
+			player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
+					  Vector3f.ZERO, 0.50f, "Eco", new Skin(Skin.PERSONAJE_TIPO_CON_LA_10),new PlayerState(),
+					  new Vector3f(1250.0f,1.5f,-350.0f), node);
 		
-		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
-		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
-				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
-				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
-				new PlayerState());
-		playerEntity.setPlayerAvatar(p);
-		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
-			createView(playerEntity);
-		
-		if (initialPosition!=null)
-			playerView.setLocalTranslation(initialPosition);
-		if(Rotation!=null)
-			if(Rotation.w!=0 || Rotation.x!=0 || Rotation.y!=0 || Rotation.z!=0)
-				playerView.setLocalRotation(Rotation);
-		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
-			getInstance().createController(playerEntity);
-		controllerPlayer.setActive(true);
-		worldView.attachChild(campus);
-		KeyInput.get().addListener(controllerPlayer);
-		playerView.attachChild(player);
-		playerView.updateWorldBound();
-		node.attachChild(worldView);
-		node.attachChild(playerView);
 		Skybox sb=setupSky();
 		node.attachChild(sb);
 
 	}
 	
-	private IPersonaje getPlayer(Node node) {
-		
-		/* PERSONAJE COLLADA*/
-		
-		/*IPersonaje p = new PersonaDae(node);
-		p.setPaquete("jmetest/data/model/collada/");
-		p.setPersonaje("jmetest/data/model/collada/man.dae");
-		p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
-		p.cargar();
-		p.setModelBound(new BoundingBox());
-		p.setLocalScale(0.8f);*/
-		
-		/* PERSONAJE MD5*/
-		
-		IPersonaje p = new PersonaMD5(node);
-		p.setPaquete("jmetest/data/model/MD5/");
-		p.setPersonaje("jmetest/data/model/MD5/Mesh.md5mesh");
-		p.setAnimaciones("jmetest/data/model/MD5/MeshAnim.md5anim");
-		p.cargar();
-		p.setModelBound(new BoundingBox());
-		p.setLocalScale(0.8f);
-		
-		/*--------------*/
-		
-		return p;
-	}
-	
-    private Skybox setupSky() {
+	private Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
         try {
 			ResourceLocatorTool.addResourceLocator(
@@ -2712,7 +2671,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	 * @param playerView es la vista del jugador requerida para la Chasecamera
 	 * @author Carlos Fritz
 	 */
-	public U3DChaseCamera buildCamera(U3dPlayerView playerView) {
+	public U3DChaseCamera buildCamera(DynamicView playerView) {
 		URL filename = java.lang.ClassLoader.getSystemClassLoader().getSystemResource(url);
 		Vector3f targetOffset = null;
 		Vector3f initialspherecoords = null;

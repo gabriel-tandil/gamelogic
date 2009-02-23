@@ -1,6 +1,7 @@
 package client.game.state;
 
 import client.game.input.U3DChaseCamera;
+import client.game.view.DynamicView;
 import client.game.view.U3dPlayerView;
 import client.manager.HudManager;
 
@@ -33,8 +34,6 @@ public class U3dExteriorState extends U3dState {
 
 			this.initializeWorld();
 			this.initializeLight();
-
-			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
 			// Habilitar esta opcion si se quierer probar la ejecucion de la
 			// tarea.
@@ -72,7 +71,7 @@ public class U3dExteriorState extends U3dState {
 		builder.buildWorld(this.rootNode);
 	}
 
-	public void initializeCamera(U3dPlayerView playerView) {
+	public void initializeCamera(DynamicView playerView) {
 		chaser = this.builder.buildCamera(playerView);
 	}
 	
@@ -90,10 +89,14 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	public void updateState(float interpolation) {
-		chaser.update(interpolation);
-        Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
-		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
-        		chaser.getCamera().getLocation().z);
+		if (chaser!=null)
+		{
+			chaser.update(interpolation);
+			Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
+			sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
+	        		chaser.getCamera().getLocation().z);
+		}
+        
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 		// nodos del hud
 		.updateGeometricState(0.0f, true);
@@ -121,8 +124,8 @@ public class U3dExteriorState extends U3dState {
 	
 	public void updateCamera() {
 		boolean intersects = false;
-		Spatial worldView = this.rootNode.getChild("world_View");
-		Spatial campus = ((Node)worldView).getChild("Campus");
+		Spatial worldView = this.rootNode.getChild("World_View");
+		Spatial campus = ((Node)worldView).getChild(0);
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
 //		System.out.println(intersects);

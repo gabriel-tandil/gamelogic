@@ -11,6 +11,7 @@ import client.game.task.U3DCargandoTaskFactory;
 import client.game.task.U3DLoginRequestTask;
 import client.game.task.U3DLoginRequestTaskFactory;
 import client.game.task.U3dCargandoTask;
+import client.game.view.DynamicView;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
@@ -305,5 +306,8 @@ public class U3dLoginState extends U3dState {
 	public void setRespuestaLogueo(String respuesta) {
 		loguear = true;
 		respuestaLogueo = respuesta;
+	}
+
+	public void initializeCamera(DynamicView playerView) {
 	}
 }
