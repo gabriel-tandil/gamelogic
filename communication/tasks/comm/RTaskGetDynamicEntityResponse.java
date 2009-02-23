@@ -1,5 +1,7 @@
 package client.communication.tasks.comm;
 
+import com.jme.math.Vector3f;
+
 import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
@@ -17,7 +19,7 @@ import client.manager.TaskManager;
 
 /**
  * @author Castillo/Santos
- *
+ * 
  */
 public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 
@@ -27,9 +29,10 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 	public RTaskGetDynamicEntityResponse(IMessage msg) {
 		super(msg);
 	}
-	
+
 	/**
-	 *  (non-Javadoc)
+	 * (non-Javadoc)
+	 * 
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 */
 	@Override
@@ -39,41 +42,30 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 	}
 
 	/**
-	 *  Este metodo obtiene del {@link EntityManager} la entidad, si existe esa entidad se actualizan<BR>
-	 *  todos sus atributos con los se encuentran en el mensaje de dicha tarea, en caso contrario,<BR>
-	 *  se crea un mensaje {@link MsgPlainText} del tipo "MSG_GET_DYNAMIC_ENTITY_TYPE", luego se crea<BR>
-	 *  una tarea especifica a la cual se le asigna el mensaje creado anteriormente y finalmente se envia esa<BR>
-	 *  tarea al taskManager {@link TaskManager}.  
+	 * Este metodo obtiene del {@link EntityManager} la entidad, si existe esa
+	 * entidad se actualizan<BR>
+	 * todos sus atributos con los se encuentran en el mensaje de dicha tarea,
+	 * en caso contrario,<BR>
+	 * se crea un mensaje {@link MsgPlainText} del tipo
+	 * "MSG_GET_DYNAMIC_ENTITY_TYPE", luego se crea<BR>
+	 * una tarea especifica a la cual se le asigna el mensaje creado
+	 * anteriormente y finalmente se envia esa<BR>
+	 * tarea al taskManager {@link TaskManager}.
+	 * 
 	 * @see client.game.task.ITask#execute()
 	 */
 	@Override
 	public void execute() {
-		
-		MsgGetDynamicEntityResponse msg = (MsgGetDynamicEntityResponse) this.getMessage();
-		
-		DynamicEntity entity= (DynamicEntity) EntityManager.getInstance().getEntity(EntityManagerFactory.getInstance().create(msg.getIdDynamicEntity()));
-		
-		if(entity != null){
-			
-			entity.setActualWorld(msg.getActualWorld());
-			entity.setAngle(msg.getAngle());
-			entity.setId(msg.getIdDynamicEntity());
-			entity.setSkin(msg.getSkin());
-			entity.setTipo(msg.getType());
-			
-		}else{
-			
-			try {
-				MsgPlainText newMsg = (MsgPlainText) MessageFactory.getInstance().createMessage(MsgTypes.MSG_GET_DYNAMIC_ENTITY_TYPE);
-				ITask task = TaskCommFactory.getInstance().createComTask(newMsg);
-				TaskManager.getInstance().submit(task);
-				
-			} catch (UnsopportedMessageException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
+
+		MsgGetDynamicEntityResponse msg = (MsgGetDynamicEntityResponse) this
+				.getMessage();
+
+		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
+				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());
+
+		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x, msg
+				.getActualWorld(), msg.getSkin(), msg.getPosition());
+
 	}
-	
+
 }
