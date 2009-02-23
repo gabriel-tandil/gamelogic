@@ -33,19 +33,21 @@ public class U3DRotateCharacterTask extends Task {
 	}
 
 	public void execute() {
-		Spatial view = ((Spatial)ViewManager.getInstance().getView(this.character));
+		/*Spatial view = ((Spatial)ViewManager.getInstance().getView(this.character));
 		float[] angles=new float[3];
 		Vector3f ltras=view.getLocalTranslation();
 		view.getLocalRotation().toAngles(angles);
 	    view.getLocalRotation().fromAngles(angles[0],angles[1]+ angle, angles[2]);
 	    view.setLocalTranslation(ltras);
-	    ViewManager.getInstance().markForUpdate(this.character);
+	    ViewManager.getInstance().markForUpdate(this.character);*/
+		character.setAngle(angle);
 	    
 	  //mensaje al servidor
 	    MsgRotate msg;
 		try {
 			msg = (MsgRotate) MessageFactory.getInstance().createMessage(MsgTypes.MSG_ROTATE_SEND_TYPE);
 			msg.setIdDynamicEntity(this.character.getId());
+			//El angulo es un float, hay q cambiar esto
 			msg.setAngle(ltras);		
 			ITask task = TaskCommFactory.getInstance().createComTask(msg);
 			TaskManager.getInstance().submit(task);
