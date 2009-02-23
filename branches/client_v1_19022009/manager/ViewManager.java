@@ -178,4 +178,9 @@ public class ViewManager {
 		}
 		return view;
 	}
+	
+	public void removeAll()
+	{
+		views.clear();
+	}
 }
