@@ -3,6 +3,7 @@
  */
 package client.gameEngine;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 import client.game.controller.ControllerManagerFactory;
@@ -71,4 +72,15 @@ public class InputManager {
 		}				
 	}
 	
+	public void desactivateAllControllers() {		
+		// Update all controllers.
+		for(IController controller : this.controllers) {
+			controller.setActive(false);
+		}				
+	}
+	
+	public void removeAll() {		
+		desactivateAllControllers();
+		controllers.removeAllElements();
+	}
 }
