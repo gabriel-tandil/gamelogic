@@ -5,7 +5,7 @@ import client.game.entity.IEntity;
 
 public class U3DPlayerViewFactory implements IViewFactory {
 
-	private String id="2";
+	private String id="Player";
 
 
 	public IView createView(IEntity entity) {
