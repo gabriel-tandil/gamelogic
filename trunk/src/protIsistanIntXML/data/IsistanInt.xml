@@ -9,7 +9,7 @@
 			<quaternion param1 = "0.0" param2 = "0.707106781" param3 = "0.0" param4 = "0.707106781"></quaternion>
 		</localRotationQuaternion>
 		<localTranslationVector3f>
-        <vector3f param1="1250.0" param2="0.5" param3="-350.0" /> 
+        <vector3f param1="0.0" param2="0.5" param3="-8.0" /> 
         </localTranslationVector3f>
 		<modelBound>
 			<boundingVolume>
@@ -20,8 +20,8 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="2" param2="Exterior" />
-		<accesspoint param1="43" param2="Exterior" />
+		<accesspoint param1="1" param2="Exterior" />
+		<accesspoint param1="42" param2="Exterior" />
 	</accesspoints>
 	<pointLigh>
 		<diffuse>
@@ -32,7 +32,7 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "1250" param2 = "10" param3 = "-350"></vector3f>
+			<vector3f param1 = "0" param2 = "10" param3 = "-8"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
@@ -46,7 +46,7 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "1084" param2 = "10" param3 = "-281"></vector3f>
+			<vector3f param1 = "125" param2 = "50" param3 = "-300"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
@@ -60,7 +60,7 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "720" param2 = "10" param3 = "-358"></vector3f>
+			<vector3f param1 = "120" param2 = "10" param3 = "-93"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
@@ -74,7 +74,7 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "1050" param2 = "10" param3 = "-156"></vector3f>
+			<vector3f param1 = "120" param2 = "10" param3 = "-407"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
@@ -88,7 +88,7 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "670" param2 = "10" param3 = "-209"></vector3f>
+			<vector3f param1 = "0" param2 = "10" param3 = "-300"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
@@ -102,7 +102,7 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "280" param2 = "10" param3 = "-415"></vector3f>
+			<vector3f param1 = "0" param2 = "10" param3 = "-620"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
@@ -116,7 +116,21 @@
 		</ambient>
 		
 		<location>
-			<vector3f param1 = "224" param2 = "10" param3 = "-280"></vector3f>
+			<vector3f param1 = "0" param2 = "10" param3 = "-925"></vector3f>
+		</location>
+		<attenuate param1="true"></attenuate>
+		<enabled param1="true"></enabled>
+	</pointLigh>
+	<pointLigh>
+		<diffuse>
+			<colorRGBA param1 = "1" param2 = "1" param3 = "1" param4 = "1"></colorRGBA>
+		</diffuse>
+		<ambient>
+			<colorRGBA param1 = "0.5f" param2 = "0.5f" param3 = "0.5f" param4 = "1.0f"></colorRGBA>
+		</ambient>
+		
+		<location>
+			<vector3f param1 = "0" param2 = "10" param3 = "-1262"></vector3f>
 		</location>
 		<attenuate param1="true"></attenuate>
 		<enabled param1="true"></enabled>
