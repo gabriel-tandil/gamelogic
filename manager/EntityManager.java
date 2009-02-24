@@ -101,7 +101,7 @@ public class EntityManager {
 			Node root =	((BasicGameState) GameStateManager.getInstance().getChild(entity.getActualWorld())).getRootNode();
 			root.getChild(entity.getId());
 		}
-		hash.remove(Integer.valueOf(entity.getId()));
+		hash.remove(entity.getId());
 	}
 	
 	public void removeEntity(String id) {
@@ -112,7 +112,7 @@ public class EntityManager {
 			Node root = actualState.getRootNode();
 			root.getChild(id).removeFromParent();
 		}
-		hash.remove(Integer.valueOf(id));
+		hash.remove(id);
 	}
 
 	/**
