@@ -4,6 +4,7 @@
  */
 package client.game.entity;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import client.game.IPersonaje;
@@ -48,7 +49,7 @@ public class Player extends DynamicEntity {
 	 * @param theSkin
 	 * @param theState
 	 */
-	public void initPlayer(Vector3f force,float mass,Hashtable<String,Object> Properties,
+	public void initPlayer(Vector3f force,float mass,HashMap<String,Object> Properties,
 			Hashtable<String,Object> stats,Vector3f velocity, float  angle, String actualWorld,
 			Skin theSkin, PlayerState theState, Vector3f thePosition) {
 
@@ -75,13 +76,13 @@ public class Player extends DynamicEntity {
 	/** 
 	 * Contiene las propiedades de un <code>Player</code>.
 	 */
-	protected Hashtable properties;
+	protected HashMap properties;
 
 	/** 
 	 * Retorna las propiedades de un <code>Player</code>.
 	 * @return properties Propiedades de un <code>Player</code>.
 	 */
-	public Hashtable getProperties()  {
+	public HashMap getProperties()  {
 		return properties;
 	}
 
@@ -89,7 +90,7 @@ public class Player extends DynamicEntity {
 	 * Aplica las propiedades <code>Hashtable<code> al <code>Player</code>.
 	 * @param theProperties propiedades <code>Hashtable<code> a aplicar.
 	 */
-	public void setProperties(Hashtable theProperties) {
+	public void setProperties(HashMap theProperties) {
 		properties = theProperties;
 	}
 	
