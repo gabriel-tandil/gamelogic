@@ -77,9 +77,11 @@ public class TaskChannelSender extends TaskCommunication {
 	@Override
 	public void execute() {
 		ClientCommunication client = GameContext.getClientCommunication();
-		
 		Set<ClientChannel> channels = client.getChannelConteiner()
 				.getChannelsOfType(this.getChannelType());
+		
+		if (channels == null)
+			throw new NullPointerException("Si pasó esto es porque nos esta arruinando al concurrencia.");
 		
 		for (ClientChannel cc : channels) {
 			try {
