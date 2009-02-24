@@ -1,6 +1,6 @@
 package client.game.task;
 
-import client.game.state.U3dWordChallengeState;
+import client.minigame.U3dWordChallengeState;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;

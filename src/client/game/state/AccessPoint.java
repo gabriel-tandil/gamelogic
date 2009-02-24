@@ -17,6 +17,7 @@ import client.game.task.U3dChangeToIntIsistan;
 import client.game.task.U3dChangeToWordChallengeGame;
 import client.manager.HudManager;
 import client.manager.TaskManager;
+import client.minigame.U3dWordChallengeState;
 
 import com.jme.scene.Node;
 import com.jmex.bui.event.ActionEvent;
