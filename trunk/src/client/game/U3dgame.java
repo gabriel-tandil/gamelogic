@@ -9,6 +9,7 @@ import client.game.state.U3dIntExaState;
 import client.game.state.U3dIntIsistanState;
 import client.game.state.U3dLoginState;
 import client.game.state.U3dState;
+import client.game.state.U3dWordChallengeState;
 import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
@@ -142,6 +143,10 @@ public class U3dgame extends Game {
 		U3dIntACIState acI = new U3dIntACIState("AC1");
 		this.getGameStateManager().attachChild(acI);
 		acI.setActive(false);
+		
+		U3dWordChallengeState wch = new U3dWordChallengeState("WordChallenge");
+		this.getGameStateManager().attachChild(wch);
+		wch.setActive(false);
 		
 		/*
 		 * U3dEndState end = new U3dEndState(); end.setActive(false);

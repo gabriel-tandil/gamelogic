@@ -14,6 +14,7 @@ import client.game.task.U3dChangeToIntBuffet;
 import client.game.task.U3dChangeToIntEco;
 import client.game.task.U3dChangeToIntExa;
 import client.game.task.U3dChangeToIntIsistan;
+import client.game.task.U3dChangeToWordChallengeGame;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
@@ -109,6 +110,10 @@ long timer;
 				U3dChangeToIntACI task = (U3dChangeToIntACI) TaskManager
 						.getInstance().createTask("10");
 				TaskManager.getInstance().enqueue(task);
+			} else if (proxEstado.getClass().equals(U3dWordChallengeState.class)) {
+				U3dChangeToWordChallengeGame task = (U3dChangeToWordChallengeGame) TaskManager
+						.getInstance().createTask("11");
+				TaskManager.getInstance().enqueue(task);
 			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
@@ -136,6 +141,8 @@ long timer;
 				textoEdificio = "Estas frente a la puerta de ingreso a Aulas Comunes I. ¿Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntBuffetState.class)) {
 				textoEdificio = "Estas frente a la puerta de ingreso al Buffet. ¿Queres Entrar?";
+			}else if (proxEstado.getClass().equals(U3dWordChallengeState.class)) {
+				textoEdificio = "Estás a punto de entrar a un minijuego. ¿Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
 				textoEdificio = "Estas frente a la puerta que sale al campus. ¿Queres Salir?";
 

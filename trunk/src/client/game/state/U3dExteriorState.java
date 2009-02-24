@@ -7,11 +7,10 @@ import client.game.task.U3DChangeToIntBuffetTaskFactory;
 import client.game.task.U3DChangeToIntEcoTaskFactory;
 import client.game.task.U3DChangeToIntExaTaskFactory;
 import client.game.task.U3DChangeToIntIsistanTaskFactory;
+import client.game.task.U3DChangeToWordChallengeTaskFactory;
 import client.game.view.U3dPlayerView;
 import client.manager.HudManager;
 
-import com.jme.math.Quaternion;
-import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
@@ -37,7 +36,9 @@ public class U3dExteriorState extends U3dState {
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntIsistanTaskFactory());
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntBuffetTaskFactory());
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntACITaskFactory());
+			TaskManagerFactory.getInstance().add(new U3DChangeToWordChallengeTaskFactory());
 
+			
 			this.initializeWorld();
 			this.initializeLight();
 
@@ -57,6 +58,8 @@ public class U3dExteriorState extends U3dState {
 			this.initialized = true;
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
+			
+			
 		}
 	}
 
