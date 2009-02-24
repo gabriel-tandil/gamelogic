@@ -9,7 +9,6 @@ import client.game.state.U3dIntExaState;
 import client.game.state.U3dIntIsistanState;
 import client.game.state.U3dLoginState;
 import client.game.state.U3dState;
-import client.game.state.U3dWordChallengeState;
 import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
@@ -17,6 +16,7 @@ import client.manager.EntityManager;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
+import client.minigame.U3dWordChallengeState;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -144,6 +144,8 @@ public class U3dgame extends Game {
 		this.getGameStateManager().attachChild(acI);
 		acI.setActive(false);
 		
+		
+		//Minijuegos
 		U3dWordChallengeState wch = new U3dWordChallengeState("WordChallenge");
 		this.getGameStateManager().attachChild(wch);
 		wch.setActive(false);

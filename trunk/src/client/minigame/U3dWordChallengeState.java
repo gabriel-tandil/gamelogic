@@ -1,11 +1,11 @@
-package client.game.state;
+package client.minigame;
 
 import ar.edu.unicen.exa.game2d.wordchallenge.WordChallenge;
 import client.manager.HudManager;
 
 
 
-public class U3dWordChallengeState extends U3dMiniGameState {
+public class U3dWordChallengeState extends MiniGameState {
 
 	public U3dWordChallengeState(String name) {
 		super(name);
@@ -24,15 +24,9 @@ public class U3dWordChallengeState extends U3dMiniGameState {
 	}
 
 	@Override
-	public void updateState(float interpolation) {
+	public void updateState() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public WorldGameState getWorld() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	private void inicializaHUD() {
