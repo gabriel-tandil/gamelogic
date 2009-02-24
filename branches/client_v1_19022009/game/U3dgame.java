@@ -65,8 +65,9 @@ public class U3dgame extends Game {
 
 		FileInputStream is;
 		try {
+			System.out.println(System.getProperty("user.dir"));
 			is = new FileInputStream(new File(
-					"d:/Cliente SVN/src/u3dproperties.properties"));
+					System.getProperty("user.dir")+"/src/u3dproperties.properties"));
 			a.load(is);
 			GameContext.setProperties(a);
 		} catch (Exception e) {
