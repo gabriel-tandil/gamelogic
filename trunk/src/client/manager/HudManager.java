@@ -27,7 +27,7 @@ public class HudManager implements IHudManager {
 	protected PolledRootNode _root;
 	BStyleSheet style = null;
 	private HashMap<String, BWindow> ventanas;
-
+	private BWindow ventanaControl;
 	public HudManager() {
 
 	}
@@ -43,6 +43,7 @@ public class HudManager implements IHudManager {
 		_root = (PolledRootNode) BuiSystem.getRootNode();
 		ventanas = new HashMap<String, BWindow>();
 		style = BuiSystem.getStyle();
+		crearVentanaControl();
 		setCursorVisible(true);
 	}
 
@@ -94,7 +95,6 @@ public class HudManager implements IHudManager {
 
 	public void unSetCargando() {
 		quitarEscrito("cargando");
-
 	}
 
 	public void quitarEscrito(String id) {
@@ -109,7 +109,7 @@ public class HudManager implements IHudManager {
 
 	public void escribir(String texto, String id) {
 
-		BWindow ventTexto = new BWindow(HudManager.getInstance().getStyle(),
+		BWindow ventTexto = new BWindow(id,HudManager.getInstance().getStyle(),
 				GroupLayout.makeVStretch());
 
 		BLabel label = new BLabel(texto);
@@ -117,8 +117,7 @@ public class HudManager implements IHudManager {
 		ventTexto.setSize(200, 50);
 		ventTexto.center();
 		ventTexto.setBackground(0, new TintedBackground(ColorRGBA.green));
-		_root.addWindow(ventTexto, true);
-		ventanas.put(id, ventTexto);
+		addWindow(ventTexto,id);
 
 	}
 
@@ -127,7 +126,6 @@ public class HudManager implements IHudManager {
 		setCursorVisible(true);
 		final BWindow ventDialogo = new BWindow(style, GroupLayout
 				.makeVStretch());
-
 		ventDialogo.setSize(270, 150 + (50 * botones.size()));
 		BLabel label = new BLabel(texto);
 		ventDialogo.add(label);
@@ -141,7 +139,7 @@ public class HudManager implements IHudManager {
 				public void actionPerformed(ActionEvent event) {
 					setCursorVisible(false);
 					ventDialogo.dispatchEvent(event);
-					ventDialogo.getRootNode().removeWindow(ventDialogo);
+					removeWindow("ventDialogo");
 				}
 			});
 		}
@@ -149,7 +147,7 @@ public class HudManager implements IHudManager {
 		ventDialogo.addListener(listener);
 		ventDialogo.center();
 
-		_root.addWindow(ventDialogo); // a esta ventana no preciso agregarla
+		addWindow(ventDialogo,"ventDialogo"); // a esta ventana no preciso agregarla
 		// ya que se saca sola al cerrarse el
 		// dialogo
 
@@ -161,9 +159,15 @@ public class HudManager implements IHudManager {
 	}
 
 	public void removeWindow(String id) {
-		if (ventanas.get(id) != null)
-			_root.removeWindow(ventanas.get(id));
-		ventanas.remove("id");
+		
+		if (ventanas.get(id) != null){
+
+			ventanas.get(id).dismiss();
+
+			//	_root.removeWindow();
+		ventanas.remove(id);
+		if (ventanas.isEmpty()) desvincula();
+		}
 	}
 
 	public BWindow getWindow(String id) {
@@ -172,40 +176,43 @@ public class HudManager implements IHudManager {
 
 	public void muestraControl() {
 		setCursorVisible(true);
+	//	if (!GameStateManager.getInstance().getChild("login").isActive()) //en el login no muestro la ventana de control
+			addWindow(ventanaControl,"control");
+			update();	
+//		this.update();
+	}
+
+	private void crearVentanaControl() {
 		GroupLayout gl= GroupLayout
 		.makeHoriz(GroupLayout.CENTER);
 		gl.setOffAxisJustification(GroupLayout.BOTTOM);
-		final BWindow ventana = new BWindow(style, gl);
+		ventanaControl = new BWindow(style, gl);
 
-		ventana.setSize(DisplaySystem.getDisplaySystem().getWidth(),
+		ventanaControl.setSize(DisplaySystem.getDisplaySystem().getWidth(),
 				DisplaySystem.getDisplaySystem().getHeight());
-		ventana.setStyleClass("control-window");
+		ventanaControl.setStyleClass("control-window");
 
-		ventana.add(crearBoton("minimize",30));
-		ventana.add(crearBoton("map",60));
-		ventana.add(crearBoton("chat",80));
-		ventana.add(crearBoton("help",60));
-		ventana.add(crearBoton("close",30));
+		ventanaControl.add(crearBoton("minimize",30,ventanaControl));
+		ventanaControl.add(crearBoton("map",60,ventanaControl));
+		ventanaControl.add(crearBoton("chat",80,ventanaControl));
+		ventanaControl.add(crearBoton("help",60,ventanaControl));
+		ventanaControl.add(crearBoton("close",30,ventanaControl));
+		ventanaControl.addListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if ("minimize".equals(event.getAction())){
+					removeWindow("control");
+				}
+				if ("map".equals(event.getAction())){}
+				if ("chat".equals(event.getAction())){}
+				if ("help".equals(event.getAction())){}
+				if ("close".equals(event.getAction())){}
+			}});
 		
+		ventanaControl.center();
 		
-		
-		// button.addListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent event) {
-		// MouseInput.get().setCursorVisible(false);
-		// ventana.dispatchEvent(event);
-		// ventana.getRootNode().removeWindow(ventana);
-		// }
-		// });
-
-		ventana.center();
-
-		_root.addWindow(ventana); // a esta ventana no preciso agregarla
-		// ya que se saca sola al cerrarse el
-		// dialogo
-		this.update();
 	}
 
-	private BButton crearBoton(String tipo,int tam) {
+	private BButton crearBoton(String tipo,int tam,final BWindow ventana) {
 		BButton button = new BButton("", tipo);
 		button.setStyleClass("button-" + tipo);
 //		button.setSize((int)((float)DisplaySystem.getDisplaySystem().getWidth()
@@ -216,7 +223,11 @@ public class HudManager implements IHudManager {
 //				/ 800 * tam), (int)((float)DisplaySystem.getDisplaySystem()
 //				.getWidth()
 //				/ 800 * tam));
-
+		button.addListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ventana.dispatchEvent(event);
+			}
+		});
 		return button;
 	}
 
