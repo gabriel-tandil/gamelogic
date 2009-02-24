@@ -2,6 +2,7 @@ package client.game.task;
 
 import java.util.ArrayList;
 
+import client.communication.tasks.TaskChannelSender;
 import client.communication.tasks.TaskCommFactory;
 import client.game.entity.Player;
 import client.game.state.U3dState;
@@ -21,6 +22,7 @@ import common.datatypes.PlayerState;
 import common.messages.MessageFactory;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgMove;
+import common.util.ChannelNameParser;
 
 public class U3DMoveCharacterTask extends Task {
 	
@@ -139,7 +141,8 @@ public class U3DMoveCharacterTask extends Task {
 					msg.setIdDynamicEntity(this.character.getId());
 					msg.setPosOrigen(origin);
 					msg.setPosDestino(destine);
-					ITask task = TaskCommFactory.getInstance().createComTask(msg);
+					TaskChannelSender task = (TaskChannelSender)TaskCommFactory.getInstance().createComTask(msg);
+					task.setChannelType(ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
 					TaskManager.getInstance().submit(task);			
 					
 				}
