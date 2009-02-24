@@ -8,6 +8,7 @@ import client.communication.tasks.darkstarevents.TaskLoggedIn;
 import client.communication.tasks.darkstarevents.TaskLogginFailed;
 import client.communication.tasks.darkstarevents.TaskReconnected;
 import client.communication.tasks.darkstarevents.TaskReconnecting;
+import client.manager.TaskManager;
 
 import com.sun.sgs.client.ClientChannelListener;
 import com.sun.sgs.client.ClientChannel;
@@ -233,11 +234,15 @@ public class ClientListener implements	ClientChannelListener,
 	 */
 	@Override
 	public void loggedIn() {
-		MsgAbstract msg = new MsgEmpty();
+		//FIXME No existe la tarea asociada a la constante LOGGEDIN_TASK_TYPE!!!
+		
+		/*MsgAbstract msg = new MsgEmpty();
 		msg.setType(TaskLoggedIn.LOGGEDIN_TASK_TYPE);
 		
 		MsgProcessorFactory.getInstance().createProcessor(msg.getType())
-				.process(msg);
+				.process(msg);*/
+		
+		TaskManager.getInstance().submit(new TaskLoggedIn());
 	}
 
 	/**
