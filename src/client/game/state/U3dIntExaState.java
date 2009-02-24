@@ -30,7 +30,7 @@ public class U3dIntExaState extends U3dState {
 			this.initializeCamera((U3dPlayerView) this.rootNode
 					.getChild("player_View"));
 
-			// Habilitar esta opciónn si se quierer probar la ejecuciónn de la
+			// Habilitar esta opciï¿½nn si se quierer probar la ejecuciï¿½nn de la
 			// tarea.
 			// Deshabilitar el mï¿½todo anterior initializeCamera(..)
 			// Desabilitar el controlador del player (setActive(false)) en
@@ -50,6 +50,7 @@ public class U3dIntExaState extends U3dState {
 	}
 	private void inicializaHUD() {
 		HudManager.getInstance().unSetCargando();
+		HudManager.getInstance().update();
 	}
 	private void initializeLight() {	
 		builder.buildLight(rootNode);

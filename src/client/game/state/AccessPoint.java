@@ -132,19 +132,19 @@ long timer;
 			timer=System.currentTimeMillis();
 			String textoEdificio = "";
 			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. ¿Queres Entrar?";
+				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. ï¿½Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntExaState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Exactas. ¿Queres Entrar?";
+				textoEdificio = "Estas frente a la puerta de ingreso a Exactas. ï¿½Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntIsistanState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso al Isistan. ¿Queres Entrar?";
+				textoEdificio = "Estas frente a la puerta de ingreso al Isistan. ï¿½Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntACIState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Aulas Comunes I. ¿Queres Entrar?";
+				textoEdificio = "Estas frente a la puerta de ingreso a Aulas Comunes I. ï¿½Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntBuffetState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso al Buffet. ¿Queres Entrar?";
+				textoEdificio = "Estas frente a la puerta de ingreso al Buffet. ï¿½Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dWordChallengeState.class)) {
-				textoEdificio = "Estás a punto de entrar a un minijuego. ¿Queres Entrar?";
+				textoEdificio = "Estï¿½s a punto de entrar a un minijuego. ï¿½Queres Entrar?";
 			}else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
-				textoEdificio = "Estas frente a la puerta que sale al campus. ¿Queres Salir?";
+				textoEdificio = "Estas frente a la puerta que sale al campus. ï¿½Queres Salir?";
 
 			}
 			HashMap<String, String> botones = new HashMap<String, String>();
@@ -159,10 +159,7 @@ long timer;
 								.getInstance().createTask("7"); // lo hago con un task poruqe sino gana la otra tarea y no llega a mostrar el cartel de cargando
 						TaskManager.getInstance().enqueue(task);
 								show();
-							}else{
-								HudManager.getInstance().desvincula();
-							}
-								
+							}								
 						}
 					});
 			}

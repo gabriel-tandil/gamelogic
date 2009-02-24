@@ -44,9 +44,9 @@ public class U3dExteriorState extends U3dState {
 
 			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
 
-			// Habilitar esta opción si se quierer probar la ejecuciï¿½n de la
+			// Habilitar esta opciï¿½n si se quierer probar la ejecuciï¿½n de la
 			// tarea.
-			// Deshabilitar el método anterior initializeCamera(..)
+			// Deshabilitar el mï¿½todo anterior initializeCamera(..)
 			// Desabilitar el controlador del player (setActive(false)) en
 			// XMLWorldBuilder.
 
@@ -67,6 +67,8 @@ public class U3dExteriorState extends U3dState {
 		HudManager.getInstance().unSetCargando();
 		HudManager.getInstance().removeWindow("login");
 		HudManager.getInstance().removeWindow("errorLogueo");
+		HudManager.getInstance().muestraControl();
+		HudManager.getInstance().update();
 	}
 
 	private void initializeLight() {
