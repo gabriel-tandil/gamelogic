@@ -206,15 +206,20 @@ public class U3dLoginState extends U3dState {
 
 			U3DLoginRequestTask task = (U3DLoginRequestTask) TaskManager
 					.getInstance().createTask("8");
-			task.initTask(((BTextField) HudManager.getInstance().getWindow(
-					"login").getComponent(0)).getText(),
-					((BPasswordField) HudManager.getInstance().getWindow(
-							"login").getComponent(1)).getText());
+			
+			String user = ((BTextField) HudManager.getInstance().getWindow(
+			"login").getComponent(0)).getText();
+			
+			String password = ((BPasswordField) HudManager.getInstance().getWindow(
+			"login").getComponent(1)).getText();
+			
+			task.initTask(user,password);
+			
 			TaskManager.getInstance().enqueue(task);
 
 			// TODO cuando se integre con el modulo de comuniocacion eliminar
 			// la linea proxima
-			setRespuestaLogueo(LOGUEO_OK);
+			//setRespuestaLogueo(LOGUEO_OK);
 		}
 	}
 
@@ -259,7 +264,7 @@ public class U3dLoginState extends U3dState {
 		BButton loginButton = new BButton("Entrar", "login");
 		loginButton.setLocation(this.getAbsoluteX(68.25), this
 				.getAbsoluteY(64.833333));
-		loginButton.setSize((int) (7.5 * this.currentResolution[0] / 100), 31);
+		loginButton.setSize((int) (9 * this.currentResolution[0] / 100), 31);
 
 		// add our listener2 to the loginButton so it knows what to do with the
 		// "actionMessage" when the button is clicked
