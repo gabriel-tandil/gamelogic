@@ -132,19 +132,19 @@ long timer;
 			timer=System.currentTimeMillis();
 			String textoEdificio = "";
 			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. �Queres Entrar?";
+				textoEdificio = "Est\u00E1s frente a la puerta de ingreso a Economicas. \u00BFQuer\u00E9s Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntExaState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Exactas. �Queres Entrar?";
+				textoEdificio = "Est\u00E1s frente a la puerta de ingreso a Exactas. \u00BFQuer\u00E9s Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntIsistanState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso al Isistan. �Queres Entrar?";
+				textoEdificio = "Est\u00E1s frente a la puerta de ingreso al Isistan. \u00BFQuer\u00E9s Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntACIState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Aulas Comunes I. �Queres Entrar?";
+				textoEdificio = "Est\u00E1s frente a la puerta de ingreso a Aulas Comunes I. \u00BFQuer\u00E9s Entrar?";
 			}else if (proxEstado.getClass().equals(U3dIntBuffetState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso al Buffet. �Queres Entrar?";
+				textoEdificio = "Est\u00E1s frente a la puerta de ingreso al Buffet. \u00BFQuer\u00E9s Entrar?";
 			}else if (proxEstado.getClass().equals(U3dWordChallengeState.class)) {
-				textoEdificio = "Est�s a punto de entrar a un minijuego. �Queres Entrar?";
+				textoEdificio = "Est\u00E1s a punto de entrar a un minijuego. \u00BFQuer\u00E9s Entrar?";
 			}else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
-				textoEdificio = "Estas frente a la puerta que sale al campus. �Queres Salir?";
+				textoEdificio = "Est\u00E1s frente a la puerta que sale al campus. \u00BFQuer\u00E9s Salir?";
 
 			}
 			HashMap<String, String> botones = new HashMap<String, String>();

@@ -3,6 +3,8 @@ package client.manager;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import client.game.task.U3dCargandoTask;
+
 import com.jme.input.MouseInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.system.DisplaySystem;
@@ -22,7 +24,7 @@ import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
 public class HudManager implements IHudManager {
-	private boolean ocultaCursor = false;
+	private boolean ocultaCursor = true;
 	private static HudManager instance = null;
 	protected PolledRootNode _root;
 	BStyleSheet style = null;
@@ -54,7 +56,7 @@ public class HudManager implements IHudManager {
 
 	public void update() {
 
-		for (Iterator iterator = GameStateManager.getInstance().getChildren()
+		for (Iterator<?> iterator = GameStateManager.getInstance().getChildren()
 				.iterator(); iterator.hasNext();) {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
@@ -121,7 +123,7 @@ public class HudManager implements IHudManager {
 
 	}
 
-	public void muestraDialogo(String texto, HashMap<String, String> botones,
+	public BWindow muestraDialogo(String texto, HashMap<String, String> botones,
 			ComponentListener listener) {
 		setCursorVisible(true);
 		final BWindow ventDialogo = new BWindow(style, GroupLayout
@@ -130,14 +132,13 @@ public class HudManager implements IHudManager {
 		BLabel label = new BLabel(texto);
 		ventDialogo.add(label);
 		ventDialogo.setBackground(0, new TintedBackground(ColorRGBA.darkGray));
-		for (Iterator iterator = botones.keySet().iterator(); iterator
+		for (Iterator<String> iterator = botones.keySet().iterator(); iterator
 				.hasNext();) {
 			String clave = (String) iterator.next();
 			BButton button = new BButton(botones.get(clave), clave);
 			ventDialogo.add(button);
 			button.addListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					setCursorVisible(false);
 					ventDialogo.dispatchEvent(event);
 					removeWindow("ventDialogo");
 				}
@@ -147,10 +148,8 @@ public class HudManager implements IHudManager {
 		ventDialogo.addListener(listener);
 		ventDialogo.center();
 
-		addWindow(ventDialogo,"ventDialogo"); // a esta ventana no preciso agregarla
-		// ya que se saca sola al cerrarse el
-		// dialogo
-
+		addWindow(ventDialogo,"ventDialogo"); 
+		return ventDialogo;
 	}
 
 	public void addWindow(BWindow wind, String id) {
@@ -168,6 +167,7 @@ public class HudManager implements IHudManager {
 		ventanas.remove(id);
 		if (ventanas.isEmpty()) desvincula();
 		}
+		
 	}
 
 	public BWindow getWindow(String id) {
@@ -176,10 +176,9 @@ public class HudManager implements IHudManager {
 
 	public void muestraControl() {
 		setCursorVisible(true);
-	//	if (!GameStateManager.getInstance().getChild("login").isActive()) //en el login no muestro la ventana de control
+		if (!GameStateManager.getInstance().getChild("login").isActive()) //en el login no muestro la ventana de control
 			addWindow(ventanaControl,"control");
 			update();	
-//		this.update();
 	}
 
 	private void crearVentanaControl() {
@@ -205,7 +204,18 @@ public class HudManager implements IHudManager {
 				if ("map".equals(event.getAction())){}
 				if ("chat".equals(event.getAction())){}
 				if ("help".equals(event.getAction())){}
-				if ("close".equals(event.getAction())){}
+				if ("close".equals(event.getAction())){
+					HashMap<String, String> botones = new HashMap<String, String>();
+					botones.put("salir", "Salir");
+					botones.put("noSalir", "Quedarme");
+					muestraDialogo("Esto cerrara el programa.  \u00BFEst\u00E1s seguro?", botones, new ActionListener() {
+						public void actionPerformed(ActionEvent event) {
+							if (event.getAction().equals("salir")) {
+								System.exit(0);
+							}								
+						}
+					});
+				}
 			}});
 		
 		ventanaControl.center();
@@ -232,12 +242,16 @@ public class HudManager implements IHudManager {
 	}
 
 	public void setCursorVisible(boolean sn) {
-		if (sn || ocultaCursor)
-			MouseInput.get().setCursorVisible(sn);
+		if (sn)
+			MouseInput.get().setCursorVisible(true);
+		else if (ocultaCursor
+				&& (!ventanas.containsKey("control") || !ventanas
+						.containsKey("ventDialogo")))
+			MouseInput.get().setCursorVisible(false);
 	}
 
 	public void desvincula() {
-		for (Iterator iterator = GameStateManager.getInstance().getChildren()
+		for (Iterator<?> iterator = GameStateManager.getInstance().getChildren()
 				.iterator(); iterator.hasNext();) {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
@@ -246,6 +260,6 @@ public class HudManager implements IHudManager {
 			_root.updateGeometricState(0.0f, true);
 			_root.updateRenderState();
 		}
-		
+		setCursorVisible(false);
 	}
 }
