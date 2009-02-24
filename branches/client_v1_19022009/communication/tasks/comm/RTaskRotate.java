@@ -4,20 +4,19 @@
  */
 package client.communication.tasks.comm;
 
+import client.communication.tasks.TaskCommFactory;
+import client.communication.tasks.TaskCommunication;
+import client.game.entity.DynamicEntity;
+import client.game.task.ITask;
+import client.manager.EntityManager;
+import client.manager.TaskManager;
+
 import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
 import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgRotate;
-
-import client.communication.tasks.TaskCommFactory;
-import client.communication.tasks.TaskCommunication;
-import client.game.entity.DynamicEntity;
-import client.game.entity.EntityManagerFactory;
-import client.game.task.ITask;
-import client.manager.EntityManager;
-import client.manager.TaskManager;
 
 public class RTaskRotate extends TaskCommunication {
 
