@@ -6,6 +6,7 @@ package client.communication.tasks.comm;
 
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
+import client.communication.GameContext;
 import client.game.entity.DynamicEntity;
 import client.game.task.ITask;
 import client.manager.EntityManager;
@@ -50,7 +51,14 @@ public class RTaskRotate extends TaskCommunication {
 	@Override
 	public void execute() {
 		MsgRotate thisMsg = (MsgRotate) this.getMessage();
-		
+
+		// Si el mensaje fue enviado originalmente por este jugador, se termina
+		// la tarea.
+		if (thisMsg.getIdDynamicEntity().equalsIgnoreCase(
+				GameContext.getUserName())) {
+			return;
+		}
+
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.getEntity(thisMsg.getIdDynamicEntity());
 

@@ -12,6 +12,7 @@ import com.jmex.bui.event.ActionListener;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
+import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgChangePlayerState;
 
@@ -44,8 +45,7 @@ public class TaskDisconnected extends TaskCommunication {
 	 */
 	
 	public TaskCommunication factoryMethod(final IMessage msg) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TaskDisconnected(((MsgPlainText)msg).getMsg());
 	}
 	
 	/**

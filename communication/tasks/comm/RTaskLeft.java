@@ -4,13 +4,12 @@
  */
 package client.communication.tasks.comm;
 
-import common.messages.IMessage;
-import common.messages.MsgPlainText;
-
+import client.communication.GameContext;
 import client.communication.tasks.TaskCommunication;
 import client.manager.EntityManager;
 
-import client.game.entity.EntityManagerFactory;
+import common.messages.IMessage;
+import common.messages.MsgPlainText;
 
 public class RTaskLeft extends TaskCommunication {
 
@@ -42,6 +41,12 @@ public class RTaskLeft extends TaskCommunication {
 	@Override
 	public void execute() {
 		MsgPlainText msg = (MsgPlainText) this.getMessage();
+		// Si el mensaje fue enviado originalmente por este jugador, se termina
+		// la tarea.
+		if (msg.getMsg().equalsIgnoreCase(
+				GameContext.getUserName())) {
+			return;
+		}
 		EntityManager.getInstance().removeEntity(msg.getMsg());
 	}
 

@@ -10,6 +10,7 @@ import common.messages.MessageFactory;
 import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 
+import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.task.ITask;
@@ -49,6 +50,13 @@ public class RTaskArrived extends TaskCommunication {
 		try {
 			MsgPlainText msg = (MsgPlainText) this.getMessage();
 			String idEntity = msg.getMsg();
+
+			// Si el mensaje fue enviado originalmente por este jugador, se
+			// termina
+			// la tarea.
+			if (idEntity.equalsIgnoreCase(GameContext.getUserName())) {
+				return;
+			}
 
 			// se crea msg de tipo get_dynamic_entity
 			MsgPlainText msgGDE = (MsgPlainText) MessageFactory.getInstance()
