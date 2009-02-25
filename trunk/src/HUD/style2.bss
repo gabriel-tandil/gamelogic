@@ -335,7 +335,7 @@ labeltext {
 
 login-window {
   background: image "HUD/textures/pantallalogin.png" scalexy;
-  border: 1 solid #FFFFFF00;
+  border: 1 blank;
 }
 control-window {
   background: image "HUD/textures/bottom_roundtoolbar.png" scalexy;
