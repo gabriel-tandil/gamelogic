@@ -1,5 +1,6 @@
 package client.communication.tasks.comm;
 
+import client.communication.GameContext;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
 import client.manager.EntityManager;
@@ -51,6 +52,13 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 
 		MsgGetDynamicEntityResponse msg = (MsgGetDynamicEntityResponse) this
 				.getMessage();
+		
+		// Si el mensaje fue enviado originalmente por este jugador, se termina
+		// la tarea.
+		if (msg.getIdDynamicEntity().equalsIgnoreCase(
+				GameContext.getUserName())) {
+			return;
+		}
 
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());

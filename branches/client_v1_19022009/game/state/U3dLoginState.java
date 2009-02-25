@@ -1,10 +1,7 @@
 package client.game.state;
 
-import java.net.URISyntaxException;
-import java.nio.FloatBuffer;
-
+import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
-import client.game.Game;
 import client.game.task.ChangeStateTask;
 import client.game.task.ChangeToPlace;
 import client.game.task.ITask;
@@ -17,19 +14,7 @@ import client.game.view.DynamicView;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
-import com.jme.image.Texture;
-import com.jme.input.MouseInput;
-import com.jme.math.Vector3f;
-import com.jme.renderer.Renderer;
-import com.jme.scene.Spatial;
-import com.jme.scene.TexCoords;
-import com.jme.scene.shape.Quad;
-import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
-import com.jme.util.TextureManager;
-import com.jme.util.geom.BufferUtils;
-import com.jme.util.resource.ResourceLocatorTool;
-import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BComponent;
 import com.jmex.bui.BPasswordField;
@@ -109,6 +94,9 @@ public class U3dLoginState extends U3dState {
 					MsgPlainText msg = (MsgPlainText) MessageFactory.getInstance()
 							.createMessage(MsgTypes.MSG_GET_PLAYER_TYPE);
 					msg.setMsg(user);
+					
+					GameContext.setUserName(user);
+					
 					ITask taskGetPlayer = TaskCommFactory.getInstance().createComTask(msg);
 					TaskManager.getInstance().submit(taskGetPlayer);
 				} catch (UnsopportedMessageException e) {

@@ -5,7 +5,6 @@
 package client.communication.tasks.comm;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.Player;
@@ -52,6 +51,7 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 		Player player = (Player) EntityManager.getInstance().createEntity(
 				"PlayerFactory", msg.getIdPlayer());
 
+		// FIXME esta hardcodeado el mundo!!!
 		player.initPlayer(Vector3f.ZERO, 8f, (HashMap)msg.getProperties(), null,
 				Vector3f.ZERO, msg.getAngle().x, /*msg.getActualWorld()*/ "Exterior", msg
 						.getSkin(), msg.getPlayerState(), msg.getPosition());

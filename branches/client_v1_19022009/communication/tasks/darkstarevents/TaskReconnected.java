@@ -40,8 +40,7 @@ public class TaskReconnected extends TaskCommunication {
 	 */
 	
 	public TaskCommunication factoryMethod(final IMessage msg) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TaskReconnected();
 	}
 	
 	/**

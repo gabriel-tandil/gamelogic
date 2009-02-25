@@ -40,8 +40,7 @@ public class TaskLogginFailed extends TaskCommunication {
 	 * @author Castillo/Santos
 	 */	
 	public void execute() {
-		String respuesta = U3dLoginState.LOGUEO_ERROR;
-	
+		String respuesta = U3dLoginState.LOGUEO_ERROR;	
 		((U3dLoginState)GameStateManager.getInstance().getChild("login")).setRespuestaLogueo(respuesta);
 	}
 	

@@ -3,30 +3,31 @@
  */
 package client.communication;
 
+import java.net.PasswordAuthentication;
+import java.nio.ByteBuffer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import client.communication.tasks.darkstarevents.TaskDisconnected;
 import client.communication.tasks.darkstarevents.TaskLoggedIn;
 import client.communication.tasks.darkstarevents.TaskLogginFailed;
 import client.communication.tasks.darkstarevents.TaskReconnected;
 import client.communication.tasks.darkstarevents.TaskReconnecting;
-import client.manager.TaskManager;
 
-import com.sun.sgs.client.ClientChannelListener;
 import com.sun.sgs.client.ClientChannel;
+import com.sun.sgs.client.ClientChannelListener;
+import com.sun.sgs.client.ServerSessionListener;
+import com.sun.sgs.client.simple.SimpleClient;
 import com.sun.sgs.client.simple.SimpleClientListener;
-
 import common.exceptions.MalformedMessageException;
 import common.exceptions.UnsopportedMessageException;
-import common.messages.MsgAbstract;
-import common.messages.MsgEmpty;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
+import common.messages.MsgAbstract;
+import common.messages.MsgEmpty;
 import common.messages.MsgPlainText;
+import common.processors.IProcessor;
 import common.processors.MsgProcessorFactory;
-
-import java.nio.ByteBuffer;
-import java.net.PasswordAuthentication;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Esta clase esta pensada para ser el "Listener" del cliente
@@ -234,15 +235,11 @@ public class ClientListener implements	ClientChannelListener,
 	 */
 	@Override
 	public void loggedIn() {
-		//FIXME No existe la tarea asociada a la constante LOGGEDIN_TASK_TYPE!!!
-		
-		/*MsgAbstract msg = new MsgEmpty();
+		MsgAbstract msg = new MsgEmpty();
 		msg.setType(TaskLoggedIn.LOGGEDIN_TASK_TYPE);
 		
 		MsgProcessorFactory.getInstance().createProcessor(msg.getType())
-				.process(msg);*/
-		
-		TaskManager.getInstance().submit(new TaskLoggedIn());
+				.process(msg);
 	}
 
 	/**

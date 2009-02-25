@@ -6,7 +6,6 @@ import client.communication.tasks.TaskChannelSender;
 import client.communication.tasks.TaskCommFactory;
 import client.game.entity.Player;
 import client.game.state.U3dState;
-import client.game.state.WorldGameState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
 import client.manager.TaskManager;
@@ -25,9 +24,10 @@ import common.messages.notify.MsgMove;
 import common.util.ChannelNameParser;
 
 public class U3DMoveCharacterTask extends Task {
-	
+
 	private static final int MOVIMIENTO_CAMINANDO = 70000;
 	private static final int MOVIMIENTO_CORRIENDO = 270000;
+
 	public U3DMoveCharacterTask() {
 		super();
 	}
@@ -53,13 +53,14 @@ public class U3DMoveCharacterTask extends Task {
 	 */
 	private float endZ;
 	private boolean adelante;
-	private float movement=MOVIMIENTO_CAMINANDO;
+	private float movement = MOVIMIENTO_CAMINANDO;
+
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof U3DMoveCharacterTask) {
-			U3DMoveCharacterTask given = (U3DMoveCharacterTask)o;
+		if (o instanceof U3DMoveCharacterTask) {
+			U3DMoveCharacterTask given = (U3DMoveCharacterTask) o;
 			if (given.character != null)
-				//faltaria definir el metodo equals en Player
+				// faltaria definir el metodo equals en Player
 				return given.character.equals(this.character);
 			else
 				return this.character == null;
@@ -67,54 +68,58 @@ public class U3DMoveCharacterTask extends Task {
 		return false;
 	}
 
-
 	public void execute() {
-		if (this.character == null) return;
+		if (this.character == null)
+			return;
 		try {
 			this.character.getVelocity().zero();
 			this.character.resetForce();
-			Vector3f origin=new Vector3f();
-			Vector3f destine=new Vector3f();
-			Spatial view = (Spatial)ViewManager.getInstance().getView(this.character);
-			Vector3f direction=view.getLocalRotation().getRotationColumn(0);
-			if(adelante)direction=direction.mult(-1);
-			Vector3f position=view.getLocalTranslation();
+			Vector3f origin = new Vector3f();
+			Vector3f destine = new Vector3f();
+			Spatial view = (Spatial) ViewManager.getInstance().getView(
+					this.character);
+			Vector3f direction = view.getLocalRotation().getRotationColumn(0);
+			if (adelante)
+				direction = direction.mult(-1);
+			Vector3f position = view.getLocalTranslation();
 
-			origin.set(position.x,position.y, position.z);
-			destine.set(direction.x+position.x,direction.y+position.y,direction.z+position.z);
-			
-			ArrayList<GameState> states = GameStateManager.getInstance().getChildren();
+			origin.set(position.x, position.y, position.z);
+			destine.set(direction.x + position.x, direction.y + position.y,
+					direction.z + position.z);
+
+			ArrayList<GameState> states = GameStateManager.getInstance()
+					.getChildren();
 			U3dState aux = null;
-			for(int i =0; i < states.size(); i++){
-				aux = (U3dState)states.get(i);
-				if(aux.isActive())
+			for (int i = 0; i < states.size(); i++) {
+				aux = (U3dState) states.get(i);
+				if (aux.isActive())
 					break;
 			}
 			if (aux != null) {
-				
-				Vector3f destination = CollisionManager.getInstace()
-											.getDestination(origin, destine,
-												aux.getRootNode().getChild(0));
 
-				
+				Vector3f destination = CollisionManager.getInstace()
+						.getDestination(origin, destine,
+								aux.getRootNode().getChild(0));
+
 				if (destination != null) {
-					/* origin----->destination----->destine   */
-					
-					/*if ((origin.x == destination.x)	&& (origin.z == destination.z))
-						destination = destine;
-					
-					if (((origin.x - destine.x > 0) && (destination.x - origin.x > 0)))
-						destination.x = origin.x;// X --->
-					
-					if (((origin.x - destine.x < 0) && (destination.x - origin.x < 0)))
-						destination.x = origin.x;// X <----
-					
-					if (((origin.z - destine.z > 0) && (destination.z - origin.z > 0)))
-						destination.z = origin.z;// Z --->
-					
-					if (((origin.z - destine.z < 0) && (destination.z - origin.z < 0)))
-						destination.z = origin.z;// Z <----
-*/
+					/* origin----->destination----->destine */
+
+					/*
+					 * if ((origin.x == destination.x) && (origin.z ==
+					 * destination.z)) destination = destine;
+					 * 
+					 * if (((origin.x - destine.x > 0) && (destination.x -
+					 * origin.x > 0))) destination.x = origin.x;// X --->
+					 * 
+					 * if (((origin.x - destine.x < 0) && (destination.x -
+					 * origin.x < 0))) destination.x = origin.x;// X <----
+					 * 
+					 * if (((origin.z - destine.z > 0) && (destination.z -
+					 * origin.z > 0))) destination.z = origin.z;// Z --->
+					 * 
+					 * if (((origin.z - destine.z < 0) && (destination.z -
+					 * origin.z < 0))) destination.z = origin.z;// Z <----
+					 */
 					Vector3f lcoal = position.clone();
 					direction = destination.subtract(lcoal);
 					direction.normalizeLocal();
@@ -129,22 +134,32 @@ public class U3DMoveCharacterTask extends Task {
 					PlayerState ps = new PlayerState();
 					ps.setState(PlayerState.STATE_MOVING);
 					this.character.setState(ps);
-					
-					Node nodeIntersect=(Node) CollisionManager.getInstace().getIntersectObject(new Ray(origin, direction),(Node)aux.getRootNode().getChild(0),Node.class , true);
-					if(nodeIntersect!=null)
-						CollisionManager.getInstace().checkOverAccessPoint(nodeIntersect);
 
-					//FIX
-					//Fijarse si no hayq ue tratar la exception que tira el submit..
+					Node nodeIntersect = (Node) CollisionManager.getInstace()
+							.getIntersectObject(new Ray(origin, direction),
+									(Node) aux.getRootNode().getChild(0),
+									Node.class, true);
+					if (nodeIntersect != null)
+						CollisionManager.getInstace().checkOverAccessPoint(
+								nodeIntersect);
+
+					System.out
+							.println("Creando tarea para enviar el movimiento: ");
+					System.out.println("Origen: " + origin);
+					System.out.println("Destino: " + destine);
+
+					MsgMove msg = (MsgMove) MessageFactory.getInstance()
+							.createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
 					
-					MsgMove msg = (MsgMove) MessageFactory.getInstance().createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
 					msg.setIdDynamicEntity(this.character.getId());
 					msg.setPosOrigen(origin);
 					msg.setPosDestino(destine);
-					TaskChannelSender task = (TaskChannelSender)TaskCommFactory.getInstance().createComTask(msg);
-					task.setChannelType(ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
-					TaskManager.getInstance().submit(task);			
 					
+					TaskChannelSender task = (TaskChannelSender) TaskCommFactory
+							.getInstance().createComTask(msg);
+					task
+							.setChannelType(ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
+					TaskManager.getInstance().submit(task);
 				}
 			}
 		} catch (Exception e) {
@@ -152,24 +167,22 @@ public class U3DMoveCharacterTask extends Task {
 		}
 
 	}
-	
-	public void initTask(Player theCharacter, boolean isLocal,boolean adelante, boolean corriendo)
-	{
-		if (corriendo)
-			movement=MOVIMIENTO_CORRIENDO ;
-		else
-			movement=MOVIMIENTO_CAMINANDO;
-		character=theCharacter;
-		local=isLocal;
-		this.adelante=adelante;
-		
-	}
 
+	public void initTask(Player theCharacter, boolean isLocal,
+			boolean adelante, boolean corriendo) {
+		if (corriendo)
+			movement = MOVIMIENTO_CORRIENDO;
+		else
+			movement = MOVIMIENTO_CAMINANDO;
+		character = theCharacter;
+		local = isLocal;
+		this.adelante = adelante;
+
+	}
 
 	public float getMovement() {
 		return movement;
 	}
-
 
 	public void setMovement(float movement) {
 		this.movement = movement;

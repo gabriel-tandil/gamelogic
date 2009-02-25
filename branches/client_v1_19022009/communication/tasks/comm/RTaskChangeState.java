@@ -4,21 +4,20 @@
  */
 package client.communication.tasks.comm;
 
+import client.communication.GameContext;
+import client.communication.tasks.TaskCommFactory;
+import client.communication.tasks.TaskCommunication;
+import client.game.entity.DynamicEntity;
+import client.game.task.ITask;
+import client.manager.EntityManager;
+import client.manager.TaskManager;
+
 import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
 import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgChangePlayerState;
-
-import client.communication.tasks.TaskCommFactory;
-import client.communication.tasks.TaskCommunication;
-import client.game.entity.DynamicEntity;
-import client.game.entity.EntityManagerFactory;
-import client.game.task.ITask;
-import client.game.entity.Player;
-import client.manager.EntityManager;
-import client.manager.TaskManager;
 
 public class RTaskChangeState extends TaskCommunication {
 
@@ -54,6 +53,13 @@ public class RTaskChangeState extends TaskCommunication {
 
 		MsgChangePlayerState thisMsg = (MsgChangePlayerState) this.getMessage();
 
+		// Si el mensaje fue enviado originalmente por este jugador, se termina
+		// la tarea.
+		if (thisMsg.getIdPlayer().equalsIgnoreCase(
+				GameContext.getUserName())) {
+			return;
+		}
+		
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance().getEntity(thisMsg.getIdPlayer());
 
 		if (entity != null) {

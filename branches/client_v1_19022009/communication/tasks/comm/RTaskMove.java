@@ -4,21 +4,20 @@
  */
 package client.communication.tasks.comm;
 
-import common.exceptions.UnsopportedMessageException;
-import common.messages.IMessage;
-import common.messages.MessageFactory;
-import common.messages.MsgTypes;
-import common.messages.notify.MsgMove;
-import common.messages.MsgPlainText;
-
+import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
-import client.game.entity.EntityManagerFactory;
 import client.game.task.ITask;
-
 import client.manager.EntityManager;
 import client.manager.TaskManager;
+
+import common.exceptions.UnsopportedMessageException;
+import common.messages.IMessage;
+import common.messages.MessageFactory;
+import common.messages.MsgPlainText;
+import common.messages.MsgTypes;
+import common.messages.notify.MsgMove;
 
 public class RTaskMove extends TaskCommunication {
 
@@ -55,6 +54,13 @@ public class RTaskMove extends TaskCommunication {
 
 		MsgMove thisMsg = (MsgMove) this.getMessage();
 
+		// Si el mensaje fue enviado originalmente por este jugador, se termina
+		// la tarea.
+		if (thisMsg.getIdDynamicEntity().equalsIgnoreCase(
+				GameContext.getUserName())) {
+			return;
+		}
+		
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.getEntity(thisMsg.getIdDynamicEntity());
 

@@ -31,8 +31,7 @@ public class TaskLoggedIn extends TaskCommunication {
 	 */
 	
 	public TaskCommunication factoryMethod(final IMessage msg) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TaskLoggedIn();
 	}
 	
 	/**
@@ -42,8 +41,7 @@ public class TaskLoggedIn extends TaskCommunication {
 	 * @author Castillo/Santos
 	 */
 	
-	public void execute() {
-		
+	public void execute() {		
 		String respuesta = U3dLoginState.LOGUEO_OK;
 		((U3dLoginState)GameStateManager.getInstance().getChild("login")).setRespuestaLogueo(respuesta);
 		
