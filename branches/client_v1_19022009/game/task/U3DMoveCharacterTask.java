@@ -150,15 +150,14 @@ public class U3DMoveCharacterTask extends Task {
 
 					MsgMove msg = (MsgMove) MessageFactory.getInstance()
 							.createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
-					
+
 					msg.setIdDynamicEntity(this.character.getId());
 					msg.setPosOrigen(origin);
 					msg.setPosDestino(destine);
+
+					ITask task = TaskCommFactory.getInstance().createComTask(
+							msg);
 					
-					TaskChannelSender task = (TaskChannelSender) TaskCommFactory
-							.getInstance().createComTask(msg);
-					task
-							.setChannelType(ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
 					TaskManager.getInstance().submit(task);
 				}
 			}
