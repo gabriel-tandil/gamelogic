@@ -99,6 +99,7 @@ public class U3dLoginState extends U3dState {
 					
 					ITask taskGetPlayer = TaskCommFactory.getInstance().createComTask(msg);
 					TaskManager.getInstance().submit(taskGetPlayer);
+					loguear = false;
 				} catch (UnsopportedMessageException e) {
 					e.printStackTrace();
 				}
