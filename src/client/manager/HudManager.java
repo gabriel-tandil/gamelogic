@@ -3,8 +3,6 @@ package client.manager;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import client.game.task.U3dCargandoTask;
-
 import com.jme.input.MouseInput;
 import com.jme.renderer.ColorRGBA;
 import com.jme.system.DisplaySystem;
@@ -81,11 +79,13 @@ public class HudManager implements IHudManager {
 	}
 
 	public void setCargando() {
-		try { // esto es una cagada pero es porque arrancaba a ejecutar una
-			// tarea
-			// encolada antes de hacer el render, con esta espera el task
-			// manager
-			// no alcanza a meter mas tareas y todo funciona bien
+		try { // FIXME: este sleep cumple la funcion de que el taskManager no
+				// meta ninguna otra tarea despues de esta en la iteracion
+				// actual esto hace que se llame al update y al render y que el
+				// cartel de "Cargando" sea mostrado, sino puede fallar y
+				// mostrarse o no erraticamente. Cuando se mejore el
+				// taskManager, con por ejemplo soporte para threads corregir
+				// esto.
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
