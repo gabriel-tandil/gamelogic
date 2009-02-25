@@ -3,9 +3,11 @@ package client.game.state;
 import java.net.URISyntaxException;
 import java.nio.FloatBuffer;
 
+import client.communication.tasks.TaskCommFactory;
 import client.game.Game;
 import client.game.task.ChangeStateTask;
 import client.game.task.ChangeToPlace;
+import client.game.task.ITask;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DCargandoTaskFactory;
 import client.game.task.U3DLoginRequestTask;
@@ -36,6 +38,10 @@ import com.jmex.bui.BWindow;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
 import com.jmex.bui.layout.AbsoluteLayout;
+import common.exceptions.UnsopportedMessageException;
+import common.messages.MessageFactory;
+import common.messages.MsgPlainText;
+import common.messages.MsgTypes;
 
 public class U3dLoginState extends U3dState {
 	public static final String LOGUEO_OK = "loggin Ok";
@@ -47,6 +53,7 @@ public class U3dLoginState extends U3dState {
 
 	private boolean loguear;
 	private String respuestaLogueo = null;
+	private String user;
 
 	public U3dLoginState(String name) {
 		super(name);
@@ -93,8 +100,21 @@ public class U3dLoginState extends U3dState {
 				//U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						//.getInstance().createTask("3");
 				TaskManager.getInstance().enqueue(task);
-				HudManager.getInstance().setCursorVisible(false);
+				
 				// HudManager.getInstance().setCargando();
+				
+				
+				//Solicita al servidor el ultimo estado del player
+				try {
+					MsgPlainText msg = (MsgPlainText) MessageFactory.getInstance()
+							.createMessage(MsgTypes.MSG_GET_PLAYER_TYPE);
+					msg.setMsg(user);
+					ITask taskGetPlayer = TaskCommFactory.getInstance().createComTask(msg);
+					TaskManager.getInstance().submit(taskGetPlayer);
+				} catch (UnsopportedMessageException e) {
+					e.printStackTrace();
+				}
+				HudManager.getInstance().setCursorVisible(false);
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
 				HudManager.getInstance().setCursorVisible(true);
@@ -207,7 +227,7 @@ public class U3dLoginState extends U3dState {
 			U3DLoginRequestTask task = (U3DLoginRequestTask) TaskManager
 					.getInstance().createTask("8");
 			
-			String user = ((BTextField) HudManager.getInstance().getWindow(
+			user = ((BTextField) HudManager.getInstance().getWindow(
 			"login").getComponent(0)).getText();
 			
 			String password = ((BPasswordField) HudManager.getInstance().getWindow(
