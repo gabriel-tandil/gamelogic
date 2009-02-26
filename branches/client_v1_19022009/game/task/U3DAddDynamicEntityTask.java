@@ -53,6 +53,7 @@ private float scale = 0.8f;
 		playerView.attachChild(node);
 		playerView.updateWorldBound();
 		rootNode.attachChild(playerView);
+		ViewManager.getInstance().addDirtyView(playerView);
 	}
 
 	private IPersonaje getPlayer(Node node) 

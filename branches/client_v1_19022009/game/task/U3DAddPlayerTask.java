@@ -54,6 +54,8 @@ public class U3DAddPlayerTask extends Task {
 		playerView.updateWorldBound();
 		rootNode.attachChild(playerView);
 		
+		ViewManager.getInstance().addDirtyView(playerView);
+		
 		//crear el controller del player
 		PlayerController controllerPlayer = (PlayerController) InputManager.
 		getInstance().createController(entity);
