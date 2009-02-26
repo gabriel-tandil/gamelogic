@@ -113,12 +113,10 @@ public class HudManager implements IHudManager {
 
 		BWindow ventTexto = new BWindow(id,HudManager.getInstance().getStyle(),
 				GroupLayout.makeVStretch());
-
 		BLabel label = new BLabel(texto);
 		ventTexto.add(label);
 		ventTexto.setSize(200, 50);
 		ventTexto.center();
-		ventTexto.setBackground(0, new TintedBackground(ColorRGBA.green));
 		addWindow(ventTexto,id);
 
 	}
@@ -131,7 +129,6 @@ public class HudManager implements IHudManager {
 		ventDialogo.setSize(270, 150 + (50 * botones.size()));
 		BLabel label = new BLabel(texto);
 		ventDialogo.add(label);
-		ventDialogo.setBackground(0, new TintedBackground(ColorRGBA.darkGray));
 		for (Iterator<String> iterator = botones.keySet().iterator(); iterator
 				.hasNext();) {
 			String clave = (String) iterator.next();
