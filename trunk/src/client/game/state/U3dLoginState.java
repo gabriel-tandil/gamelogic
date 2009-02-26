@@ -23,7 +23,6 @@ import com.jmex.bui.layout.AbsoluteLayout;
 public class U3dLoginState extends U3dState {
 	private static final String LOGUEO_OK = "loggin Ok";
 	private static final String LOGUEO_ERROR = "login Failed";
-	private int[] currentResolution;
 	private boolean loguear=false;
 	private String respuestaLogueo = null;
 
@@ -89,11 +88,11 @@ public class U3dLoginState extends U3dState {
 	}
 
 	private int getAbsoluteX(double porcent) {
-		return (int) (porcent * this.currentResolution[0] / 100);
+		return (int) (porcent * DisplaySystem.getDisplaySystem().getWidth() / 100);
 	}
 
 	private int getAbsoluteY(double porcent) {
-		return (int) (porcent * this.currentResolution[1] / 100);
+		return (int) (porcent * DisplaySystem.getDisplaySystem().getHeight() / 100);
 	}
 
 	public void initialize() {
@@ -135,26 +134,23 @@ public class U3dLoginState extends U3dState {
 		login = new BWindow(HudManager.getInstance().getStyle(),
 				new AbsoluteLayout(true)/* GroupLayout.makeVStretch() */);
 		login.setStyleClass("login-window");
-		this.currentResolution = new int[2];
-		this.currentResolution[0] = (new Integer(DisplaySystem
-				.getDisplaySystem().getWidth())).intValue();
-		this.currentResolution[1] = (new Integer(DisplaySystem
-				.getDisplaySystem().getHeight())).intValue();
 
-		login.setSize(this.currentResolution[0], this.currentResolution[1]);
+		login.setSize(DisplaySystem
+				.getDisplaySystem().getWidth(), DisplaySystem
+				.getDisplaySystem().getHeight());
 
 		userNameField = new BTextField();
-		userNameField.setLocation(/* 470, 288 */this.getAbsoluteX(58.75), this
-				.getAbsoluteY(48));
-		userNameField.setSize((int) (16.125 * this.currentResolution[0] / 100),
-				23/* 129, 23 */);
+		userNameField.setLocation(this.getAbsoluteX(58), this
+				.getAbsoluteY(47));
+		userNameField.setSize((int) (getSizeScaled(17)),
+				getSizeScaled(4));
 		login.add(userNameField, userNameField.getBounds());
 
 		passwordField = new BPasswordField();
-		passwordField.setLocation(/* 475, 333 */this.getAbsoluteX(58.75), this
-				.getAbsoluteY(55.5));
-		passwordField.setSize((int) (16.125 * this.currentResolution[0] / 100),
-				23/* 129, 23 */);
+		passwordField.setLocation(this.getAbsoluteX(58), this
+				.getAbsoluteY(54.5));
+		passwordField.setSize((int) getSizeScaled(17),
+				getSizeScaled(4));
 		login.add(passwordField, passwordField.getBounds());
 
 		// create a new BButton called "loginButton" with the display "Login"
@@ -162,7 +158,7 @@ public class U3dLoginState extends U3dState {
 		BButton loginButton = new BButton("Entrar", "login");
 		loginButton.setLocation(this.getAbsoluteX(68.25), this
 				.getAbsoluteY(64.833333));
-		loginButton.setSize((int) (7.5 * this.currentResolution[0] / 100), 31);
+		loginButton.setSize( getSizeScaled(10), getSizeScaled(4));
 
 		// add our listener2 to the loginButton so it knows what to do with the
 		// "actionMessage" when the button is clicked
@@ -183,7 +179,9 @@ public class U3dLoginState extends U3dState {
 		login.center();
 
 	}
-
+private int getSizeScaled(int size){
+	return (int)(((float)DisplaySystem.getDisplaySystem().getWidth()/100)*size);
+}
 	@Override
 	public void initializeState() {
 		// TODO Auto-generated method stub
