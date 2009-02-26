@@ -63,8 +63,8 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());
 
-		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x, msg
-				.getActualWorld(), msg.getSkin(), msg.getPosition());
+		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x, /*msg
+				.getActualWorld()*/"Exterior", msg.getSkin(), msg.getPosition());
 
 	}
 

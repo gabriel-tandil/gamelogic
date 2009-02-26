@@ -76,7 +76,6 @@ public class RTaskChangeState extends TaskCommunication {
 				msg.setMsg(thisMsg.getIdPlayer());
 				// se crea una TaskComm con el msg anterior
 				ITask task = TaskCommFactory.getInstance().createComTask(msg);
-
 				TaskManager.getInstance().submit(task);
 			} catch (UnsopportedMessageException e) {
 				e.printStackTrace();
