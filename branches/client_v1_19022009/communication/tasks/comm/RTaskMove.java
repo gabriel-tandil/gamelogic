@@ -4,6 +4,7 @@
  */
 package client.communication.tasks.comm;
 
+import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
@@ -60,16 +61,15 @@ public class RTaskMove extends TaskCommunication {
 				GameContext.getUserName())) {
 			return;
 		}
-		
-		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
-				.getEntity(thisMsg.getIdDynamicEntity());
-
-		if (entity != null) {
-			// "moverla" Tomando los datos desde el MsgMove.
-			entity.setPosition(thisMsg.getPosDestino());
-		} else {
-			// la entity no se encuentra en el EntityManager
+		// estado local de la entidad dinamica que roto
+		String dEState = (String) DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES
+				.get(thisMsg.getIdDynamicEntity());
+		if (dEState == null) {// la entidad no existe localmente
 			try {
+				// marco la entidad como solicitada.
+				DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(thisMsg
+						.getIdDynamicEntity(),
+						DynamicEntitysSolicitations.SOLICITED);
 				// se crea msg de tipo get_dynamic_entity
 				MsgPlainText msg = (MsgPlainText) MessageFactory.getInstance()
 						.createMessage(MsgTypes.MSG_GET_DYNAMIC_ENTITY_TYPE);
@@ -79,10 +79,15 @@ public class RTaskMove extends TaskCommunication {
 				ITask task = TaskCommFactory.getInstance().createComTask(msg);
 				TaskManager.getInstance().submit(task);
 			} catch (UnsopportedMessageException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} else if (dEState.equals(DynamicEntitysSolicitations.EXISTS)) {
+			// La entidad existe localmente
+			DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
+					.getEntity(thisMsg.getIdDynamicEntity());
+			// "moverla" Tomando los datos desde el MsgMove.
+			entity.setPosition(thisMsg.getPosDestino());
+		}// else if (dEState.equals(DynamicEntitysSolicitations.SOLICITED){
 	}
 
 }

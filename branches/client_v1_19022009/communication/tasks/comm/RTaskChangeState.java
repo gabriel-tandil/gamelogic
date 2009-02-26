@@ -4,6 +4,7 @@
  */
 package client.communication.tasks.comm;
 
+import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
@@ -55,24 +56,21 @@ public class RTaskChangeState extends TaskCommunication {
 
 		// Si el mensaje fue enviado originalmente por este jugador, se termina
 		// la tarea.
-		if (thisMsg.getIdPlayer().equalsIgnoreCase(
-				GameContext.getUserName())) {
+		if (thisMsg.getIdPlayer().equalsIgnoreCase(GameContext.getUserName())) {
 			return;
 		}
-		
-		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance().getEntity(thisMsg.getIdPlayer());
-
-		if (entity != null) {
-			// cambio de estado para el Player
-			entity.setState(thisMsg.getNewState());
-
-		} else {
-			// el Player no se encuentra en el EntityManager
+		// estado local de la entidad dinamica que roto
+		String dEState = (String) DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES
+				.get(thisMsg.getIdPlayer());
+		if (dEState == null) {// la entidad no existe localmente
 			try {
+				// marco la entidad como solicitada.
+				DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(thisMsg
+						.getIdPlayer(), DynamicEntitysSolicitations.SOLICITED);
 				// se crea msg de tipo get_dynamic_entity
 				MsgPlainText msg = (MsgPlainText) MessageFactory.getInstance()
 						.createMessage(MsgTypes.MSG_GET_DYNAMIC_ENTITY_TYPE);
-				// se setea en el msg el ID del Player
+				// se setea en el msg el ID de la ENTITY
 				msg.setMsg(thisMsg.getIdPlayer());
 				// se crea una TaskComm con el msg anterior
 				ITask task = TaskCommFactory.getInstance().createComTask(msg);
@@ -80,8 +78,12 @@ public class RTaskChangeState extends TaskCommunication {
 			} catch (UnsopportedMessageException e) {
 				e.printStackTrace();
 			}
-		}
-
+		} else if (dEState.equals(DynamicEntitysSolicitations.EXISTS)) {
+			// La entidad existe localmente
+			DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
+					.getEntity(thisMsg.getIdPlayer());
+			// cambio de estado para el Player
+			entity.setState(thisMsg.getNewState());
+		}// else if (dEState.equals(DynamicEntitysSolicitations.SOLICITED){
 	}
 }
-
