@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,25 +21,22 @@ import org.jdom.input.SAXBuilder;
 
 import client.game.Game;
 import client.game.controller.ControllerManagerFactory;
-import client.game.controller.PlayerController;
 import client.game.controller.PlayerControllerFactory;
+import client.game.entity.DynamicEntityFactory;
 import client.game.entity.EntityManagerFactory;
-import client.game.entity.Player;
 import client.game.entity.PlayerFactory;
 import client.game.entity.U3DBuildingEntity;
 import client.game.entity.U3DBuildingEntityFactory;
-import client.game.entity.DynamicEntityFactory;
 import client.game.input.U3DChaseCamera;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DMoveCharacterTaskFactory;
 import client.game.task.U3DRotateCharacterTaskFactory;
 import client.game.view.DynamicView;
 import client.game.view.U3DBuildingViewFactory;
+import client.game.view.U3DDynamicViewFactory;
 import client.game.view.U3DPlayerViewFactory;
 import client.game.view.U3dBuildingView;
-import client.game.view.U3dPlayerView;
 import client.game.view.ViewFactoryManager;
-import client.gameEngine.InputManager;
 import client.manager.CollisionManager;
 import client.manager.EntityManager;
 import client.manager.ViewManager;
@@ -52,7 +48,6 @@ import com.jme.bounding.BoundingVolume;
 import com.jme.bounding.OrientedBoundingBox;
 import com.jme.image.Texture;
 import com.jme.input.ChaseCamera;
-import com.jme.input.KeyInput;
 import com.jme.input.thirdperson.ThirdPersonMouseLook;
 import com.jme.light.DirectionalLight;
 import com.jme.light.PointLight;
@@ -116,9 +111,6 @@ import com.jmex.model.converters.MilkToJme;
 import com.jmex.model.converters.ObjToJme;
 import com.jmex.model.util.ModelLoader;
 
-import common.datatypes.PlayerState;
-import common.datatypes.Skin;
-
 
 /** 
  * @author Mara
@@ -144,6 +136,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		
 		ViewFactoryManager.getInstance().add(new U3DBuildingViewFactory());
 		ViewFactoryManager.getInstance().add(new U3DPlayerViewFactory());
+		ViewFactoryManager.getInstance().add(new U3DDynamicViewFactory());
 		
 		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());

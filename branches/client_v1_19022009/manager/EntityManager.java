@@ -134,7 +134,7 @@ public class EntityManager {
 	{
 		IEntity entity = EntityManagerFactory.getInstance().create(factoryId, id);
 		if(entity != null){
-			registerEntity(entity);
+			//registerEntity(entity);
 			return entity;
 		}
 		return null;
