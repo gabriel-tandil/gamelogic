@@ -61,12 +61,10 @@ public class RTaskArrived extends TaskCommunication {
 			// se crea msg de tipo get_dynamic_entity
 			MsgPlainText msgGDE = (MsgPlainText) MessageFactory.getInstance()
 					.createMessage(MsgTypes.MSG_GET_DYNAMIC_ENTITY_TYPE);
-
 			// se setea en el msg el ID del Player
-			msg.setMsg(idEntity);
+			msgGDE.setMsg(idEntity);
 			// se crea una TaskComm con el msg anterior
 			ITask task = TaskCommFactory.getInstance().createComTask(msgGDE);
-
 			TaskManager.getInstance().submit(task);
 		} catch (UnsopportedMessageException e) {
 			e.printStackTrace();
