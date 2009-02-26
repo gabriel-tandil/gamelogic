@@ -1,5 +1,6 @@
 package client.communication.tasks.comm;
 
+import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
@@ -58,13 +59,17 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 		if (msg.getIdDynamicEntity().equalsIgnoreCase(
 				GameContext.getUserName())) {
 			return;
-		}
-
+		}		
+		
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());
 
 		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x, /*msg
 				.getActualWorld()*/"Exterior", msg.getSkin(), msg.getPosition());
+		
+		// Marco el estado local de la entidad recien creada como existente.
+		DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg
+				.getIdDynamicEntity(), DynamicEntitysSolicitations.EXISTS);
 
 	}
 

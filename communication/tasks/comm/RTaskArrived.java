@@ -4,18 +4,19 @@
  */
 package client.communication.tasks.comm;
 
-import common.exceptions.UnsopportedMessageException;
-import common.messages.IMessage;
-import common.messages.MessageFactory;
-import common.messages.MsgPlainText;
-import common.messages.MsgTypes;
-
+import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.task.ITask;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
+
+import common.exceptions.UnsopportedMessageException;
+import common.messages.IMessage;
+import common.messages.MessageFactory;
+import common.messages.MsgPlainText;
+import common.messages.MsgTypes;
 
 public class RTaskArrived extends TaskCommunication {
 
@@ -47,28 +48,35 @@ public class RTaskArrived extends TaskCommunication {
 	 */
 	@Override
 	public void execute() {
-		try {
-			MsgPlainText msg = (MsgPlainText) this.getMessage();
-			String idEntity = msg.getMsg();
+		MsgPlainText thisMsg = (MsgPlainText) this.getMessage();
+		String idEntity = thisMsg.getMsg();
 
-			// Si el mensaje fue enviado originalmente por este jugador, se
-			// termina
-			// la tarea.
-			if (idEntity.equalsIgnoreCase(GameContext.getUserName())) {
-				return;
-			}
-
-			// se crea msg de tipo get_dynamic_entity
-			MsgPlainText msgGDE = (MsgPlainText) MessageFactory.getInstance()
-					.createMessage(MsgTypes.MSG_GET_DYNAMIC_ENTITY_TYPE);
-			// se setea en el msg el ID del Player
-			msgGDE.setMsg(idEntity);
-			// se crea una TaskComm con el msg anterior
-			ITask task = TaskCommFactory.getInstance().createComTask(msgGDE);
-			TaskManager.getInstance().submit(task);
-		} catch (UnsopportedMessageException e) {
-			e.printStackTrace();
+		// Si el mensaje fue enviado originalmente por este jugador, se
+		// termina la tarea.
+		if (idEntity.equalsIgnoreCase(GameContext.getUserName())) {
+			return;
 		}
-	}
 
+		// estado local de la entidad dinamica que roto
+		String dEState = (String) DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES
+				.get(thisMsg.getMsg());
+		if (dEState == null) {// la entidad no existe localmente
+			try {
+				// marco la entidad como solicitada.
+				DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(thisMsg
+						.getMsg(), DynamicEntitysSolicitations.SOLICITED);
+				// se crea msg de tipo get_dynamic_entity
+				MsgPlainText msg = (MsgPlainText) MessageFactory.getInstance()
+						.createMessage(MsgTypes.MSG_GET_DYNAMIC_ENTITY_TYPE);
+				// se setea en el msg el ID de la ENTITY
+				msg.setMsg(thisMsg.getMsg());
+				// se crea una TaskComm con el msg anterior
+				ITask task = TaskCommFactory.getInstance().createComTask(msg);
+				TaskManager.getInstance().submit(task);
+			} catch (UnsopportedMessageException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

@@ -4,6 +4,7 @@
  */
 package client.communication.tasks.comm;
 
+import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommunication;
 import client.manager.EntityManager;
@@ -48,6 +49,9 @@ public class RTaskLeft extends TaskCommunication {
 			return;
 		}
 		EntityManager.getInstance().removeEntity(msg.getMsg());
+		
+		// elimino el estado local de la entidad que se fue.
+		DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.remove(msg.getMsg());
 	}
 
 }
