@@ -2,6 +2,8 @@ package client.game.entity;
 
 import java.io.IOException;
 
+import client.manager.EntityManager;
+
 import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
@@ -18,6 +20,7 @@ public class U3DBuildingEntity extends Entity {
 	public void init(String theActualWord)
 	{
 		this.setActualWorld(theActualWord);
+		EntityManager.getInstance().registerEntity(this);
 	}
 
 	/** 

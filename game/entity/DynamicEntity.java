@@ -14,6 +14,7 @@ import client.game.task.U3DAddDynamicEntityTask;
 import client.game.task.U3DAddDynamicEntityTaskFactory;
 import client.game.task.U3DAddPlayerTask;
 import client.game.task.U3DAddPlayerTaskFactory;
+import client.manager.EntityManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 
@@ -44,7 +45,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		TaskManagerFactory.getInstance().add(
 				new U3DAddDynamicEntityTaskFactory());
 		U3DAddDynamicEntityTask task = (U3DAddDynamicEntityTask) TaskManager
-				.getInstance().createTask("8");
+				.getInstance().createTask("9");
 		Node root = ((BasicGameState) GameStateManager.getInstance().getChild(
 				actualWorld)).getRootNode();
 		task.initTask(root, this, angle, position);
@@ -57,6 +58,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		this.setVelocity(velocity);
 		this.setSkin(theSkin);
 		this.setPosition(thePosition);
+		EntityManager.getInstance().registerEntity(this);
 	}
 
 	protected Vector3f position;

@@ -12,6 +12,7 @@ import client.game.state.U3dState;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DAddPlayerTask;
 import client.game.task.U3DAddPlayerTaskFactory;
+import client.manager.EntityManager;
 import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
@@ -71,6 +72,7 @@ public class Player extends DynamicEntity {
 		this.setProperties(Properties);
 		this.setStats(stats);
 		this.setState(theState);
+		EntityManager.getInstance().registerEntity(this);
 	}
 
 	/** 
