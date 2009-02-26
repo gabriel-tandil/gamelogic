@@ -1,5 +1,6 @@
 package client.game.view;
 
+import client.game.entity.DynamicEntity;
 import client.game.entity.IDynamicEntity;
 
 public class U3DDynamicView extends DynamicView {
@@ -9,10 +10,8 @@ public class U3DDynamicView extends DynamicView {
 	}
 
 	public void update(float interpolation) {
-//		this.localTranslation.x = ((Player)this.getEntity()).getPosition().x;
-//		this.localTranslation.y = ((Player)this.getEntity()).getPosition().y;
-//		this.localTranslation.z = ((Player)this.getEntity()).getPosition().z;
-//		this.updateWorldTranslation();
+		this.localTranslation = ((DynamicEntity)this.getEntity()).getPosition();
+		this.updateWorldTranslation();
 		
 	}
 }
