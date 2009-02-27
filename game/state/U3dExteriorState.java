@@ -1,9 +1,13 @@
 package client.game.state;
 
+import client.game.entity.U3DBuildingEntity;
 import client.game.input.U3DChaseCamera;
 import client.game.view.DynamicView;
+import client.game.view.U3dBuildingView;
 import client.game.view.U3dPlayerView;
+import client.manager.EntityManager;
 import client.manager.HudManager;
+import client.manager.ViewManager;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -63,12 +67,20 @@ public class U3dExteriorState extends U3dState {
 	}
 	
 	private void initializeWorld() {
-		//this.world = (World) DataManager.getInstance().getWorld(EWorld.Battle);
-		//this.world.setModelBound(new BoundingBox());
-		//this.world.updateModelBound();
-		//this.world.updateWorldBound();
 		builder = new XMLWorldBuilder(url);
-		builder.buildWorld(this.rootNode);
+		
+		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
+		getInstance().createEntity("EntityFactory","World");
+	
+		worldEntity.init(this.name);
+		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
+		createView(worldEntity);
+
+		builder.buildWorld(worldView);
+		this.rootNode.attachChild(worldView);
+		
+		Skybox sb = this.builder.setupSky();
+		this.rootNode.attachChild(sb);	
 	}
 
 	public void initializeCamera(DynamicView playerView) {
