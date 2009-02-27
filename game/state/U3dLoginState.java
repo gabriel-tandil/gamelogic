@@ -78,16 +78,6 @@ public class U3dLoginState extends U3dState {
 														// a mostrar el cartel
 														// de cargando
 				TaskManager.getInstance().enqueue(taskCargando);
-				//FIX 
-				//Aca hay que pedir el player no hay que cargarr el campus!!!!!
-				//El change state va a la tarea de player response
-				ChangeStateTask task = new ChangeToPlace("Exterior");
-				//U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
-						//.getInstance().createTask("3");
-				TaskManager.getInstance().enqueue(task);
-				
-				// HudManager.getInstance().setCargando();
-				
 				
 				//Solicita al servidor el ultimo estado del player
 				try {

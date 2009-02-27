@@ -9,7 +9,10 @@ import java.util.HashMap;
 import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.Player;
+import client.game.task.ChangeStateTask;
+import client.game.task.ChangeToPlace;
 import client.manager.EntityManager;
+import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
 import common.messages.IMessage;
@@ -53,10 +56,18 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 
 		// obtengo el id del mundo con el que se mapea el id del servidor
 		// contenido en el mensaje.
-		String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg.getActualWorld());
+		String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg
+				.getActualWorld());
+
+		// Se carga la estructura del nodo correspondiente al mundo actual
+		// obtenido desde el servidor.
+		ChangeStateTask task = new ChangeToPlace(idClientWorld);
+		TaskManager.getInstance().enqueue(task);
+
 		player.initPlayer(Vector3f.ZERO, 8f, (HashMap) msg.getProperties(),
-				null, Vector3f.ZERO, msg.getAngle().x, idClientWorld, msg.getSkin(), msg.getPlayerState(), msg
-						.getPosition());
+				null, Vector3f.ZERO, msg.getAngle().x, idClientWorld, msg
+						.getSkin(), msg.getPlayerState(), msg.getPosition());
+
 	}
 
 }
