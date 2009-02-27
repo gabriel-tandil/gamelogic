@@ -111,5 +111,11 @@ public class PersonaDae extends IPersonaje {
 	        //assign the animation controller to our skeleton
 	        skel.addController(ac);
         }
-    }     
+    }
+
+	@Override
+	public void clearAll() {
+		// TODO Auto-generated method stub
+		
+	}     
 }

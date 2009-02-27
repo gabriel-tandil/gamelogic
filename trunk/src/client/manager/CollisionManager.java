@@ -50,10 +50,25 @@ public class CollisionManager {
 	{
 		iaccesspoint=new Hashtable<String,IAccessPoint>();
 	}
+	/**
+	 * Add Access Points to the Hashtable
+	 * @param id
+	 * @param ap
+	 */
+	
 	
 	public void addAccessPoint(String id, IAccessPoint ap)
 	{
 		iaccesspoint.put(id, ap);
+	}
+	
+	/**
+	 * Remove all the Access Point than exist in the Hashtable
+	 */
+	
+	public void removeAccessPoints()
+	{
+		iaccesspoint.clear();
 	}
 	
 	/** 
@@ -192,6 +207,11 @@ public class CollisionManager {
      */
 	public Vector3f getDestination(Vector3f origin, Vector3f destination, Spatial spatial){
 		
+		System.out.println("Origen   "+ origin);
+		System.out.println("Destino   "+ destination);
+		
+		
+		
 		//convert start point to world coordinate system
         spatial.localToWorld(origin, origin);
         //convert destination point to world coordinate system
@@ -199,6 +219,9 @@ public class CollisionManager {
         
         //build the direction Vector3f
         Vector3f direction = destination.subtract(origin).normalizeLocal();
+        
+        System.out.println("Direccion   "+ direction);
+        
         Vector3f directionL = new Vector3f(-direction.z,direction.y,direction.x).normalize();
         Vector3f directionL2 = direction.add(directionL).normalize();
         Vector3f directionR = new Vector3f(direction.z,direction.y,-direction.x).normalize();

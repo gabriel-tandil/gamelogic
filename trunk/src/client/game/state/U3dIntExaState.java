@@ -24,7 +24,7 @@ public class U3dIntExaState extends U3dState {
 	
 	public void initialize() {
 		//if (!this.initialized) {
-			
+		
 			this.initializeWorld();
 			this.initializeLight();
 			this.initializeCamera((U3dPlayerView) this.rootNode
@@ -75,7 +75,9 @@ public class U3dIntExaState extends U3dState {
 	}
 	
 	public void cleanup() {
-
+		this.builder.destroyWorld(rootNode);
+		this.builder = null;
+		HudManager.getInstance().update();
 	}
 
 	public void render(float arg0) {

@@ -14,6 +14,7 @@ public class U3dChangeToIntBuffet extends ChangeStateTask {
 
 	@Override
 	public void execute() {
+		this.endState("Buf");
 		GameStateManager.getInstance().deactivateAllChildren();
 		GameStateManager.getInstance().activateChildNamed("Buf");
 		((U3dIntBuffetState) GameStateManager.getInstance().getChild("Buf")).initialize();

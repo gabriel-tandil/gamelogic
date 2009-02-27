@@ -14,6 +14,7 @@ public class U3dChangeToIntExa extends ChangeStateTask {
 
 	@Override
 	public void execute() {
+		this.endState("Exa");
 		GameStateManager.getInstance().deactivateAllChildren();
 		GameStateManager.getInstance().activateChildNamed("Exa");
 		((U3dIntExaState) GameStateManager.getInstance().getChild("Exa")).initialize();

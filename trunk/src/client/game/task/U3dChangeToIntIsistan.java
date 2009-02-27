@@ -14,6 +14,7 @@ public class U3dChangeToIntIsistan extends ChangeStateTask {
 
 	@Override
 	public void execute() {
+		this.endState("Isi");
 		GameStateManager.getInstance().deactivateAllChildren();
 		GameStateManager.getInstance().activateChildNamed("Isi");
 		((U3dIntIsistanState) GameStateManager.getInstance().getChild("Isi")).initialize();

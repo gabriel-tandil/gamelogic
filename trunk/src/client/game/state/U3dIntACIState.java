@@ -27,8 +27,7 @@ public class U3dIntACIState extends U3dState {
 			
 			this.initializeWorld();
 			this.initializeLight();
-			this.initializeCamera((U3dPlayerView) this.rootNode
-					.getChild("player_View"));
+			this.initializeCamera((U3dPlayerView) this.rootNode.getChild("player_View"));
 
 			// Habilitar esta opci�nn si se quierer probar la ejecuci�nn de la
 			// tarea.
@@ -76,6 +75,9 @@ public class U3dIntACIState extends U3dState {
 	}
 	
 	public void cleanup() {
+		this.builder.destroyWorld(rootNode);
+		this.builder = null;
+		HudManager.getInstance().update();
 
 	}
 

@@ -30,6 +30,8 @@ public class U3dExteriorState extends U3dState {
 	}
 	
 	public void initialize() {
+		
+		
 		if (!this.initialized) {
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntEcoTaskFactory());
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntExaTaskFactory());
@@ -37,30 +39,28 @@ public class U3dExteriorState extends U3dState {
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntBuffetTaskFactory());
 			TaskManagerFactory.getInstance().add(new U3DChangeToIntACITaskFactory());
 			TaskManagerFactory.getInstance().add(new U3DChangeToWordChallengeTaskFactory());
-
-			
-			this.initializeWorld();
-			this.initializeLight();
-
-			this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
-
-			// Habilitar esta opci�n si se quierer probar la ejecuci�n de la
-			// tarea.
-			// Deshabilitar el m�todo anterior initializeCamera(..)
-			// Desabilitar el controlador del player (setActive(false)) en
-			// XMLWorldBuilder.
-
-			/*
-			 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
-			 * 800, true); newPlayer.execute();
-			 */
-			inicializaHUD();
-			this.initialized = true;
-			rootNode.updateGeometricState(0.0f, true);
-			rootNode.updateRenderState();
-			
-			
 		}
+		
+		this.initializeWorld();
+		this.initializeLight();
+
+		this.initializeCamera((U3dPlayerView)this.rootNode.getChild("player_View"));
+
+		// Habilitar esta opci�n si se quierer probar la ejecuci�n de la
+		// tarea.
+		// Deshabilitar el m�todo anterior initializeCamera(..)
+		// Desabilitar el controlador del player (setActive(false)) en
+		// XMLWorldBuilder.
+
+		/*
+		 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
+		 * 800, true); newPlayer.execute();
+		 */
+		inicializaHUD();
+		this.initialized = true;
+		rootNode.updateGeometricState(0.0f, true);
+		rootNode.updateRenderState();
+		
 	}
 
 	private void inicializaHUD() {
@@ -95,9 +95,11 @@ public class U3dExteriorState extends U3dState {
 		
 	}
 	
-	public void cleanup() {
-
-	}
+	public void cleanup(){
+		this.builder.destroyWorld(rootNode);
+		this.builder = null;
+		HudManager.getInstance().update();
+		}
 
 	public void render(float arg0) {
 		super.render(arg0);
@@ -106,7 +108,8 @@ public class U3dExteriorState extends U3dState {
 	public void updateState(float interpolation) {
 		chaser.update(interpolation);
         Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
-		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
+		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, 
+				chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 		// nodos del hud
