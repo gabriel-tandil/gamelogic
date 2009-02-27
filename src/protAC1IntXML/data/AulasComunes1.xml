@@ -6,11 +6,11 @@
 	<node model="AulasComunes1">
 		<localScaleFloat param1="0.5" /> 
 		<localRotationQuaternion>
-			<quaternion param1 = "0.0" param2 = "0.707106781" param3 = "0.0" param4 = "0.707106781"></quaternion>
-		</localRotationQuaternion>
-		<localTranslationVector3f>
+			<quaternion param1 = "0.0" param2 = "-0.707106781" param3 = "0.0" param4 = "0.707106781"></quaternion>
+   </localRotationQuaternion>
+   <localTranslationVector3f>
         <vector3f param1="1055.0" param2="40.5" param3="-55.0" /> 
-        </localTranslationVector3f>
+   </localTranslationVector3f>
 		<modelBound>
 			<boundingVolume>
 				<boundingBoxNull>
