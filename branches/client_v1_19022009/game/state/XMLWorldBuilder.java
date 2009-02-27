@@ -128,9 +128,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		this.url = urlxml;
 	}
 
-	public void buildWorld(Node node) {
+	public void buildWorld(Node worldView) {
 
-		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
+		//Se pasó al U3DGame
+/*		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
 		EntityManagerFactory.getInstance().add(new DynamicEntityFactory());
 		EntityManagerFactory.getInstance().add(new PlayerFactory());
 		
@@ -141,22 +142,25 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());
 		
-		ControllerManagerFactory.getInstance().add(new PlayerControllerFactory());
+		ControllerManagerFactory.getInstance().add(new PlayerControllerFactory());*/
 		
 		//Edificio:1
         Node campus = new Node("Campus");
 		getWorld(campus);	
 		campus.setLocalScale(0.3f);
-		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
+		
+		//Se pasó a los estados
+/*		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
 			getInstance().createEntity("EntityFactory","World");
 		if (url=="protCampusXML/data/campus.xml")
 			worldEntity.init("Exterior");
 		else
 			worldEntity.init("Eco");
 		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
-			createView(worldEntity);
+			createView(worldEntity);*/
+		
 		worldView.attachChild(campus);		
-		node.attachChild(worldView);
+		
 
 		//Player:2
 		/*Player player = (Player)EntityManager.getInstance().createEntity("PlayerFactory", "Player");
@@ -169,12 +173,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 					  Vector3f.ZERO, 0.50f, "Eco", new Skin(),new PlayerState(),
 					  new Vector3f(1250.0f,1.5f,-350.0f));
 		*/
-		Skybox sb=setupSky();
-		node.attachChild(sb);
 
 	}
 	
-	private Skybox setupSky() {
+	public Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
         try {
 			ResourceLocatorTool.addResourceLocator(
