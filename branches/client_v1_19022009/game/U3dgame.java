@@ -157,6 +157,7 @@ public class U3dgame extends Game {
 				"protEconIntXML/data/EconInt.xml");
 		this.getGameStateManager().attachChild(eco);
 		eco.setActive(false);
+		
 
 		U3dIntEcoState exa = new U3dIntEcoState("Exa",
 				"protExaIntXML/data/ExaInt.xml");
