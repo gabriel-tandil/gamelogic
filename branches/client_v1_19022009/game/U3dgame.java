@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import client.communication.ClientCommunication;
 import client.communication.GameContext;
+import client.communication.WorldsMaper;
 import client.communication.msgprocessor.ClientMsgProcessor;
 import client.game.state.U3dExteriorState;
 import client.game.state.U3dIntEcoState;
@@ -35,10 +36,15 @@ import com.jmex.game.state.GameStateManager;
 public class U3dgame extends Game {
 
 	private int numPlayers;
+
 	private int realPlayers = 0;
+
 	private int readyPlayers = 0;
+
 	private int nextPlayerId = 1;
+
 	private String gameName;
+
 	private boolean dibujaBounds;
 
 	public U3dgame() {
@@ -60,22 +66,28 @@ public class U3dgame extends Game {
 	}
 
 	private void initCommunication() {
-		ClientMsgProcessor.configureMsgProcessorFactory();
-		Properties a = new Properties();
-
-		FileInputStream is;
 		try {
-			System.out.println(System.getProperty("user.dir"));
-			is = new FileInputStream(new File(
-					System.getProperty("user.dir")+"/src/u3dproperties.properties"));
-			a.load(is);
-			GameContext.setProperties(a);
+			// Configurar la fabrica de procesadores
+			ClientMsgProcessor.configureMsgProcessorFactory();
+
+			// Setear las propiedades al GameContext
+			Properties commProperties = new Properties();
+			FileInputStream is;
+			is = new FileInputStream(new File(System.getProperty("user.dir")
+					+ "/src/u3dproperties.properties"));
+			commProperties.load(is);
+			GameContext.setProperties(commProperties);
+			GameContext.setClientCommunication(new ClientCommunication());
+
+			// inicializa el mapper de mundos
+			WorldsMaper.initWorldsMapping(new File(System
+					.getProperty("user.dir")
+					+ "/src/worldsMaper.properties"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		}
-GameContext.setClientCommunication(new ClientCommunication());
 	}
 
 	protected void initWindow() {
@@ -126,7 +138,8 @@ GameContext.setClientCommunication(new ClientCommunication());
 	protected void initHotKeys() {
 		KeyBindingManager.getKeyBindingManager().set("exit",
 				KeyInput.KEY_ESCAPE);
-	//	KeyBindingManager.getKeyBindingManager().set("control", KeyInput.KEY_C);
+		// KeyBindingManager.getKeyBindingManager().set("control",
+		// KeyInput.KEY_C);
 	}
 
 	protected void initGame() {
@@ -135,27 +148,33 @@ GameContext.setClientCommunication(new ClientCommunication());
 		login.setActive(true);
 		login.initialize();
 
-		U3dExteriorState exterior = new U3dExteriorState("Exterior","protCampusXML/data/campus.xml");
+		U3dExteriorState exterior = new U3dExteriorState("Exterior",
+				"protCampusXML/data/campus.xml");
 		this.getGameStateManager().attachChild(exterior);
 		exterior.setActive(false);
 
-		U3dIntEcoState eco = new U3dIntEcoState("Eco","protEconIntXML/data/EconInt.xml");
+		U3dIntEcoState eco = new U3dIntEcoState("Eco",
+				"protEconIntXML/data/EconInt.xml");
 		this.getGameStateManager().attachChild(eco);
 		eco.setActive(false);
-		
-		U3dIntEcoState exa = new U3dIntEcoState("Exa","protExaIntXML/data/ExaInt.xml");
+
+		U3dIntEcoState exa = new U3dIntEcoState("Exa",
+				"protExaIntXML/data/ExaInt.xml");
 		this.getGameStateManager().attachChild(exa);
 		exa.setActive(false);
-		
-		U3dIntEcoState isistan = new U3dIntEcoState("Isi","protIsistanIntXML/data/IsistanInt.xml");
+
+		U3dIntEcoState isistan = new U3dIntEcoState("Isi",
+				"protIsistanIntXML/data/IsistanInt.xml");
 		this.getGameStateManager().attachChild(isistan);
 		isistan.setActive(false);
-		
-		U3dIntEcoState AC1 = new U3dIntEcoState("AC1","protAC1IntXML/data/AulasComunes1.xml");
+
+		U3dIntEcoState AC1 = new U3dIntEcoState("AC1",
+				"protAC1IntXML/data/AulasComunes1.xml");
 		this.getGameStateManager().attachChild(AC1);
 		AC1.setActive(false);
-		
-		U3dIntEcoState buffet = new U3dIntEcoState("Buf","protBuffetIntXML/data/BuffetInt.xml");
+
+		U3dIntEcoState buffet = new U3dIntEcoState("Buf",
+				"protBuffetIntXML/data/BuffetInt.xml");
 		this.getGameStateManager().attachChild(buffet);
 		buffet.setActive(false);
 
@@ -177,8 +196,8 @@ GameContext.setClientCommunication(new ClientCommunication());
 				.execute();
 		this.inputManager.update(arg0);
 		/*
-		 * // Update input manager. this.inputManager.update(this.intervalo);
-		 *  // Update physics. this.physicsManager.update();
+		 * // Update input manager. this.inputManager.update(this.intervalo); //
+		 * Update physics. this.physicsManager.update();
 		 */// Update the game states.
 		// Execute tasks.
 		this.taskManager.getInstance().update();
