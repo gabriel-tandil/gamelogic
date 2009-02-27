@@ -6,6 +6,7 @@ package client.communication.tasks.comm;
 
 import java.util.HashMap;
 
+import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.Player;
 import client.manager.EntityManager;
@@ -43,7 +44,6 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 	 * @author Castillo/Santos
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void execute() {
 
 		MsgGetPlayerResponse msg = (MsgGetPlayerResponse) this.getMessage();
@@ -51,10 +51,12 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 		Player player = (Player) EntityManager.getInstance().createEntity(
 				"PlayerFactory", msg.getIdPlayer());
 
-		// FIXME esta hardcodeado el mundo!!!
-		player.initPlayer(Vector3f.ZERO, 8f, (HashMap)msg.getProperties(), null,
-				Vector3f.ZERO, msg.getAngle().x, /*msg.getActualWorld()*/ "Exterior", msg
-						.getSkin(), msg.getPlayerState(), msg.getPosition());
+		// obtengo el id del mundo con el que se mapea el id del servidor
+		// contenido en el mensaje.
+		String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg.getActualWorld());
+		player.initPlayer(Vector3f.ZERO, 8f, (HashMap) msg.getProperties(),
+				null, Vector3f.ZERO, msg.getAngle().x, idClientWorld, msg.getSkin(), msg.getPlayerState(), msg
+						.getPosition());
 	}
-	
+
 }

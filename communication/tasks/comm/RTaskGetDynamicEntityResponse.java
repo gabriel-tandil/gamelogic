@@ -2,6 +2,7 @@ package client.communication.tasks.comm;
 
 import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
+import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
 import client.manager.EntityManager;
@@ -48,25 +49,30 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 	 * 
 	 * @see client.game.task.ITask#execute()
 	 */
-	@Override
+
 	public void execute() {
 
 		MsgGetDynamicEntityResponse msg = (MsgGetDynamicEntityResponse) this
 				.getMessage();
-		
+
 		// Si el mensaje fue enviado originalmente por este jugador, se termina
 		// la tarea.
-		if (msg.getIdDynamicEntity().equalsIgnoreCase(
-				GameContext.getUserName())) {
+		if (msg.getIdDynamicEntity()
+				.equalsIgnoreCase(GameContext.getUserName())) {
 			return;
-		}		
-		
+		}
+
+		// obtengo el id del mundo con el que se mapea el id del servidor
+		// contenido en el mensaje.
+		String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg
+				.getActualWorld());
+
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());
 
-		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x, /*msg
-				.getActualWorld()*/"Exterior", msg.getSkin(), msg.getPosition());
-		
+		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x,
+				idClientWorld, msg.getSkin(), msg.getPosition());
+
 		// Marco el estado local de la entidad recien creada como existente.
 		DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg
 				.getIdDynamicEntity(), DynamicEntitysSolicitations.EXISTS);
