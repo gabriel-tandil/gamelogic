@@ -14,6 +14,7 @@ public class U3dChangeToExterior extends ChangeStateTask {
 
 	@Override
 	public void execute() {
+		this.endState("Exterior");
 		GameStateManager.getInstance().deactivateAllChildren();
 		GameStateManager.getInstance().activateChildNamed("Exterior");
 		((U3dExteriorState) GameStateManager.getInstance().getChild(

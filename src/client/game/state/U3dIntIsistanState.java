@@ -75,7 +75,9 @@ public class U3dIntIsistanState extends U3dState {
 	}
 	
 	public void cleanup() {
-
+		this.builder.destroyWorld(rootNode);
+		this.builder = null;
+		HudManager.getInstance().update();
 	}
 
 	public void render(float arg0) {

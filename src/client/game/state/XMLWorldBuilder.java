@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import org.jdom.Attribute;
 import org.jdom.DataConversionException;
@@ -103,6 +104,7 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jme.util.export.Savable;
 import com.jme.util.export.binary.BinaryImporter;
+import com.jme.util.resource.ResourceLocator;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.game.state.BasicGameState;
@@ -124,18 +126,75 @@ import common.datatypes.Skin;
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class XMLWorldBuilder implements IWorldBuilder {
-
+	
+	private static boolean x = false;
+	
 	private String url;
 	
 	private Vector3f initialPosition=null;
 	
 	private Quaternion Rotation=null;
 	
+	/* modif 1*/
+	U3dBuildingView worldView;
+	U3dPlayerView playerView;
+	Skybox sb;
+	U3DPlayer playerEntity;
+	
+	
+	/* modif 2 */
+	Vector<ResourceLocator> vrl;
+	U3DBuildingEntity worldEntity;
+	U3DPlayerController controllerPlayer;
+	
+	
 	public XMLWorldBuilder(String urlxml){
 		this.url = urlxml;
+		vrl = new Vector<ResourceLocator>();
 	}
 
-	public void buildWorld(Node node) {
+	public void destroyWorld(Node node){
+		
+		ViewManager.getInstance().removeView(worldEntity);
+		ViewManager.getInstance().removeView(playerEntity);
+		KeyInput.get().removeListener(controllerPlayer);
+		CollisionManager.getInstace().removeAccessPoints();
+		
+		controllerPlayer.setActive(false);
+		
+		this.worldView.detachAllChildren();
+		this.playerView.detachAllChildren();
+		this.sb.detachAllChildren();
+		
+		node.detachChild(worldView);
+		node.detachChild(playerView);
+		node.detachChild(sb);
+		playerEntity.removeAvatar();
+		node.clearRenderState(0);
+		
+		//node.detachAllChildren();
+		
+		/** Q sino se confunden las texturas.... xDDDDDD*/
+		for (int i = 0 ; i<vrl.size();i++ )
+			ResourceLocatorTool.removeResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, vrl.get(i));
+		vrl.clear();
+				
+	}
+	
+	
+	public void buildWorld(Node node) {	
+		
+		
+		/**** Invocacon del Garbage Collection de Java!!!!*/
+		
+      	/*Runtime r = Runtime.getRuntime();
+      	r.gc();*/
+		
+		System.gc();		
+		System.runFinalization();
+      	
+      	/**************************************************/
+	
 
 		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
 		EntityManagerFactory.getInstance().add(new U3DPlayerFactory());
@@ -152,23 +211,31 @@ public class XMLWorldBuilder implements IWorldBuilder {
         Node campus = new Node("Campus");
 		getWorld(campus);	
 		campus.setLocalScale(0.3f);
-		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
+		
+		/*     EntityManager     */ 
+		worldEntity = (U3DBuildingEntity) EntityManager.
 			getInstance().createEntity("1");
 
 		worldEntity.setId("world");
-		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
+		
+		/*      ViewManager      */
+		this.worldView = (U3dBuildingView) ViewManager.getInstance().
 			createView(worldEntity);
 
 		//Player:2
 		Node player = new Node("Player"); 
 		IPersonaje p= this.getPlayer(player);
-		U3DPlayer playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
+		
+		/*     EntityManager     */ 		
+		playerEntity = (U3DPlayer)EntityManager.getInstance().createEntity("2");
 		playerEntity.initPlayer("player", Vector3f.ZERO.clone(), 8, new Hashtable<String,
 				Object>(), new Hashtable<String,Object>(), Vector3f.ZERO.clone(), 
 				Vector3f.ZERO.clone(), "ExteriorWorld", new Skin(), 
 				new PlayerState());
 		playerEntity.setPlayerAvatar(p);
-		U3dPlayerView playerView = (U3dPlayerView) ViewManager.getInstance().
+		
+		/*      ViewManager      */		
+		this.playerView = (U3dPlayerView) ViewManager.getInstance().
 			createView(playerEntity);
 		
 		if (initialPosition!=null)
@@ -176,23 +243,31 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		if(Rotation!=null)
 			if(Rotation.w!=0 || Rotation.x!=0 || Rotation.y!=0 || Rotation.z!=0)
 				playerView.setLocalRotation(Rotation);
-		U3DPlayerController controllerPlayer = (U3DPlayerController) InputManager.
+		
+		/*      InputManager      */
+		controllerPlayer = (U3DPlayerController) InputManager.
 			getInstance().createController(playerEntity);
+		
+		
+		
 		controllerPlayer.setActive(true);
 		worldView.attachChild(campus);
 		KeyInput.get().addListener(controllerPlayer);
+		
 		playerView.attachChild(player);
 		playerView.updateWorldBound();
+		
+		this.sb=setupSky();
+		
 		node.attachChild(worldView);
-		node.attachChild(playerView);
-		Skybox sb=setupSky();
+		node.attachChild(playerView);		
 		node.attachChild(sb);
-
+		
 	}
 	
 	private IPersonaje getPlayer(Node node) {
 		
-		/* PERSONAJE COLLADA*/
+		/** PERSONAJE COLLADA*/
 		
 		/*IPersonaje p = new PersonaDae(node);
 		p.setPaquete("jmetest/data/model/collada/");
@@ -202,7 +277,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		p.setModelBound(new BoundingBox());
 		p.setLocalScale(0.8f);*/
 		
-		/* PERSONAJE MD5*/
+		/** PERSONAJE MD5*/
 		
 		IPersonaje p = new PersonaMD5(node);
 		p.setPaquete("jmetest/data/model/MD5/");
@@ -212,7 +287,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		p.setModelBound(new BoundingBox());
 		p.setLocalScale(0.8f);
 		
-		/*--------------*/
+		/**--------------*/
 		
 		return p;
 	}
@@ -220,9 +295,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
     private Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
         try {
-			ResourceLocatorTool.addResourceLocator(
-			        ResourceLocatorTool.TYPE_TEXTURE,
-			        new SimpleResourceLocator(Game.class.getClassLoader().getResource("cielo/")));
+        	SimpleResourceLocator srl = new SimpleResourceLocator(Game.class.getClassLoader().getResource("cielo/"));
+			ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE,srl);
+			vrl.add(srl);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -260,8 +335,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 						textures = a.getValue();
 						
 						try {
-							ResourceLocatorTool.addResourceLocator
-							(ResourceLocatorTool.TYPE_TEXTURE, new SimpleResourceLocator(Game.class.getClassLoader().getResource(textures)));
+							SimpleResourceLocator srl = new SimpleResourceLocator(Game.class.getClassLoader().getResource(textures));
+							ResourceLocatorTool.addResourceLocator (ResourceLocatorTool.TYPE_TEXTURE, srl);
+							vrl.add(srl);							
 						} catch (URISyntaxException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

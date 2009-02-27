@@ -14,6 +14,7 @@ public class U3dChangeToIntACI extends ChangeStateTask {
 
 	@Override
 	public void execute() {
+		this.endState("AC1");
 		GameStateManager.getInstance().deactivateAllChildren();
 		GameStateManager.getInstance().activateChildNamed("AC1");
 		((U3dIntACIState) GameStateManager.getInstance().getChild("AC1")).initialize();

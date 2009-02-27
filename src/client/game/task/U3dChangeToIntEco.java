@@ -16,6 +16,7 @@ public class U3dChangeToIntEco extends ChangeStateTask {
 
 	@Override
 	public void execute() {
+		this.endState("Eco");
 		GameStateManager.getInstance().deactivateAllChildren();
 		GameStateManager.getInstance().activateChildNamed("Eco");
 		((U3dIntEcoState) GameStateManager.getInstance().getChild("Eco")).initialize();
@@ -31,5 +32,5 @@ public class U3dChangeToIntEco extends ChangeStateTask {
 	public void initTask() {
 
 	}
-
+	
 }
