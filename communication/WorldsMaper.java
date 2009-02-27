@@ -44,7 +44,7 @@ public class WorldsMaper {
 			Properties mapProperties = new Properties();
 			FileInputStream is = new FileInputStream(mapping);
 			mapProperties.load(is);
-			GameContext.setProperties(mapProperties);
+			
 			GameContext.setClientCommunication(new ClientCommunication());
 
 			// configura los mapas internos en base al Properties.

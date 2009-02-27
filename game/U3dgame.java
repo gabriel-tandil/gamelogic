@@ -3,15 +3,29 @@ package client.game;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
+import java.util.Map.Entry;
 
 import client.communication.ClientCommunication;
 import client.communication.GameContext;
 import client.communication.WorldsMaper;
 import client.communication.msgprocessor.ClientMsgProcessor;
+import client.game.controller.ControllerManagerFactory;
+import client.game.controller.PlayerControllerFactory;
+import client.game.entity.DynamicEntityFactory;
+import client.game.entity.EntityManagerFactory;
+import client.game.entity.PlayerFactory;
+import client.game.entity.U3DBuildingEntityFactory;
 import client.game.state.U3dExteriorState;
 import client.game.state.U3dIntEcoState;
 import client.game.state.U3dLoginState;
 import client.game.state.U3dState;
+import client.game.task.TaskManagerFactory;
+import client.game.task.U3DMoveCharacterTaskFactory;
+import client.game.task.U3DRotateCharacterTaskFactory;
+import client.game.view.U3DBuildingViewFactory;
+import client.game.view.U3DDynamicViewFactory;
+import client.game.view.U3DPlayerViewFactory;
+import client.game.view.ViewFactoryManager;
 import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
@@ -80,6 +94,7 @@ public class U3dgame extends Game {
 			GameContext.setClientCommunication(new ClientCommunication());
 
 			// inicializa el mapper de mundos
+			
 			WorldsMaper.initWorldsMapping(new File(System
 					.getProperty("user.dir")
 					+ "/src/worldsMaper.properties"));
@@ -143,12 +158,70 @@ public class U3dgame extends Game {
 	}
 
 	protected void initGame() {
+		//Se agregan todos los factorys necesarios
+		
+		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
+		EntityManagerFactory.getInstance().add(new DynamicEntityFactory());
+		EntityManagerFactory.getInstance().add(new PlayerFactory());
+		
+		ViewFactoryManager.getInstance().add(new U3DBuildingViewFactory());
+		ViewFactoryManager.getInstance().add(new U3DPlayerViewFactory());
+		ViewFactoryManager.getInstance().add(new U3DDynamicViewFactory());
+		
+		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
+		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());
+		
+		ControllerManagerFactory.getInstance().add(new PlayerControllerFactory());
+		
+		//*********************************
+		
 		U3dLoginState login = new U3dLoginState("login");
 		this.getGameStateManager().attachChild(login);
 		login.setActive(true);
 		login.initialize();
+		
+		Properties a = new Properties();
 
-		U3dExteriorState exterior = new U3dExteriorState("Exterior",
+		FileInputStream is;
+		try {
+			
+			is = new FileInputStream(new File(
+					System.getProperty("user.dir")+"/src/StateMapping.properties"));
+			a.load(is);
+			
+			for (Entry<Object, Object> world : a.entrySet()) {
+				String value = (String) world.getValue();
+				//Primer valor: Nombre del XML
+				//Segundo valor: Nombre de la clase del State
+				String[] values = value.split("~");
+				if (values[1].equals(U3dExteriorState.class.toString()))
+				{
+					U3dExteriorState exterior = new U3dExteriorState((String)world.getKey(),
+					values[0]);
+					this.getGameStateManager().attachChild(exterior);
+					exterior.setActive(false);
+				}
+				else
+					if (values[1].equals(U3dIntEcoState.class.toString()))
+					{
+						U3dIntEcoState exterior = new U3dIntEcoState((String)world.getKey(),
+						values[0]);
+						this.getGameStateManager().attachChild(exterior);
+						exterior.setActive(false);
+					}
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Te olvidaste el \"StateMapping.properties\" payaso");
+			e.printStackTrace();
+
+		}
+		
+		
+
+		/*U3dExteriorState exterior = new U3dExteriorState("Exterior",
 				"protCampusXML/data/campus.xml");
 		this.getGameStateManager().attachChild(exterior);
 		exterior.setActive(false);
@@ -177,7 +250,7 @@ public class U3dgame extends Game {
 		U3dIntEcoState buffet = new U3dIntEcoState("Buf",
 				"protBuffetIntXML/data/BuffetInt.xml");
 		this.getGameStateManager().attachChild(buffet);
-		buffet.setActive(false);
+		buffet.setActive(false);/*
 
 		/*
 		 * U3dEndState end = new U3dEndState(); end.setActive(false);

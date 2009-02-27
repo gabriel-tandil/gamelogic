@@ -32,6 +32,14 @@ public class U3dExteriorState extends U3dState {
 		this.url = url;
 	}
 	
+
+	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
+
 	public void initialize() {
 		if (!this.initialized) {		
 			KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
