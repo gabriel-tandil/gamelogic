@@ -35,7 +35,8 @@ public class U3DRotateCharacterTask extends Task {
 
 	public void execute() {
 		character.setAngle(angle);
-
+		float newAngle = character.getAngle();
+		
 		// mensaje al servidor
 		MsgRotate msg;
 		try {
@@ -43,7 +44,7 @@ public class U3DRotateCharacterTask extends Task {
 					MsgTypes.MSG_ROTATE_SEND_TYPE);
 			msg.setIdDynamicEntity(this.character.getId());
 			// El angulo es un float, entonces usamos la dimension x del vector
-			msg.setAngle(new Vector3f(angle, angle, angle));
+			msg.setAngle(new Vector3f(newAngle, newAngle, newAngle));
 			ITask task = TaskCommFactory.getInstance().createComTask(msg);
 			TaskManager.getInstance().submit(task);
 		} catch (UnsopportedMessageException e) {
