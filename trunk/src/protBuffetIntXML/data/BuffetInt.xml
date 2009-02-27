@@ -6,7 +6,7 @@
 	<node model="InteriorBufet">
 		<localScaleFloat param1="0.5" /> 
 		<localRotationQuaternion>
-			<quaternion param1 = "0.0" param2 = "0.707106781" param3 = "0.0" param4 = "0.707106781"></quaternion>
+			<quaternion param1 = "0.0" param2 = "0.0" param3 = "0.0" param4 = "0.707106781"></quaternion>
 		</localRotationQuaternion>
 		<localTranslationVector3f>
         <vector3f param1="100.0" param2="0.5" param3="-1070.0" /> 
