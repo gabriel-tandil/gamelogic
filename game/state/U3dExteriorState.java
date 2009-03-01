@@ -11,6 +11,7 @@ import client.manager.ViewManager;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
+import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
@@ -25,20 +26,15 @@ public class U3dExteriorState extends U3dState {
 	private U3DChaseCamera chaser;
 	
 	private String url;
+	
+	private Vector3f translation;
 
-
+	
 	public U3dExteriorState(String name, String url) {
 		super(name);
 		this.url = url;
+		translation = new Vector3f();
 	}
-	
-
-	
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-
 
 	public void initialize() {
 		if (!this.initialized) {		
@@ -46,19 +42,11 @@ public class U3dExteriorState extends U3dState {
 
 			this.initializeWorld();
 			this.initializeLight();
-
-			// Habilitar esta opcion si se quierer probar la ejecucion de la
-			// tarea.
-			// Deshabilitar el m�todo anterior initializeCamera(..)
-			// Desabilitar el controlador del player (setActive(false)) en
-			// XMLWorldBuilder.
-
-			/*
-			 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
-			 * 800, true); newPlayer.execute();
-			 */
-			inicializaHUD();
+			this.inicializaHUD();
+			
+			this.builder.getTranslationPoint(translation);
 			this.initialized = true;
+			
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
 		}
@@ -148,7 +136,13 @@ public class U3dExteriorState extends U3dState {
 		Spatial campus = ((Node)worldView).getChild(0);
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
-//		System.out.println(intersects);
+	}
+	
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
+	public Vector3f getTranslation() {
+		return this.translation;
+	}
 }

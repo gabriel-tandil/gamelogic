@@ -1,5 +1,6 @@
 package client.game.state;
 
+import com.jme.math.Vector3f;
 
 
 public abstract class U3dState extends WorldGameState {
@@ -11,5 +12,7 @@ public abstract class U3dState extends WorldGameState {
 	public abstract void initialize();
 	
 	public abstract void updateCamera();
+	
+	public abstract Vector3f getTranslation();
 	
 }

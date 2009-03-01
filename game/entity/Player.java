@@ -53,6 +53,14 @@ public class Player extends DynamicEntity {
 	public void initPlayer(Vector3f force,float mass,HashMap<String,Object> Properties,
 			Hashtable<String,Object> stats,Vector3f velocity, float  angle, String actualWorld,
 			Skin theSkin, PlayerState theState, Vector3f thePosition) {
+		
+		//Chequear. A los valores que envia el servidor, se le resta la traslacion que
+		//tiene cada estado.
+		U3dState state = (U3dState)GameStateManager.getInstance().getChild(actualWorld);
+		if(state != null) {
+			thePosition.x -= state.getTranslation().x;
+			thePosition.z -= state.getTranslation().z;
+		}
 
 		TaskManagerFactory.getInstance().add(new U3DAddPlayerTaskFactory());
 		U3DAddPlayerTask task = (U3DAddPlayerTask) TaskManager

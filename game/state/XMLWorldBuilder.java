@@ -2283,6 +2283,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		}	
 		return arr;
 	}
+	
 //Hecho por Carlitos
 	private Vector3f parseVector3f(List children) {
 		Iterator i;
@@ -2761,4 +2762,23 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		return null;
 	}
 
+	public void getTranslationPoint(Vector3f point) {
+		URL filename = java.lang.ClassLoader.getSystemClassLoader().getSystemResource(url);
+		
+		if(filename != null) {
+			try {
+				SAXBuilder builder = new SAXBuilder(false);
+				// se carga el arbol xml en memoria
+				Document doc = builder.build(filename);
+				Element root = doc.getRootElement();
+				List list = root.getChildren("translationPoint");
+				point.set(this.parseVector3f(list));
+				
+			} catch (JDOMException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

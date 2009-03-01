@@ -14,6 +14,7 @@ import client.game.view.DynamicView;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
+import com.jme.math.Vector3f;
 import com.jme.system.DisplaySystem;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BComponent;
@@ -313,5 +314,9 @@ public class U3dLoginState extends U3dState {
 	}
 
 	public void initializeCamera(DynamicView playerView) {
+	}
+	
+	public Vector3f getTranslation() {
+		return new Vector3f();
 	}
 }

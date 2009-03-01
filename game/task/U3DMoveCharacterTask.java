@@ -142,18 +142,35 @@ public class U3DMoveCharacterTask extends Task {
 					if (nodeIntersect != null)
 						CollisionManager.getInstace().checkOverAccessPoint(
 								nodeIntersect);
-
+					
+					//Chequear. Suma a los valores de origen y destino los puntos
+					//de traslacion correspondientes para enviarle al servidor
+					//numeros positivos
+					
+					Vector3f newOrigin = origin.clone();
+					Vector3f newDestine = destination.clone();
+					
+					newOrigin.addLocal(aux.getTranslation());
+					newDestine.addLocal(aux.getTranslation());
+					
+					if(newDestine.x < 0) {
+						newDestine.x = 0;
+					}
+					if(newDestine.z <0) {
+						newDestine.z = 0;
+					}
+					
 					System.out
 							.println("Creando tarea para enviar el movimiento: ");
-					System.out.println("Origen: " + origin);
-					System.out.println("Destino: " + destine);
+					System.out.println("Origen: " + newOrigin);
+					System.out.println("Destino: " + newDestine);
 
 					MsgMove msg = (MsgMove) MessageFactory.getInstance()
 							.createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
 
 					msg.setIdDynamicEntity(this.character.getId());
-					msg.setPosOrigen(origin);
-					msg.setPosDestino(destine);
+					msg.setPosOrigen(newOrigin);
+					msg.setPosDestino(newDestine);
 
 					ITask task = TaskCommFactory.getInstance().createComTask(
 							msg);
