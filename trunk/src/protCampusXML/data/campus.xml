@@ -73,4 +73,5 @@
 		</properties>
 		<chase_Settings maxDistance = "80" minDistance = "50"/>
 	</u3dChaseCam>
+	<translationPoint param1="13300" param2="0" param3="4000"/>
 </map>

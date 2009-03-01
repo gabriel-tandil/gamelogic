@@ -11,6 +11,7 @@ import client.manager.ViewManager;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
+import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
@@ -25,11 +26,14 @@ public class U3dIntEcoState extends U3dState {
 	private U3DChaseCamera chaser;
 	
 	private String url;
+	
+	private Vector3f translation;
 
 
 	public U3dIntEcoState(String name, String url) {
 		super(name);
 		this.url = url;
+		translation = new Vector3f();
 	}
 	
 	public void initialize() {
@@ -38,17 +42,7 @@ public class U3dIntEcoState extends U3dState {
 			this.initializeWorld();
 			this.initializeLight();
 
-			// Habilitar esta opcion si se quierer probar la ejecucion de la
-			// tarea.
-			// Deshabilitar el metodo anterior initializeCamera(..)
-			// Desabilitar el controlador del player (setActive(false)) en
-			// XMLWorldBuilder.
-
-			/*
-			 * U3DAddPlayerTask newPlayer = new U3DAddPlayerTask("player1", 0,
-			 * 800, true); newPlayer.execute();
-			 */
-
+			this.builder.getTranslationPoint(translation);
 			this.initialized = true;
 			
 			KeyBindingManager.getKeyBindingManager().set("change",
@@ -140,4 +134,7 @@ HudManager.getInstance().getRoot().updateRenderState();
 //		System.out.println(intersects);
 	}
 
+	public Vector3f getTranslation() {
+		return this.translation;
+	}
 }
