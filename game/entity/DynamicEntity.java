@@ -8,30 +8,23 @@ package client.game.entity;
 import java.io.IOException;
 
 import client.game.IPersonaje;
-import client.game.state.U3dState;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DAddDynamicEntityTask;
 import client.game.task.U3DAddDynamicEntityTaskFactory;
-import client.game.task.U3DAddPlayerTask;
-import client.game.task.U3DAddPlayerTaskFactory;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 
-import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
-
-import common.datatypes.PlayerState;
-import common.datatypes.Skin;
-
 import com.jme.scene.Node;
-import com.jme.scene.Spatial;
 import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
 import com.jme.util.export.OutputCapsule;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
+import common.datatypes.PlayerState;
+import common.datatypes.Skin;
 
 /**
  * @author Critian Calomino
@@ -48,7 +41,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 				.getInstance().createTask("9");
 		Node root = ((BasicGameState) GameStateManager.getInstance().getChild(
 				actualWorld)).getRootNode();
-		task.initTask(root, this, angle, position);
+		task.initTask(root, this, angle, thePosition);
 		TaskManager.getInstance().enqueue(task);
 
 		this.setAngle(angle);

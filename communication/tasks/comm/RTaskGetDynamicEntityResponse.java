@@ -66,12 +66,16 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 		// contenido en el mensaje.
 		String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg
 				.getActualWorld());
+		
+		// Obtengo la traslacion de la posicion y la seteo
+		Vector3f clientPosition = PositionsTranslator.clientPosition(msg
+				.getActualWorld(), msg.getPosition());
 
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());
 		
 		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x,
-				idClientWorld, msg.getSkin(), msg.getPosition());
+				idClientWorld, msg.getSkin(), clientPosition);
 
 		// Marco el estado local de la entidad recien creada como existente.
 		DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg

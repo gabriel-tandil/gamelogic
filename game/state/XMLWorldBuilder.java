@@ -20,26 +20,9 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import client.game.Game;
-import client.game.controller.ControllerManagerFactory;
-import client.game.controller.PlayerControllerFactory;
-import client.game.entity.DynamicEntityFactory;
-import client.game.entity.EntityManagerFactory;
-import client.game.entity.PlayerFactory;
-import client.game.entity.U3DBuildingEntity;
-import client.game.entity.U3DBuildingEntityFactory;
 import client.game.input.U3DChaseCamera;
-import client.game.task.TaskManagerFactory;
-import client.game.task.U3DMoveCharacterTaskFactory;
-import client.game.task.U3DRotateCharacterTaskFactory;
 import client.game.view.DynamicView;
-import client.game.view.U3DBuildingViewFactory;
-import client.game.view.U3DDynamicViewFactory;
-import client.game.view.U3DPlayerViewFactory;
-import client.game.view.U3dBuildingView;
-import client.game.view.ViewFactoryManager;
 import client.manager.CollisionManager;
-import client.manager.EntityManager;
-import client.manager.ViewManager;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingCapsule;
