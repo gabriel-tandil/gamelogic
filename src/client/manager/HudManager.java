@@ -21,6 +21,11 @@ import com.jmex.bui.layout.GroupLayout;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
 
+/**
+ * clase que implementa la interface IHudManager, encargada de la visualización del Hud
+ * @author kike
+ *
+ */
 public class HudManager implements IHudManager {
 	private boolean ocultaCursor = true;
 	private static HudManager instance = null;

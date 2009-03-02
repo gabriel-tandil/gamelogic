@@ -1,6 +1,6 @@
 /**
- *<code>CollisionManager</code> is responsible
- * for processing all collision detection tasks.
+ *<code>CollisionManager</code> Es responsable
+ * de procesar todas las tareas de detección de colisiones
  */
 package client.manager;
 
@@ -22,6 +22,7 @@ import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
 
 /** 
+  * Es responsable de procesar todas las tareas de detección de colisiones
  * @author Santiago Michielotto
  * @version Created: 19-11-2008
  */
