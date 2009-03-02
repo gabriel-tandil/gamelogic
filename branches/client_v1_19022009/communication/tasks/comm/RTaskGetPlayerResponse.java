@@ -64,9 +64,13 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 		ChangeStateTask task = new ChangeToPlace(idClientWorld);
 		TaskManager.getInstance().enqueue(task);
 
+		// Obtengo la traslacion de la posicion y la seteo
+		Vector3f clientPosition = PositionsTranslator.clientPosition(msg
+				.getActualWorld(), msg.getPosition());
+		
 		player.initPlayer(Vector3f.ZERO, 8f, (HashMap) msg.getProperties(),
 				null, Vector3f.ZERO, msg.getAngle().x, idClientWorld, msg
-						.getSkin(), msg.getPlayerState(), msg.getPosition());
+						.getSkin(), msg.getPlayerState(), clientPosition);
 
 	}
 

@@ -13,6 +13,7 @@ import client.game.task.ITask;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
 
+import com.jme.math.Vector3f;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
 import common.messages.MessageFactory;
@@ -85,8 +86,11 @@ public class RTaskMove extends TaskCommunication {
 			// La entidad existe localmente
 			DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 					.getEntity(thisMsg.getIdDynamicEntity());
+			// Obtengo la traslacion de la posicion y la seteo
+			Vector3f clientPosition = PositionsTranslator.clientPosition(entity
+					.getActualWorld(), thisMsg.getPosDestino());
 			// "moverla" Tomando los datos desde el MsgMove.
-			entity.setPosition(thisMsg.getPosDestino());
+			entity.setPosition(clientPosition);
 		}// else if (dEState.equals(DynamicEntitysSolicitations.SOLICITED){
 	}
 

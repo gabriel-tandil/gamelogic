@@ -7,8 +7,6 @@ package client.game.entity;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-import client.game.IPersonaje;
-import client.game.state.U3dState;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DAddPlayerTask;
 import client.game.task.U3DAddPlayerTaskFactory;
@@ -19,7 +17,6 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
-
 import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
@@ -53,14 +50,6 @@ public class Player extends DynamicEntity {
 	public void initPlayer(Vector3f force,float mass,HashMap<String,Object> Properties,
 			Hashtable<String,Object> stats,Vector3f velocity, float  angle, String actualWorld,
 			Skin theSkin, PlayerState theState, Vector3f thePosition) {
-		
-		//Chequear. A los valores que envia el servidor, se le resta la traslacion que
-		//tiene cada estado.
-		U3dState state = (U3dState)GameStateManager.getInstance().getChild(actualWorld);
-		if(state != null) {
-			thePosition.x -= state.getTranslation().x;
-			thePosition.z -= state.getTranslation().z;
-		}
 
 		TaskManagerFactory.getInstance().add(new U3DAddPlayerTaskFactory());
 		U3DAddPlayerTask task = (U3DAddPlayerTask) TaskManager

@@ -2,8 +2,8 @@ package client.game.task;
 
 import java.util.ArrayList;
 
-import client.communication.tasks.TaskChannelSender;
 import client.communication.tasks.TaskCommFactory;
+import client.communication.tasks.comm.PositionsTranslator;
 import client.game.entity.Player;
 import client.game.state.U3dState;
 import client.gameEngine.PhysicsManager;
@@ -21,7 +21,6 @@ import common.datatypes.PlayerState;
 import common.messages.MessageFactory;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgMove;
-import common.util.ChannelNameParser;
 
 public class U3DMoveCharacterTask extends Task {
 
@@ -142,24 +141,25 @@ public class U3DMoveCharacterTask extends Task {
 					if (nodeIntersect != null)
 						CollisionManager.getInstace().checkOverAccessPoint(
 								nodeIntersect);
-					
-					//Chequear. Suma a los valores de origen y destino los puntos
-					//de traslacion correspondientes para enviarle al servidor
-					//numeros positivos
-					
-					Vector3f newOrigin = origin.clone();
-					Vector3f newDestine = destination.clone();
-					
-					newOrigin.addLocal(aux.getTranslation());
-					newDestine.addLocal(aux.getTranslation());
-					
-					if(newDestine.x < 0) {
+
+					// Chequear. Suma a los valores de origen y destino los
+					// puntos
+					// de traslacion correspondientes para enviarle al servidor
+					// numeros positivos
+
+					Vector3f newOrigin = PositionsTranslator.serverPosition(
+							character.getActualWorld(), origin);
+					Vector3f newDestine = PositionsTranslator.serverPosition(
+							character.getActualWorld(), destination);
+
+					if (newDestine.x < 0) {
 						newDestine.x = 0;
 					}
-					if(newDestine.z <0) {
+					if (newDestine.z < 0) {
 						newDestine.z = 0;
 					}
-					
+
+					// TODO borrar los system.out
 					System.out
 							.println("Creando tarea para enviar el movimiento: ");
 					System.out.println("Origen: " + newOrigin);
@@ -174,7 +174,7 @@ public class U3DMoveCharacterTask extends Task {
 
 					ITask task = TaskCommFactory.getInstance().createComTask(
 							msg);
-					
+
 					TaskManager.getInstance().submit(task);
 				}
 			}
