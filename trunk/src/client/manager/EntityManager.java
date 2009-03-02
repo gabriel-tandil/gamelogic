@@ -1,14 +1,14 @@
 /**
-  * <code>EntityManager</code> is responsible for
-  * managing all the <code>IEntity</code> in the game world.
+  * <code>EntityManager</code> es responsable del manejo de todos los
+  *  <code>IEntity</code> en el juego.
   * <p>
-  * <code>EntityManager</code> is responsible for all aspects of entity management
-  * including entity creation, retrieving and destruction.
+  * <code>EntityManager</code>es responsable de todos los aspectos del "management" de las entidades
+  *  incluyendo la creación, recuperación y destrucción de una entidad
   * <p>
-  * <code>EntityManager</code> maintains all the entities by their ID number. This
-  * allows multiple entities with the same type.
+  * <code>EntityManager</code>mantiene todas las entidades por su número ID. Esto permite 
+  * que haya múltiples entidades con el mismo tipo.
   * <p>
-  * <code>EntityManager</code> is a Singleton.
+  * <code>EntityManager</code> es un Singleton.
   */
 package client.manager;
 
