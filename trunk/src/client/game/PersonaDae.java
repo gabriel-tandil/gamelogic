@@ -18,7 +18,11 @@ import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.model.collada.ColladaImporter;
 
-
+/**
+ * clase utilizada para importar un personaje en formato Dae
+ * @author kike
+ *
+ */
 public class PersonaDae extends IPersonaje {
 
 	private static final long serialVersionUID = 1L;

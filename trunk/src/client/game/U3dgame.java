@@ -30,7 +30,11 @@ import com.jme.util.GameTaskQueueManager;
 import com.jme.util.NanoTimer;
 import com.jme.util.geom.Debugger;
 import com.jmex.game.state.GameStateManager;
-
+/**
+ * en esta clase se inicializa el sistema
+ * @author kike
+ *
+ */
 public class U3dgame extends Game {
 	
 	
