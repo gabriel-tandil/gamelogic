@@ -30,6 +30,7 @@ public abstract class IPersonaje extends Node{
 	abstract public Node cargar();
     abstract public void mover(boolean state, boolean run, boolean forward);
     abstract protected void run(boolean running);
+    abstract public void clearAll();
 	
 
 }
