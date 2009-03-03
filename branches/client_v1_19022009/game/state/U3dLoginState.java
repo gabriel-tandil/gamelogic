@@ -2,8 +2,6 @@ package client.game.state;
 
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
-import client.game.task.ChangeStateTask;
-import client.game.task.ChangeToPlace;
 import client.game.task.ITask;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DCargandoTaskFactory;
@@ -24,6 +22,9 @@ import com.jmex.bui.BWindow;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
 import com.jmex.bui.layout.AbsoluteLayout;
+
+import common.datatypes.PlayerState;
+import common.datatypes.Skin;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.MessageFactory;
 import common.messages.MsgPlainText;
@@ -74,22 +75,26 @@ public class U3dLoginState extends U3dState {
 			if (LOGUEO_OK.equals(respuestaLogueo)) {
 				U3dCargandoTask taskCargando = (U3dCargandoTask) TaskManager
 						.getInstance().createTask("7"); // lo hago con un task
-														// poruqe sino gana la
-														// otra tarea y no llega
-														// a mostrar el cartel
-														// de cargando
-				TaskManager.getInstance().enqueue(taskCargando);
-				
-				//Solicita al servidor el ultimo estado del player
+				// poruqe sino gana la
+				// otra tarea y no llega
+				// a mostrar el cartel
+				// de cargando
+				// deshacer
+				// TaskManager.getInstance().enqueue(taskCargando);
+
+				// Solicita al servidor el ultimo estado del player
 				try {
-					MsgPlainText msg = (MsgPlainText) MessageFactory.getInstance()
-							.createMessage(MsgTypes.MSG_GET_PLAYER_TYPE);
+					MsgPlainText msg = (MsgPlainText) MessageFactory
+							.getInstance().createMessage(
+									MsgTypes.MSG_GET_PLAYER_TYPE);
 					msg.setMsg(user);
-					
+
 					GameContext.setUserName(user);
-					
-					ITask taskGetPlayer = TaskCommFactory.getInstance().createComTask(msg);
+
+					ITask taskGetPlayer = TaskCommFactory.getInstance()
+							.createComTask(msg);
 					TaskManager.getInstance().submit(taskGetPlayer);
+
 					loguear = false;
 				} catch (UnsopportedMessageException e) {
 					e.printStackTrace();
@@ -128,64 +133,66 @@ public class U3dLoginState extends U3dState {
 		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
 		inicializaHUD();
 
-//		Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem()
-//				.getWidth(), DisplaySystem.getDisplaySystem().getHeight());
-//
-//		// create the texture state to handle the texture
-//		final TextureState ts = DisplaySystem.getDisplaySystem().getRenderer()
-//				.createTextureState();
-//		// load the image bs a texture (the image should be placed in the same
-//		// directory bs this class)
-//		try {
-//			ResourceLocatorTool.addResourceLocator(
-//					ResourceLocatorTool.TYPE_TEXTURE,
-//					new SimpleResourceLocator(Game.class.getClassLoader()
-//							.getResource("login/")));
-//		} catch (URISyntaxException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		final Texture texture = TextureManager.loadTexture(
-//				"pantallalogin2.PNG", Texture.MinificationFilter.Trilinear, // of
-//				// no
-//				// use
-//				// for
-//				// the
-//				// quad
-//				Texture.MagnificationFilter.Bilinear, // of no use for the
-//				// quad
-//				1.0f, true);
-//		// set the texture for this texture state
-//		ts.setTexture(texture);
-//		// initialize texture width
-//		textureWidth = ts.getTexture().getImage().getWidth();
-//		// initialize texture height
-//		textureHeight = ts.getTexture().getImage().getHeight();
-//		// activate the texture state
-//		ts.setEnabled(true);
-//		// correct texture application:
-//		final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
-//		// coordinate (0,0) for vertex 0
-//		texCoords.put(getUForPixel(0)).put(getVForPixel(0));
-//		// coordinate (0,40) for vertex 1
-//		texCoords.put(getUForPixel(0)).put(getVForPixel(600));
-//		// coordinate (40,40) for vertex 2
-//		texCoords.put(getUForPixel(800)).put(getVForPixel(600));
-//		// coordinate (40,0) for vertex 3
-//		texCoords.put(getUForPixel(800)).put(getVForPixel(0));
-//		// assign texture coordinates to the quad
-//		imagenFondo.setTextureCoords(new TexCoords(texCoords));
-//		// apply the texture state to the quad
-//		imagenFondo.setRenderState(ts);
-//		imagenFondo.setRenderQueueMode(Renderer.QUEUE_ORTHO);
-//		imagenFondo.setLocalTranslation(new Vector3f(DisplaySystem
-//				.getDisplaySystem().getWidth() / 2, DisplaySystem
-//				.getDisplaySystem().getHeight() / 2, 0));
-//		imagenFondo.setLightCombineMode(Spatial.LightCombineMode.Off);
-//		imagenFondo.updateRenderState();
-//
-//		rootNode.attachChild(imagenFondo);
+		// Quad imagenFondo = new Quad("fondo", DisplaySystem.getDisplaySystem()
+		// .getWidth(), DisplaySystem.getDisplaySystem().getHeight());
+		//
+		// // create the texture state to handle the texture
+		// final TextureState ts =
+		// DisplaySystem.getDisplaySystem().getRenderer()
+		// .createTextureState();
+		// // load the image bs a texture (the image should be placed in the
+		// same
+		// // directory bs this class)
+		// try {
+		// ResourceLocatorTool.addResourceLocator(
+		// ResourceLocatorTool.TYPE_TEXTURE,
+		// new SimpleResourceLocator(Game.class.getClassLoader()
+		// .getResource("login/")));
+		// } catch (URISyntaxException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// final Texture texture = TextureManager.loadTexture(
+		// "pantallalogin2.PNG", Texture.MinificationFilter.Trilinear, // of
+		// // no
+		// // use
+		// // for
+		// // the
+		// // quad
+		// Texture.MagnificationFilter.Bilinear, // of no use for the
+		// // quad
+		// 1.0f, true);
+		// // set the texture for this texture state
+		// ts.setTexture(texture);
+		// // initialize texture width
+		// textureWidth = ts.getTexture().getImage().getWidth();
+		// // initialize texture height
+		// textureHeight = ts.getTexture().getImage().getHeight();
+		// // activate the texture state
+		// ts.setEnabled(true);
+		// // correct texture application:
+		// final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
+		// // coordinate (0,0) for vertex 0
+		// texCoords.put(getUForPixel(0)).put(getVForPixel(0));
+		// // coordinate (0,40) for vertex 1
+		// texCoords.put(getUForPixel(0)).put(getVForPixel(600));
+		// // coordinate (40,40) for vertex 2
+		// texCoords.put(getUForPixel(800)).put(getVForPixel(600));
+		// // coordinate (40,0) for vertex 3
+		// texCoords.put(getUForPixel(800)).put(getVForPixel(0));
+		// // assign texture coordinates to the quad
+		// imagenFondo.setTextureCoords(new TexCoords(texCoords));
+		// // apply the texture state to the quad
+		// imagenFondo.setRenderState(ts);
+		// imagenFondo.setRenderQueueMode(Renderer.QUEUE_ORTHO);
+		// imagenFondo.setLocalTranslation(new Vector3f(DisplaySystem
+		// .getDisplaySystem().getWidth() / 2, DisplaySystem
+		// .getDisplaySystem().getHeight() / 2, 0));
+		// imagenFondo.setLightCombineMode(Spatial.LightCombineMode.Off);
+		// imagenFondo.updateRenderState();
+		//
+		// rootNode.attachChild(imagenFondo);
 
 		HudManager.getInstance().update();
 	}
@@ -206,20 +213,20 @@ public class U3dLoginState extends U3dState {
 
 			U3DLoginRequestTask task = (U3DLoginRequestTask) TaskManager
 					.getInstance().createTask("8");
-			
-			user = ((BTextField) HudManager.getInstance().getWindow(
-			"login").getComponent(0)).getText();
-			
-			String password = ((BPasswordField) HudManager.getInstance().getWindow(
-			"login").getComponent(1)).getText();
-			
-			task.initTask(user,password);
-			
+
+			user = ((BTextField) HudManager.getInstance().getWindow("login")
+					.getComponent(0)).getText();
+
+			String password = ((BPasswordField) HudManager.getInstance()
+					.getWindow("login").getComponent(1)).getText();
+
+			task.initTask(user, password);
+
 			TaskManager.getInstance().enqueue(task);
 
 			// TODO cuando se integre con el modulo de comuniocacion eliminar
 			// la linea proxima
-			//setRespuestaLogueo(LOGUEO_OK);
+			// setRespuestaLogueo(LOGUEO_OK);
 		}
 	}
 
@@ -315,7 +322,7 @@ public class U3dLoginState extends U3dState {
 
 	public void initializeCamera(DynamicView playerView) {
 	}
-	
+
 	public Vector3f getTranslation() {
 		return new Vector3f();
 	}
