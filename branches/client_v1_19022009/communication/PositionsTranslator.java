@@ -1,4 +1,4 @@
-package client.communication.tasks.comm;
+package client.communication;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,9 +8,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Map.Entry;
 
-import client.communication.ClientCommunication;
-import client.communication.GameContext;
-import client.communication.WorldsMaper;
 
 import com.jme.math.Vector3f;
 
