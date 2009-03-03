@@ -1,19 +1,9 @@
 package client.communication.tasks.darkstarevents;
 
-import com.jmex.bui.event.ActionEvent;
-import com.jmex.bui.event.ActionListener;
-import java.util.HashMap;
-
 import client.communication.tasks.TaskCommunication;
-import client.communication.tasks.comm.RTaskChangeState;
 import client.manager.HudManager;
-import client.manager.TaskManager;
 
-import common.exceptions.UnsopportedMessageException;
 import common.messages.IMessage;
-import common.messages.MessageFactory;
-import common.messages.MsgTypes;
-import common.messages.notify.MsgChangePlayerState;
 
 /**
  * TaskReconnecting.java
@@ -21,6 +11,12 @@ import common.messages.notify.MsgChangePlayerState;
  * @author Castillo/Santos
  */
 public class TaskReconnecting extends TaskCommunication {
+
+	/**
+	 * String que identifica el mensaje escrito por pantalla para mostrar el
+	 * mensaje de intencion de reconeccion.
+	 */
+	public static final String MENSAJE_RECONECTANDO = "RECONNECTING";
 
 	/**
 	 * El tipo de mensaje de la tarea.
@@ -52,31 +48,10 @@ public class TaskReconnecting extends TaskCommunication {
 	 * @see client.game.task.ITask#execute()
 	 */
 	public void execute() {
-		HashMap<String, String> botones = new HashMap<String, String>();
-		botones.put("Reconnecting", "Reconnecting");
-		HudManager.getInstance().muestraDialogo("Reconnectando?", botones,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						try {
-
-							MsgChangePlayerState msg = (MsgChangePlayerState) MessageFactory
-									.getInstance()
-									.createMessage(
-											MsgTypes.MSG_CHANGE_PLAYER_STATE_SEND_TYPE);
-							RTaskChangeState taskChangeState = new RTaskChangeState(
-									msg);
-							TaskManager.getInstance().submit(taskChangeState);
-
-						} catch (UnsopportedMessageException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					}
-				});
+		HudManager.getInstance().escribir("Intentando Reconectar",
+				MENSAJE_RECONECTANDO);
 
 		HudManager.getInstance().update();
-
 	}
 
 	/**

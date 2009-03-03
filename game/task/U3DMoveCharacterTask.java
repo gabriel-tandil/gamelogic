@@ -2,8 +2,8 @@ package client.game.task;
 
 import java.util.ArrayList;
 
+import client.communication.PositionsTranslator;
 import client.communication.tasks.TaskCommFactory;
-import client.communication.tasks.comm.PositionsTranslator;
 import client.game.entity.Player;
 import client.game.state.U3dState;
 import client.gameEngine.PhysicsManager;
@@ -162,8 +162,8 @@ public class U3DMoveCharacterTask extends Task {
 					// TODO borrar los system.out
 					System.out
 							.println("Creando tarea para enviar el movimiento: ");
-					System.out.println("Origen: " + newOrigin);
-					System.out.println("Destino: " + newDestine);
+					System.out.println("Origen: " + origin);
+					System.out.println("Destino: " + destination);
 
 					MsgMove msg = (MsgMove) MessageFactory.getInstance()
 							.createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);

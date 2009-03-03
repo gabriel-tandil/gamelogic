@@ -7,9 +7,9 @@ import java.util.Map.Entry;
 
 import client.communication.ClientCommunication;
 import client.communication.GameContext;
+import client.communication.PositionsTranslator;
 import client.communication.WorldsMaper;
 import client.communication.msgprocessor.ClientMsgProcessor;
-import client.communication.tasks.comm.PositionsTranslator;
 import client.game.controller.ControllerManagerFactory;
 import client.game.controller.PlayerControllerFactory;
 import client.game.entity.DynamicEntityFactory;

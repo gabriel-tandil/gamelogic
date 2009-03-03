@@ -6,6 +6,7 @@ package client.communication.tasks.comm;
 
 import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
+import client.communication.PositionsTranslator;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;

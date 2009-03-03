@@ -6,6 +6,7 @@ package client.communication.tasks.comm;
 
 import java.util.HashMap;
 
+import client.communication.PositionsTranslator;
 import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.Player;
