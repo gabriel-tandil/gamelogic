@@ -25,6 +25,7 @@ import com.jmex.bui.event.ActionListener;
 import com.jmex.game.state.BasicGameState;
 
 /**
+ * representa los nuevos puntos de acceso BasicGameState del juego.
  * @author Santiago Michielotto
  * @version Created: 19-11-2008
  * @version Modified: 06-02-2009
