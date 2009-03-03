@@ -12,8 +12,9 @@ root:disabled {
 
 window {
  //  border: 1 solid #FFFFFF;
-  background: solid #444444;
-    padding: 3;
+//  background: solid #444444;
+  background: image "HUD/textures/fondo.png" framexy 10;
+    padding: 5;
 }
 
 decoratedwindow {
@@ -90,13 +91,16 @@ combobox {
 }
 
 textfield {
-  background: solid #444444;
+  background: image "HUD/textures/boton_normal.png" framexy;
     font: "Myriad" plain 12;
+      color: #000000;
   padding: 2;
 }
 
 textarea {
-  background: solid #444444;
+  background: image "HUD/textures/boton_normal.png" framexy;
+    font: "Myriad" plain 12;
+      color: #000000;
   padding: 5;
 }
 
@@ -326,7 +330,7 @@ button-close:disabled {
 }
 
 button-close:down {
-  background: image "HUD/textures/close_hover.png" scalexy;
+  background: image "HUD/textures/close_pressed.png" scalexy;
 }
 
 button-close:selected {
@@ -346,7 +350,7 @@ button-chat:disabled {
 }
 
 button-chat:down {
-  background: image "HUD/textures/chat_hover.png" scalexy;
+  background: image "HUD/textures/chat_pressed.png" scalexy;
 }
 
 button-chat:selected {
@@ -366,7 +370,7 @@ button-map:disabled {
 }
 
 button-map:down {
-  background: image "HUD/textures/map_hover.png" scalexy;
+  background: image "HUD/textures/map_pressed.png" scalexy;
 }
 
 button-map:selected {
@@ -386,7 +390,7 @@ button-help:disabled {
 }
 
 button-help:down {
-  background: image "HUD/textures/help_hover.png" scalexy;
+  background: image "HUD/textures/help_pressed.png" scalexy;
 }
 
 button-help:selected {
@@ -406,7 +410,7 @@ button-minimize:disabled {
 }
 
 button-minimize:down {
-  background: image "HUD/textures/minimize_hover.png" scalexy;
+  background: image "HUD/textures/minimize_pressed.png" scalexy;
 }
 
 button-minimize:selected {

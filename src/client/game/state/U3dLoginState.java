@@ -1,5 +1,7 @@
 package client.game.state;
 
+import java.util.HashMap;
+
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DCargandoTaskFactory;
 import client.game.task.U3DChangeToExteriorTaskFactory;
@@ -70,16 +72,10 @@ public class U3dLoginState extends U3dState {
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
 				HudManager.getInstance().setCursorVisible(true);
-				HudManager
-						.getInstance()
-						.escribir(
-								"Fallo al intentar ingresar, verifique los datos e intente luevamente",
-								"errorLogueo");
-				BWindow win = HudManager.getInstance().getWindow("errorLogueo");
-				win.setSize(200, 100);
-				win
-						.setLocation(win.getLocation()[0],
-								win.getLocation()[1] + 90);
+				HashMap<String, String> botones = new HashMap<String, String>();
+				botones.put("aceptar", "Aceptar");
+				HudManager.getInstance().muestraDialogo("Fallo al intentar ingresar, verifique los datos e intente nuevamente.", botones,null);
+				
 				loguear = false;
 
 			}
@@ -179,9 +175,10 @@ public class U3dLoginState extends U3dState {
 		login.center();
 
 	}
-private int getSizeScaled(int size){
-	return (int)(((float)DisplaySystem.getDisplaySystem().getWidth()/100)*size);
-}
+
+	private int getSizeScaled(int size) {
+		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * size);
+	}
 	@Override
 	public void initializeState() {
 		// TODO Auto-generated method stub
