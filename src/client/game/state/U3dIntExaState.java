@@ -8,7 +8,12 @@ import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
 
-
+/**
+ * clase que representa el estado interior de la facultad de exactas del campus. La cual hereda de U3dState que 
+ * a su vez hereda de WorldGameState
+ * @author kike
+ *
+ */
 public class U3dIntExaState extends U3dState {
 	
 	private XMLWorldBuilder builder;
