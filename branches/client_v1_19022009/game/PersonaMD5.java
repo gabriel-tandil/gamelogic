@@ -86,4 +86,11 @@ public class PersonaMD5 extends IPersonaje {
 		}
 	}
 
+
+	@Override
+	public void clearAll() {
+		md5n.clearControllers();
+		md5n.detachAllChildren();		
+	}
+
 }
