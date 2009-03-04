@@ -3,6 +3,8 @@ package client.manager;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import ar.edu.unicen.exa.game2d.wordchallenge.Button;
+
 import com.jme.input.MouseInput;
 import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
@@ -16,6 +18,7 @@ import com.jmex.bui.PolledRootNode;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
 import com.jmex.bui.event.ComponentListener;
+import com.jmex.bui.layout.AbsoluteLayout;
 import com.jmex.bui.layout.GroupLayout;
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
@@ -26,7 +29,7 @@ import com.jmex.game.state.GameStateManager;
  *
  */
 public class HudManager implements IHudManager {
-	private boolean ocultaCursor = true;
+	private boolean ocultaCursor = false;
 	private static HudManager instance = null;
 	protected PolledRootNode _root;
 	BStyleSheet style = null;
@@ -189,20 +192,26 @@ public class HudManager implements IHudManager {
 	}
 
 	private void crearVentanaControl() {
+		setCursorVisible(true);
 		GroupLayout gl= GroupLayout
 		.makeHoriz(GroupLayout.CENTER);
 		gl.setOffAxisJustification(GroupLayout.BOTTOM);
-		ventanaControl = new BWindow(style, gl);
+		ventanaControl = new BWindow(style, new AbsoluteLayout(true));
 
 		ventanaControl.setSize(DisplaySystem.getDisplaySystem().getWidth(),
 				DisplaySystem.getDisplaySystem().getHeight());
 		ventanaControl.setStyleClass("control-window");
-
-		ventanaControl.add(crearBoton("minimize",30,ventanaControl));
-		ventanaControl.add(crearBoton("map",60,ventanaControl));
-		ventanaControl.add(crearBoton("chat",80,ventanaControl));
-		ventanaControl.add(crearBoton("help",60,ventanaControl));
-		ventanaControl.add(crearBoton("close",30,ventanaControl));
+BButton boton=crearBoton("minimize",30,ventanaControl,32);
+		ventanaControl.add(boton,boton.getBounds());
+		boton=crearBoton("map",60,ventanaControl,40);
+		ventanaControl.add(boton,boton.getBounds());
+		boton=crearBoton("chat",80,ventanaControl,50);
+		ventanaControl.add(boton,boton.getBounds());
+		boton=crearBoton("help",60,ventanaControl,60);
+		ventanaControl.add(boton,boton.getBounds());
+		boton=crearBoton("close",30,ventanaControl,67);
+		ventanaControl.add(boton,boton.getBounds());
+		
 		ventanaControl.addListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if ("minimize".equals(event.getAction())){
@@ -232,17 +241,14 @@ public class HudManager implements IHudManager {
 		
 	}
 
-	private BButton crearBoton(String tipo,int tam,final BWindow ventana) {
+	private BButton crearBoton(String tipo,int tam,final BWindow ventana, float porcentajeX) {
 		BButton button = new BButton("", tipo);
 		button.setStyleClass("button-" + tipo);
-//		button.setSize((int)((float)DisplaySystem.getDisplaySystem().getWidth()
-//				/ 800 * tam), (int)((float)DisplaySystem.getDisplaySystem()
-//				.getWidth()
-//				/ 800 * tam));
-//		button.setPreferredSize((int)((float)DisplaySystem.getDisplaySystem().getWidth()
-//				/ 800 * tam), (int)((float)DisplaySystem.getDisplaySystem()
-//				.getWidth()
-//				/ 800 * tam));
+		button.setSize((int)((float)DisplaySystem.getDisplaySystem().getWidth()
+				/ 800 * tam), (int)((float)DisplaySystem.getDisplaySystem()
+				.getWidth()
+				/ 800 * tam));
+		button.setLocation((int) (DisplaySystem.getDisplaySystem().getWidth()*(porcentajeX/100))-button.getWidth()/2, DisplaySystem.getDisplaySystem().getHeight()-button.getHeight());
 		button.addListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				ventana.dispatchEvent(event);
