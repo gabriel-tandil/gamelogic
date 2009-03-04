@@ -17,6 +17,8 @@ import com.jme.util.export.OutputCapsule;
 
 
 /** 
+ * Esta clase extiende de <code>Entity</code> e implementa 
+ *  <code>IDynamicEntity</code> para representar una entidad dinámica en el juego.
  * @author Critian Calomino
  * @version Created: 20-11-2008
  */
