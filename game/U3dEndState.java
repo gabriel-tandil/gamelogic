@@ -1,7 +1,11 @@
 package client.game;
 
 import com.jmex.game.state.GameState;
-
+/**
+ * estado final de U3d
+ * @author kike
+ *
+ */
 public class U3dEndState extends GameState {
 
 	@Override

@@ -6,6 +6,7 @@ package client.minigame;
 import client.communication.tasks.TaskCommFactory;
 import client.game.state.WorldGameState;
 import client.game.task.ITask;
+import client.game.view.DynamicView;
 import client.manager.TaskManager;
 
 import com.jmex.game.state.BasicGameState;
@@ -21,7 +22,7 @@ import common.messages.requests.MsgAdd2DGameScore;
  * @generated "De UML a Java V5.0
  *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
-public class MiniGameState extends BasicGameState {
+public class MiniGameState extends WorldGameState {
 	public MiniGameState(String arg0) {
 		super(arg0);
 		// TODO Apéndice de constructor generado automáticamente
@@ -159,11 +160,10 @@ public class MiniGameState extends BasicGameState {
 	 * @generated "De UML a Java V5.0
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void updateState() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+	@Override
+	public void updateState(float interpolation) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// metodo agregado para soportar el asincronismo de la comunicacion al
@@ -174,6 +174,28 @@ public class MiniGameState extends BasicGameState {
 		// QUE SE CONTINUE LA EJECUCION DEL ESTADO AL RECIBIR EL RANKING
 		// ASOCIADO AL MISMO
 
+	}
+
+
+	@Override
+	public String getDialogText() {
+		// TODO Auto-generated method stub
+		return "Est\u00E1s frente a la puerta de ingreso al Juego "+getName()+". \u00BFQuer\u00E9s Entrar?";
+		
+	}
+
+
+
+	@Override
+	public void initializeCamera(DynamicView playerView) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean needClean() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

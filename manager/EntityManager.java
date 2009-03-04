@@ -33,6 +33,27 @@ import client.game.view.ViewFactoryManager;
 public class EntityManager {
 
 	/**
+	 * The client side current entity ID number.
+	 */
+	private static int currentId;
+
+	/** 
+	 * Retrieve the current identity of the Entities of the Game.
+	 * @return the current identity of the Entities of the Game.
+	 */
+	public Integer getCurrentId() {
+		return currentId;
+	}
+
+	/** 
+	 * @param theCurrentId to apply to the EntityManager singleton.
+	 * Apply a current identity to the EntityManager singleton.
+	 */
+	public void setCurrentId(Integer theCurrentId) {
+		currentId = theCurrentId;
+	}
+	
+	/**
 	 * The <code>EntityManager</code> instance.
 	 */
 	private static EntityManager instance;
@@ -87,8 +108,7 @@ public class EntityManager {
 	
 	public IEntity getEntity(String id) {
 		return hash.get(id);
-
-}
+	}
 
 
 	/**
@@ -106,12 +126,12 @@ public class EntityManager {
 	
 	public void removeEntity(String id) {
 		Entity e= (Entity)getEntity(id);
-		if (e!=null)
+		/*if (e!=null)
 		{
 			BasicGameState actualState = (BasicGameState) GameStateManager.getInstance().getChild(e.getActualWorld());
 			Node root = actualState.getRootNode();
 			root.getChild(id).removeFromParent();
-		}
+		}*/
 		hash.remove(id);
 	}
 

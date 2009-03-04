@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import org.jdom.Attribute;
 import org.jdom.DataConversionException;
@@ -20,6 +21,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import client.game.Game;
+import client.game.entity.U3DBuildingEntity;
 import client.game.input.U3DChaseCamera;
 import client.game.view.DynamicView;
 import client.manager.CollisionManager;
@@ -81,6 +83,7 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jme.util.export.Savable;
 import com.jme.util.export.binary.BinaryImporter;
+import com.jme.util.resource.ResourceLocator;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.game.state.BasicGameState;
@@ -107,8 +110,26 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	
 	private Quaternion Rotation=null;
 	
+	/* modif 2 */
+	Vector<ResourceLocator> vrl;
+	U3DBuildingEntity worldEntity;
+	
 	public XMLWorldBuilder(String urlxml){
 		this.url = urlxml;
+		vrl = new Vector<ResourceLocator>();
+	}
+	
+	
+	//modificacion
+	public void destroyWorld(Node node){
+		
+     	CollisionManager.getInstace().removeAccessPoints();
+		
+     	/** Q sino se confunden las texturas.... xDDDDDD*/
+		for (int i = 0 ; i<vrl.size();i++ )
+			ResourceLocatorTool.removeResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, vrl.get(i));
+		vrl.clear();
+				
 	}
 
 	public void buildWorld(Node worldView) {
@@ -162,9 +183,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	public Skybox setupSky() {
         Skybox sb = new Skybox( "cielo", 1200, 200, 1200 );
         try {
-			ResourceLocatorTool.addResourceLocator(
-			        ResourceLocatorTool.TYPE_TEXTURE,
-			        new SimpleResourceLocator(Game.class.getClassLoader().getResource("cielo/")));
+        	SimpleResourceLocator srl = new SimpleResourceLocator(Game.class.getClassLoader().getResource("cielo/"));
+			ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE,srl);
+			vrl.add(srl);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,8 +223,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 						textures = a.getValue();
 						
 						try {
-							ResourceLocatorTool.addResourceLocator
-							(ResourceLocatorTool.TYPE_TEXTURE, new SimpleResourceLocator(Game.class.getClassLoader().getResource(textures)));
+							SimpleResourceLocator srl = new SimpleResourceLocator(Game.class.getClassLoader().getResource(textures));
+							ResourceLocatorTool.addResourceLocator (ResourceLocatorTool.TYPE_TEXTURE, srl);
+							vrl.add(srl);
 						} catch (URISyntaxException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -227,7 +249,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 		        		Node hijo = new Node("Hijo"+i);
 		    			hijo=cargarModelo(textures + model.getValue()+"_parte"+k+".3ds");
-		    			
+		    			System.out.println("Node: " + k);
 		    			Quaternion q = hijo.getLocalRotation();
 		    			q = q.fromAngleAxis((float)-Math.PI/2, new Vector3f(1,0,0));
 		    			hijo.setLocalRotation(q);

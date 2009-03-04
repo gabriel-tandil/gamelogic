@@ -91,4 +91,16 @@ public class UpdateGameState extends WorldGameState {
 
 	public void initializeCamera(DynamicView playerView) {
 	}
+
+	@Override
+	public String getDialogText() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	public boolean needClean() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

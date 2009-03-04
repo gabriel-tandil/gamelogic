@@ -28,7 +28,9 @@ public class U3dIntEcoState extends U3dState {
 	private String url;
 	
 	private Vector3f translation;
-
+	
+	private U3dBuildingView worldView;
+	
 
 	public U3dIntEcoState(String name, String url) {
 		super(name);
@@ -37,23 +39,29 @@ public class U3dIntEcoState extends U3dState {
 	}
 	
 	public void initialize() {
-		if (!this.initialized) {
+	//	if (!this.initialized) {
 			
+			actualState = getName();
+		
 			this.initializeWorld();
 			this.initializeLight();
+			//this.initializeCamera((U3dPlayerView) this.rootNode.getChild("player_View"));
 
+			
 			this.builder.getTranslationPoint(translation);
 			this.initialized = true;
 			
-			KeyBindingManager.getKeyBindingManager().set("change",
-					KeyInput.KEY_L);
+			//KeyBindingManager.getKeyBindingManager().set("change",
+			//		KeyInput.KEY_L);
+			
 			inicializaHUD();
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
-		}
+		//}
 	}
 	private void inicializaHUD() {
 		HudManager.getInstance().unSetCargando();
+		HudManager.getInstance().update();
 	}
 	private void initializeLight() {	
 		builder.buildLight(rootNode);
@@ -66,7 +74,7 @@ public class U3dIntEcoState extends U3dState {
 		getInstance().createEntity("EntityFactory","World");
 	
 		worldEntity.init(this.name);
-		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
+		worldView = (U3dBuildingView) ViewManager.getInstance().
 		createView(worldEntity);
 
 		builder.buildWorld(worldView);
@@ -74,7 +82,8 @@ public class U3dIntEcoState extends U3dState {
 	}
 
 	public void initializeCamera(DynamicView playerView) {
-		chaser = this.builder.buildCamera(playerView);
+		if (playerView != null)
+			chaser = this.builder.buildCamera(playerView);
 	}
 	
 	public void initializeState() {
@@ -83,7 +92,20 @@ public class U3dIntEcoState extends U3dState {
 	}
 	
 	public void cleanup() {
-
+		rootNode.detachChild(worldView);
+		
+		
+		worldView.detachAllChildren();
+		rootNode.clearRenderState(0);
+		chaser.removeAllActions();
+		chaser=null;
+		
+		this.builder.destroyWorld(rootNode);
+		this.builder = null;
+		HudManager.getInstance().update();
+		
+		System.gc();		
+		System.runFinalization();
 	}
 
 	public void render(float arg0) {
@@ -94,14 +116,14 @@ public class U3dIntEcoState extends U3dState {
 		if (chaser!=null)
 		{
 			chaser.update(interpolation);
-	        Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
-			sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
-	        		chaser.getCamera().getLocation().z);
+	        //Skybox sb=(Skybox) this.getRootNode().getChild("cielo");
+			//sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, chaser.getCamera().getLocation().y,
+	        //		chaser.getCamera().getLocation().z);
 		}
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 		// nodos del hud
 		.updateGeometricState(0.0f, true);
-HudManager.getInstance().getRoot().updateRenderState();
+		HudManager.getInstance().getRoot().updateRenderState();
 
 		/*Ya no va mas con los AccessPoints
 		  if(KeyBindingManager.getKeyBindingManager().isValidCommand("change", false)){
@@ -128,7 +150,7 @@ HudManager.getInstance().getRoot().updateRenderState();
 	public void updateCamera() {
 		boolean intersects = false;
 		Spatial worldView = this.rootNode.getChild("World_View");
-		Spatial campus = ((Node)worldView).getChild(0);
+		Spatial campus = ((Node)worldView).getChild("Campus");
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
 //		System.out.println(intersects);
@@ -136,5 +158,16 @@ HudManager.getInstance().getRoot().updateRenderState();
 
 	public Vector3f getTranslation() {
 		return this.translation;
+	}
+
+	@Override
+	public boolean needClean() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public String getDialogText() {
+		return "Est\u00E1s frente a la puerta de ingreso a "+getName()+". \u00BFQuer\u00E9s Entrar?";
 	}
 }

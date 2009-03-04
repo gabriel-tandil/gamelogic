@@ -34,6 +34,7 @@ import client.manager.EntityManager;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
+import client.minigame.U3dWordChallengeState;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -47,6 +48,11 @@ import com.jme.util.GameTaskQueueManager;
 import com.jme.util.NanoTimer;
 import com.jme.util.geom.Debugger;
 import com.jmex.game.state.GameStateManager;
+/**
+ * en esta clase se inicializa el sistema
+ * @author kike
+ *
+ */
 
 public class U3dgame extends Game {
 
@@ -158,8 +164,8 @@ public class U3dgame extends Game {
 	protected void initHotKeys() {
 		KeyBindingManager.getKeyBindingManager().set("exit",
 				KeyInput.KEY_ESCAPE);
-		// KeyBindingManager.getKeyBindingManager().set("control",
-		// KeyInput.KEY_C);
+		KeyBindingManager.getKeyBindingManager().set("control",
+		KeyInput.KEY_C);
 	}
 
 	protected void initGame() {
@@ -212,6 +218,13 @@ public class U3dgame extends Game {
 					this.getGameStateManager().attachChild(exterior);
 					exterior.setActive(false);
 				}
+				else if (values[1].equals(U3dWordChallengeState.class.toString()))
+					{
+						//FIXME Esto hay que modificarlo para hacer que sea para todos los juegos
+						U3dWordChallengeState wch = new U3dWordChallengeState("WordChallenge");
+						this.getGameStateManager().attachChild(wch);
+						wch.setActive(false);
+					}
 			}
 
 		} catch (Exception e) {
@@ -279,6 +292,8 @@ public class U3dgame extends Game {
 		if (KeyBindingManager.getKeyBindingManager().isValidCommand("exit",
 				false))
 			this.finish();
+		if(KeyBindingManager.getKeyBindingManager().isValidCommand("control", false)) 
+			HudManager.getInstance().muestraControl();		
 
 	}
 

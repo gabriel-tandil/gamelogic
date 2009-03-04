@@ -80,7 +80,7 @@ public class U3dLoginState extends U3dState {
 				// a mostrar el cartel
 				// de cargando
 				// deshacer
-				// TaskManager.getInstance().enqueue(taskCargando);
+				TaskManager.getInstance().enqueue(taskCargando);
 
 				// Solicita al servidor el ultimo estado del player
 				try {
@@ -128,7 +128,8 @@ public class U3dLoginState extends U3dState {
 	}
 
 	public void initialize() {
-
+		
+		actualState = getName();
 		TaskManagerFactory.getInstance().add(new U3DCargandoTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
 		inicializaHUD();
@@ -196,12 +197,6 @@ public class U3dLoginState extends U3dState {
 
 		HudManager.getInstance().update();
 	}
-
-	private ActionListener listener2 = new ActionListener() {
-		public void actionPerformed(ActionEvent event) {
-			handleInput(event);
-		}
-	};
 	private int[] currentResolution;
 
 	public void handleInput(ActionEvent event) {
@@ -250,20 +245,24 @@ public class U3dLoginState extends U3dState {
 		this.currentResolution[1] = (new Integer(DisplaySystem
 				.getDisplaySystem().getHeight())).intValue();
 
-		login.setSize(this.currentResolution[0], this.currentResolution[1]);
+			login.setSize(DisplaySystem
+				.getDisplaySystem().getWidth(), DisplaySystem
+				.getDisplaySystem().getHeight());
 
 		userNameField = new BTextField();
-		userNameField.setLocation(/* 470, 288 */this.getAbsoluteX(58.75), this
-				.getAbsoluteY(48));
-		userNameField.setSize((int) (16.125 * this.currentResolution[0] / 100),
-				23/* 129, 23 */);
+		userNameField.setLocation(this.getAbsoluteX(58), this
+				.getAbsoluteY(47));
+		userNameField.setSize((int) (getSizeScaled(17)),
+				getSizeScaled(4));
+
 		login.add(userNameField, userNameField.getBounds());
 
 		passwordField = new BPasswordField();
-		passwordField.setLocation(/* 475, 333 */this.getAbsoluteX(58.75), this
-				.getAbsoluteY(55.5));
-		passwordField.setSize((int) (16.125 * this.currentResolution[0] / 100),
-				23/* 129, 23 */);
+		passwordField.setLocation(this.getAbsoluteX(58), this
+				.getAbsoluteY(54.5));
+		passwordField.setSize((int) getSizeScaled(17),
+				getSizeScaled(4));
+
 		login.add(passwordField, passwordField.getBounds());
 
 		// create a new BButton called "loginButton" with the display "Login"
@@ -271,11 +270,15 @@ public class U3dLoginState extends U3dState {
 		BButton loginButton = new BButton("Entrar", "login");
 		loginButton.setLocation(this.getAbsoluteX(68.25), this
 				.getAbsoluteY(64.833333));
-		loginButton.setSize((int) (9 * this.currentResolution[0] / 100), 31);
+		loginButton.setSize( getSizeScaled(10), getSizeScaled(4));
 
 		// add our listener2 to the loginButton so it knows what to do with the
 		// "actionMessage" when the button is clicked
-		loginButton.addListener(listener2);
+		loginButton.addListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				handleInput(event);
+			}
+		});
 
 		// add the loginButton to our login window
 		login.add(loginButton, loginButton.getBounds());
@@ -289,6 +292,10 @@ public class U3dLoginState extends U3dState {
 
 	}
 
+		private int getSizeScaled(int size) {
+		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * size);
+	}
+	
 	private float getUForPixel(int xPixel) {
 		return (float) xPixel / textureWidth;
 	}
@@ -325,5 +332,17 @@ public class U3dLoginState extends U3dState {
 
 	public Vector3f getTranslation() {
 		return new Vector3f();
+	}
+
+	@Override
+	public boolean needClean() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getDialogText() {
+		// TODO Auto-generated method stub
+		return "No hay dialogo";
 	}
 }
