@@ -101,24 +101,7 @@ public class U3DMoveCharacterTask extends Task {
 								aux.getRootNode().getChild(0));
 
 				if (destination != null) {
-					/* origin----->destination----->destine */
-
-					/*
-					 * if ((origin.x == destination.x) && (origin.z ==
-					 * destination.z)) destination = destine;
-					 * 
-					 * if (((origin.x - destine.x > 0) && (destination.x -
-					 * origin.x > 0))) destination.x = origin.x;// X --->
-					 * 
-					 * if (((origin.x - destine.x < 0) && (destination.x -
-					 * origin.x < 0))) destination.x = origin.x;// X <----
-					 * 
-					 * if (((origin.z - destine.z > 0) && (destination.z -
-					 * origin.z > 0))) destination.z = origin.z;// Z --->
-					 * 
-					 * if (((origin.z - destine.z < 0) && (destination.z -
-					 * origin.z < 0))) destination.z = origin.z;// Z <----
-					 */
+					
 					Vector3f lcoal = position.clone();
 					direction = destination.subtract(lcoal);
 					direction.normalizeLocal();
@@ -129,7 +112,6 @@ public class U3DMoveCharacterTask extends Task {
 					this.character.getForce().addLocal(force);
 
 					PhysicsManager.getInstance().markForUpdate(this.character);
-					// Step 9.
 					PlayerState ps = new PlayerState();
 					ps.setState(PlayerState.STATE_MOVING);
 					this.character.setState(ps);

@@ -50,6 +50,8 @@ public class U3DAddPlayerTask extends Task {
 		playerView.attachChild(node);
 		playerView.updateWorldBound();
 		rootNode.attachChild(playerView);
+		rootNode.updateGeometricState(0.0f, true);
+		rootNode.updateRenderState();
 		
 		ViewManager.getInstance().addDirtyView(playerView);
 		

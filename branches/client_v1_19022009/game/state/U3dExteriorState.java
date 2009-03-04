@@ -28,6 +28,10 @@ public class U3dExteriorState extends U3dState {
 	private String url;
 	
 	private Vector3f translation;
+	
+	private U3dBuildingView worldView;
+	
+	private Skybox sb;
 
 	
 	public U3dExteriorState(String name, String url) {
@@ -37,7 +41,9 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	public void initialize() {
-		if (!this.initialized) {		
+		actualState = getName();
+		if (!this.initialized) {
+		
 			KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
 
 			this.initializeWorld();
@@ -56,6 +62,8 @@ public class U3dExteriorState extends U3dState {
 		HudManager.getInstance().unSetCargando();
 		HudManager.getInstance().removeWindow("login");
 		HudManager.getInstance().removeWindow("errorLogueo");
+		HudManager.getInstance().muestraControl();
+		HudManager.getInstance().update();
 	}
 
 	private void initializeLight() {
@@ -69,18 +77,19 @@ public class U3dExteriorState extends U3dState {
 		getInstance().createEntity("EntityFactory","World");
 	
 		worldEntity.init(this.name);
-		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
+		worldView = (U3dBuildingView) ViewManager.getInstance().
 		createView(worldEntity);
 
 		builder.buildWorld(worldView);
 		this.rootNode.attachChild(worldView);
 		
-		Skybox sb = this.builder.setupSky();
+		sb = this.builder.setupSky();
 		this.rootNode.attachChild(sb);	
 	}
 
 	public void initializeCamera(DynamicView playerView) {
-		chaser = this.builder.buildCamera(playerView);
+		if (playerView != null)
+			chaser = this.builder.buildCamera(playerView);
 	}
 	
 	public void initializeState() {
@@ -89,6 +98,25 @@ public class U3dExteriorState extends U3dState {
 	}
 	
 	public void cleanup() {
+		rootNode.detachChild(worldView);
+		rootNode.detachChild(sb);
+		
+		//FIXME No va, pero por hora lo dejamos para que saque todo
+		rootNode.detachAllChildren();
+		
+		
+		worldView.detachAllChildren();
+		sb.detachAllChildren();
+		rootNode.clearRenderState(0);
+		chaser.removeAllActions();
+		chaser=null;
+		
+		this.builder.destroyWorld(rootNode);
+		this.builder = null;
+		HudManager.getInstance().update();
+		
+		System.gc();		
+		System.runFinalization();
 
 	}
 
@@ -144,5 +172,16 @@ public class U3dExteriorState extends U3dState {
 
 	public Vector3f getTranslation() {
 		return this.translation;
+	}
+
+	@Override
+	public boolean needClean() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public String getDialogText() {
+		return "Est\u00E1s frente a la puerta de regreso al Campus. \u00BFQuer\u00E9s Entrar?";
 	}
 }

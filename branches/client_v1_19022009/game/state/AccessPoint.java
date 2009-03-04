@@ -8,10 +8,12 @@ package client.game.state;
 import java.util.HashMap;
 
 import client.game.task.ChangeStateTask;
+import client.game.task.ChangeToGame;
 import client.game.task.ChangeToPlace;
 import client.game.task.U3dCargandoTask;
 import client.manager.HudManager;
 import client.manager.TaskManager;
+import client.minigame.U3dWordChallengeState;
 
 import com.jme.scene.Node;
 import com.jmex.bui.event.ActionEvent;
@@ -83,7 +85,15 @@ long timer;
 	 */
 	public void show() {
 		if (!proxEstado.isActive()) {
-			ChangeStateTask task = new ChangeToPlace(this.proxEstado.getName());
+			ChangeStateTask task;
+			if (((WorldGameState)proxEstado).needClean())
+			{	
+				task = new ChangeToPlace(this.proxEstado.getName());
+			}
+			else
+			{
+				task = new ChangeToGame(this.proxEstado.getName());
+			}
 			TaskManager.getInstance().enqueue(task);
 		}
 	}
@@ -94,13 +104,8 @@ long timer;
 		if (!proxEstado.isActive()) {
 			if (System.currentTimeMillis()-timer>2000){
 			timer=System.currentTimeMillis();
-			String textoEdificio = "";
-			if (proxEstado.getClass().equals(U3dIntEcoState.class)) {
-				textoEdificio = "Estas frente a la puerta de ingreso a Economicas. ¿Queres Entrar?";
-			} else if (proxEstado.getClass().equals(U3dExteriorState.class)) {
-				textoEdificio = "Estas frente a la puerta que sale al campus. ¿Queres Salir?";
-
-			}
+			String textoEdificio = ((U3dState)proxEstado).getDialogText();
+				
 			HashMap<String, String> botones = new HashMap<String, String>();
 			botones.put("abrirPuerta", "Abrir Puerta");
 			botones.put("noAbrir", "No Abrir Puerta");
@@ -113,13 +118,17 @@ long timer;
 								.getInstance().createTask("7"); // lo hago con un task poruqe sino gana la otra tarea y no llega a mostrar el cartel de cargando
 						TaskManager.getInstance().enqueue(task);
 								show();
-							}else{
-								HudManager.getInstance().desvincula();
+							//}else{
+							//	HudManager.getInstance().desvincula();
 							}
 								
 						}
 					});
 			}
 		}
+
+		
+		
+		
 	}
 }
