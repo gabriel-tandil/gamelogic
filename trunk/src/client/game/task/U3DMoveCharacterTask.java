@@ -7,6 +7,7 @@ import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
+import client.manager.HudManager;
 import client.manager.ViewManager;
 
 import com.jme.math.Ray;
@@ -113,6 +114,7 @@ public class U3DMoveCharacterTask extends Task {
 
 				}
 			}
+			HudManager.getInstance().actualizaPosicionMapa(destine.x,destine.z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
