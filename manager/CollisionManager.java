@@ -101,7 +101,7 @@ public class CollisionManager {
 		while( e. hasMoreElements() && !cond)
 		{
 			temp=(AccessPoint)e.nextElement();
-			Node abuelo = node.getParent().getParent();
+			Node abuelo = node;
 			while (abuelo!=null && cond==false)
 			{
 			if (temp.getNodo().equals(abuelo))

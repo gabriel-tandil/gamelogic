@@ -42,10 +42,7 @@ public class U3dExteriorState extends U3dState {
 
 	public void initialize() {
 		actualState = getName();
-		if (!this.initialized) {
 		
-			KeyBindingManager.getKeyBindingManager().set("change", KeyInput.KEY_L);
-
 			this.initializeWorld();
 			this.initializeLight();
 			this.inicializaHUD();
@@ -55,7 +52,7 @@ public class U3dExteriorState extends U3dState {
 			
 			rootNode.updateGeometricState(0.0f, true);
 			rootNode.updateRenderState();
-		}
+		
 	}
 
 	private void inicializaHUD() {
