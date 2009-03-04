@@ -6,6 +6,7 @@ package client.game.entity;
 import com.jme.util.export.Savable;
 
 /** 
+ * define la interface de todas las entitades
  * @author Santiago Michielotto
  * @version Created: 20-11-2008
  */

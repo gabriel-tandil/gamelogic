@@ -1,7 +1,11 @@
 package client.game.entity;
 
 import client.game.IPersonaje;
-
+/**
+ * clase que representa a un jugador particular del juego
+ * @author kike
+ *
+ */
 public class U3DPlayer extends Player {
 
 	private IPersonaje p;

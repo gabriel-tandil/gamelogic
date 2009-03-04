@@ -6,6 +6,8 @@ package client.game.entity;
 import java.util.HashMap;
 
 /**
+ * Fábrica que se encarga de generar entidades para los tipos de entidades, 
+ * cada una de estas distintas Factory son seteadas o agregadas al momento de iniciar la aplicación. 
  * @author Mara
  */
 public class EntityManagerFactory {
