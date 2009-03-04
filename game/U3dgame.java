@@ -34,7 +34,7 @@ import client.manager.EntityManager;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
-import client.minigame.U3dWordChallengeState;
+import client.minigame.MiniGameState;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -218,10 +218,10 @@ public class U3dgame extends Game {
 					this.getGameStateManager().attachChild(exterior);
 					exterior.setActive(false);
 				}
-				else if (values[1].equals(U3dWordChallengeState.class.toString()))
+				else if (values[1].equals(MiniGameState.class.toString()))
 					{
 						//FIXME Esto hay que modificarlo para hacer que sea para todos los juegos
-						U3dWordChallengeState wch = new U3dWordChallengeState("WordChallenge");
+						MiniGameState wch = new MiniGameState("WordChallenge");
 						this.getGameStateManager().attachChild(wch);
 						wch.setActive(false);
 					}
