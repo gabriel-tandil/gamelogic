@@ -318,102 +318,102 @@ control-window {
   background: image "HUD/textures/bottom_roundtoolbar.png" scalexy;
 }
 button-close {
-  background: image "HUD/textures/close.png" scalexy;
+  background: image "HUD/textures/close.png";
 
 }
 
 button-close:hover {
-  background: image "HUD/textures/close_hover.png" scalexy;
+  background: image "HUD/textures/close_hover.png";
 }
 
 button-close:disabled {
-  background: image "HUD/textures/close.png" scalexy;
+  background: image "HUD/textures/close.png";
 }
 
 button-close:down {
-  background: image "HUD/textures/close_pressed.png" scalexy;
+  background: image "HUD/textures/close_pressed.png";
 }
 
 button-close:selected {
-  background: image "HUD/textures/close_hover.png" scalexy;
+  background: image "HUD/textures/close_hover.png";
 }
 button-chat {
-  background: image "HUD/textures/chat.png" scalexy;
+  background: image "HUD/textures/chat.png";
 
 }
 
 button-chat:hover {
-  background: image "HUD/textures/chat_hover.png" scalexy;
+  background: image "HUD/textures/chat_hover.png";
 }
 
 button-chat:disabled {
-  background: image "HUD/textures/chat.png" scalexy;
+  background: image "HUD/textures/chat.png";
 }
 
 button-chat:down {
-  background: image "HUD/textures/chat_pressed.png" scalexy;
+  background: image "HUD/textures/chat_pressed.png";
 }
 
 button-chat:selected {
-  background: image "HUD/textures/chat_hover.png" scalexy;
+  background: image "HUD/textures/chat_hover.png";
 }
 button-map {
-  background: image "HUD/textures/map.png" scalexy;
+  background: image "HUD/textures/map.png";
 
 }
 
 button-map:hover {
-  background: image "HUD/textures/map_hover.png" scalexy;
+  background: image "HUD/textures/map_hover.png";
 }
 
 button-map:disabled {
-  background: image "HUD/textures/map.png" scalexy;
+  background: image "HUD/textures/map.png";
 }
 
 button-map:down {
-  background: image "HUD/textures/map_pressed.png" scalexy;
+  background: image "HUD/textures/map_pressed.png";
 }
 
 button-map:selected {
-  background: image "HUD/textures/map_hover.png" scalexy;
+  background: image "HUD/textures/map_hover.png";
 }
 button-help {
-  background: image "HUD/textures/help.png" scalexy;
+  background: image "HUD/textures/help.png";
 
 }
 
 button-help:hover {
-  background: image "HUD/textures/help_hover.png" scalexy;
+  background: image "HUD/textures/help_hover.png";
 }
 
 button-help:disabled {
-  background: image "HUD/textures/help.png" scalexy;
+  background: image "HUD/textures/help.png";
 }
 
 button-help:down {
-  background: image "HUD/textures/help_pressed.png" scalexy;
+  background: image "HUD/textures/help_pressed.png";
 }
 
 button-help:selected {
-  background: image "HUD/textures/help_hover.png" scalexy;
+  background: image "HUD/textures/help_hover.png";
 }
 button-minimize {
-  background: image "HUD/textures/minimize.png" scalexy;
+  background: image "HUD/textures/minimize.png";
  
 }
 
 button-minimize:hover {
-  background: image "HUD/textures/minimize_hover.png" scalexy;
+  background: image "HUD/textures/minimize_hover.png";
 }
 
 button-minimize:disabled {
-  background: image "HUD/textures/minimize.png" scalexy;
+  background: image "HUD/textures/minimize.png";
 }
 
 button-minimize:down {
-  background: image "HUD/textures/minimize_pressed.png" scalexy;
+  background: image "HUD/textures/minimize_pressed.png";
 }
 
 button-minimize:selected {
-  background: image "HUD/textures/minimize_hover.png" scalexy;
+  background: image "HUD/textures/minimize_hover.png";
 }
