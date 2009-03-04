@@ -45,13 +45,14 @@ tooltip_label {
 }
 
 label {
+    font: "HUD/fonts/VAG Rounded BT.ttf" plain 16;
   color: #FFFFFF;
 }
 
 button {
   background: image "HUD/textures/boton_normal.png" framexy;
   padding: 3 5;
-  font: "Myriad" bold 14;
+  font: "HUD/fonts/VAG Rounded BT.ttf" bold 14;
   text-align: center;
   color: #000000;
 }
@@ -92,14 +93,14 @@ combobox {
 
 textfield {
   background: image "HUD/textures/boton_normal.png" framexy;
-    font: "Myriad" plain 12;
+    font: "HUD/fonts/VAG Rounded BT.ttf" plain 12;
       color: #000000;
   padding: 2;
 }
 
 textarea {
   background: image "HUD/textures/boton_normal.png" framexy;
-    font: "Myriad" plain 12;
+    font: "HUD/fonts/VAG Rounded BT.ttf" plain 12;
       color: #000000;
   padding: 5;
 }
