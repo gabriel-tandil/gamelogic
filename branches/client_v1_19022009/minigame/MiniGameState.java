@@ -4,11 +4,13 @@
 package client.minigame;
 
 import client.communication.tasks.TaskCommFactory;
+import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.game.task.ITask;
 import client.game.view.DynamicView;
 import client.manager.TaskManager;
 
+import com.jme.math.Vector3f;
 import com.jmex.game.state.BasicGameState;
 import common.datatypes.D2GameScore;
 import common.datatypes.Ranking;
@@ -22,7 +24,7 @@ import common.messages.requests.MsgAdd2DGameScore;
  * @generated "De UML a Java V5.0
  *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
-public class MiniGameState extends WorldGameState {
+public class MiniGameState extends U3dState {
 	public MiniGameState(String arg0) {
 		super(arg0);
 		// TODO Apéndice de constructor generado automáticamente
@@ -196,6 +198,18 @@ public class MiniGameState extends WorldGameState {
 	public boolean needClean() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Vector3f getTranslation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateCamera() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
