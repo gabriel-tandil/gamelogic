@@ -73,6 +73,7 @@ public class U3dExteriorState extends U3dState {
 		HudManager.getInstance().removeWindow("login");
 		HudManager.getInstance().removeWindow("errorLogueo");
 		HudManager.getInstance().muestraControl();
+		HudManager.getInstance().muestraMapa();
 		HudManager.getInstance().update();
 	}
 

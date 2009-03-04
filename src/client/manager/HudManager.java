@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.jme.input.MouseInput;
-import com.jme.renderer.ColorRGBA;
+import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
 import com.jme.util.Timer;
 import com.jmex.bui.BButton;
@@ -13,7 +13,6 @@ import com.jmex.bui.BStyleSheet;
 import com.jmex.bui.BWindow;
 import com.jmex.bui.BuiSystem;
 import com.jmex.bui.PolledRootNode;
-import com.jmex.bui.background.TintedBackground;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
 import com.jmex.bui.event.ComponentListener;
@@ -33,6 +32,8 @@ public class HudManager implements IHudManager {
 	BStyleSheet style = null;
 	private HashMap<String, BWindow> ventanas;
 	private BWindow ventanaControl;
+	Map map=new Map();
+	private boolean muestraMapa=false;
 	public HudManager() {
 
 	}
@@ -64,9 +65,13 @@ public class HudManager implements IHudManager {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
 				gs.getRootNode().attachChild(_root);
-
+				if (muestraMapa)
+					gs.getRootNode().attachChild(map.loadMap());
+				else
+					gs.getRootNode().detachChild(map.loadMap());
 			} else {
 				gs.getRootNode().detachChild(_root);
+				gs.getRootNode().detachChild(map.loadMap());
 
 			}
 			_root.updateGeometricState(0.0f, true);
@@ -178,7 +183,7 @@ public class HudManager implements IHudManager {
 
 	public void muestraControl() {
 		setCursorVisible(true);
-		if (!GameStateManager.getInstance().getChild("login").isActive()) //en el login no muestro la ventana de control
+	//	if (!GameStateManager.getInstance().getChild("login").isActive()) //en el login no muestro la ventana de control
 			addWindow(ventanaControl,"control");
 			update();	
 	}
@@ -203,7 +208,10 @@ public class HudManager implements IHudManager {
 				if ("minimize".equals(event.getAction())){
 					removeWindow("control");
 				}
-				if ("map".equals(event.getAction())){}
+				if ("map".equals(event.getAction())){
+					muestraMapa=!muestraMapa;
+					update();
+				}
 				if ("chat".equals(event.getAction())){}
 				if ("help".equals(event.getAction())){}
 				if ("close".equals(event.getAction())){
@@ -258,10 +266,21 @@ public class HudManager implements IHudManager {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
 				gs.getRootNode().detachChild(_root);
+				gs.getRootNode().detachChild(map.loadMap());
 			}
 			_root.updateGeometricState(0.0f, true);
 			_root.updateRenderState();
 		}
 		setCursorVisible(false);
+	}
+
+	public void muestraMapa() {
+		muestraMapa=true;
+		
+	}
+
+	public void actualizaPosicionMapa(float x, float y) {
+		map.changeMapLocation(x, y);
+		
 	}
 }
