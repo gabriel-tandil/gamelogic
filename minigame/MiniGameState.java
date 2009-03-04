@@ -3,19 +3,24 @@
  */
 package client.minigame;
 
+import ar.edu.unicen.exa.game2d.wordchallenge.Score;
+import ar.edu.unicen.exa.game2d.wordchallenge.WordChallenge;
+import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
+import client.game.state.IGameState;
 import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.game.task.ITask;
 import client.game.view.DynamicView;
+import client.manager.HudManager;
 import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
-import com.jmex.game.state.BasicGameState;
 import common.datatypes.D2GameScore;
 import common.datatypes.Ranking;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.MessageFactory;
+import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 import common.messages.requests.MsgAdd2DGameScore;
 
@@ -121,10 +126,8 @@ public class MiniGameState extends U3dState {
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public void initialize() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		this.initializeState();
+		this.inicializaHUD();
 	}
 
 	/**
@@ -149,10 +152,18 @@ public class MiniGameState extends U3dState {
 	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
 	public void initializeState() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente
-
-		// end-user-code
+		MsgPlainText msg;
+		try {
+			msg = (MsgPlainText) MessageFactory
+			.getInstance().createMessage(
+					MsgTypes.MSG_GET_RANKING_TYPE);
+			msg.setMsg(this.getName());
+			ITask task = TaskCommFactory.getInstance().createComTask(msg);
+			TaskManager.getInstance().submit(task);
+		} catch (UnsopportedMessageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -175,6 +186,21 @@ public class MiniGameState extends U3dState {
 		// FIXME IMPLEMENTAR ESTE METODO. QUE ES YAMADO ASINCRONICAMENTE PARA
 		// QUE SE CONTINUE LA EJECUCION DEL ESTADO AL RECIBIR EL RANKING
 		// ASOCIADO AL MISMO
+		
+		WordChallenge game = new WordChallenge();
+		game.setRanking(ranking);
+		game.setId(ranking.getId2DGame());
+		game.setPlayerId(GameContext.getUserName());
+		game.execute();
+		
+		D2GameScore score = game.getScore();
+		//D2GameScore score = new D2GameScore();
+		//score.setId2DGame("WordChallenge");
+		//score.setIdPlayer("NENE");
+		//score.setScore(234);
+		
+		this.sendResult(game, score);
+
 
 	}
 
@@ -210,6 +236,10 @@ public class MiniGameState extends U3dState {
 	public void updateCamera() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void inicializaHUD() {
+		HudManager.getInstance().unSetCargando();
 	}
 
 }
