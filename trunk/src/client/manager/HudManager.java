@@ -176,6 +176,7 @@ public class HudManager implements IHudManager {
 	public void addWindow(BWindow wind, String id) {
 		ventanas.put(id, wind);
 		_root.addWindow(wind);
+		update();
 	}
 
 	public void removeWindow(String id) {
@@ -198,7 +199,7 @@ public class HudManager implements IHudManager {
 
 	public void muestraControl() {
 		setCursorVisible(true);
-		//if (!GameStateManager.getInstance().getChild("login").isActive()) // en
+		if (!GameStateManager.getInstance().getChild("login").isActive()) // en
 																			// el
 																			// login
 																			// no
@@ -208,7 +209,6 @@ public class HudManager implements IHudManager {
 																			// de
 																			// control
 			addWindow(ventanaControl, "control");
-		update();
 	}
 
 	private void crearVentanaControl() {
