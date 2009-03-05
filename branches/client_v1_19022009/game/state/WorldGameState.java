@@ -5,7 +5,6 @@ package client.game.state;
 
 import client.game.Game;
 
-import com.jme.math.Vector3f;
 import com.jmex.game.state.BasicGameState;
 
 /** 
@@ -48,7 +47,7 @@ public abstract class WorldGameState extends BasicGameState implements
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	private IWorldBuilder iworldbuilder;
+	protected IWorldBuilder iworldbuilder;
 	
 	/** 
 	 * @return el iworldbuilder

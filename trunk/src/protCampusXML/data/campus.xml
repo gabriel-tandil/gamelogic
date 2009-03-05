@@ -20,18 +20,18 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="1019" param2="Eco" />
-		<accesspoint param1="809" param2="Exa" />
-		<accesspoint param1="808" param2="Exa" />
-		<accesspoint param1="841" param2="Exa" />
-		<accesspoint param1="397" param2="Buf" />
-		<accesspoint param1="396" param2="Buf" />
-		<accesspoint param1="193" param2="AC1" />
-		<accesspoint param1="220" param2="AC1" />
-		<accesspoint param1="222" param2="AC1" />
-		<accesspoint param1="223" param2="AC1" />
-		<accesspoint param1="339" param2="Isi" />
-		<accesspoint param1="318" param2="Isi" />
+		<accesspoint param1="1019" param2="Eco" posX="415.0" posY="0.5" posZ="-300.0"/>
+		<accesspoint param1="809" param2="Exa" posX="37.0" posY="1.5" posZ="-20.0" />
+		<accesspoint param1="808" param2="Exa" posX="37.0" posY="1.5" posZ="-20.0"/>
+		<accesspoint param1="841" param2="Exa" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="397" param2="Buf" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="396" param2="Buf" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="193" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="220" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="222" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="223" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="339" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="318" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
 	</accesspoints>
 	<directionalLight>
 		<diffuse>

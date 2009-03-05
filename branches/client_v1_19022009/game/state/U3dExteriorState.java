@@ -4,13 +4,10 @@ import client.game.entity.U3DBuildingEntity;
 import client.game.input.U3DChaseCamera;
 import client.game.view.DynamicView;
 import client.game.view.U3dBuildingView;
-import client.game.view.U3dPlayerView;
 import client.manager.EntityManager;
 import client.manager.HudManager;
 import client.manager.ViewManager;
 
-import com.jme.input.KeyBindingManager;
-import com.jme.input.KeyInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
@@ -19,8 +16,6 @@ import com.jme.scene.Spatial;
 
 public class U3dExteriorState extends U3dState {
 	
-	private XMLWorldBuilder builder;
-
 	private boolean initialized;
 	
 	private U3DChaseCamera chaser;
@@ -41,13 +36,13 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	public void initialize() {
-		actualState = getName();
+			actualState = getName();
 		
 			this.initializeWorld();
 			this.initializeLight();
 			this.inicializaHUD();
 			
-			this.builder.getTranslationPoint(translation);
+			this.iworldbuilder.getTranslationPoint(translation);
 			this.initialized = true;
 			
 			rootNode.updateGeometricState(0.0f, true);
@@ -65,11 +60,11 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	private void initializeLight() {
-		this.builder.buildLight(rootNode);
+		this.iworldbuilder.buildLight(rootNode);
 	}
 	
 	private void initializeWorld() {
-		builder = new XMLWorldBuilder(url);
+		this.iworldbuilder = new XMLWorldBuilder(url);
 		
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
 		getInstance().createEntity("EntityFactory","World");
@@ -78,16 +73,16 @@ public class U3dExteriorState extends U3dState {
 		worldView = (U3dBuildingView) ViewManager.getInstance().
 		createView(worldEntity);
 
-		builder.buildWorld(worldView);
+		this.iworldbuilder.buildWorld(worldView);
 		this.rootNode.attachChild(worldView);
 		
-		sb = this.builder.setupSky();
+		sb = this.iworldbuilder.setupSky();
 		this.rootNode.attachChild(sb);	
 	}
 
 	public void initializeCamera(DynamicView playerView) {
 		if (playerView != null)
-			chaser = this.builder.buildCamera(playerView);
+			chaser = this.iworldbuilder.buildCamera(playerView);
 	}
 	
 	public void initializeState() {
@@ -109,8 +104,8 @@ public class U3dExteriorState extends U3dState {
 		chaser.removeAllActions();
 		chaser=null;
 		
-		this.builder.destroyWorld(rootNode);
-		this.builder = null;
+		this.iworldbuilder.destroyWorld(rootNode);
+		this.iworldbuilder = null;
 		HudManager.getInstance().update();
 		
 		System.gc();		
@@ -159,7 +154,7 @@ public class U3dExteriorState extends U3dState {
 	public void updateCamera() {
 		boolean intersects = false;
 		Spatial worldView = this.rootNode.getChild("World_View");
-		Spatial campus = ((Node)worldView).getChild(0);
+		Spatial campus = ((Node)worldView).getChild("campus");
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
 	}

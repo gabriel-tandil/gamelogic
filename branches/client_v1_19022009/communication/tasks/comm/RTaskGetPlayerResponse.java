@@ -11,7 +11,7 @@ import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.Player;
 import client.game.task.ChangeStateTask;
-import client.game.task.ChangeToPlace;
+import client.game.task.U3DChangeToFirstPlace;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
 
@@ -62,7 +62,7 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 
 		// Se carga la estructura del nodo correspondiente al mundo actual
 		// obtenido desde el servidor.
-		ChangeStateTask task = new ChangeToPlace(idClientWorld);
+		ChangeStateTask task = new U3DChangeToFirstPlace(idClientWorld);
 		TaskManager.getInstance().enqueue(task);
 
 		// Obtengo la traslacion de la posicion y la seteo

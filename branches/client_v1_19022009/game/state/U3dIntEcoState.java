@@ -19,8 +19,6 @@ import com.jme.scene.Spatial;
 
 public class U3dIntEcoState extends U3dState {
 	
-	private XMLWorldBuilder builder;
-
 	private boolean initialized;
 	
 	private U3DChaseCamera chaser;
@@ -48,7 +46,7 @@ public class U3dIntEcoState extends U3dState {
 			//this.initializeCamera((U3dPlayerView) this.rootNode.getChild("player_View"));
 
 			
-			this.builder.getTranslationPoint(translation);
+			this.iworldbuilder.getTranslationPoint(translation);
 			this.initialized = true;
 			
 			//KeyBindingManager.getKeyBindingManager().set("change",
@@ -61,14 +59,17 @@ public class U3dIntEcoState extends U3dState {
 	}
 	private void inicializaHUD() {
 		HudManager.getInstance().unSetCargando();
+		HudManager.getInstance().removeWindow("login");
+		HudManager.getInstance().removeWindow("errorLogueo");
+		HudManager.getInstance().muestraControl();
 		HudManager.getInstance().update();
 	}
 	private void initializeLight() {	
-		builder.buildLight(rootNode);
+		this.iworldbuilder.buildLight(rootNode);
 	}
 	
 	private void initializeWorld() {
-		builder = new XMLWorldBuilder(url);
+		this.iworldbuilder = new XMLWorldBuilder(url);
 		
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
 		getInstance().createEntity("EntityFactory","World");
@@ -77,13 +78,13 @@ public class U3dIntEcoState extends U3dState {
 		worldView = (U3dBuildingView) ViewManager.getInstance().
 		createView(worldEntity);
 
-		builder.buildWorld(worldView);
+		this.iworldbuilder.buildWorld(worldView);
 		this.rootNode.attachChild(worldView);
 	}
 
 	public void initializeCamera(DynamicView playerView) {
 		if (playerView != null)
-			chaser = this.builder.buildCamera(playerView);
+			chaser = this.iworldbuilder.buildCamera(playerView);
 	}
 	
 	public void initializeState() {
@@ -94,14 +95,16 @@ public class U3dIntEcoState extends U3dState {
 	public void cleanup() {
 		rootNode.detachChild(worldView);
 		
+		//FIXME No va, pero por hora lo dejamos para que saque todo
+		rootNode.detachAllChildren();
 		
 		worldView.detachAllChildren();
 		rootNode.clearRenderState(0);
 		chaser.removeAllActions();
 		chaser=null;
 		
-		this.builder.destroyWorld(rootNode);
-		this.builder = null;
+		this.iworldbuilder.destroyWorld(rootNode);
+		this.iworldbuilder = null;
 		HudManager.getInstance().update();
 		
 		System.gc();		
@@ -150,7 +153,7 @@ public class U3dIntEcoState extends U3dState {
 	public void updateCamera() {
 		boolean intersects = false;
 		Spatial worldView = this.rootNode.getChild("World_View");
-		Spatial campus = ((Node)worldView).getChild("Campus");
+		Spatial campus = ((Node)worldView).getChild("campus");
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
 //		System.out.println(intersects);
