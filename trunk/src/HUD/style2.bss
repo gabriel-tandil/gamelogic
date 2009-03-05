@@ -50,7 +50,7 @@ label {
 }
 
 button {
-  background: image "HUD/textures/boton_normal.png" framexy;
+  background: image "HUD/textures/button.png" framexy 5;
   padding: 3 5;
   font: "HUD/fonts/VAG Rounded BT.ttf" bold 14;
   text-align: center;
@@ -68,41 +68,41 @@ menuitem:hover {
 
 button:hover {
   color: #000000;
-  background: image "HUD/textures/boton_seleccionado.png" framexy;
+  background: image "HUD/textures/button_hover.png" framexy 5;
 }
 
 button:disabled {
-  background: image "HUD/textures/boton_inhabilitado.png" framexy;
+  background: image "HUD/textures/button.png" framexy 5;
 }
 
 button:down {
-  background: image "HUD/textures/boton_apretado.png" framexy;
+  background: image "HUD/textures/button_pressed.png" framexy 5;
   color: #444444;
   padding: 4 6 2 4;
 }
 
 button:selected {
-  background: image "HUD/textures/boton_seleccionado.png" framexy;
+  background: image "HUD/textures/button.png" framexy 5;
   padding: 4 6 2 4;
 }
 
 combobox {
-  background: image "HUD/textures/button_up.png" framexy;
+  background: image "HUD/textures/button.png" framexy 5;
   padding: 3 5;
 }
 
 textfield {
-  background: image "HUD/textures/boton_normal.png" framexy;
+  background: image "HUD/textures/input.png" framexy 5;
     font: "HUD/fonts/VAG Rounded BT.ttf" plain 12;
       color: #000000;
-  padding: 2;
+  padding: 6;
 }
 
 textarea {
-  background: image "HUD/textures/boton_normal.png" framexy;
+  background: image "HUD/textures/input.png" framexy 5;
     font: "HUD/fonts/VAG Rounded BT.ttf" plain 12;
       color: #000000;
-  padding: 5;
+  padding: 7;
 }
 
 checkbox {
@@ -126,12 +126,12 @@ scrollbar_vthumb {
 }
 
 scrollbar_hwell {
-  background: image "HUD/textures/button_up.png" framexy;
+  background: image "HUD/textures/button.png" framexy 5;
   padding: 3;
 }
 
 scrollbar_vwell {
-  background: image "HUD/textures/button_up.png" framexy;
+  background: image "HUD/textures/button.png" framexy 5;
   padding: 3;
 }
 
@@ -152,12 +152,12 @@ scrollbar_vmore {
 }
 
 hslider {
-  icon: image "HUD/textures/button_up.png";
+  icon: image "HUD/textures/button.png";
   border: 1 solid #000000;
 }
 
 vslider {
-  icon: image "HUD/textures/button_up.png";
+  icon: image "HUD/textures/button.png";
   border: 1 solid #000000;
 }
 
@@ -215,12 +215,12 @@ closebutton: hover{
 
 minimizebutton {
 	parent: titlebutton;
-	background: image "HUD/textures/minimize.png" centerxy;
+	background: image "HUD/textures/min.png" centerxy;
 }
 
 minimizebutton: hover{
 	parent: titlebutton;
-	background: image "HUD/textures/minimize_hover.png" centerxy;
+	background: image "HUD/textures/min_hover.png" centerxy;
 }
 
 maximizebutton {
@@ -339,7 +339,6 @@ button-close:selected {
 }
 button-chat {
   background: image "HUD/textures/chat.png";
-
 }
 
 button-chat:hover {
@@ -359,7 +358,6 @@ button-chat:selected {
 }
 button-map {
   background: image "HUD/textures/map.png";
-
 }
 
 button-map:hover {
@@ -398,22 +396,22 @@ button-help:selected {
   background: image "HUD/textures/help_hover.png";
 }
 button-minimize {
-  background: image "HUD/textures/minimize.png";
+  background: image "HUD/textures/min.png";
  
 }
 
 button-minimize:hover {
-  background: image "HUD/textures/minimize_hover.png";
+  background: image "HUD/textures/min_hover.png";
 }
 
 button-minimize:disabled {
-  background: image "HUD/textures/minimize.png";
+  background: image "HUD/textures/min.png";
 }
 
 button-minimize:down {
-  background: image "HUD/textures/minimize_pressed.png";
+  background: image "HUD/textures/min_pressed.png";
 }
 
 button-minimize:selected {
-  background: image "HUD/textures/minimize_hover.png";
+  background: image "HUD/textures/min_hover.png";
 }

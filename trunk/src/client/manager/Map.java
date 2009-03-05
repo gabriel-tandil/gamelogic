@@ -78,9 +78,12 @@ public class Map{
         alphaState.setTestEnabled(true);
         alphaState.setTestFunction(BlendState.TestFunction.GreaterThan);
         alphaState.setEnabled(true);
- 
+
         myPosition.setRenderState(alphaState);
         myPosition.updateRenderState();
+        //Aplica transparencia al borde del mapa
+        borderMap.setRenderState(alphaState); 
+        borderMap.updateRenderState();
         
         hudMap.setLightCombineMode(Spatial.LightCombineMode.Off);
         hudMap.attachChild(borderMap);
