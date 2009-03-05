@@ -6,6 +6,7 @@ package client.minigame;
 import java.util.List;
 
 import common.datatypes.D2GameScore;
+import common.datatypes.Ranking;
 
 /** 
  * @author Mara
@@ -28,19 +29,19 @@ public interface I2DGame {
 	 * @param stage
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setStartStage(Integer stage);
+	public void setStartStage(int stage);
 
 	/** 
 	 * @param time
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setTimeToPlay(Float time);
+	public void setTimeToPlay(float time);
 
 	/** 
 	 * @return
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public Object isPlaying();
+	public boolean isPlaying();
 
 	/** 
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
@@ -51,11 +52,15 @@ public interface I2DGame {
 	 * @return
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public Object getID();
+	public String getID();
 
 	/** 
 	 * @param id
 	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	 */
-	public void setID(Object id);
+	public void setID(String id);
+	
+	void setPlayerId(String PlayerId);
+	
+	void setRanking(Ranking ranking);
 }
