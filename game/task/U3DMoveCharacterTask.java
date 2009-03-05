@@ -8,6 +8,7 @@ import client.game.entity.Player;
 import client.game.state.U3dState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
+import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 
@@ -158,6 +159,7 @@ public class U3DMoveCharacterTask extends Task {
 							msg);
 
 					TaskManager.getInstance().submit(task);
+					HudManager.getInstance().actualizaPosicionMapa(destine.x,destine.z);
 				}
 			}
 		} catch (Exception e) {

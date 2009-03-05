@@ -1,5 +1,7 @@
 package client.game.state;
 
+import java.util.HashMap;
+
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.game.task.ITask;
@@ -22,9 +24,6 @@ import com.jmex.bui.BWindow;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
 import com.jmex.bui.layout.AbsoluteLayout;
-
-import common.datatypes.PlayerState;
-import common.datatypes.Skin;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.MessageFactory;
 import common.messages.MsgPlainText;
@@ -103,16 +102,11 @@ public class U3dLoginState extends U3dState {
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
 				HudManager.getInstance().setCursorVisible(true);
-				HudManager
-						.getInstance()
-						.escribir(
-								"Fallo al intentar ingresar, verifique los datos e intente luevamente",
-								"errorLogueo");
-				BWindow win = HudManager.getInstance().getWindow("errorLogueo");
-				win.setSize(200, 100);
-				win
-						.setLocation(win.getLocation()[0],
-								win.getLocation()[1] + 90);
+				HashMap<String, String> botones = new HashMap<String, String>();
+				botones.put("aceptar", "Aceptar");
+				HudManager.getInstance().muestraDialogo("Fallo al intentar ingresar, verifique los datos e intente nuevamente.", botones,null);
+				respuestaLogueo=null;
+				loguear = false;
 
 			}
 
@@ -323,8 +317,9 @@ public class U3dLoginState extends U3dState {
 	}
 
 	public void setRespuestaLogueo(String respuesta) {
-		loguear = true;
+		
 		respuestaLogueo = respuesta;
+		loguear = true;
 	}
 
 	public void initializeCamera(DynamicView playerView) {
