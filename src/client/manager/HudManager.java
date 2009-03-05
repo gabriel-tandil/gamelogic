@@ -73,6 +73,7 @@ public class HudManager implements IHudManager {
 				.getChildren().iterator(); iterator.hasNext();) {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
+				if (!ventanas.isEmpty())
 				gs.getRootNode().attachChild(_root);
 				if (muestraMapa)
 					gs.getRootNode().attachChild(map.loadMap());
@@ -299,7 +300,7 @@ public class HudManager implements IHudManager {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
 				gs.getRootNode().detachChild(_root);
-				gs.getRootNode().detachChild(map.loadMap());
+				//gs.getRootNode().detachChild(map.loadMap());
 			}
 			_root.updateGeometricState(0.0f, true);
 			_root.updateRenderState();

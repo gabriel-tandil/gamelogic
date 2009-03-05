@@ -160,7 +160,7 @@ public class U3dLoginState extends U3dState {
 		BButton loginButton = new BButton("Entrar", "login");
 		loginButton.setLocation(this.getAbsoluteX(68.25), this
 				.getAbsoluteY(64.833333));
-		loginButton.setSize( getSizeScaled(10), getSizeScaled(4));
+		loginButton.setSize( getSizeScaled(14), getSizeScaled(5));
 
 		// add our listener2 to the loginButton so it knows what to do with the
 		// "actionMessage" when the button is clicked
@@ -182,8 +182,8 @@ public class U3dLoginState extends U3dState {
 
 	}
 
-	private int getSizeScaled(int size) {
-		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * size);
+	private int getSizeScaled(double d) {
+		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * d);
 	}
 	@Override
 	public void initializeState() {
