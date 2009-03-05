@@ -114,7 +114,7 @@ public class U3DMoveCharacterTask extends Task {
 
 				}
 			}
-			HudManager.getInstance().actualizaPosicionMapa(destine.x,destine.z);
+			HudManager.getInstance().getMap().changeMapLocation(destine.x,destine.z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
