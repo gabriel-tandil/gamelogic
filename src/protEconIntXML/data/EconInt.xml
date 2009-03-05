@@ -20,8 +20,8 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="4" param2="Exterior" />
-		<accesspoint param1="63" param2="WordChallenge" />
+		<accesspoint param1="4" param2="Exterior" posX="-1200.0" posY="1.5" posZ="4000.0"/>
+		<accesspoint param1="63" param2="WordChallenge" posX="1850.0" posY="1.5" posZ="1050.0"/>
 	</accesspoints>
 	<pointLigh>
 		<diffuse>
