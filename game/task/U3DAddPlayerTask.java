@@ -15,6 +15,7 @@ import com.jme.input.KeyInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jmex.game.state.GameStateManager;
+import common.datatypes.Skin;
 
 public class U3DAddPlayerTask extends Task {
 	
@@ -72,14 +73,14 @@ public class U3DAddPlayerTask extends Task {
 	
 	private IPersonaje getPlayer(Node node) 
 	{
-		/*if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))		
+		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))		
 		{
 			return getPlayerPipa(node);
 		}
 		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_TIPO_CON_LA_10))		
 		{
 			return getPlayerDiez(node);
-		}*/
+		}
 		//Si no se dignaron a ponerle un Skin como la gente va el 10
 		return getPlayerDiez(node);
 	}

@@ -28,10 +28,6 @@ public abstract class ChangeStateTask extends Task {
 				States.get(i).cleanup();	
 	}
 	
-	public void execute() {
-		// begin-user-code
-		// TODO Apéndice de método generado automáticamente		
-		// end-user-code
-	}		
+	public abstract void execute();
 	
 }

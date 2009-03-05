@@ -134,50 +134,17 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 	public void buildWorld(Node worldView) {
 
-		//Se pasó al U3DGame
-/*		EntityManagerFactory.getInstance().add(new U3DBuildingEntityFactory());
-		EntityManagerFactory.getInstance().add(new DynamicEntityFactory());
-		EntityManagerFactory.getInstance().add(new PlayerFactory());
-		
-		ViewFactoryManager.getInstance().add(new U3DBuildingViewFactory());
-		ViewFactoryManager.getInstance().add(new U3DPlayerViewFactory());
-		ViewFactoryManager.getInstance().add(new U3DDynamicViewFactory());
-		
-		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
-		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());
-		
-		ControllerManagerFactory.getInstance().add(new PlayerControllerFactory());*/
-		
-		//Edificio:1
-        Node campus = new Node("Campus");
+        Node campus = new Node("campus");
 		getWorld(campus);	
 		campus.setLocalScale(0.3f);
 		
-		//Se pasó a los estados
-/*		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
-			getInstance().createEntity("EntityFactory","World");
-		if (url=="protCampusXML/data/campus.xml")
-			worldEntity.init("Exterior");
-		else
-			worldEntity.init("Eco");
-		U3dBuildingView worldView = (U3dBuildingView) ViewManager.getInstance().
-			createView(worldEntity);*/
-		
 		worldView.attachChild(campus);		
 		
-
-		//Player:2
-		/*Player player = (Player)EntityManager.getInstance().createEntity("PlayerFactory", "Player");
-		if (url=="protCampusXML/data/campus.xml")
-		player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
-						  Vector3f.ZERO, 0.50f, "Exterior", new Skin(),new PlayerState(),
-						  new Vector3f(1850.0f,1.5f,1050.0f));
-		else
-			player.initPlayer(Vector3f.ZERO, 8f, new Hashtable<String,Object>(), new Hashtable<String,Object>(), 
-					  Vector3f.ZERO, 0.50f, "Eco", new Skin(),new PlayerState(),
-					  new Vector3f(1250.0f,1.5f,-350.0f));
-		*/
-
+	}
+	
+	public Vector3f getInitialPosition()
+	{
+		return initialPosition;
 	}
 	
 	public Skybox setupSky() {
@@ -2374,7 +2341,14 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				String param1=a.getValue();
 				a=e.getAttribute("param2");
 				String param2=a.getValue();
-				CollisionManager.getInstace().addAccessPoint(param1, new AccessPoint((Node)world.getChild(Integer.parseInt(param1)), (BasicGameState) GameStateManager.getInstance().getChild(param2)));
+				a=e.getAttribute("posX");
+				Vector3f nextPosition = new Vector3f();
+				nextPosition.x=Float.parseFloat(a.getValue());
+				a=e.getAttribute("posY");
+				nextPosition.y=Float.parseFloat(a.getValue());
+				a=e.getAttribute("posZ");
+				nextPosition.z=Float.parseFloat(a.getValue());
+				CollisionManager.getInstace().addAccessPoint(param1, new AccessPoint((Node)world.getChild(Integer.parseInt(param1)), (BasicGameState) GameStateManager.getInstance().getChild(param2),nextPosition));
 			}
 	}
 	

@@ -14,6 +14,7 @@ import client.game.task.U3dCargandoTask;
 import client.manager.HudManager;
 import client.manager.TaskManager;
 
+import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jmex.bui.event.ActionEvent;
 import com.jmex.bui.event.ActionListener;
@@ -35,13 +36,16 @@ long timer;
 	 * Proximo Estado
 	 */
 	private String nextState;
+	
+	private Vector3f nextPosition;
 
 	/**
 	 * Constructor de AccessPoint.
 	 */
-	public AccessPoint(Node N, BasicGameState next) {
+	public AccessPoint(Node N, BasicGameState next, Vector3f theNextPosition) {
 		nodo = N;
 		proxEstado = next;
+		nextPosition = theNextPosition;
 		timer=System.currentTimeMillis();
 	}
 
@@ -87,7 +91,7 @@ long timer;
 			ChangeStateTask task;
 			if (((WorldGameState)proxEstado).needClean())
 			{	
-				task = new ChangeToPlace(this.proxEstado.getName());
+				task = new ChangeToPlace(this.proxEstado.getName(), this.nextPosition);
 			}
 			else
 			{
@@ -130,4 +134,10 @@ long timer;
 		
 		
 	}
+
+	public Vector3f getNextPosition() {
+		return nextPosition;
+	}
+	
+	
 }

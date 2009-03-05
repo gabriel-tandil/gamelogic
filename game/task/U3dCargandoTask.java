@@ -13,7 +13,6 @@ public class U3dCargandoTask extends ChangeStateTask {
 	@Override
 	public void execute() {
 		HudManager.getInstance().setCargando();
-		super.execute();
 	}
 
 	@Override

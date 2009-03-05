@@ -89,17 +89,14 @@ public class U3DMoveCharacterTask extends Task {
 
 			ArrayList<GameState> states = GameStateManager.getInstance()
 					.getChildren();
-			U3dState aux = null;
-			for (int i = 0; i < states.size(); i++) {
-				aux = (U3dState) states.get(i);
-				if (aux.isActive())
-					break;
-			}
+			U3dState aux = ((U3dState) GameStateManager.getInstance()
+					.getChild(U3dState.actualState));
+
 			if (aux != null) {
 
 				Vector3f destination = CollisionManager.getInstace()
 						.getDestination(origin, destine,
-								aux.getRootNode().getChild(0));
+								aux.getRootNode().getChild("World_View"));
 
 				if (destination != null) {
 					
@@ -119,7 +116,7 @@ public class U3DMoveCharacterTask extends Task {
 
 					Node nodeIntersect = (Node) CollisionManager.getInstace()
 							.getIntersectObject(new Ray(origin, direction),
-									(Node) aux.getRootNode().getChild(0),
+									(Node) aux.getRootNode().getChild("World_View"),
 									Node.class, true);
 					if (nodeIntersect != null)
 						CollisionManager.getInstace().checkOverAccessPoint(
@@ -143,10 +140,10 @@ public class U3DMoveCharacterTask extends Task {
 					}
 
 					// TODO borrar los system.out
-					System.out
-							.println("Creando tarea para enviar el movimiento: ");
-					System.out.println("Origen: " + origin);
-					System.out.println("Destino: " + destination);
+					//System.out
+						//	.println("Creando tarea para enviar el movimiento: ");
+					System.out.println("Origen: " + newOrigin);
+					System.out.println("Destino: " + newDestine);
 
 					MsgMove msg = (MsgMove) MessageFactory.getInstance()
 							.createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
