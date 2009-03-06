@@ -5,6 +5,8 @@
 package client.game.entity;
 
 /** 
+ * es una clase abstracta que define una entidad en el juego. Tiene
+ * una identidad y un tipo
  * @author Cristian Calomino
  * @version Created: 20-11-2008
  * 

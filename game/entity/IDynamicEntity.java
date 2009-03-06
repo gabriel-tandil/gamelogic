@@ -10,6 +10,7 @@ import com.jme.math.Vector3f;
 import common.datatypes.Skin;
 
 /** 
+ * Define la interface para todos los tipos de entidades dinámicas del juego
  * @author Cristian Calomino
  * @version Created: 20-11-2008
  */

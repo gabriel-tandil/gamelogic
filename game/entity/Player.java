@@ -21,6 +21,7 @@ import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
 /** 
+ * Extiende de DynamicEntity para definir el jugador base en el juego.
  * @author Cristian Calomino
  * @version Created: 20-11-2008
  */

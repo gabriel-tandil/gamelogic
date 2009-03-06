@@ -73,6 +73,7 @@ public class HudManager implements IHudManager {
 				.getChildren().iterator(); iterator.hasNext();) {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
+				if (!ventanas.isEmpty())
 				gs.getRootNode().attachChild(_root);
 				if (muestraMapa)
 					gs.getRootNode().attachChild(map.loadMap());
@@ -175,6 +176,7 @@ public class HudManager implements IHudManager {
 	public void addWindow(BWindow wind, String id) {
 		ventanas.put(id, wind);
 		_root.addWindow(wind);
+		update();
 	}
 
 	public void removeWindow(String id) {
@@ -197,7 +199,7 @@ public class HudManager implements IHudManager {
 
 	public void muestraControl() {
 		setCursorVisible(true);
-		//if (!GameStateManager.getInstance().getChild("login").isActive()) // en
+		if (!GameStateManager.getInstance().getChild("login").isActive()) // en
 																			// el
 																			// login
 																			// no
@@ -207,7 +209,6 @@ public class HudManager implements IHudManager {
 																			// de
 																			// control
 			addWindow(ventanaControl, "control");
-		update();
 	}
 
 	private void crearVentanaControl() {
@@ -299,7 +300,7 @@ public class HudManager implements IHudManager {
 			BasicGameState gs = (BasicGameState) iterator.next();
 			if (gs.isActive()) {
 				gs.getRootNode().detachChild(_root);
-				gs.getRootNode().detachChild(map.loadMap());
+				//gs.getRootNode().detachChild(map.loadMap());
 			}
 			_root.updateGeometricState(0.0f, true);
 			_root.updateRenderState();

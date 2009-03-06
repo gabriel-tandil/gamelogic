@@ -5,6 +5,8 @@
 package client.game.entity;
 
 /** 
+ * Define la interfaz de creación para las posteriores entidades que serán
+ * definidas en el juego.
  * @author Santiago Michielotto
  * @version Created: 19-11-2008
  */

@@ -1,5 +1,6 @@
 package client.game.entity;
 
+
 public class PlayerFactory implements IEntityFactory {
 
 	private String id="PlayerFactory";
