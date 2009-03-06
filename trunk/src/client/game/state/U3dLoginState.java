@@ -120,7 +120,7 @@ public class U3dLoginState extends U3dState {
 			task.initTask(((BTextField) HudManager.getInstance().getWindow(
 					"login").getComponent(0)).getText(),
 					((BPasswordField) HudManager.getInstance().getWindow(
-							"login").getComponent(1)).getText());
+							"login").getComponent(2)).getText());
 			TaskManager.getInstance().enqueue(task);
 
 			// TODO cuando se integre con el modulo de comuniocacion eliminar

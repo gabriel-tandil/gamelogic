@@ -35,13 +35,13 @@ component:disabled {
 }
 
 tooltip_window {
-  background: solid #FFFFFF;
-  border: 2 solid #000000;
+  background: image "HUD/textures/fondo.png" framexy 10;
   padding: 5;
 }
 
 tooltip_label {
-  color: #000000;
+  font: "HUD/fonts/VAG Rounded BT.ttf" plain 10;
+  color: #FFFFFF;
 }
 
 label {

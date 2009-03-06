@@ -219,15 +219,15 @@ public class HudManager implements IHudManager {
 		ventanaControl.setSize(DisplaySystem.getDisplaySystem().getWidth(),
 				DisplaySystem.getDisplaySystem().getHeight());
 		ventanaControl.setStyleClass("control-window");
-		BButton boton = crearBoton("minimize", 30, ventanaControl, 32);
+		BButton boton = crearBoton("minimize", 30, ventanaControl, 32,"Minimiza la vantana de controles. Vuelva a abrirla con 'C'");
 		ventanaControl.add(boton, boton.getBounds());
-		boton = crearBoton("map", 60, ventanaControl, 40);
+		boton = crearBoton("map", 60, ventanaControl, 40,"Conmuta la visibilidad del mapa de referencia.");
 		ventanaControl.add(boton, boton.getBounds());
-		boton = crearBoton("chat", 80, ventanaControl, 50);
+		boton = crearBoton("chat", 80, ventanaControl, 50,null);
 		ventanaControl.add(boton, boton.getBounds());
-		boton = crearBoton("help", 60, ventanaControl, 60);
+		boton = crearBoton("help", 60, ventanaControl, 60,null);
 		ventanaControl.add(boton, boton.getBounds());
-		boton = crearBoton("close", 30, ventanaControl, 67);
+		boton = crearBoton("close", 30, ventanaControl, 67,"Cierra el juego.");
 		ventanaControl.add(boton, boton.getBounds());
 
 		ventanaControl.addListener(new ActionListener() {
@@ -265,7 +265,7 @@ public class HudManager implements IHudManager {
 	}
 
 	private BButton crearBoton(String tipo, int tam, final BWindow ventana,
-			float porcentajeX) {
+			float porcentajeX,String tooltip) {
 		BButton button = new BButton("", tipo);
 		button.setStyleClass("button-" + tipo);
 		button.setSize((int) ((float) DisplaySystem.getDisplaySystem()
@@ -282,6 +282,7 @@ public class HudManager implements IHudManager {
 				ventana.dispatchEvent(event);
 			}
 		});
+		button.setTooltipText(tooltip);
 		return button;
 	}
 
