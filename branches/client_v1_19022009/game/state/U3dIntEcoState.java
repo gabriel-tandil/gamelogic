@@ -16,7 +16,12 @@ import com.jme.scene.Node;
 import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
 
-
+/**
+ * clase que representa el estado interior de cada lugar del juego. La cual hereda de U3dState que
+ * a su vez hereda de WorldGameState
+ * @author kike
+ *
+ */
 public class U3dIntEcoState extends U3dState {
 	
 	private boolean initialized;

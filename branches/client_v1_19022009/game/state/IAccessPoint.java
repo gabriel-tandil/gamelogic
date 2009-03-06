@@ -4,6 +4,7 @@
 package client.game.state;
 
 /** 
+ * IAccessPoint es una interface para hacer el cambio de estado en el juego.
  * @author Santiago Michielotto
  * @version Created: 19-11-2008
  */

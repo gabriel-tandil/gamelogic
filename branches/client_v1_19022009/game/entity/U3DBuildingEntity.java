@@ -8,7 +8,10 @@ import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
 import com.jme.util.export.OutputCapsule;
-
+/**
+ * Entidad que representa un edificio del juego
+ * @author kike
+ */
 public class U3DBuildingEntity extends Entity {
 
 	public U3DBuildingEntity(String id)

@@ -29,6 +29,12 @@ import common.messages.MessageFactory;
 import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 
+/**
+	 * clase que representa el estado del login. Desde esta clase se maneja la visualización
+	 * del cartel que dice "cargando" una vez q se loguea un usuario.Esta clase hereda de U3dState que
+	 * a su vez hereda de WorldGameState
+	 * @author kike
+*/
 public class U3dLoginState extends U3dState {
 	public static final String LOGUEO_OK = "loggin Ok";
 	public static final String LOGUEO_ERROR = "login Failed";
@@ -264,8 +270,9 @@ public class U3dLoginState extends U3dState {
 		BButton loginButton = new BButton("Entrar", "login");
 		loginButton.setLocation(this.getAbsoluteX(68.25), this
 				.getAbsoluteY(64.833333));
-		loginButton.setSize( getSizeScaled(10), getSizeScaled(4));
+		loginButton.setSize( getSizeScaled(14), getSizeScaled(5));
 
+		
 		// add our listener2 to the loginButton so it knows what to do with the
 		// "actionMessage" when the button is clicked
 		loginButton.addListener(new ActionListener() {
@@ -286,8 +293,8 @@ public class U3dLoginState extends U3dState {
 
 	}
 
-		private int getSizeScaled(int size) {
-		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * size);
+	private int getSizeScaled(double d) {
+		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * d);
 	}
 	
 	private float getUForPixel(int xPixel) {
