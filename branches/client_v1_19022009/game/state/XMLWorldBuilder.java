@@ -2573,13 +2573,13 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				if (a != null)
 					nextPosition.y = Float.parseFloat(a.getValue());
 				else
-					nextPosition.x = 0;
+					nextPosition.y = 0;
 
 				a = e.getAttribute("posZ");
 				if (a != null)
 					nextPosition.z = Float.parseFloat(a.getValue());
 				else
-					nextPosition.x = 0;
+					nextPosition.z = 0;
 
 				CollisionManager.getInstace().addAccessPoint(
 						param1,
