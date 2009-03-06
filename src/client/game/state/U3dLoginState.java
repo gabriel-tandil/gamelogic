@@ -15,6 +15,7 @@ import client.manager.TaskManager;
 import com.jme.system.DisplaySystem;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BComponent;
+import com.jmex.bui.BLabel;
 import com.jmex.bui.BPasswordField;
 import com.jmex.bui.BTextField;
 import com.jmex.bui.BWindow;
@@ -147,13 +148,24 @@ public class U3dLoginState extends U3dState {
 		userNameField.setSize((int) (getSizeScaled(17)),
 				getSizeScaled(4));
 		login.add(userNameField, userNameField.getBounds());
-
+		BLabel labelUsuario=new BLabel("Usuario");
+		labelUsuario.setLocation(this.getAbsoluteX(45), this
+				.getAbsoluteY(47));
+		labelUsuario.setSize((int) (getSizeScaled(17)),
+				getSizeScaled(4));		
+		login.add(labelUsuario,labelUsuario.getBounds());
 		passwordField = new BPasswordField();
 		passwordField.setLocation(this.getAbsoluteX(58), this
 				.getAbsoluteY(54.5));
 		passwordField.setSize((int) getSizeScaled(17),
 				getSizeScaled(4));
 		login.add(passwordField, passwordField.getBounds());
+		BLabel labelPass=new BLabel("Contrase\u00F1a");
+		labelPass.setLocation(this.getAbsoluteX(45), this
+				.getAbsoluteY(54.5));
+		labelPass.setSize((int) (getSizeScaled(17)),
+				getSizeScaled(4));
+		login.add(labelPass,labelPass.getBounds());
 
 		// create a new BButton called "loginButton" with the display "Login"
 		// and an "actionMessage" of "login"

@@ -312,7 +312,7 @@ labeltext {
 }
 
 login-window {
-  background: image "HUD/textures/pantallalogin.png" scalexy;
+  background: image "HUD/textures/login.jpg" scalexy;
 }
 control-window {
   background: image "HUD/textures/bottom_roundtoolbar.png" scalexy;
