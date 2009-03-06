@@ -35,6 +35,7 @@ import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 import client.minigame.MiniGameState;
+import client.spot.SpotState;
 
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
@@ -222,6 +223,10 @@ public class U3dgame extends Game {
 							.getKey());
 					this.getGameStateManager().attachChild(wch);
 					wch.setActive(false);
+				} else if (values[1].equals(SpotState.class.toString())) {
+					SpotState spot = new SpotState((String) world.getKey(), values[0]);
+					this.getGameStateManager().attachChild(spot);
+					spot.setActive(false);
 				} 
 			}
 
