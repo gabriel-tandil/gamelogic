@@ -3,6 +3,11 @@
  */
 package client.minigame;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import ar.edu.unicen.exa.game2d.wordchallenge.Score;
 import ar.edu.unicen.exa.game2d.wordchallenge.WordChallenge;
 import client.communication.GameContext;
@@ -180,27 +185,53 @@ public class MiniGameState extends U3dState {
 	}
 
 	// metodo agregado para soportar el asincronismo de la comunicacion al
-	// resivir el ranking del minijuego asociado al estado.
+	// recibir el ranking del minijuego asociado al estado.
 	public void setRanking(Ranking ranking) {
 
-		// FIXME IMPLEMENTAR ESTE METODO. QUE ES YAMADO ASINCRONICAMENTE PARA
-		// QUE SE CONTINUE LA EJECUCION DEL ESTADO AL RECIBIR EL RANKING
-		// ASOCIADO AL MISMO
 		
-		WordChallenge game = new WordChallenge();
-		game.setRanking(ranking);
-		game.setId(ranking.getId2DGame());
-		game.setPlayerId(GameContext.getUserName());
-		game.execute();
-		
-		D2GameScore score = game.getScore();
-		//D2GameScore score = new D2GameScore();
-		//score.setId2DGame("WordChallenge");
-		//score.setIdPlayer("NENE");
-		//score.setScore(234);
-		
-		this.sendResult(game, score);
+		Class c = null;
+		Properties a = new Properties();
 
+		FileInputStream is;
+		try {
+			is = new FileInputStream(new File(System.getProperty("user.dir")
+					+ "/src/StateMapping.properties"));
+			a.load(is);
+		
+			String value = a.getProperty(this.getName());
+			// Primer valor: Nombre del XML
+			// Segundo valor: Nombre de la clase del State
+			String[] values = value.split("~");
+			
+			c = Class.forName(values[0]);
+			
+			I2DGame i = (I2DGame) c.newInstance();
+			i.setRanking(ranking);
+			i.setId(ranking.getId2DGame());
+			i.setPlayerId(GameContext.getUserName());
+			i.execute();
+			
+			D2GameScore score = i.getScore();
+			//D2GameScore score = new D2GameScore();
+			//score.setId2DGame("WordChallenge");
+			//score.setIdPlayer("NENE");
+			//score.setScore(234);
+			
+			this.sendResult(i, score);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
