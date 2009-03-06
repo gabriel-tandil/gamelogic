@@ -217,14 +217,12 @@ public class U3dgame extends Game {
 							.getKey(), values[0]);
 					this.getGameStateManager().attachChild(exterior);
 					exterior.setActive(false);
-				}
-				else if (values[1].equals(MiniGameState.class.toString()))
-					{
-						//FIXME Esto hay que modificarlo para hacer que sea para todos los juegos
-						MiniGameState wch = new MiniGameState("WordChallenge");
-						this.getGameStateManager().attachChild(wch);
-						wch.setActive(false);
-					}
+				} else if (values[1].equals(MiniGameState.class.toString())) {
+					MiniGameState wch = new MiniGameState((String) world
+							.getKey());
+					this.getGameStateManager().attachChild(wch);
+					wch.setActive(false);
+				} 
 			}
 
 		} catch (Exception e) {
