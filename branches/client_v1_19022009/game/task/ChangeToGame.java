@@ -1,6 +1,5 @@
 package client.game.task;
 
-import client.game.state.U3dState;
 import client.minigame.MiniGameState;
 
 import com.jmex.game.state.GameStateManager;
