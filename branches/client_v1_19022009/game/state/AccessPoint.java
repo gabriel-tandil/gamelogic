@@ -10,6 +10,7 @@ import java.util.HashMap;
 import client.game.task.ChangeStateTask;
 import client.game.task.ChangeToGame;
 import client.game.task.ChangeToPlace;
+import client.game.task.ChangeToSpot;
 import client.game.task.U3dCargandoTask;
 import client.manager.HudManager;
 import client.manager.TaskManager;
@@ -90,13 +91,15 @@ long timer;
 	public void show() {
 		if (!proxEstado.isActive()) {
 			ChangeStateTask task;
-			if (((WorldGameState)proxEstado).needClean())
-			{	
-				task = new ChangeToPlace(this.proxEstado.getName(), this.nextPosition);
-			}
-			else
-			{
-				task = new ChangeToGame(this.proxEstado.getName());
+			if (proxEstado.getName().contains("Spot")) {
+				task = new ChangeToSpot(this.proxEstado.getName());
+			} else {
+
+				if (((WorldGameState) proxEstado).needClean()) {
+					task = new ChangeToPlace(this.proxEstado.getName(), this.nextPosition);
+				} else {
+					task = new ChangeToGame(this.proxEstado.getName());
+				}
 			}
 			TaskManager.getInstance().enqueue(task);
 		}
