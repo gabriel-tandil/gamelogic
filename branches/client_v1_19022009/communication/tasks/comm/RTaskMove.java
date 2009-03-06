@@ -88,7 +88,7 @@ public class RTaskMove extends TaskCommunication {
 			DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 					.getEntity(thisMsg.getIdDynamicEntity());
 			// Obtengo la traslacion de la posicion y la seteo
-			Vector3f clientPosition = PositionsTranslator.clientPosition(entity
+			Vector3f clientPosition = PositionsTranslator.clientPositionClientWorld(entity
 					.getActualWorld(), thisMsg.getPosDestino());
 			// "moverla" Tomando los datos desde el MsgMove.
 			entity.setPosition(clientPosition);

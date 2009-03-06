@@ -66,15 +66,33 @@ public class PositionsTranslator {
 	 * @param idServerWorld
 	 *            El String que representa el mundo (segun el servidor) en el
 	 *            que se encuentra la posiction pasada como parametro.
+	 * @param serverPosition 
+	 *            La posicion que se debe trasladar a una posicion valida en el
+	 *            cliente.
+	 */
+	public static Vector3f clientPositionServerWorld(String idServerWorld,
+			Vector3f serverPosition) {
+
+		
+		return clientPositionClientWorld(WorldsMaper.SERVER_TO_CLIENT
+				.get(idServerWorld), serverPosition);
+	}
+	
+	/**
+	 * Calcula y retorna la posicion correspondiente a los parametros en el
+	 * cliente.
+	 * 
+	 * @param idClientWorld
+	 *            El String que representa el mundo (segun el cliente) en el
+	 *            que se encuentra la posiction pasada como parametro.
 	 * @param serverPosition
 	 *            La posicion que se debe trasladar a una posicion valida en el
 	 *            cliente.
 	 */
-	public static Vector3f clientPosition(String idServerWorld,
+	public static Vector3f clientPositionClientWorld(String idClientWorld,
 			Vector3f serverPosition) {
 
-		Vector3f traslation = CLIENT_TO_SERVER.get(WorldsMaper.SERVER_TO_CLIENT
-				.get(idServerWorld));
+		Vector3f traslation = CLIENT_TO_SERVER.get(idClientWorld);
 
 		return new Vector3f(serverPosition.x - traslation.x, serverPosition.y
 				- traslation.y, serverPosition.z - traslation.z);
