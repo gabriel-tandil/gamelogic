@@ -69,7 +69,7 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 				.getActualWorld());
 		
 		// Obtengo la traslacion de la posicion y la seteo
-		Vector3f clientPosition = PositionsTranslator.clientPosition(msg
+		Vector3f clientPosition = PositionsTranslator.clientPositionServerWorld(msg
 				.getActualWorld(), msg.getPosition());
 
 		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()

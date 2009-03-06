@@ -66,7 +66,7 @@ public class RTaskGetPlayerResponse extends TaskCommunication {
 		TaskManager.getInstance().enqueue(task);
 
 		// Obtengo la traslacion de la posicion y la seteo
-		Vector3f clientPosition = PositionsTranslator.clientPosition(msg
+		Vector3f clientPosition = PositionsTranslator.clientPositionServerWorld(msg
 				.getActualWorld(), msg.getPosition());
 		
 		player.initPlayer(Vector3f.ZERO, 8f, (HashMap) msg.getProperties(),
