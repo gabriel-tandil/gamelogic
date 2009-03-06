@@ -7,6 +7,7 @@ import client.game.entity.Player;
 import client.game.entity.U3DPlayer;
 import client.game.task.U3DMoveCharacterTask;
 import client.game.task.U3DRotateCharacterTask;
+import client.manager.HudManager;
 import client.manager.TaskManager;
 
 import com.jme.input.KeyInput;
@@ -60,10 +61,11 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 	private Hashtable<Integer, Integer> flags;
 
 	public void onKey(char arg0, int arg1, boolean arg2) {
-		if (arg2)
-			flags.put(arg1, arg1);
-		else
-			flags.remove(arg1);
+		if (!HudManager.getInstance().isMostrandoDialogo())
+			if (arg2)
+				flags.put(arg1, arg1);
+			else
+				flags.remove(arg1);
 	}
 
 }
