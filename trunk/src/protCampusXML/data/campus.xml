@@ -32,6 +32,33 @@
 		<accesspoint param1="223" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
 		<accesspoint param1="339" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
 		<accesspoint param1="318" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="415" param2="WordChallenge" />
+		<accesspoint param1="422" param2="WordChallenge" />
+		<accesspoint param1="605" param2="WordChallenge" />
+		<accesspoint param1="535" param2="WordChallenge" />
+		<accesspoint param1="553" param2="WordChallenge" />
+		<accesspoint param1="433" param2="WordChallenge" />
+		<accesspoint param1="446" param2="WordChallenge" />
+		<accesspoint param1="1053" param2="WordChallenge" />
+		<accesspoint param1="1264" param2="WordChallenge" />
+		<accesspoint param1="1142" param2="WordChallenge" />
+		<accesspoint param1="1141" param2="WordChallenge" />
+		<accesspoint param1="1145" param2="WordChallenge" />
+		<accesspoint param1="1144" param2="WordChallenge" />
+		<accesspoint param1="943" param2="WordChallenge" />
+		<accesspoint param1="940" param2="WordChallenge" />
+		<accesspoint param1="746" param2="WordChallenge" />
+		<accesspoint param1="701" param2="WordChallenge" />
+		<accesspoint param1="653" param2="WordChallenge" />
+		<accesspoint param1="721" param2="WordChallenge" />
+		<accesspoint param1="261" param2="WordChallenge" />
+		<accesspoint param1="190" param2="WordChallenge" />
+		<accesspoint param1="74" param2="WordChallenge" />
+		<accesspoint param1="104" param2="WordChallenge" />
+		<accesspoint param1="46" param2="WordChallenge" />
+		<accesspoint param1="49" param2="WordChallenge" />
+		<accesspoint param1="16" param2="WordChallenge" />
+		<accesspoint param1="19" param2="WordChallenge" />
 	</accesspoints>
 	<directionalLight>
 		<diffuse>
