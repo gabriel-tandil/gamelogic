@@ -172,7 +172,11 @@ public class HudManager implements IHudManager {
 		addWindow(ventDialogo, "ventDialogo");
 		return ventDialogo;
 	}
-
+	
+	public boolean isMostrandoDialogo(){
+		return (ventanas.get("ventDialogo")!=null);
+	}
+	
 	public void addWindow(BWindow wind, String id) {
 		ventanas.put(id, wind);
 		_root.addWindow(wind);
