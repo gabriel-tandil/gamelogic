@@ -61,11 +61,11 @@ public class U3DPlayerController extends Controller implements KeyInputListener 
 	private Hashtable<Integer, Integer> flags;
 
 	public void onKey(char arg0, int arg1, boolean arg2) {
-		if (!HudManager.getInstance().isMostrandoDialogo())
-			if (arg2)
+		if (arg2) {
+			if (!HudManager.getInstance().isMostrandoDialogo())
 				flags.put(arg1, arg1);
-			else
-				flags.remove(arg1);
+		} else
+			flags.remove(arg1);
 	}
 
 }
