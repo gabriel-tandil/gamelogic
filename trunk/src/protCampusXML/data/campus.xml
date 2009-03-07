@@ -21,6 +21,7 @@
 	</node>
 	<accesspoints>
 		<accesspoint param1="1019" param2="Eco" posX="415.0" posY="0.5" posZ="-300.0"/>
+		<accesspoint param1="1053" param2="Eco" posX="415.0" posY="0.5" posZ="-300.0"/>
 		<accesspoint param1="809" param2="Exa" posX="37.0" posY="1.5" posZ="-20.0" />
 		<accesspoint param1="808" param2="Exa" posX="37.0" posY="1.5" posZ="-20.0"/>
 		<accesspoint param1="841" param2="Exa" posX="1850.0" posY="1.5" posZ="1050.0"/>
@@ -39,7 +40,6 @@
 		<accesspoint param1="553" param2="WordChallenge" />
 		<accesspoint param1="433" param2="WordChallenge" />
 		<accesspoint param1="446" param2="WordChallenge" />
-		<accesspoint param1="1053" param2="WordChallenge" />
 		<accesspoint param1="1264" param2="WordChallenge" />
 		<accesspoint param1="1142" param2="WordChallenge" />
 		<accesspoint param1="1141" param2="WordChallenge" />
