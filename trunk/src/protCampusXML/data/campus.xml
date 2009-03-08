@@ -20,45 +20,57 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="1019" param2="Eco" posX="415.0" posY="0.5" posZ="-300.0"/>
-		<accesspoint param1="1053" param2="Eco" posX="415.0" posY="0.5" posZ="-300.0"/>
-		<accesspoint param1="809" param2="Exa" posX="37.0" posY="1.5" posZ="-20.0" />
-		<accesspoint param1="808" param2="Exa" posX="37.0" posY="1.5" posZ="-20.0"/>
-		<accesspoint param1="841" param2="Exa" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="397" param2="Buf" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="396" param2="Buf" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="193" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="220" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="222" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="223" param2="AC1" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="339" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="1019" param2="Eco" posX="31.0" posY="0.5" posZ="-284.0"/>
+		<accesspoint param1="1053" param2="Eco" posX="1250.0" posY="0.5" posZ="-350.0"/>
+		<accesspoint param1="809" param2="Exa" posX="30" posY="0.5" posZ="-5" />
+		<accesspoint param1="808" param2="Exa" posX="30" posY="0.5" posZ="-5"/>
+		<accesspoint param1="841" param2="Exa" posX="24.0" posY="0.5" posZ="-1513.0"/>
+		<accesspoint param1="397" param2="Buf" posX="100.0" posY="0.5" posZ="-1070.0"/>
+		<accesspoint param1="396" param2="Buf" posX="100.0" posY="0.5" posZ="-1070.0"/>
+		<accesspoint param1="193" param2="AC1" posX="35.0" posY="43.0" posZ="-55.0"/>
+		<accesspoint param1="220" param2="AC1" posX="1564.0" posY="43" posZ="-55.0"/>
+		<accesspoint param1="222" param2="AC1" posX="545.0" posY="43" posZ="-55.0"/>
+		<accesspoint param1="223" param2="AC1" posX="1055.0" posY="43" posZ="-55.0"/>
+		<accesspoint param1="339" param2="Isi" posX="0.0" posY="1.5" posZ="-8.0"/>
 		<accesspoint param1="318" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="415" param2="WordChallenge" />
+		<accesspoint param1="357" param2="Isi" posX="47.0" posY="1.5" posZ="-621.0"/>
+		<accesspoint param1="331" param2="Isi" posX="-46.0" posY="1.5" posZ="-613.0"/>
+		<accesspoint param1="415" param2="BigBalls" />
 		<accesspoint param1="422" param2="WordChallenge" />
-		<accesspoint param1="605" param2="WordChallenge" />
-		<accesspoint param1="535" param2="WordChallenge" />
+		<accesspoint param1="605" param2="Memo" />
+		<accesspoint param1="535" param2="BigBalls" />
 		<accesspoint param1="553" param2="WordChallenge" />
-		<accesspoint param1="433" param2="WordChallenge" />
-		<accesspoint param1="446" param2="WordChallenge" />
+		<accesspoint param1="433" param2="Memo" />
+		<accesspoint param1="446" param2="BigBalls" />
 		<accesspoint param1="1264" param2="WordChallenge" />
-		<accesspoint param1="1142" param2="WordChallenge" />
-		<accesspoint param1="1141" param2="WordChallenge" />
-		<accesspoint param1="1145" param2="WordChallenge" />
-		<accesspoint param1="1144" param2="WordChallenge" />
+		<accesspoint param1="1142" param2="Memo" />
+		<accesspoint param1="1141" param2="Memo" />
+		<accesspoint param1="1145" param2="BigBalls" />
+		<accesspoint param1="1144" param2="BigBalls" />
 		<accesspoint param1="943" param2="WordChallenge" />
-		<accesspoint param1="940" param2="WordChallenge" />
-		<accesspoint param1="746" param2="WordChallenge" />
+		<accesspoint param1="940" param2="Memo" />
+		<accesspoint param1="746" param2="BigBalls" />
 		<accesspoint param1="701" param2="WordChallenge" />
-		<accesspoint param1="653" param2="WordChallenge" />
-		<accesspoint param1="721" param2="WordChallenge" />
+		<accesspoint param1="653" param2="Memo" />
+		<accesspoint param1="721" param2="BigBalls" />
 		<accesspoint param1="261" param2="WordChallenge" />
-		<accesspoint param1="190" param2="WordChallenge" />
-		<accesspoint param1="74" param2="WordChallenge" />
+		<accesspoint param1="190" param2="Memo" />
+		<accesspoint param1="74" param2="BigBalls" />
 		<accesspoint param1="104" param2="WordChallenge" />
-		<accesspoint param1="46" param2="WordChallenge" />
-		<accesspoint param1="49" param2="WordChallenge" />
+		<accesspoint param1="46" param2="Memo" />
+		<accesspoint param1="49" param2="BigBalls" />
 		<accesspoint param1="16" param2="WordChallenge" />
-		<accesspoint param1="19" param2="WordChallenge" />
+		<accesspoint param1="19" param2="Memo" />
+		<accesspoint param1="393" param2="BigBalls" />
+		<accesspoint param1="376" param2="WordChallenge" />
+		<accesspoint param1="377" param2="WordChallenge" />
+		<accesspoint param1="621" param2="Memo" />
+		<accesspoint param1="292" param2="BigBalls" />
+		<accesspoint param1="282" param2="WordChallenge" />
+		<accesspoint param1="1111" param2="Memo" />
+		<accesspoint param1="1112" param2="Memo" />
+		<accesspoint param1="1210" param2="BigBalls" />
+		<accesspoint param1="1211" param2="BigBalls" />
 	</accesspoints>
 	<directionalLight>
 		<diffuse>
