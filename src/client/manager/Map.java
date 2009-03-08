@@ -43,33 +43,42 @@ public class Map{
         hudMap.setRenderQueueMode(Renderer.QUEUE_ORTHO);    
 	}
    	
-    /**@Override
+    /*@Override
 	protected void simpleInitGame() {
-		Node n = this.loadMapa();
+		Node n = this.loadMap();
 		rootNode.attachChild(n);
-	}**/
+	}*/
 	
 	public Node loadMap(){
         //Aplica la textura al borde del mapa y su ubicación
         this.setTexture(borderMap, "/HUD/textures/map_frame.png");
-        borderMap.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
+        borderMap.setLocalTranslation(new Vector3f((DisplaySystem
+				.getDisplaySystem().getWidth() - 105) , DisplaySystem
+				.getDisplaySystem().getHeight() - 75, 0));
+        /*borderMap.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
 				.getDisplaySystem().getWidth()/100) , 87.5f*DisplaySystem
-				.getDisplaySystem().getHeight()/100, 0));
+				.getDisplaySystem().getHeight()/100, 0));*/
         
         //Aplica la textura al mapa y su ubicación
         this.setTexture(map, "/HUD/textures/MAPA.gif");
         this.mapWidth = this.getTextureWidth("/HUD/textures/MAPA.gif");
         this.mapHeight = this.getTextureHeight("/HUD/textures/MAPA.gif");
-        map.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
+        map.setLocalTranslation(new Vector3f((DisplaySystem
+				.getDisplaySystem().getWidth() - 105) , DisplaySystem
+				.getDisplaySystem().getHeight() - 75, 0));
+        /*map.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
 				.getDisplaySystem().getWidth()/100) , 87.5f*DisplaySystem
-				.getDisplaySystem().getHeight()/100, 0));
+				.getDisplaySystem().getHeight()/100, 0));*/
         this.changeMapLocation(221, 181);
         
         //Aplica la textura a la posicion actual
         this.setTexture(myPosition, "/HUD/textures/map_myposition.png");
-        myPosition.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
+        myPosition.setLocalTranslation(new Vector3f((DisplaySystem
+				.getDisplaySystem().getWidth() - 105) , DisplaySystem
+				.getDisplaySystem().getHeight() - 75, 0));
+        /*myPosition.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
 				.getDisplaySystem().getWidth()/100) , 87.5f*DisplaySystem
-				.getDisplaySystem().getHeight()/100, 0));
+				.getDisplaySystem().getHeight()/100, 0));*/
         //Aplica transparencia a la posicion actual
         final BlendState alphaState = DisplaySystem.getDisplaySystem().getRenderer().createBlendState();
         alphaState.setBlendEnabled(true);
@@ -189,10 +198,10 @@ public class Map{
 		map.updateRenderState();
 	}
     
-    /**public static void main(String[] args) {
-        Mapa app = new Mapa();
+    /*public static void main(String[] args) {
+        Map app = new Map();
         app.setConfigShowMode(SimpleGame.ConfigShowMode.AlwaysShow);
         app.start();
-    }**/
+    }*/
 
 }
