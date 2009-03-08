@@ -20,12 +20,12 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="33" param2="Exterior" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="205" param2="Exterior"  posX="1850.0" posY="1.5" posZ="1050.0"/>
+		<accesspoint param1="33" param2="Exterior" posX="1535.0" posY="1.5" posZ="1834.0"/>
+		<accesspoint param1="205" param2="Exterior"  posX="493.0" posY="1.5" posZ="1825.0"/>
 		<accesspoint param1="78" param2="WordChallenge" />
-		<accesspoint param1="131" param2="WordChallenge" />
-		<accesspoint param1="164" param2="WordChallenge" />
-		<accesspoint param1="61" param2="WordChallenge" />
+		<accesspoint param1="131" param2="BigBalls" />
+		<accesspoint param1="164" param2="Memo" />
+		<accesspoint param1="61" param2="BigBalls" />
 	</accesspoints>	
 	<pointLigh>
 		<diffuse>
