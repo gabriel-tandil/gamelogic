@@ -20,21 +20,21 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="1019" param2="Eco" posX="31.0" posY="0.5" posZ="-284.0"/>
-		<accesspoint param1="1053" param2="Eco" posX="1250.0" posY="0.5" posZ="-350.0"/>
-		<accesspoint param1="809" param2="Exa" posX="30" posY="0.5" posZ="-5" />
-		<accesspoint param1="808" param2="Exa" posX="30" posY="0.5" posZ="-5"/>
-		<accesspoint param1="841" param2="Exa" posX="24.0" posY="0.5" posZ="-1513.0"/>
+		<accesspoint param1="1019" param2="Eco" posX="415" posY="0.5" posZ="-300"/>
+		<accesspoint param1="1053" param2="Eco" posX="1250.0" posY="0.5" posZ="-354.0"/>
+		<accesspoint param1="809" param2="Exa" posX="30" posY="0.5" posZ="-8" />
+		<accesspoint param1="808" param2="Exa" posX="30" posY="0.5" posZ="-8"/>
+		<accesspoint param1="841" param2="Exa" posX="29.0" posY="0.5" posZ="-1043.0"/>
 		<accesspoint param1="397" param2="Buf" posX="100.0" posY="0.5" posZ="-1070.0"/>
 		<accesspoint param1="396" param2="Buf" posX="100.0" posY="0.5" posZ="-1070.0"/>
-		<accesspoint param1="193" param2="AC1" posX="35.0" posY="43.0" posZ="-55.0"/>
-		<accesspoint param1="220" param2="AC1" posX="1564.0" posY="43" posZ="-55.0"/>
-		<accesspoint param1="222" param2="AC1" posX="545.0" posY="43" posZ="-55.0"/>
-		<accesspoint param1="223" param2="AC1" posX="1055.0" posY="43" posZ="-55.0"/>
-		<accesspoint param1="339" param2="Isi" posX="0.0" posY="1.5" posZ="-8.0"/>
-		<accesspoint param1="318" param2="Isi" posX="1850.0" posY="1.5" posZ="1050.0"/>
-		<accesspoint param1="357" param2="Isi" posX="47.0" posY="1.5" posZ="-621.0"/>
-		<accesspoint param1="331" param2="Isi" posX="-46.0" posY="1.5" posZ="-613.0"/>
+		<accesspoint param1="193" param2="AC1" posX="340" posY="43" posZ="-56.0"/>
+		<accesspoint param1="220" param2="AC1" posX="1410" posY="43" posZ="-55.0"/>
+		<accesspoint param1="222" param2="AC1" posX="711" posY="43" posZ="353.0"/>
+		<accesspoint param1="223" param2="AC1" posX="1059" posY="43" posZ="-46"/>
+		<accesspoint param1="339" param2="Isi" posX="-5.0" posY="1.5" posZ="-6.0"/>
+		<accesspoint param1="318" param2="Isi" posX="-1.5" posY="1.5" posZ="-886.0"/>
+		<accesspoint param1="357" param2="Isi" posX="-1.5" posY="1.5" posZ="-886.0"/>
+		<accesspoint param1="331" param2="Isi" posX="-1.5" posY="1.5" posZ="-886.0"/>
 		<accesspoint param1="415" param2="BigBalls" />
 		<accesspoint param1="422" param2="WordChallenge" />
 		<accesspoint param1="605" param2="Memo" />
