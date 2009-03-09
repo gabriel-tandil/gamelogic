@@ -20,8 +20,8 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>
-		<accesspoint param1="4" param2="Exterior" posX="-1179.0" posY="1.5" posZ="3931.0"/>
-		<accesspoint param1="63" param2="Exterior" posX="323.0" posY="1.5" posZ="3948.0"/>
+		<accesspoint param1="4" param2="Exterior" posX="-278.0" posY="1.5" posZ="3063.0"/>
+		<accesspoint param1="63" param2="Exterior" posX="780.0" posY="1.5" posZ="3084.0"/>
 		<accesspoint param1="61" param2="WordChallenge" />
 	</accesspoints>
 	<pointLigh>
