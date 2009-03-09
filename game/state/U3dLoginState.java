@@ -18,6 +18,7 @@ import com.jme.math.Vector3f;
 import com.jme.system.DisplaySystem;
 import com.jmex.bui.BButton;
 import com.jmex.bui.BComponent;
+import com.jmex.bui.BLabel;
 import com.jmex.bui.BPasswordField;
 import com.jmex.bui.BTextField;
 import com.jmex.bui.BWindow;
@@ -30,11 +31,12 @@ import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 
 /**
-	 * clase que representa el estado del login. Desde esta clase se maneja la visualización
-	 * del cartel que dice "cargando" una vez q se loguea un usuario.Esta clase hereda de U3dState que
-	 * a su vez hereda de WorldGameState
-	 * @author kike
-*/
+ * clase que representa el estado del login. Desde esta clase se maneja la
+ * visualización del cartel que dice "cargando" una vez q se loguea un
+ * usuario.Esta clase hereda de U3dState que a su vez hereda de WorldGameState
+ * 
+ * @author kike
+ */
 public class U3dLoginState extends U3dState {
 	public static final String LOGUEO_OK = "loggin Ok";
 	public static final String LOGUEO_ERROR = "login Failed";
@@ -110,8 +112,12 @@ public class U3dLoginState extends U3dState {
 				HudManager.getInstance().setCursorVisible(true);
 				HashMap<String, String> botones = new HashMap<String, String>();
 				botones.put("aceptar", "Aceptar");
-				HudManager.getInstance().muestraDialogo("Fallo al intentar ingresar, verifique los datos e intente nuevamente.", botones,null);
-				respuestaLogueo=null;
+				HudManager
+						.getInstance()
+						.muestraDialogo(
+								"Fallo al intentar ingresar, verifique los datos e intente nuevamente.",
+								botones, null);
+				respuestaLogueo = null;
 				loguear = false;
 
 			}
@@ -128,7 +134,7 @@ public class U3dLoginState extends U3dState {
 	}
 
 	public void initialize() {
-		
+
 		actualState = getName();
 		TaskManagerFactory.getInstance().add(new U3DCargandoTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
@@ -197,6 +203,7 @@ public class U3dLoginState extends U3dState {
 
 		HudManager.getInstance().update();
 	}
+
 	private int[] currentResolution;
 
 	public void handleInput(ActionEvent event) {
@@ -213,7 +220,7 @@ public class U3dLoginState extends U3dState {
 					.getComponent(0)).getText();
 
 			String password = ((BPasswordField) HudManager.getInstance()
-					.getWindow("login").getComponent(1)).getText();
+					.getWindow("login").getComponent(2)).getText();
 
 			task.initTask(user, password);
 
@@ -245,34 +252,38 @@ public class U3dLoginState extends U3dState {
 		this.currentResolution[1] = (new Integer(DisplaySystem
 				.getDisplaySystem().getHeight())).intValue();
 
-			login.setSize(DisplaySystem
-				.getDisplaySystem().getWidth(), DisplaySystem
-				.getDisplaySystem().getHeight());
+		login.setSize(DisplaySystem.getDisplaySystem().getWidth(),
+				DisplaySystem.getDisplaySystem().getHeight());
 
 		userNameField = new BTextField();
-		userNameField.setLocation(this.getAbsoluteX(58), this
-				.getAbsoluteY(47));
-		userNameField.setSize((int) (getSizeScaled(17)),
-				getSizeScaled(4));
+		userNameField.setLocation(this.getAbsoluteX(58), this.getAbsoluteY(47));
+		userNameField.setSize((int) (getSizeScaled(17)), getSizeScaled(4));
 
 		login.add(userNameField, userNameField.getBounds());
+		BLabel labelUsuario = new BLabel("Usuario");
+		labelUsuario.setLocation(this.getAbsoluteX(45), this.getAbsoluteY(47));
+		labelUsuario.setSize((int) (getSizeScaled(17)), getSizeScaled(4));
+		login.add(labelUsuario, labelUsuario.getBounds());
 
 		passwordField = new BPasswordField();
 		passwordField.setLocation(this.getAbsoluteX(58), this
 				.getAbsoluteY(54.5));
-		passwordField.setSize((int) getSizeScaled(17),
-				getSizeScaled(4));
-
+		passwordField.setSize((int) getSizeScaled(17), getSizeScaled(4));
+		
 		login.add(passwordField, passwordField.getBounds());
-
+		BLabel labelPass=new BLabel("Contrase\u00F1a");
+        labelPass.setLocation(this.getAbsoluteX(45), this
+                        .getAbsoluteY(54.5));
+        labelPass.setSize((int) (getSizeScaled(17)),
+                        getSizeScaled(4));
+        login.add(labelPass,labelPass.getBounds());
 		// create a new BButton called "loginButton" with the display "Login"
 		// and an "actionMessage" of "login"
 		BButton loginButton = new BButton("Entrar", "login");
 		loginButton.setLocation(this.getAbsoluteX(68.25), this
 				.getAbsoluteY(64.833333));
-		loginButton.setSize( getSizeScaled(14), getSizeScaled(5));
+		loginButton.setSize(getSizeScaled(14), getSizeScaled(5));
 
-		
 		// add our listener2 to the loginButton so it knows what to do with the
 		// "actionMessage" when the button is clicked
 		loginButton.addListener(new ActionListener() {
@@ -296,7 +307,7 @@ public class U3dLoginState extends U3dState {
 	private int getSizeScaled(double d) {
 		return (int) (((float) DisplaySystem.getDisplaySystem().getWidth() / 100) * d);
 	}
-	
+
 	private float getUForPixel(int xPixel) {
 		return (float) xPixel / textureWidth;
 	}
@@ -324,7 +335,7 @@ public class U3dLoginState extends U3dState {
 	}
 
 	public void setRespuestaLogueo(String respuesta) {
-		
+
 		respuestaLogueo = respuesta;
 		loguear = true;
 	}
