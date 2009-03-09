@@ -230,6 +230,30 @@ public class CollisionManager {
         hitPoints.add(getIntersection(new Ray(origin, directionR),spatial, false));
         hitPoints.add(getIntersection(new Ray(origin, directionR2),spatial, false));
         
+        Vector3f origin2 = new Vector3f(origin.x,origin.y + 0.9f,origin.z);        
+        Vector3f destination2 = new Vector3f(destination.x,destination.y + 0.9f,destination.z);
+        
+        //build the direction2 Vector3f
+        Vector3f direction2 = destination2.subtract(origin2).normalizeLocal();
+       
+        // 5 rays was added in order to handle collisions at heights different
+        Vector3f direction2L = new Vector3f(-direction2.z,direction2.y,direction2.x).normalize();
+        Vector3f direction2L2 = direction2.add(direction2L).normalize();
+        Vector3f direction2R = new Vector3f(direction2.z,direction2.y,-direction2.x).normalize();
+        Vector3f direction2R2 = direction2.add(direction2R).normalize(); 
+        
+        hitPoints.add(getIntersection(new Ray(origin2, direction2),spatial, false));        	
+        hitPoints.add(getIntersection(new Ray(origin2, direction2L),spatial, false));
+        hitPoints.add(getIntersection(new Ray(origin2, direction2L2),spatial, false));
+        hitPoints.add(getIntersection(new Ray(origin2, direction2R),spatial, false));
+        hitPoints.add(getIntersection(new Ray(origin2, direction2R2),spatial, false));
+        
+        for (int i= 5;i<10;i++)
+         	if (hitPoints.get(i) != null)
+         		if (hitPoints.get(i).distance(destination2) < 5f)
+          			return origin;
+        
+        
 
        for (int i= 0;i<5;i++)
           	if (hitPoints.get(i) != null)
