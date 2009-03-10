@@ -23,7 +23,6 @@ public class U3DBuildingEntity extends Entity {
 	public void init(String theActualWord)
 	{
 		this.setActualWorld(theActualWord);
-		EntityManager.getInstance().registerEntity(this);
 	}
 
 	/** 

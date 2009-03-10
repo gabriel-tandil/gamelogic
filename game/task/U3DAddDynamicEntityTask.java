@@ -41,6 +41,7 @@ public class U3DAddDynamicEntityTask extends Task {
 	}
 
 	public void execute() {
+		System.out.println("Ejecutando la tarea ADDDynamicEntity");
 		Node node = new Node(entity.getId());
 		entity.setPlayerAvatar(getPlayer(node));
 		DynamicView playerView = (DynamicView) ViewManager.getInstance()

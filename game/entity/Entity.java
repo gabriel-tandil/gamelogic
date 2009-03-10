@@ -4,6 +4,11 @@
  */
 package client.game.entity;
 
+import java.io.IOException;
+
+import com.jme.util.export.JMEExporter;
+import com.jme.util.export.JMEImporter;
+
 /** 
  * es una clase abstracta que define una entidad en el juego. Tiene
  * una identidad y un tipo
@@ -89,4 +94,15 @@ public abstract class Entity implements IEntity {
 		actualWorld = theActualWorld;
 	}
 
+	public boolean equals(IEntity e)
+	{
+		return e.getId().equals(this.id);
+	}
+
+	
+	public int hashCode() {
+		return this.id.hashCode();
+	}
+	
+	
 }
