@@ -32,7 +32,7 @@ import com.jme.util.geom.Debugger;
 import com.jmex.game.state.GameStateManager;
 /**
  * en esta clase se inicializa el sistema
- * @author kike
+ * 
  *
  */
 public class U3dgame extends Game {
@@ -67,7 +67,7 @@ public class U3dgame extends Game {
 		this.display.setVSyncEnabled(false);
 		this.display.createWindow(this.settings.getWidth(), this.settings.getHeight(), this.settings.getDepth(),
 				this.settings.getFrequency(), false);
-		this.display.getRenderer().setBackgroundColor(ColorRGBA.black);
+		this.display.getRenderer().setBackgroundColor(ColorRGBA.gray);
 
 	}
 
@@ -76,14 +76,14 @@ public class U3dgame extends Game {
 
 		Camera camera = this.display.getRenderer().createCamera(this.display.getWidth(),
 				this.display.getHeight());
-		camera.setFrustumPerspective(45.0f, this.display.getWidth()/this.display.getHeight(), 
+		/*camera.setFrustumPerspective(45.0f, this.display.getWidth()/this.display.getHeight(), 
 				1f, 5000);
 		Vector3f location = new Vector3f(0.0f, 35.0f, 600f);
 		Vector3f left = new Vector3f(-1.0f, 0.0f, 0.0f);
 		Vector3f up = new Vector3f(0.0f, 1.0f, 0.0f);
 		Vector3f direction = new Vector3f(0.0f, 0.0f, 1.0f);
 		camera.setFrame(location, left, up, direction);
-		camera.setParallelProjection(false);
+		camera.setParallelProjection(false);*/
 		camera.update();
 		// Assign Camera.
 		this.display.getRenderer().setCamera(camera);
