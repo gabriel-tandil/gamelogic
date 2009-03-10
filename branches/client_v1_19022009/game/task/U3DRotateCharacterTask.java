@@ -34,7 +34,8 @@ public class U3DRotateCharacterTask extends Task {
 	}
 
 	public void execute() {
-		character.setAngle(angle);
+		float angle1 = character.getAngle();
+		character.setAngle(angle1 + angle);
 		float newAngle = character.getAngle();
 		
 		// mensaje al servidor
