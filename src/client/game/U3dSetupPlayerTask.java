@@ -5,7 +5,7 @@ import client.game.task.ITask;
 import client.game.task.Task;
 /**
  * esta clase se utiliza para configurar las tareas de un jugador
- * @author kike
+ * 
  *
  */
 public class U3dSetupPlayerTask extends Task {

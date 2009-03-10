@@ -16,7 +16,7 @@ import com.model.md5.importer.MD5Importer;
 
 /**
  * clase utilizada para importar un personaje en formato MD5
- * @author kike
+ * 
  *
  */
 public class PersonaMD5 extends IPersonaje {

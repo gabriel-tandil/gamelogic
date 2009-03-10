@@ -5,7 +5,7 @@ import com.jme.scene.Node;
 /**
  * clase abstracta de la cual deben heredar las clases que implementen la importación 
  * de los modelos de los personajes que son cargados en el juego
- * @author kike
+ * 
  *
  */
 public abstract class IPersonaje extends Node{

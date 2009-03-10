@@ -20,7 +20,7 @@ import com.jmex.model.collada.ColladaImporter;
 
 /**
  * clase utilizada para importar un personaje en formato Dae
- * @author kike
+ * 
  *
  */
 public class PersonaDae extends IPersonaje {
