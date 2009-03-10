@@ -35,7 +35,7 @@ public class TaskManager {
 	 * El delta utilizado para descartar las tareas cuyo timesamp menos el
 	 * tiempo actuales mayor, en modulo que este delta.
 	 */
-	public static long DELTA = 2000;
+	public static long DELTA = 2000000;
 
 	/**
 	 * La instancia de <code>TaskManager</code>.
@@ -156,12 +156,19 @@ public class TaskManager {
 	 *            <code>ITask</code> a ser agregada.
 	 */
 	public void enqueue(ITask task) {
-		/*
-		 * ITask given = task; ITask inQueue = null; for(ITask t :
-		 * this.taskQueue) { inQueue = t; if(inQueue.equals(given)) { // Remove
-		 * existing one. if(given.isLaterThan(inQueue)) {
-		 * this.taskQueue.remove(inQueue); break; } } }
-		 */
+/*
+		ITask given = task;
+		ITask inQueue = null;
+		for (ITask t : this.taskQueue) {
+			inQueue = t;
+			if (inQueue.equals(given)) { 
+				if (given.isLaterThan(inQueue)) {
+					this.taskQueue.remove(inQueue);
+					break;
+				}
+			}
+		}
+*/
 		this.taskQueue.add(task);
 	}
 
@@ -218,7 +225,7 @@ public class TaskManager {
 		while (!this.submitted.isEmpty() && this.totaltime < this.enqueueTime) {
 			this.starttime = System.nanoTime();
 			ITask task = this.submitted.poll();
-			if (starttime - task.getTimestamp() < DELTA)
+			//if (starttime - task.getTimestamp() <= DELTA)
 				this.enqueue(task);
 			this.endtime = System.nanoTime();
 			this.totaltime += (this.endtime - this.starttime) / 1000000.0f;
@@ -229,7 +236,7 @@ public class TaskManager {
 		while (!this.taskQueue.isEmpty() && this.totaltime < this.executeTime) {
 			this.starttime = System.nanoTime();
 			ITask task = this.taskQueue.poll();
-			if (starttime - task.getTimestamp() < DELTA)
+			//if (starttime - task.getTimestamp() <= DELTA)
 				task.execute();
 			this.endtime = System.nanoTime();
 			this.totaltime += (this.endtime - this.starttime) / 1000000.0f;
