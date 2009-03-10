@@ -108,7 +108,7 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 			float[] angles = new float[3];
 			Vector3f ltras = view.getLocalTranslation();
 			view.getLocalRotation().toAngles(angles);
-			view.getLocalRotation().fromAngles(angles[0], angles[1] + angle,
+			view.getLocalRotation().fromAngles(angles[0], angle,
 					angles[2]);
 			view.setLocalTranslation(ltras);
 			ViewManager.getInstance().markForUpdate(this);
