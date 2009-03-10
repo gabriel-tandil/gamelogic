@@ -18,7 +18,7 @@ import com.jme.scene.Spatial;
 /**
  * clase que representa el estado exterior del juego. La cual hereda de U3dState que 
  * a su vez hereda de WorldGameState
- * @author kike
+ * 
  *
  */
 public class U3dExteriorState extends U3dState {
@@ -90,10 +90,12 @@ public class U3dExteriorState extends U3dState {
 		//builder = new XMLWorldBuilder("protCampusXML/data/campus.xml", new Vector3f(-1170.1987f, 1.5f, 3935.198f),new Quaternion(0.0f,0.707106781f,0.0f,0.707106781f));
 		builder = new XMLWorldBuilder("protCampusXML/data/campus.xml");
 		builder.buildWorld(this.rootNode);
+		
 	}
 
 	public void initializeCamera(U3dPlayerView playerView) {
 		chaser = this.builder.buildCamera(playerView);
+		chaser.getCamera().setFrustumFar(1200);
 	}
 	
 	public void initializeState() {
@@ -117,6 +119,8 @@ public class U3dExteriorState extends U3dState {
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x, 
 				chaser.getCamera().getLocation().y,
         		chaser.getCamera().getLocation().z);
+		//se escala el cielo para que entre en el rango del frustrum
+		sb.setLocalScale(0.7f);
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 		// nodos del hud
 		.updateGeometricState(0.0f, true);
