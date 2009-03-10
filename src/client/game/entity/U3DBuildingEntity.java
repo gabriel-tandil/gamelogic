@@ -9,7 +9,7 @@ import com.jme.util.export.OutputCapsule;
 
 /**
  * Entidad que representa un edificio del juego
- * @author kike
+ * 
  *
  */
 public class U3DBuildingEntity extends Entity {
