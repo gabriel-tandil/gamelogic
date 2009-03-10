@@ -11,7 +11,7 @@ import com.jme.scene.Spatial;
 /**
  * clase que representa el estado interior de Aulas Comunes I del juego. La cual hereda de U3dState que 
  * a su vez hereda de WorldGameState
- * @author kike
+ * 
  *
  */
 public class U3dIntACIState extends U3dState {

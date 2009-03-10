@@ -26,7 +26,7 @@ import com.jmex.bui.layout.AbsoluteLayout;
  * clase que representa el estado del login. Desde esta clase se maneja la visualización
  * del cartel que dice "cargando" una vez q se loguea un usuario.Esta clase hereda de U3dState que 
  * a su vez hereda de WorldGameState
- * @author kike
+ * 
  *
  */
 public class U3dLoginState extends U3dState {

@@ -11,7 +11,7 @@ import com.jme.scene.Spatial;
 /**
  * clase que representa el estado interior del isistan campus. La cual hereda de U3dState que 
  * a su vez hereda de WorldGameState
- * @author kike
+ * 
  *
  */
 public class U3dIntIsistanState extends U3dState {
@@ -72,6 +72,8 @@ public class U3dIntIsistanState extends U3dState {
 
 	public void initializeCamera(U3dPlayerView playerView) {
 		chaser = this.builder.buildCamera(playerView);
+		chaser.getCamera().setFrustumFar(300);
+		
 	}
 	
 	public void initializeState() {
@@ -95,6 +97,8 @@ public class U3dIntIsistanState extends U3dState {
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x,
 				chaser.getCamera().getLocation().y,
 				chaser.getCamera().getLocation().z);
+		//se escala el cielo para que entre en el rango del frustrum
+		sb.setLocalScale(0.7f);
 		HudManager.getInstance().getRoot()// solo necesito actualizar los
 				// nodos del hud
 				.updateGeometricState(0.0f, true);
