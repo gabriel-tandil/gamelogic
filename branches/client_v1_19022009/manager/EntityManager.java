@@ -152,10 +152,13 @@ public class EntityManager {
 	 */
 	public IEntity createEntity(String factoryId, String id)
 	{
-		IEntity entity = EntityManagerFactory.getInstance().create(factoryId, id);
-		if(entity != null){
-			//registerEntity(entity);
-			return entity;
+		if(hash.containsKey(id))
+		{
+			IEntity entity = EntityManagerFactory.getInstance().create(factoryId, id);
+			if(entity != null){
+				registerEntity(entity);
+				return entity;
+			}
 		}
 		return null;
 	}

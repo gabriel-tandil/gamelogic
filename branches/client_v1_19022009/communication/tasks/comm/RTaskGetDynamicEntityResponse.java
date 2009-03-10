@@ -63,25 +63,33 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 			return;
 		}
 
-		// obtengo el id del mundo con el que se mapea el id del servidor
-		// contenido en el mensaje.
-		String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg
-				.getActualWorld());
-		
-		// Obtengo la traslacion de la posicion y la seteo
-		Vector3f clientPosition = PositionsTranslator.clientPositionServerWorld(msg
-				.getActualWorld(), msg.getPosition());
+		if (DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.get(msg
+				.getIdDynamicEntity()) == null
+				|| !DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.get(
+						msg.getIdDynamicEntity()).equals(
+						DynamicEntitysSolicitations.EXISTS)) {
 
-		DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
-				.createEntity("DynamicEntityFactory", msg.getIdDynamicEntity());
-		
-		entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x,
-				idClientWorld, msg.getSkin(), clientPosition);
+			// obtengo el id del mundo con el que se mapea el id del servidor
+			// contenido en el mensaje.
+			String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg
+					.getActualWorld());
 
-		// Marco el estado local de la entidad recien creada como existente.
-		DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg
-				.getIdDynamicEntity(), DynamicEntitysSolicitations.EXISTS);
+			// Obtengo la traslacion de la posicion y la seteo
+			Vector3f clientPosition = PositionsTranslator
+					.clientPositionServerWorld(msg.getActualWorld(), msg
+							.getPosition());
 
+			DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
+					.createEntity("DynamicEntityFactory",
+							msg.getIdDynamicEntity());
+			
+			if (entity!=null)
+				entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x,
+						idClientWorld, msg.getSkin(), clientPosition);
+
+			// Marco el estado local de la entidad recien creada como existente.
+			DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg
+					.getIdDynamicEntity(), DynamicEntitysSolicitations.EXISTS);
+		}
 	}
-
 }
