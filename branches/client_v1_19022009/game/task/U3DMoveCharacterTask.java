@@ -142,9 +142,7 @@ public class U3DMoveCharacterTask extends Task {
 					// TODO borrar los system.out
 					//System.out
 						//	.println("Creando tarea para enviar el movimiento: ");
-					System.out.println("Origen: " + newOrigin);
-					System.out.println("Destino: " + newDestine);
-
+					
 					MsgMove msg = (MsgMove) MessageFactory.getInstance()
 							.createMessage(MsgTypes.MSG_MOVE_SEND_TYPE);
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import com.jme.bounding.BoundingBox;
+import com.jme.bounding.BoundingCapsule;
 import com.jme.input.KeyBindingManager;
 import com.jme.input.KeyInput;
 import com.jme.scene.Controller;
@@ -69,6 +71,8 @@ public class PersonaMD5 extends IPersonaje {
 		}
 		
 		this.md5n = (ModelNode) MD5Importer.getInstance().getModelNode();
+		md5n.setModelBound(new BoundingBox());
+		md5n.updateModelBound();
 		this.padre.attachChild(md5n);
         this.padre.updateGeometricState(1, true);
       

@@ -102,6 +102,18 @@ public class CollisionManager {
 		{
 			temp=(AccessPoint)e.nextElement();
 			Node abuelo = node;
+			
+			Node aux = abuelo;
+			Node aux1 = abuelo.getParent();
+			String num= "";
+			while (aux1 != null)
+			{
+				num += " -- Numero: " +aux1.getChildIndex(aux);
+				aux = aux1;
+				aux1 = aux.getParent(); 
+			}
+			System.out.println("El accespoint puede ser uno de estos numeros: " + num);
+			
 			while (abuelo!=null && cond==false)
 			{
 			if (temp.getNodo().equals(abuelo))
@@ -207,11 +219,13 @@ public class CollisionManager {
      */
 	public Vector3f getDestination(Vector3f origin, Vector3f destination, Spatial spatial){
 
-		
+		System.out.println("POSICION ACTUAL!!!!: " + origin);
 		//convert start point to world coordinate system
         spatial.localToWorld(origin, origin);
         //convert destination point to world coordinate system
         spatial.localToWorld(destination, destination);
+        
+        System.out.println("POSICION ACTUAL!!!!: RELOCATE:  " + origin);
         
         //build the direction Vector3f
         Vector3f direction = destination.subtract(origin).normalizeLocal();
