@@ -4,7 +4,7 @@ package client.game;
 
 /**
  * Esta clase es la encargada de inicializar el juego
- * @author kike
+ * 
  *
  */
 public class ClientAplication {
