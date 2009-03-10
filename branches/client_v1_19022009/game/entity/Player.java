@@ -70,7 +70,6 @@ public class Player extends DynamicEntity {
 		this.setProperties(Properties);
 		this.setStats(stats);
 		this.setState(theState);
-		EntityManager.getInstance().registerEntity(this);
 	}
 
 	/** 

@@ -152,7 +152,7 @@ public class EntityManager {
 	 */
 	public IEntity createEntity(String factoryId, String id)
 	{
-		if(hash.containsKey(id))
+		if(!hash.containsKey(id))
 		{
 			IEntity entity = EntityManagerFactory.getInstance().create(factoryId, id);
 			if(entity != null){

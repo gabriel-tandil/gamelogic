@@ -71,7 +71,7 @@ public class U3dExteriorState extends U3dState {
 		this.iworldbuilder = new XMLWorldBuilder(url);
 		
 		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
-		getInstance().createEntity("EntityFactory","World");
+		getInstance().createEntity("EntityFactory",this.name);
 	
 		worldEntity.init(this.name);
 		worldView = (U3dBuildingView) ViewManager.getInstance().
@@ -157,7 +157,7 @@ public class U3dExteriorState extends U3dState {
 	
 	public void updateCamera() {
 		boolean intersects = false;
-		Spatial worldView = this.rootNode.getChild("World_View");
+		Spatial worldView = this.rootNode.getChild(this.name + "_View");
 		Spatial campus = ((Node)worldView).getChild("campus");
 		Spatial world = ((Node)campus).getChild("TestWorld");
 		intersects = chaser.verifyIntersection(world);
