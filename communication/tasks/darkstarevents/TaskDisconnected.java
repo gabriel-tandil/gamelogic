@@ -56,7 +56,7 @@ public class TaskDisconnected extends TaskCommunication {
 		HashMap<String, String> botones = new HashMap<String, String>();
 		botones.put("Salir", "Salir");
 		HudManager.getInstance().muestraDialogo(
-				"Se perdió la conexión. Razón: " + this.razonDesconeccion,
+				"Se perdió la conexión.",
 				botones, new ActionListener() {
 					public void actionPerformed(ActionEvent event) {
 						System.exit(1);
