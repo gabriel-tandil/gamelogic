@@ -86,7 +86,7 @@ public class TaskManager {
 		this.taskQueue = new ConcurrentLinkedQueue<ITask>();
 		this.submitted = new ConcurrentLinkedQueue<ITask>();
 		this.executeTime = 20;
-		this.enqueueTime = 5;
+		this.enqueueTime = 10;
 	}
 	
 	/**
@@ -196,6 +196,7 @@ public class TaskManager {
 			this.endtime = System.nanoTime();
 			this.totaltime += (this.endtime-this.starttime)/1000000.0f;
 		}
+		
 		// Reset total time.
 		this.totaltime = 0;
 		// Execute as many tasks as possible.
@@ -205,5 +206,6 @@ public class TaskManager {
 			this.endtime = System.nanoTime();
 			this.totaltime += (this.endtime-this.starttime)/1000000.0f;
 		}
+		
 	}
 }

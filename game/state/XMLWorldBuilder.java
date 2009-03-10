@@ -136,7 +136,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		Node campus = new Node("campus");
 		getWorld(campus);
 		campus.setLocalScale(0.3f);
-
+		campus.lock();
 		worldView.attachChild(campus);
 
 	}
@@ -239,7 +239,7 @@ public class XMLWorldBuilder implements IWorldBuilder {
 						Node hijo = new Node("Hijo" + i);
 						hijo = cargarModelo(textures + model.getValue()
 								+ "_parte" + k + ".3ds");
-						System.out.println("Node: " + k);
+						//System.out.println("Node: " + k);
 						Quaternion q = hijo.getLocalRotation();
 						q = q.fromAngleAxis((float) -Math.PI / 2, new Vector3f(
 								1, 0, 0));
@@ -342,7 +342,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				return null;
 			}
 		}
-
+		loadedModel.setModelBound(new BoundingBox());
+		loadedModel.updateModelBound();
+		//loadedModel.lock();
 		return loadedModel;
 	}
 

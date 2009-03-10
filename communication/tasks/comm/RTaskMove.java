@@ -54,7 +54,6 @@ public class RTaskMove extends TaskCommunication {
 
 	@Override
 	public void execute() {
-
 		MsgMove thisMsg = (MsgMove) this.getMessage();
 
 		// Si el mensaje fue enviado originalmente por este jugador, se termina
@@ -88,8 +87,9 @@ public class RTaskMove extends TaskCommunication {
 			DynamicEntity entity = (DynamicEntity) EntityManager.getInstance()
 					.getEntity(thisMsg.getIdDynamicEntity());
 			// Obtengo la traslacion de la posicion y la seteo
-			Vector3f clientPosition = PositionsTranslator.clientPositionClientWorld(entity
-					.getActualWorld(), thisMsg.getPosDestino());
+			Vector3f clientPosition = PositionsTranslator
+					.clientPositionClientWorld(entity.getActualWorld(), thisMsg
+							.getPosDestino());
 			// "moverla" Tomando los datos desde el MsgMove.
 			entity.setPosition(clientPosition);
 		}// else if (dEState.equals(DynamicEntitysSolicitations.SOLICITED){
