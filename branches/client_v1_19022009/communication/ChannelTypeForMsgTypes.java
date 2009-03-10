@@ -5,7 +5,9 @@
  */
 package client.communication;
 
+import java.util.Collections;
 import java.util.Hashtable;
+import java.util.Map;
 
 import common.messages.MsgTypes;
 import common.util.ChannelNameParser;
@@ -29,7 +31,7 @@ public class ChannelTypeForMsgTypes {
 	 * 
 	 * @author Javier
 	 */
-	private Hashtable<String, String> channelTypeForMsgTypes;
+	private Map<String, String> channelTypeForMsgTypes;
 
 	/**
 	 * Instancia del singleton.
@@ -44,14 +46,15 @@ public class ChannelTypeForMsgTypes {
 	 * @author Javier
 	 */
 	private ChannelTypeForMsgTypes() {
-		channelTypeForMsgTypes = new Hashtable<String, String>();
+		channelTypeForMsgTypes = Collections
+				.synchronizedMap(new Hashtable<String, String>());
 
 		channelTypeForMsgTypes.put(MsgTypes.MSG_MOVE_SEND_TYPE,
 				ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
-		
+
 		channelTypeForMsgTypes.put(MsgTypes.MSG_ROTATE_SEND_TYPE,
 				ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
-		
+
 		channelTypeForMsgTypes.put(MsgTypes.MSG_CHANGE_PLAYER_STATE_SEND_TYPE,
 				ChannelNameParser.MOVE_CHANNEL_IDENTIFIER);
 	}
@@ -126,7 +129,7 @@ public class ChannelTypeForMsgTypes {
 	 * @return La hastable channelTypeForMsgTypes
 	 * @author Javier
 	 */
-	public Hashtable<String, String> getChannelTypeForMsgTypes() {
+	public Map<String, String> getChannelTypeForMsgTypes() {
 		return channelTypeForMsgTypes;
 	}
 
