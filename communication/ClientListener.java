@@ -77,6 +77,11 @@ public class ClientListener implements	ClientChannelListener,
 	 */
 	private void processIncomeMsg(final ByteBuffer bbMsg) {
 		try {
+			if (bbMsg== null ){
+				LOGGER.log(Level.WARNING, "Null Message Arrived");
+				return;
+			}
+				
 			IMessage msg = MessageFactory.getInstance().createMessage(bbMsg);
 			MsgProcessorFactory.getInstance().
 				createProcessor(msg.getType()).process(msg);		
@@ -84,7 +89,7 @@ public class ClientListener implements	ClientChannelListener,
 			LOGGER.log(Level.WARNING, "Exception: {0}", e);
 		} catch (UnsopportedMessageException e) {
 			LOGGER.log(Level.WARNING, "Exception: {0}", e);
-		}		
+		} 		
 	}
 
 	/** 
