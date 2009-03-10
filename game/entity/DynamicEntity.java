@@ -53,7 +53,6 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		this.setVelocity(velocity);
 		this.setSkin(theSkin);
 		this.setPosition(thePosition);
-		EntityManager.getInstance().registerEntity(this);
 	}
 
 	protected Vector3f position;

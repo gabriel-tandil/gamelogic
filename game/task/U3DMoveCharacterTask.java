@@ -96,7 +96,7 @@ public class U3DMoveCharacterTask extends Task {
 
 				Vector3f destination = CollisionManager.getInstace()
 						.getDestination(origin, destine,
-								aux.getRootNode().getChild("World_View"));
+								aux.getRootNode().getChild(aux.getName() + "_View"));
 
 				if (destination != null) {
 					
@@ -116,7 +116,7 @@ public class U3DMoveCharacterTask extends Task {
 
 					Node nodeIntersect = (Node) CollisionManager.getInstace()
 							.getIntersectObject(new Ray(origin, direction),
-									(Node) aux.getRootNode().getChild("World_View"),
+									(Node) aux.getRootNode().getChild(aux.getName() + "_View"),
 									Node.class, true);
 					if (nodeIntersect != null)
 						CollisionManager.getInstace().checkOverAccessPoint(
