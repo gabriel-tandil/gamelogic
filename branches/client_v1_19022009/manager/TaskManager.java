@@ -35,7 +35,7 @@ public class TaskManager {
 	 * El delta utilizado para descartar las tareas cuyo timesamp menos el
 	 * tiempo actuales mayor, en modulo que este delta.
 	 */
-	public static long DELTA = 2000000;
+	public static long DELTA = 2000000000;
 
 	/**
 	 * La instancia de <code>TaskManager</code>.

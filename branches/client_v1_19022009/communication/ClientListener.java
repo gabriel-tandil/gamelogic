@@ -78,25 +78,7 @@ public class ClientListener implements ClientChannelListener,
 	 */
 	private void processIncomeMsg(final ByteBuffer bbMsg) {
 		try {
-			if (bbMsg == null) {
-				LOGGER.log(Level.WARNING, "Null Message Arrived");
-				return;
-			}
-			if (bbMsg.remaining() <= 1) {
-				LOGGER.log(Level.WARNING, "Empty Message Arrived");
-				return;
-			}
-			
-
 			IMessage msg = MessageFactory.getInstance().createMessage(bbMsg);
-			
-			if (msg.getType() == null){
-				LOGGER.log(Level.WARNING, "Empty Message Arrived");
-				LOGGER.log(Level.WARNING, "BB: " + bbMsg.toString());
-				LOGGER.log(Level.WARNING, "MSG: " + msg.toString());
-				return;
-			}
-			
 			MsgProcessorFactory.getInstance().createProcessor(msg.getType())
 					.process(msg);
 		} catch (MalformedMessageException e) {
