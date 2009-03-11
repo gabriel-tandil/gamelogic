@@ -7,7 +7,8 @@ package client.communication.tasks.comm;
 import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommunication;
-import client.game.entity.IEntity;
+import client.game.entity.IDynamicEntity;
+import client.gameEngine.InputManager;
 import client.manager.EntityManager;
 import client.manager.ViewManager;
 
@@ -50,10 +51,11 @@ public class RTaskLeft extends TaskCommunication {
 				GameContext.getUserName())) {
 			return;
 		}
-		IEntity e = EntityManager.getInstance().getEntity(msg.getMsg());
-		ViewManager.getInstance().removeView(e);
 		
+		ViewManager.getInstance().removeView(EntityManager.getInstance().getEntity(msg.getMsg()));
+		InputManager.getInstance().removeController((IDynamicEntity)EntityManager.getInstance().getEntity(msg.getMsg()));
 		EntityManager.getInstance().removeEntity(msg.getMsg());
+		
 		
 		// elimino el estado local de la entidad que se fue.
 		DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.remove(msg.getMsg());

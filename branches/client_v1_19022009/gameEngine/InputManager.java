@@ -3,12 +3,13 @@
  */
 package client.gameEngine;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import client.game.controller.ControllerManagerFactory;
 import client.game.controller.IController;
 import client.game.entity.IDynamicEntity;
+import client.game.entity.IEntity;
 
 /**
  * La clase <code>InputManager</code> es responsable de manejar las instancias 
@@ -27,7 +28,7 @@ import client.game.entity.IDynamicEntity;
  */
 public class InputManager {
 	
-	private Vector<IController> controllers;
+	private HashMap<IEntity, IController> controllers;
 	/**
 	 * Instancia de <code>InputManager</code>.
 	 */
@@ -37,7 +38,7 @@ public class InputManager {
 	 * Constructor de <code>InputManager</code>.
 	 */
 	private InputManager() {
-		controllers=new Vector<IController>();
+		controllers=new HashMap<IEntity, IController>();
 	}
 	
 	/** 
@@ -56,8 +57,18 @@ public class InputManager {
 	public IController createController(IDynamicEntity entity) {
 		
 		IController temp=ControllerManagerFactory.getInstance().createController(entity);
-		if(!controllers.contains(temp))controllers.add(temp);
+		if(!this.controllers.containsKey(entity))
+			this.controllers.put(entity,temp);
 		return temp;
+	}
+	
+	/**
+	 * @param <code>IDynamicEntity<code> la cual se desea controlar. 
+	 * @return <code>IController<code> creado.
+	 */
+	public void removeController(IDynamicEntity entity) {
+		if(this.controllers.containsKey(entity))
+			this.controllers.remove(entity);
 	}
 	
 	/** 
@@ -66,7 +77,7 @@ public class InputManager {
 	 */
 	public void update(float interpolation) {		
 		// Update all controllers.
-		for(IController controller : this.controllers) {
+		for(IController controller : this.controllers.values()) {
 			if(controller.isActive())
 				controller.update(interpolation);
 		}				
@@ -74,13 +85,14 @@ public class InputManager {
 	
 	public void desactivateAllControllers() {		
 		// Update all controllers.
-		for(IController controller : this.controllers) {
+			
+		for(IController controller : this.controllers.values()) {
 			controller.setActive(false);
 		}				
 	}
 	
 	public void removeAll() {		
 		desactivateAllControllers();
-		controllers.removeAllElements();
+		controllers.clear();
 	}
 }

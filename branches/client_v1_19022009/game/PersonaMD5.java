@@ -34,8 +34,8 @@ public class PersonaMD5 extends IPersonaje {
 
 
     protected void run(boolean running){
-    	if(running) this.md5n.getController(0).setSpeed(2);
-    	else this.md5n.getController(0).setSpeed(1);
+    	if(running) this.md5n.getController(0).setSpeed(maxVelocity);
+    	else this.md5n.getController(0).setSpeed(minVelocity);
     }
 	
     public void mover(boolean state, boolean run, boolean forward){
