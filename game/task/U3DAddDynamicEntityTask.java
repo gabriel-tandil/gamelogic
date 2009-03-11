@@ -3,11 +3,15 @@ package client.game.task;
 import client.game.IPersonaje;
 import client.game.PersonaDae;
 import client.game.PersonaMD5;
+import client.game.controller.ExternPlayerController;
+import client.game.controller.PlayerController;
 import client.game.entity.IDynamicEntity;
 import client.game.view.DynamicView;
+import client.gameEngine.InputManager;
 import client.manager.ViewManager;
 
 import com.jme.bounding.BoundingBox;
+import com.jme.input.KeyInput;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import common.datatypes.Skin;
@@ -41,15 +45,25 @@ public class U3DAddDynamicEntityTask extends Task {
 	}
 
 	public void execute() {
-		System.out.println("Ejecutando la tarea ADDDynamicEntity");
 		Node node = new Node(entity.getId());
-		entity.setPlayerAvatar(getPlayer(node));
+		IPersonaje player = getPlayer(node);
+		player.setVelocity(8, 12);
+		entity.setPlayerAvatar(player);
 		DynamicView playerView = (DynamicView) ViewManager.getInstance()
 				.createView(entity);
 		playerView.attachChild(node);
 		playerView.updateWorldBound();
 		rootNode.attachChild(playerView);
+		rootNode.updateGeometricState(0.0f, true);
+		rootNode.updateRenderState();
+		
 		ViewManager.getInstance().addDirtyView(playerView);
+		
+		//crear el controller del player
+		ExternPlayerController controllerPlayer = (ExternPlayerController) InputManager.
+		getInstance().createController(entity);
+		controllerPlayer.setActive(true);
+		
 	}
 
 	private IPersonaje getPlayer(Node node) {

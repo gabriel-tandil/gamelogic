@@ -37,8 +37,8 @@ public class PersonaDae extends IPersonaje {
 	}
 	
     protected void run(boolean running){
-    	if(running) this.skel.getController(0).setSpeed(2);
-    	else this.skel.getController(0).setSpeed(1);
+    	if(running) this.skel.getController(0).setSpeed(maxVelocity);
+    	else this.skel.getController(0).setSpeed(minVelocity);
     }
 	
     public void mover(boolean state, boolean run, boolean forward){

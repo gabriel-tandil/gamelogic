@@ -14,11 +14,15 @@ public abstract class IPersonaje extends Node{
 	private static final long serialVersionUID = 1L;
 	protected AnimationController ac;
 	protected Node padre;	
-	protected String paquete, personaje,animaciones;	
+	protected String paquete, personaje,animaciones;
+	protected int minVelocity;
+	protected int maxVelocity;
 	
 	public IPersonaje(Node p)
 	{
 		this.padre = p;	
+		this.minVelocity = 1;
+		this.maxVelocity = 5;
 	}
 	public void setPaquete(String p)
 	{
@@ -31,6 +35,10 @@ public abstract class IPersonaje extends Node{
 	public void setAnimaciones(String a)
 	{
 		this.animaciones = a;
+	}
+	public void setVelocity(int minVelocity,int maxVelocity){
+		this.minVelocity = minVelocity;
+		this.maxVelocity = maxVelocity;
 	}
 	
 	abstract public Node cargar();

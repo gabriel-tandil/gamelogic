@@ -53,21 +53,33 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 		this.setVelocity(velocity);
 		this.setSkin(theSkin);
 		this.setPosition(thePosition);
+		EntityManager.getInstance().registerEntity(this);
+		position.zero();
+		oldPosition.zero();		
 	}
 
-	protected Vector3f position;
+	protected Vector3f position = new Vector3f();
+	protected Vector3f oldPosition = new Vector3f();
 
 	public Vector3f getPosition() {
 		return position;
 	}
 
 	public void setPosition(Vector3f thePosition) {
-		position = thePosition;
-		Node view = ((Node) ViewManager.getInstance().getView(this));
+		oldPosition = position;
+		position = thePosition;		
+		/*Node view = ((Node) ViewManager.getInstance().getView(this));
 		if (view != null) {
 			view.setLocalTranslation(thePosition);
 			ViewManager.getInstance().markForUpdate(this);
-		}
+		}*/
+	}
+	
+	public boolean hasMove(){
+		if (oldPosition.equals(position))
+			return false;
+		oldPosition = position;
+		return true;		
 	}
 
 	private IPersonaje p;
@@ -101,20 +113,22 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	 * @param theAngle
 	 *            el angulo de la DynamicEntity a aplicar.
 	 */
-	public void setAngle(float theAngle) {
-		angle = theAngle;
-		Node view = ((Node) ViewManager.getInstance().getView(this));
-		if (view != null) {
-			float[] angles = new float[3];
-			Vector3f ltras = view.getLocalTranslation();
-			view.getLocalRotation().toAngles(angles);
-			view.getLocalRotation().fromAngles(angles[0], angle,
-					angles[2]);
-			view.setLocalTranslation(ltras);
-			ViewManager.getInstance().markForUpdate(this);
-		}
-	}
+    public void setAngle(float theAngle) {
+        angle = theAngle;
+        Node view = ((Node) ViewManager.getInstance().getView(this));
+        if (view != null) {
+                float[] angles = new float[3];
+                Vector3f ltras = view.getLocalTranslation();
+                view.getLocalRotation().toAngles(angles);
+                view.getLocalRotation().fromAngles(angles[0], angle,
+                                angles[2]);
+                view.setLocalTranslation(ltras);
+                ViewManager.getInstance().markForUpdate(this);
+        }
+}
 	
+
+
 	/** 
 	 * El estado del jugador en el juego. 
 	 */
@@ -341,5 +355,6 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
 	public void addForce(Vector3f vector) {
 		this.force.addLocal(vector);
 	}
+
 
 }

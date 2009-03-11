@@ -11,6 +11,7 @@ import client.communication.PositionsTranslator;
 import client.communication.WorldsMaper;
 import client.communication.msgprocessor.ClientMsgProcessor;
 import client.game.controller.ControllerManagerFactory;
+import client.game.controller.ExternPlayerControllerFactory;
 import client.game.controller.PlayerControllerFactory;
 import client.game.entity.DynamicEntityFactory;
 import client.game.entity.EntityManagerFactory;
@@ -22,6 +23,7 @@ import client.game.state.U3dLoginState;
 import client.game.state.U3dState;
 import client.game.task.TaskManagerFactory;
 import client.game.task.U3DMoveCharacterTaskFactory;
+import client.game.task.U3DMoveExternCharacterTaskFactory;
 import client.game.task.U3DRotateCharacterTaskFactory;
 import client.game.view.U3DBuildingViewFactory;
 import client.game.view.U3DDynamicViewFactory;
@@ -181,11 +183,12 @@ public class U3dgame extends Game {
 		ViewFactoryManager.getInstance().add(new U3DDynamicViewFactory());
 
 		TaskManagerFactory.getInstance().add(new U3DMoveCharacterTaskFactory());
-		TaskManagerFactory.getInstance().add(
-				new U3DRotateCharacterTaskFactory());
+		TaskManagerFactory.getInstance().add(new U3DMoveExternCharacterTaskFactory());
+		
+		TaskManagerFactory.getInstance().add(new U3DRotateCharacterTaskFactory());
 
-		ControllerManagerFactory.getInstance().add(
-				new PlayerControllerFactory());
+		ControllerManagerFactory.getInstance().add(new PlayerControllerFactory());
+		ControllerManagerFactory.getInstance().add(new ExternPlayerControllerFactory());
 
 		// *********************************
 
