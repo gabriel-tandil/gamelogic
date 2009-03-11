@@ -47,9 +47,9 @@ public class ChangeToPlace extends ChangeStateTask {
 					.getChild(GameContext.getUserName() + "_View");
 			actualEstado.getRootNode().detachChild(playerView);
 
-			IEntity entity = EntityManager.getInstance().getEntity("World");
+			IEntity entity = EntityManager.getInstance().getEntity(actualEstado.getName());
 			ViewManager.getInstance().removeView(entity);
-			EntityManager.getInstance().removeEntity("World");
+			EntityManager.getInstance().removeEntity(actualEstado.getName());
 
 			this.endState(proxEstado);
 

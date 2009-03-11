@@ -14,18 +14,6 @@ public class U3DChangeToFirstPlace extends ChangeStateTask {
 	
 	public void execute() 
 	{
-		/*Player player = (Player) EntityManager.getInstance().getEntity(
-				GameContext.getUserName());
-
-		U3dPlayerView playerView = (U3dPlayerView) actualEstado
-				.getRootNode()
-				.getChild(GameContext.getUserName() + "_View");
-		actualEstado.getRootNode().detachChild(playerView);
-
-		IEntity entity = EntityManager.getInstance().getEntity("World");
-		ViewManager.getInstance().removeView(entity);
-		EntityManager.getInstance().removeEntity("World");
-*/
 		this.endState(proxEstado);
 
 		GameStateManager.getInstance().deactivateAllChildren();
@@ -33,7 +21,6 @@ public class U3DChangeToFirstPlace extends ChangeStateTask {
 
 		U3dState proximoEstado = ((U3dState) GameStateManager.getInstance()
 				.getChild(proxEstado));
-		//proximoEstado.getRootNode().attachChild(playerView);
 
 		proximoEstado.initialize();
 
