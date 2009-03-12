@@ -102,15 +102,15 @@
 		<enabled param1="true"></enabled>
 	</lightState>
 	<u3dChaseCam>
-		<targetOffset>
-			<vector3f param1 = "0" param2 = "5" param3 = "0"/>
-		</targetOffset>
-		<properties prop_Maxrollout = "6" prop_Minrollout = "3" prop_Maxascent = "25" prop_Minascent = "0"> 
-			<prop_initialspherecoords>
-				<vector3f param1 = "20" param2 = "0" param3 = "30"/>
-			</prop_initialspherecoords>	
-		</properties>
-		<chase_Settings maxDistance = "80" minDistance = "50"/>
-	</u3dChaseCam>
+ 		<targetOffset>
+  			<vector3f param1="0" param2="15" param3="0" /> 
+  		</targetOffset>
+ 		<properties prop_Maxrollout="6" prop_Minrollout="3" prop_Maxascent="25" prop_Minascent="0">
+ 			<prop_initialspherecoords>
+  				<vector3f param1="15" param2="0" param3="0" /> 
+  			</prop_initialspherecoords>
+  		</properties>
+  		<chase_Settings maxDistance="30" minDistance="30" /> 
+ 	</u3dChaseCam>
 	<translationPoint param1="13300" param2="0" param3="4000"/>
 </map>
