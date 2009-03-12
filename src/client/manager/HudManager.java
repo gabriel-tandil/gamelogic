@@ -25,7 +25,7 @@ import com.jmex.game.state.GameStateManager;
  * clase que implementa la interface IHudManager, encargada de la visualización
  * del Hud
  * 
- * @author kike
+ * @author Gabriel
  * 
  */
 public class HudManager implements IHudManager {
@@ -60,6 +60,7 @@ public class HudManager implements IHudManager {
 		style = BuiSystem.getStyle();
 		crearVentanaControl();
 		setCursorVisible(true);
+		map.loadMap();
 	}
 
 	public void render() {
@@ -76,9 +77,9 @@ public class HudManager implements IHudManager {
 				if (!ventanas.isEmpty())
 				gs.getRootNode().attachChild(_root);
 				if (muestraMapa)
-					gs.getRootNode().attachChild(map.loadMap());
+					gs.getRootNode().attachChild(map.getHudMap());
 				else
-					gs.getRootNode().detachChild(map.loadMap());
+					gs.getRootNode().detachChild(map.getHudMap());
 			} else {
 				gs.getRootNode().detachChild(_root);
 				gs.getRootNode().detachChild(map.loadMap());
