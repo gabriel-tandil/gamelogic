@@ -229,29 +229,23 @@ public class Map{
 	 * @param y la nueva coordenada en y a la que se movio el jugador
 	 */
 	public void redrawMap(){
-		System.out.print("Posicion "+x+" "+y+"  ->  ");
 		float x=this.x*factor+desplazamientoX;
 		float y=this.y*factor+desplazamientoY;
-		System.out.println(x+" "+y);
 
 		final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
 		int x1=xRotar((x - this.map.getWidth()/2),(y - this.map.getHeight()/2),x,y);
 		int y1=yRotar((x - this.map.getWidth()/2),(y - this.map.getHeight()/2),x,y);
-		System.out.println(x1+" "+y1);
 		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
 		x1=xRotar((x - this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
 		y1=yRotar((x - this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
-		System.out.println(x1+" "+y1);
 
 		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
 		x1=xRotar((x + this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
 		y1=yRotar((x + this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
-		System.out.println(x1+" "+y1);
 
 		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
 		x1=xRotar((x + this.map.getWidth()/2),(y - this.map.getHeight()/2),x,y);
 		y1=yRotar((x + this.map.getWidth()/2),(int)(y - this.map.getHeight()/2),x,y);
-		System.out.println(x1+" "+y1);
 
 		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
         // assign texture coordinates to the quad
@@ -295,10 +289,5 @@ public class Map{
 		return rotacionMundo;
 	}
     
-    /*public static void main(String[] args) {
-        Map app = new Map();
-        app.setConfigShowMode(SimpleGame.ConfigShowMode.AlwaysShow);
-        app.start();
-    }*/
 
 }

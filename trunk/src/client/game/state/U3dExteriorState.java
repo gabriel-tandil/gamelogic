@@ -77,10 +77,7 @@ public class U3dExteriorState extends U3dState {
 		HudManager.getInstance().getMap().setDesplazamientoX(390);
 		HudManager.getInstance().getMap().setDesplazamientoY(-9);
 		HudManager.getInstance().getMap().setFactor(0.1f);
-		HudManager.getInstance().getMap().setRotacionMundo((float) ((Math.PI/180)*-15));
-
-		HudManager.getInstance().getMap().setX(((U3dPlayerView)this.rootNode.getChild("player_View")).getLocalTranslation().x);
-		HudManager.getInstance().getMap().setY( ((U3dPlayerView)this.rootNode.getChild("player_View")).getLocalTranslation().z);
+		HudManager.getInstance().getMap().setRotacionMundo((float) ((Math.PI/180)*-90));
 		HudManager.getInstance().update();
 	}
 
