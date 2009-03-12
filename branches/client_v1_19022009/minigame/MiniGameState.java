@@ -22,6 +22,7 @@ import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
 import common.datatypes.D2GameScore;
+import common.datatypes.I2DGame;
 import common.datatypes.Ranking;
 import common.exceptions.UnsopportedMessageException;
 import common.messages.MessageFactory;
@@ -35,8 +36,11 @@ import common.messages.requests.MsgAdd2DGameScore;
  *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class MiniGameState extends U3dState {
-	public MiniGameState(String arg0) {
+	private String minigameClass;
+
+	public MiniGameState(String arg0, String minigameClass) {
 		super(arg0);
+		this.minigameClass = minigameClass;
 		// TODO Apéndice de constructor generado automáticamente
 	}
 
@@ -192,18 +196,12 @@ public class MiniGameState extends U3dState {
 		Class c = null;
 		Properties a = new Properties();
 
-		FileInputStream is;
 		try {
-			is = new FileInputStream(new File(System.getProperty("user.dir")
-					+ "/src/StateMapping.properties"));
-			a.load(is);
-		
-			String value = a.getProperty(this.getName());
+	
 			// Primer valor: Nombre del XML
 			// Segundo valor: Nombre de la clase del State
-			String[] values = value.split("~");
 			
-			c = Class.forName(values[0]);
+			c = Class.forName(minigameClass);
 			
 			I2DGame i = (I2DGame) c.newInstance();
 			i.setRanking(ranking);
@@ -220,9 +218,6 @@ public class MiniGameState extends U3dState {
 			this.sendResult(i, score);
 
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
