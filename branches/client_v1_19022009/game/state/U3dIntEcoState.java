@@ -69,6 +69,7 @@ public class U3dIntEcoState extends U3dState {
 		HudManager.getInstance().removeWindow("login");
 		HudManager.getInstance().removeWindow("errorLogueo");
 		HudManager.getInstance().muestraControl();
+		HudManager.getInstance().setMuestraMapa(false);
 		HudManager.getInstance().update();
 	}
 	private void initializeLight() {	
@@ -90,8 +91,11 @@ public class U3dIntEcoState extends U3dState {
 	}
 
 	public void initializeCamera(DynamicView playerView) {
-		if (playerView != null)
+		if (playerView != null){
 			chaser = this.iworldbuilder.buildCamera(playerView);
+			chaser.getCamera().setFrustumFar(400);
+		}
+		
 	}
 	
 	public void initializeState() {
