@@ -27,7 +27,7 @@ public class DynamicEntitysSolicitations {
 	 * encuenrta en el Map, significa que la entidad no existe localemnte y no
 	 * fue solicitada.
 	 */
-	public static final Map<String, String> DYNAMIC_ENTITYS_STATES = Collections
+	public static Map<String, String> DYNAMIC_ENTITYS_STATES = Collections
 			.synchronizedMap(new Hashtable<String, String>());
 
 }

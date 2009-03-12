@@ -34,6 +34,8 @@ public class U3dIntEcoState extends U3dState {
 	
 	private U3dBuildingView worldView;
 	
+	private U3DBuildingEntity worldEntity;
+	
 
 	public U3dIntEcoState(String name, String url) {
 		super(name);
@@ -76,7 +78,7 @@ public class U3dIntEcoState extends U3dState {
 	private void initializeWorld() {
 		this.iworldbuilder = new XMLWorldBuilder(url);
 		
-		U3DBuildingEntity worldEntity = (U3DBuildingEntity) EntityManager.
+		worldEntity = (U3DBuildingEntity) EntityManager.
 		getInstance().createEntity("EntityFactory",this.name);
 	
 		worldEntity.init(this.name);
@@ -107,6 +109,8 @@ public class U3dIntEcoState extends U3dState {
 		rootNode.clearRenderState(0);
 		chaser.removeAllActions();
 		chaser=null;
+		
+		ViewManager.getInstance().removeView(worldEntity);
 		
 		this.iworldbuilder.destroyWorld(rootNode);
 		this.iworldbuilder = null;

@@ -6,6 +6,7 @@ import client.communication.PositionsTranslator;
 import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
+import client.game.entity.Player;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
 
@@ -73,7 +74,7 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 			// contenido en el mensaje.
 			String idClientWorld = WorldsMaper.SERVER_TO_CLIENT.get(msg
 					.getActualWorld());
-
+		
 			// Obtengo la traslacion de la posicion y la seteo
 			Vector3f clientPosition = PositionsTranslator
 					.clientPositionServerWorld(msg.getActualWorld(), msg
@@ -83,13 +84,24 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 					.createEntity("DynamicEntityFactory",
 							msg.getIdDynamicEntity());
 			
-			if (entity!=null)
+			if (entity == null)
+				entity = (DynamicEntity) EntityManager.getInstance()
+							.getEntity(msg.getIdDynamicEntity());
+			
+			Player player = (Player) EntityManager.getInstance().getEntity(
+					GameContext.getUserName());
+			
+			if (/*(entity!=null) && */(idClientWorld.compareTo(player.getActualWorld()) == 0)){
 				entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x,
 						idClientWorld, msg.getSkin(), clientPosition);
-
-			// Marco el estado local de la entidad recien creada como existente.
-			DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg
-					.getIdDynamicEntity(), DynamicEntitysSolicitations.EXISTS);
-		}
+                // Marco el estado local de la entidad recien creada como existente.
+				DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.put(msg
+						.getIdDynamicEntity(), DynamicEntitysSolicitations.EXISTS);
+				}
+			else
+				DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES.remove(msg
+						.getIdDynamicEntity());
+				
+		}	
 	}
 }

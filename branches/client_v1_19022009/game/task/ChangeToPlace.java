@@ -1,5 +1,8 @@
 package client.game.task;
 
+import java.util.Iterator;
+
+import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
 import client.communication.PositionsTranslator;
 import client.communication.WorldsMaper;
@@ -49,13 +52,19 @@ public class ChangeToPlace extends ChangeStateTask {
 
 			IEntity entity = EntityManager.getInstance().getEntity(actualEstado.getName());
 			ViewManager.getInstance().removeView(entity);
-			EntityManager.getInstance().removeEntity(actualEstado.getName());
-
+			
+			/**/EntityManager.getInstance().removeAll();
+			
+			//EntityManager.getInstance().removeEntity(actualEstado.getName());
+			
 			this.endState(proxEstado);
 
+			/**/EntityManager.getInstance().registerEntity(player);
+			
+			
 			GameStateManager.getInstance().deactivateAllChildren();
 			GameStateManager.getInstance().activateChildNamed(proxEstado);
-
+			
 			U3dState proximoEstado = ((U3dState) GameStateManager.getInstance()
 					.getChild(proxEstado));
 			proximoEstado.getRootNode().attachChild(playerView);
@@ -67,7 +76,7 @@ public class ChangeToPlace extends ChangeStateTask {
 			proximoEstado.initializeCamera(playerView);
 			
 			player.setActualWorld(this.proxEstado);
-
+			
 			// se crea msg de a enviar
 			MsgChangeWorld msg = (MsgChangeWorld) MessageFactory.getInstance()
 					.createMessage(MsgTypes.MSG_CHANGE_WORLD_TYPE);
@@ -81,6 +90,8 @@ public class ChangeToPlace extends ChangeStateTask {
 			ITask task = TaskCommFactory.getInstance().createComTask(msg);
 			TaskManager.getInstance().submit(task);
 
+			DynamicEntitysSolicitations.DYNAMIC_ENTITYS_STATES. clear();
+			
 		} catch (UnsopportedMessageException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
