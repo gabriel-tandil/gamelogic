@@ -2,6 +2,7 @@ package client.game.task;
 
 import client.game.entity.Player;
 import client.manager.CollisionManager;
+import client.manager.HudManager;
 import client.manager.ViewManager;
 
 import com.jme.math.Vector3f;
@@ -32,6 +33,8 @@ public class U3DRotateCharacterTask extends Task {
 		view.getLocalRotation().toAngles(angles);
 	    view.getLocalRotation().fromAngles(angles[0],angles[1]+ angle, angles[2]);
 	    view.setLocalTranslation(ltras);
+	    HudManager.getInstance().getMap().setRotacion(angles[1]+ angle);
+	    HudManager.getInstance().getMap().redrawMap();
 	    ViewManager.getInstance().markForUpdate(this.character);
 	}
 	
