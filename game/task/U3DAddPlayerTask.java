@@ -73,39 +73,51 @@ public class U3DAddPlayerTask extends Task {
 	
 	private IPersonaje getPlayer(Node node) 
 	{
-		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))		
-		{
-			return getPlayerPipa(node);
-		}
-		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_TIPO_CON_LA_10))		
-		{
-			return getPlayerDiez(node);
-		}
-		//Si no se dignaron a ponerle un Skin como la gente va el 10
-		return getPlayerDiez(node);
+		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))       
+        {
+            return getPlayerPipa(node);
+        }
+        if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_TIPO_CON_LA_10))       
+        {
+            return getPlayerDiez(node);
+        }
+		
+		return getPlayer(node, entity.getSkin().getSkin());
 	}
 	
-	private IPersonaje getPlayerPipa(Node node)
+	private IPersonaje getPlayer(Node node, String fileName)
     {
-    	IPersonaje p = new PersonaDae(node);
-		p.setPaquete("jmetest/data/model/collada/");
-		p.setPersonaje("jmetest/data/model/collada/man.dae");
-		p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
+		IPersonaje p = new PersonaMD5(node);
+		p.setPaquete("jmetest/data/model/MD5/");
+		p.setPersonaje("jmetest/data/model/MD5/"+fileName+".md5mesh");
+		p.setAnimaciones("jmetest/data/model/MD5/"+fileName+".md5anim");
 		p.cargar();
 		p.setModelBound(new BoundingBox());
 		p.setLocalScale(scale);
 		return p;
     }
 	
-	private IPersonaje getPlayerDiez(Node node)
+    private IPersonaje getPlayerPipa(Node node)
     {
-		IPersonaje p = new PersonaMD5(node);
-		p.setPaquete("jmetest/data/model/MD5/");
-		p.setPersonaje("jmetest/data/model/MD5/Mesh.md5mesh");
-		p.setAnimaciones("jmetest/data/model/MD5/MeshAnim.md5anim");
-		p.cargar();
-		p.setModelBound(new BoundingBox());
-		p.setLocalScale(scale);
-		return p;
+        IPersonaje p = new PersonaDae(node);
+        p.setPaquete("jmetest/data/model/collada/");
+        p.setPersonaje("jmetest/data/model/collada/man.dae");
+        p.setAnimaciones("jmetest/data/model/collada/man_walk.dae");
+        p.cargar();
+        p.setModelBound(new BoundingBox());
+        p.setLocalScale(scale);
+        return p;
+    }
+   
+    private IPersonaje getPlayerDiez(Node node)
+    {
+        IPersonaje p = new PersonaMD5(node);
+        p.setPaquete("jmetest/data/model/MD5/");
+        p.setPersonaje("jmetest/data/model/MD5/Mesh.md5mesh");
+        p.setAnimaciones("jmetest/data/model/MD5/MeshAnim.md5anim");
+        p.cargar();
+        p.setModelBound(new BoundingBox());
+        p.setLocalScale(scale);
+        return p;
     }
 }
