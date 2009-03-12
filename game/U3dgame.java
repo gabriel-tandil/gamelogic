@@ -223,7 +223,7 @@ public class U3dgame extends Game {
 					exterior.setActive(false);
 				} else if (values[1].equals(MiniGameState.class.toString())) {
 					MiniGameState wch = new MiniGameState((String) world
-							.getKey());
+							.getKey(),values[0]);
 					this.getGameStateManager().attachChild(wch);
 					wch.setActive(false);
 				} else if (values[1].equals(SpotState.class.toString())) {

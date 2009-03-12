@@ -3,6 +3,7 @@
  */
 package client.spot;
 
+import ar.edu.unicen.exa.spots.InformationSpot;
 import client.game.state.IGameState;
 import client.game.state.U3dState;
 import client.game.state.WorldGameState;
