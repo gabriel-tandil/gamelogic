@@ -62,6 +62,10 @@ public class U3dExteriorState extends U3dState {
 		HudManager.getInstance().removeWindow("errorLogueo");
 		HudManager.getInstance().muestraControl();
 		HudManager.getInstance().setMuestraMapa(true);
+		HudManager.getInstance().getMap().setDesplazamientoX(70);
+		HudManager.getInstance().getMap().setDesplazamientoY(300);
+		HudManager.getInstance().getMap().setFactor(0.1f);
+		HudManager.getInstance().getMap().setRotacionMundo((float) ((Math.PI/180)*180));
 		HudManager.getInstance().update();
 	}
 

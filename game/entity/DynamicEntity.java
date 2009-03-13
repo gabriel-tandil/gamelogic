@@ -12,6 +12,7 @@ import client.game.task.TaskManagerFactory;
 import client.game.task.U3DAddDynamicEntityTask;
 import client.game.task.U3DAddDynamicEntityTaskFactory;
 import client.manager.EntityManager;
+import client.manager.HudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 
@@ -123,6 +124,8 @@ public class DynamicEntity extends Entity implements IDynamicEntity {
                 view.getLocalRotation().fromAngles(angles[0], angle,
                                 angles[2]);
                 view.setLocalTranslation(ltras);
+                HudManager.getInstance().getMap().setRotacion(angles[1]+ angle);
+                HudManager.getInstance().getMap().redrawMap();
                 ViewManager.getInstance().markForUpdate(this);
         }
 }
