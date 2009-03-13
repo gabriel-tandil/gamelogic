@@ -33,6 +33,38 @@ public class Map{
     
     private int mapWidth;
     private int mapHeight;
+	private float factor;
+	private float desplazamientoX;
+	private float rotacionMundo;
+	
+	public float getFactor() {
+		return factor;
+	}
+
+	public void setFactor(float factor) {
+		this.factor = factor;
+	}
+
+	public float getDesplazamientoX() {
+		return desplazamientoX;
+	}
+
+	public void setDesplazamientoX(float desplazamientoX) {
+		this.desplazamientoX = desplazamientoX;
+	}
+
+	public float getDesplazamientoY() {
+		return desplazamientoY;
+	}
+
+	public void setDesplazamientoY(float desplazamientoY) {
+		this.desplazamientoY = desplazamientoY;
+	}
+
+	private float desplazamientoY;
+	private float x=221;
+	private float y=181;
+	private float rotacion;
     
    	public Map(){
 		hudMap = new Node("hudMap");
@@ -69,7 +101,6 @@ public class Map{
         /*map.setLocalTranslation(new Vector3f((86.8f*DisplaySystem
 				.getDisplaySystem().getWidth()/100) , 87.5f*DisplaySystem
 				.getDisplaySystem().getHeight()/100, 0));*/
-        this.changeMapLocation(221, 181);
         
         //Aplica la textura a la posicion actual
         this.setTexture(myPosition, "/HUD/textures/map_myposition.png");
@@ -103,6 +134,26 @@ public class Map{
         return hudMap;
 	}
 	
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.y = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.x = y;
+	}
+
+	public Node getHudMap() {
+		return hudMap;
+	}
+
 	/**
 	 * Retorna la altura de una imagen.
 	 * @param image
@@ -177,18 +228,52 @@ public class Map{
 	 * @param x la nueva coordenada en x a la que se movio el jugador
 	 * @param y la nueva coordenada en y a la que se movio el jugador
 	 */
-	public void changeMapLocation(float x, float y){
+	public void redrawMap(){
+		float x=this.x*factor+desplazamientoX;
+		float y=this.y*factor+desplazamientoY;
+		x= x;
+		y= 800 - y;
+		
 		final FloatBuffer texCoords = BufferUtils.createVector2Buffer(4);
-        texCoords.put(getUForPixel((int)(x - this.map.getWidth()/2))).put(getVForPixel((int)(y - this.map.getHeight()/2)));
-        texCoords.put(getUForPixel((int)(x - this.map.getWidth()/2))).put(getVForPixel((int)(y + this.map.getHeight()/2)));
-        texCoords.put(getUForPixel((int)(x + this.map.getWidth()/2))).put(getVForPixel((int)(y + this.map.getHeight()/2)));
-        texCoords.put(getUForPixel((int)(x + this.map.getWidth()/2))).put(getVForPixel((int)(y - this.map.getHeight()/2)));
+		int x1=xRotar((x - this.map.getWidth()/2),(y - this.map.getHeight()/2),x,y);
+		int y1=yRotar((x - this.map.getWidth()/2),(y - this.map.getHeight()/2),x,y);
+		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
+		x1=xRotar((x - this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
+		y1=yRotar((x - this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
+
+		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
+		x1=xRotar((x + this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
+		y1=yRotar((x + this.map.getWidth()/2),(y + this.map.getHeight()/2),x,y);
+
+		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
+		x1=xRotar((x + this.map.getWidth()/2),(y - this.map.getHeight()/2),x,y);
+		y1=yRotar((x + this.map.getWidth()/2),(int)(y - this.map.getHeight()/2),x,y);
+
+		texCoords.put(getUForPixel(x1)).put(getVForPixel(y1));
         // assign texture coordinates to the quad
         map.setTextureCoords(new TexCoords(texCoords));
         // apply the texture state to the quad
         map.updateRenderState();
 	}
+
+	private int xRotar(float x, float y,float cx,float cy) {
+		return (int) (-Math.sin(rotacion+rotacionMundo)*y+Math.cos(rotacion+rotacionMundo)*x+cx-
+				Math.cos(rotacion+rotacionMundo)*cx+Math.sin(rotacion+rotacionMundo)*cy);
+	}
+	private int yRotar(float x, float y,float cx,float cy) {
+		return  (int) (Math.sin(rotacion+rotacionMundo)*x+Math.cos(rotacion+rotacionMundo)*y+cy-
+				Math.sin(rotacion+rotacionMundo)*cx-Math.cos(rotacion+rotacionMundo)*cy);
+	}	
+
 	
+	public float getRotacion() {
+		return rotacion;
+	}
+
+	public void setRotacion(float rotacion) {
+		this.rotacion = rotacion;
+	}
+
 	/**
 	 * Setea el mapa del lugar.
 	 * @param mapa el mapa
@@ -197,11 +282,14 @@ public class Map{
 		this.setTexture(map, mapa);
 		map.updateRenderState();
 	}
+
+	public void setRotacionMundo(float rotacionMundo) {
+		this.rotacionMundo = rotacionMundo;
+	}
+
+	public float getRotacionMundo() {
+		return rotacionMundo;
+	}
     
-    /*public static void main(String[] args) {
-        Map app = new Map();
-        app.setConfigShowMode(SimpleGame.ConfigShowMode.AlwaysShow);
-        app.start();
-    }*/
 
 }

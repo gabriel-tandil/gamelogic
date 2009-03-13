@@ -89,8 +89,8 @@ public class U3DAddPlayerTask extends Task {
     {
 		IPersonaje p = new PersonaMD5(node);
 		p.setPaquete("jmetest/data/model/MD5/");
-		p.setPersonaje("jmetest/data/model/MD5/"+fileName+".md5mesh");
-		p.setAnimaciones("jmetest/data/model/MD5/"+fileName+".md5anim");
+		p.setPersonaje("jmetest/data/model/MD5/"+"CMan0002"+"/Mesh"+".md5mesh");
+		p.setAnimaciones("jmetest/data/model/MD5/"+"CMan0002"+"/MeshAnim"+".md5anim");
 		p.cargar();
 		p.setModelBound(new BoundingBox());
 		p.setLocalScale(scale);
