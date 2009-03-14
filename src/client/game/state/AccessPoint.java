@@ -15,7 +15,7 @@ import client.game.task.U3dChangeToIntEco;
 import client.game.task.U3dChangeToIntExa;
 import client.game.task.U3dChangeToIntIsistan;
 import client.game.task.U3dChangeToWordChallengeGame;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.TaskManager;
 import client.minigame.U3dWordChallengeState;
 
@@ -152,8 +152,8 @@ long timer;
 			HashMap<String, String> botones = new HashMap<String, String>();
 			botones.put("abrirPuerta", "Abrir Puerta");
 			botones.put("noAbrir", "No Abrir Puerta");
-			HudManager.getInstance().update();
-			HudManager.getInstance().muestraDialogo(textoEdificio, botones,
+			U3dHudManager.getInstance().update();
+			U3dHudManager.getInstance().muestraDialogo(textoEdificio, botones,
 					new ActionListener() {
 						public void actionPerformed(ActionEvent event) {
 							if (event.getAction().equals("abrirPuerta")) {

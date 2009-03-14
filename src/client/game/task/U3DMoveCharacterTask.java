@@ -7,7 +7,7 @@ import client.game.state.U3dState;
 import client.game.state.WorldGameState;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.ViewManager;
 
 import com.jme.math.Ray;
@@ -114,9 +114,9 @@ public class U3DMoveCharacterTask extends Task {
 
 				}
 			}
-			HudManager.getInstance().getMap().setX(destine.x);
-			HudManager.getInstance().getMap().setY(destine.z);
-			HudManager.getInstance().getMap().redrawMap();
+			U3dHudManager.getInstance().getMap().setX(destine.x);
+			U3dHudManager.getInstance().getMap().setY(destine.z);
+			U3dHudManager.getInstance().getMap().redrawMap();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

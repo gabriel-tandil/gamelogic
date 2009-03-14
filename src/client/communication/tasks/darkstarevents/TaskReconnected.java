@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
 import client.communication.tasks.comm.RTaskChangeState;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.TaskManager;
 
 import common.exceptions.UnsopportedMessageException;
@@ -45,7 +45,7 @@ public class TaskReconnected extends TaskCommunication {
 	}
 	
 	/**
-	 * Se invoca al {@link HudManager} para mostrar el dialogo de reconexi�n, con los botones 
+	 * Se invoca al {@link U3dHudManager} para mostrar el dialogo de reconexi�n, con los botones 
 	 * correspondientes y la acci�n de cambio de estado.   
 	 * @author Castillo/Santos.
 	 * @see client.game.task.ITask#execute()
@@ -53,7 +53,7 @@ public class TaskReconnected extends TaskCommunication {
 	public void execute() {
 		HashMap<String, String> botones =new HashMap<String, String>();
 		botones.put("Reconectar", "Reconectar");
-		HudManager.getInstance().muestraDialogo(
+		U3dHudManager.getInstance().muestraDialogo(
 		 "Volver a reconectar?",botones ,
 		 new ActionListener() {
 		   public void actionPerformed(ActionEvent event) {
@@ -71,7 +71,7 @@ public class TaskReconnected extends TaskCommunication {
 		   }
 		});
 
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().update();
 		
 	}
 	

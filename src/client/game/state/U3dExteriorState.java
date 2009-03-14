@@ -9,7 +9,7 @@ import client.game.task.U3DChangeToIntExaTaskFactory;
 import client.game.task.U3DChangeToIntIsistanTaskFactory;
 import client.game.task.U3DChangeToWordChallengeTaskFactory;
 import client.game.view.U3dPlayerView;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
@@ -69,16 +69,16 @@ public class U3dExteriorState extends U3dState {
 	}
 
 	private void inicializaHUD() {
-		HudManager.getInstance().unSetCargando();
-		HudManager.getInstance().removeWindow("login");
-		HudManager.getInstance().removeWindow("errorLogueo");
-		HudManager.getInstance().muestraControl();
-		HudManager.getInstance().setMuestraMapa(true);
-		HudManager.getInstance().getMap().setDesplazamientoX(390);
-		HudManager.getInstance().getMap().setDesplazamientoY(-9);
-		HudManager.getInstance().getMap().setFactor(0.1f);
-		HudManager.getInstance().getMap().setRotacionMundo((float) ((Math.PI/180)*-90));
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().unSetCargando();
+		U3dHudManager.getInstance().removeWindow("login");
+		U3dHudManager.getInstance().removeWindow("errorLogueo");
+		U3dHudManager.getInstance().muestraControl();
+		U3dHudManager.getInstance().setMuestraMapa(true);
+		U3dHudManager.getInstance().getMap().setDesplazamientoX(390);
+		U3dHudManager.getInstance().getMap().setDesplazamientoY(-9);
+		U3dHudManager.getInstance().getMap().setFactor(0.1f);
+		U3dHudManager.getInstance().getMap().setRotacionMundo((float) ((Math.PI/180)*-90));
+		U3dHudManager.getInstance().update();
 	}
 
 	private void initializeLight() {
@@ -110,7 +110,7 @@ public class U3dExteriorState extends U3dState {
 	public void cleanup(){
 		this.builder.destroyWorld(rootNode);
 		this.builder = null;
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().update();
 		}
 
 	public void render(float arg0) {
@@ -125,10 +125,6 @@ public class U3dExteriorState extends U3dState {
         		chaser.getCamera().getLocation().z);
 		//se escala el cielo para que entre en el rango del frustrum
 		sb.setLocalScale(0.7f);
-		HudManager.getInstance().getRoot()// solo necesito actualizar los
-		// nodos del hud
-		.updateGeometricState(0.0f, true);
-		HudManager.getInstance().getRoot().updateRenderState();
 	}
 
 	public WorldGameState getWorld() {
