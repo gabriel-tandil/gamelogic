@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
 import client.communication.tasks.comm.RTaskChangeState;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.TaskManager;
 
 import common.exceptions.UnsopportedMessageException;
@@ -46,14 +46,14 @@ public class TaskReconnecting extends TaskCommunication {
 	
 	/**
 	 * La tarea que tenga el mensaje tendria que mostrar el dialogo 
-	 * y cambie de estado de ser necesario, invocando al {@link HudManager}
+	 * y cambie de estado de ser necesario, invocando al {@link U3dHudManager}
 	 * @author Castillo/Santos.
 	 * @see client.game.task.ITask#execute()
 	 */
 	public void execute() {
 		HashMap<String, String> botones =new HashMap<String, String>();
 		botones.put("Reconnecting", "Reconnecting");
-		HudManager.getInstance().muestraDialogo(
+		U3dHudManager.getInstance().muestraDialogo(
 		 "Reconnectando?",botones ,
 		 new ActionListener() {
 		   public void actionPerformed(ActionEvent event) {
@@ -71,7 +71,7 @@ public class TaskReconnecting extends TaskCommunication {
 		   }
 		});
 
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().update();
 		
 	}
 	

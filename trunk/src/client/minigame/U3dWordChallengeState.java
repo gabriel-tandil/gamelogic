@@ -1,7 +1,7 @@
 package client.minigame;
 
 import ar.edu.unicen.exa.game2d.wordchallenge.WordChallenge;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 
 
 
@@ -30,7 +30,7 @@ public class U3dWordChallengeState extends MiniGameState {
 	}
 	
 	private void inicializaHUD() {
-		HudManager.getInstance().unSetCargando();
+		U3dHudManager.getInstance().unSetCargando();
 	}
 	
 

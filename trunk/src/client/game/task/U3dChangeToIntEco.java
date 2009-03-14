@@ -2,7 +2,7 @@ package client.game.task;
 
 import ar.edu.unicen.exa.game2d.wordchallenge.WordChallenge;
 import client.game.state.U3dIntEcoState;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;

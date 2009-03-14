@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import client.communication.tasks.TaskCommunication;
 import client.communication.tasks.comm.RTaskChangeState;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.TaskManager;
 
 import com.jmex.bui.event.ActionEvent;
@@ -49,7 +49,7 @@ public class TaskDisconnected extends TaskCommunication {
 	}
 	
 	/**
-	 * Se muestra el dialogo de consulta para volver a conectar, invocando al {@link HudManager}
+	 * Se muestra el dialogo de consulta para volver a conectar, invocando al {@link U3dHudManager}
 	 * con los botones correspondientes y la acci�n de cambio de estado.
 	 * @see client.game.task.ITask#execute()
 	 * @author Castillo/Santos.	 
@@ -58,7 +58,7 @@ public class TaskDisconnected extends TaskCommunication {
 		
 		HashMap<String, String> botones =new HashMap<String, String>();
 		botones.put("Conectar", "Conectar");
-		HudManager.getInstance().muestraDialogo(
+		U3dHudManager.getInstance().muestraDialogo(
 		 "Volver a conectar?",botones ,
 		 new ActionListener() {
 		   public void actionPerformed(ActionEvent event) {
@@ -74,7 +74,7 @@ public class TaskDisconnected extends TaskCommunication {
 		   }
 		});
 
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().update();
 	}
 	
 	/**

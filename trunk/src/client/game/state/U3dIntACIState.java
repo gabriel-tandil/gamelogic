@@ -2,7 +2,7 @@ package client.game.state;
 
 import client.game.input.U3DChaseCamera;
 import client.game.view.U3dPlayerView;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 
 import com.jme.scene.Node;
 import com.jme.scene.Skybox;
@@ -53,8 +53,8 @@ public class U3dIntACIState extends U3dState {
 		//}
 	}
 	private void inicializaHUD() {
-		HudManager.getInstance().unSetCargando();
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().unSetCargando();
+		U3dHudManager.getInstance().update();
 
 	}
 	private void initializeLight() {	
@@ -82,7 +82,7 @@ public class U3dIntACIState extends U3dState {
 	public void cleanup() {
 		this.builder.destroyWorld(rootNode);
 		this.builder = null;
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().update();
 
 	}
 
@@ -96,11 +96,6 @@ public class U3dIntACIState extends U3dState {
 		sb.getLocalTranslation().set(chaser.getCamera().getLocation().x,
 				chaser.getCamera().getLocation().y,
 				chaser.getCamera().getLocation().z);
-		HudManager.getInstance().getRoot()// solo necesito actualizar los
-				// nodos del hud
-				.updateGeometricState(0.0f, true);
-		HudManager.getInstance().getRoot().updateRenderState();
-		
 	}
 
 	public WorldGameState getWorld() {

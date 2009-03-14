@@ -13,7 +13,7 @@ import client.gameEngine.InputManager;
 import client.gameEngine.PhysicsManager;
 import client.manager.CollisionManager;
 import client.manager.EntityManager;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.TaskManager;
 import client.manager.ViewManager;
 import client.minigame.U3dWordChallengeState;
@@ -101,7 +101,7 @@ public class U3dgame extends Game {
 		setPhysicsManager(PhysicsManager.getInstance());
 		setTaskManager(TaskManager.getInstance());
 		setViewManager(ViewManager.getInstance());
-		setHudManager(HudManager.getInstance());
+		setHudManager(U3dHudManager.getInstance());
 		getHudManager().initialize(timer);
 		CollisionManager.getInstace().init();
 	}
@@ -186,7 +186,7 @@ public class U3dgame extends Game {
 		if(KeyBindingManager.getKeyBindingManager().isValidCommand("exit", false)) 
 			this.finish();
 		if(KeyBindingManager.getKeyBindingManager().isValidCommand("control", false)) 
-			HudManager.getInstance().muestraControl();		
+			U3dHudManager.getInstance().muestraControl();		
 	}
 
 	protected void render(float arg0) {
@@ -210,8 +210,8 @@ public class U3dgame extends Game {
 	}
 	
 	public void updateHuds() {
-		// TODO Auto-generated method stub
-
+		U3dHudManager.getInstance().getRoot().updateGeometricState(0.0f, true);
+		U3dHudManager.getInstance().getRoot().updateRenderState();
 	}
 
 }

@@ -28,9 +28,9 @@ import com.jmex.game.state.GameStateManager;
  * @author Gabriel
  * 
  */
-public class HudManager implements IHudManager {
+public class U3dHudManager implements IHudManager {
 	private boolean ocultaCursor = true;
-	private static HudManager instance = null;
+	private static U3dHudManager instance = null;
 	protected PolledRootNode _root;
 	BStyleSheet style = null;
 	private HashMap<String, BWindow> ventanas;
@@ -43,13 +43,13 @@ public class HudManager implements IHudManager {
 
 	private boolean muestraMapa = false;
 
-	public HudManager() {
+	public U3dHudManager() {
 
 	}
 
-	public static HudManager getInstance() {
+	public static U3dHudManager getInstance() {
 		if (instance == null)
-			instance = new HudManager();
+			instance = new U3dHudManager();
 		return instance;
 	}
 
@@ -85,10 +85,7 @@ public class HudManager implements IHudManager {
 				gs.getRootNode().detachChild(map.loadMap());
 
 			}
-			_root.updateGeometricState(0.0f, true);
-			_root.updateRenderState();
 		}
-
 	}
 
 	public PolledRootNode getRoot() {
@@ -133,7 +130,7 @@ public class HudManager implements IHudManager {
 	public void escribir(String texto, String id) {
 
 		BWindow ventTexto = new BWindow(id,
-				HudManager.getInstance().getStyle(), GroupLayout.makeVStretch());
+				U3dHudManager.getInstance().getStyle(), GroupLayout.makeVStretch());
 		BLabel label = new BLabel(texto);
 		ventTexto.add(label);
 		ventTexto.setSize(200, 50);

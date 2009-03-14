@@ -1,7 +1,7 @@
 package client.game.task;
 
 import client.game.state.U3dExteriorState;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 
 import com.jmex.game.state.BasicGameState;
 import com.jmex.game.state.GameStateManager;
@@ -15,7 +15,7 @@ public class U3dCargandoTask extends ChangeStateTask {
 
 	@Override
 	public void execute() {
-		HudManager.getInstance().setCargando();
+		U3dHudManager.getInstance().setCargando();
 		super.execute();
 	}
 

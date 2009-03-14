@@ -9,7 +9,7 @@ import client.game.task.U3DLoginRequestTask;
 import client.game.task.U3DLoginRequestTaskFactory;
 import client.game.task.U3dCargandoTask;
 import client.game.task.U3dChangeToExterior;
-import client.manager.HudManager;
+import client.manager.U3dHudManager;
 import client.manager.TaskManager;
 
 import com.jme.system.DisplaySystem;
@@ -53,10 +53,6 @@ public class U3dLoginState extends U3dState {
 
 	@Override
 	public void update(float arg0) {
-		HudManager.getInstance().getRoot()// solo necesito actualizar los
-				// nodos del hud
-				.updateGeometricState(0.0f, true);
-		HudManager.getInstance().getRoot().updateRenderState();
 		manejaLogueo();
 	}
 
@@ -74,14 +70,14 @@ public class U3dLoginState extends U3dState {
 				U3dChangeToExterior task = (U3dChangeToExterior) TaskManager
 						.getInstance().createTask("3");
 				TaskManager.getInstance().enqueue(task);
-				HudManager.getInstance().setCursorVisible(false);
+				U3dHudManager.getInstance().setCursorVisible(false);
 				loguear = false;
 			}
 			if (LOGUEO_ERROR.equals(respuestaLogueo)) {
-				HudManager.getInstance().setCursorVisible(true);
+				U3dHudManager.getInstance().setCursorVisible(true);
 				HashMap<String, String> botones = new HashMap<String, String>();
 				botones.put("aceptar", "Aceptar");
-				HudManager.getInstance().muestraDialogo("Fallo al intentar ingresar, verifique los datos e intente nuevamente.", botones,null);
+				U3dHudManager.getInstance().muestraDialogo("Fallo al intentar ingresar, verifique los datos e intente nuevamente.", botones,null);
 				
 				loguear = false;
 
@@ -104,7 +100,7 @@ public class U3dLoginState extends U3dState {
 		TaskManagerFactory.getInstance().add(new U3DCargandoTaskFactory());
 		TaskManagerFactory.getInstance().add(new U3DLoginRequestTaskFactory());
 		inicializaHUD();
-		HudManager.getInstance().update();
+		U3dHudManager.getInstance().update();
 	}
 
 	public void handleInput(ActionEvent event) {
@@ -113,13 +109,13 @@ public class U3dLoginState extends U3dState {
 			System.out.println("loguear");
 			respuestaLogueo = null;
 			loguear = true;
-			HudManager.getInstance().update();
+			U3dHudManager.getInstance().update();
 
 			U3DLoginRequestTask task = (U3DLoginRequestTask) TaskManager
 					.getInstance().createTask("8");
-			task.initTask(((BTextField) HudManager.getInstance().getWindow(
+			task.initTask(((BTextField) U3dHudManager.getInstance().getWindow(
 					"login").getComponent(0)).getText(),
-					((BPasswordField) HudManager.getInstance().getWindow(
+					((BPasswordField) U3dHudManager.getInstance().getWindow(
 							"login").getComponent(2)).getText());
 			TaskManager.getInstance().enqueue(task);
 
@@ -134,7 +130,7 @@ public class U3dLoginState extends U3dState {
 		BTextField userNameField;
 		BComponent passwordField;
 		// instantiate our login window
-		login = new BWindow(HudManager.getInstance().getStyle(),
+		login = new BWindow(U3dHudManager.getInstance().getStyle(),
 				new AbsoluteLayout(true)/* GroupLayout.makeVStretch() */);
 		login.setStyleClass("login-window");
 
@@ -186,7 +182,7 @@ public class U3dLoginState extends U3dState {
 		login.add(loginButton, loginButton.getBounds());
 
 		// add our login window to our BRootNode
-		HudManager.getInstance().addWindow(login, "login");
+		U3dHudManager.getInstance().addWindow(login, "login");
 
 		// center our window -- this could go anywhere in the code I simply
 		// place it after my addWindow so I remember that I did it
