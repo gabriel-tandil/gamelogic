@@ -1,7 +1,4 @@
-/**
- *<code>CollisionManager</code> is responsible
- * for processing all collision detection tasks.
- */
+
 package client.manager;
 
 import java.util.ArrayList;
@@ -21,67 +18,69 @@ import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
 
-/** 
- * @author Santiago Michielotto
+/**
+ *<code>CollisionManager</code> es responsable de
+ * procesar todas las tareas de deteccion de colisiones
+ * @author Santiago Michielotto, Guillermo Fiorini (Javadoc)
  * @version Created: 19-11-2008
  */
 public class CollisionManager {
 
 	/**
-	 * The <code>CollisionManager</code> instance.
+	 * La instancia unica del <code>CollisionManager</code>.
 	 */
 	protected static CollisionManager instance;
 	
 	/** 
-	 * <code>iaccesspoint</code> is a Set of access point of the model.
-	 * A access point can be a door, a window or other object generator of a task.
-	 * The task can be enter to the isistan for example.
+	 * <code>iaccesspoint</code> es un conjunto de puntos de acceso del modelo.
+	 * Un punto de acceso puede ser una puerta, una ventana o otro objeto 
+	 * generador de una tarea.
+	 * La tarea puede ser, por ejemplo, ingresar al isistan.
 	 */
 	private Hashtable<String,IAccessPoint> iaccesspoint;
 	/** 
-	 * Retrieve the <code>iaccesspoint</code> Set of the model. 
-	 * @return the Access point Set of the model. 
+	 * Obtiene el conjunto de <code>iaccesspoint</code> del modelo. 
+	 * @return el conjunto de puntos de acceso del modelo. 
 	 */
 	public Hashtable<String,IAccessPoint> getIaccesspoint() {
 		return iaccesspoint;
 	}
-
+	/** 
+	 * Inicializa la estructura interna de los puntos de acceso
+	 */
 	public void init()
 	{
 		iaccesspoint=new Hashtable<String,IAccessPoint>();
 	}
 	/**
-	 * Add Access Points to the Hashtable
-	 * @param id
-	 * @param ap
+	 * Agrega un punto de acceso al conjunto
+	 * @param id <code>String</code> El identificador unico del punto de acceso
+	 * @param ap <code>IAccessPoint</code> El punto de acceso a agregar
 	 */
-	
-	
 	public void addAccessPoint(String id, IAccessPoint ap)
 	{
 		iaccesspoint.put(id, ap);
 	}
 	
 	/**
-	 * Remove all the Access Point than exist in the Hashtable
+	 * Quita lodos los puntos de acceso almacenados
 	 */
-	
 	public void removeAccessPoints()
 	{
 		iaccesspoint.clear();
 	}
 	
 	/** 
-	 * Apply a <code>Set</code> iaccesspoint to this <code>CollisionManager</code>.
-	 * @param theIaccesspoint <code>Set<code> iaccesspoint to aplly
+	 * Cambia el conjunto de puntos de acceso de este <code>CollisionManager</code>.
+	 * @param theIaccesspoint <code>Hashtable<code> conjunto de puntos de acceso a utilizar
 	 */
 	public void setIaccesspoint(Hashtable<String,IAccessPoint> theIaccesspoint) {
 		iaccesspoint = theIaccesspoint;
 	}
 
 	/**
-     * Retrieve the <code>CollisionManager</code> instance.
-     * @return The <code>CollisionManager</code> instance.
+     * Obtiene la instancia unica del <code>CollisionManager</code>.
+     * @return <code>CollisionManager</code> La instancia unica.
      */
 	public static CollisionManager getInstace() {
 		if (CollisionManager.instance == null) {
@@ -91,8 +90,8 @@ public class CollisionManager {
 	}
 
 	/** 
-	 * Retrieve the collision AccessPoint if exist a collision or null if not exists.
-	 * @return the collision AccessPoint if exist a collision or null if not exists.
+	 * Verifica si existe una colision con un punto de acceso
+	 * @return <code>boolean</code> verdadero si se colisiona con un punto de acceso, en caso contrario falso
 	 */
 	public boolean checkOverAccessPoint(Node node) {
 		Enumeration e = iaccesspoint.elements();
@@ -128,15 +127,13 @@ public class CollisionManager {
 	}
 
 	/**
-     * Retrieve the intersection point with the given ray and spatial in either
-     * world coordinate system or local coordinate system of the given spatial
-     * based on the given flag value. The intersection result is stored in the
-     * given vector and returned. If the given store is null, a new vector instance
-     * is created and returned with the intersection result.
-     * @param ray The <code>Ray</code> to check with.
-     * @param parent The parent <code>Spatial</code> to check against.
-     * @param local True if the intersection should be converted to local coordinate system of the parent.
-     * @return If hit, the <code>Vector3f</code> intersection is returned. Otherwise <code>null</code> is returned.
+	 * Retorna el punto de interseccion con el rayo y el spatial dados por
+	 * parametro, ya sea en cordenadas locales o globales. La interseccion resultante
+	 * se almacena en un <code>Vector3f</code>
+     * @param ray El <code>Ray</code> contra el cual se checkea.
+     * @param parent El <code>Spatial</code> padre contra el cual se checkea.
+     * @param local verdadero si la interseccion debe convertirse al sistemas de cordenadas local del padre.
+     * @return Si hay colision, el <code>Vector3f</code> de la interseccion es retornado. Caso contrario <code>null</code> es retornado.
      */	
 	public Vector3f getIntersection(Ray ray, Spatial parent, boolean local) {
 		//Intersection vector
@@ -171,7 +168,15 @@ public class CollisionManager {
       //intersection found
         return null;
     }
-	
+	/**
+	 * Retorna el <code>Spatial</code> con el cual colisiona el rayo <code>Ray</code>
+	 * utilizando un <code>Spatial</code> de referencia
+     * @param ray El <code>Ray</code> contra el cual se checkea.
+	 * @param root El <code>Node</code> raiz.
+     * @param reference El <code>Spatial</code> de referencia.
+     * @param iterate verdadero si se desea iterar en busca del resultado
+     * @return Si hay colision, el <code>Spatial</code> de la interseccion es retornado. Caso contrario <code>null</code> es retornado.
+     */	
 	public Spatial getIntersectObject(Ray ray, Node root, Class<? extends Spatial> reference, boolean iterate) {
         PickResults results = new TrianglePickResults();
         results.setCheckDistance(true);
@@ -190,7 +195,14 @@ public class CollisionManager {
         }
         return null;
     }
-	
+	/**
+	 * Valida si el <code>Spatial</code> de referencia corresponde a una clase valida
+	 * para el calculo de colision.
+	 * @param root El <code>Node</code> raiz.
+     * @param reference El <code>Spatial</code> de referencia.
+     * @param spatial El <code>Spatial</code> contra el que se compara
+     * @return Si es valido, el <code>Spatial</code> valido encontrado. Caso contrario <code>null</code> es retornado.
+     */	
 	private Spatial validateClass(Node root, Spatial spatial, Class<? extends Spatial> reference) {
         if (spatial.getClass().equals(reference)) {
             return spatial;
@@ -209,13 +221,13 @@ public class CollisionManager {
     }
 
 	/**
-     * Retrieve the valid destination point based on the given coordinate values.
-     * @param origin the starting position.
-     * @param destination the end position.
-     * This coordinates are locals.
-     * @param spatial The <code>Spatial</code> instance to check against.
-     * @return 
-     * @return The valid <code>Vector3f</code> destination.
+     * Obtiene el punto destino valido basandose en el valor de las coordenadas 
+	 * pasado por parametro
+     * @param origin <code>Vector3f</code> El punto de origen.
+     * @param destination <code>Vector3f</code> La posicion final.
+     * Estas cordenadas son locales.
+     * @param spatial El <code>Spatial</code> contra el que se checkea.
+     * @return La posicion destino <code>Vector3f</code> valida.
      */
 	public Vector3f getDestination(Vector3f origin, Vector3f destination, Spatial spatial){
 
