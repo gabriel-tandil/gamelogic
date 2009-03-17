@@ -16,25 +16,55 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jmex.game.state.GameStateManager;
 import common.datatypes.Skin;
-
+/**
+ * <code>U3DAddPlayerTask</code> Tarea encargada de
+ * agregar al jugador en el mundo 3D. 
+ * Extiende la funcionalidad de <code>Task</code>
+ * 
+ * @author Guillermo Fiorini (Javadoc)
+ * @version 1.0
+ */
 public class U3DAddPlayerTask extends Task {
-	
+	/**
+	 * Escala utilizada para dibujar el personaje 3D
+	 */
 	private float scale = 0.8f;
-	
+	/**
+	 * El nodo root del mundo 3D
+	 */
 	private Node rootNode = null;
-	
+	/**
+	 * La entidad dinamica a representar
+	 */
 	private IDynamicEntity entity;
-	
+	/**
+	 * El angulo que indica la direccion en 
+	 * que se representa el modelo
+	 */
 	private float angle;
-	
+	/**
+	 * La posicion del personaje en el mundo
+	 */
 	private Vector3f position;
-	
+	/**
+	 * Mundo actual en el que se encuentra el personaje
+	 */
 	private String actualWorld;
-	
+	/**
+	 * Constructor de <code>U3DAddPlayerTask</code>.
+	 */
 	public U3DAddPlayerTask() {
 		super();
 	}
-	
+	/**
+	 * Inicializa una <code>U3DAddPlayerTask</code>.
+	 * Este metodo es llamado antes de execute().
+	 * @param root <code>Node</code> El nodo root del mundo 3D.
+	 * @param e <code>IDynamicEntity</code> La entidad dinamica a representar.
+	 * @param theAngle <code>float</code> El angulo que indica la rotacion de la entidad.
+	 * @param thePosition <code>Vector3f</code> Posicion de la entidad en el mundo.
+	 * @param theActualWorld <code>String</code> Mundo actual en el que se encuentra el personaje.
+	 */
 	public void initTask(Node root, IDynamicEntity e,float theAngle, Vector3f thePosition, String theActualWorld){
 		rootNode = root;
 		entity = e;
@@ -42,7 +72,11 @@ public class U3DAddPlayerTask extends Task {
 		position = thePosition;
 		actualWorld = theActualWorld;
 	}
-	
+	/**
+	 * Define el comportamiento para la ejecucion de la tarea.
+	 * Crea el nodo, setea el avatar, asigna una vista, crea el
+	 * controlador para la entidad e inicializa la camara.
+	 */
 	public void execute() {
 		Node node= new Node(entity.getId());
 		entity.setPlayerAvatar(getPlayer(node));
@@ -66,11 +100,22 @@ public class U3DAddPlayerTask extends Task {
 		U3dState state = (U3dState)GameStateManager.getInstance().getChild(actualWorld);
 		state.initializeCamera(playerView);
 	}
-
+	
+	/**
+	 * Redefinido para la comparacion entre objetos
+	 * @param o <code>Object</code> El objeto contra el cual se compara
+	 * @return <code>boolean</code> Verdadero si los objetos son iguales
+	 */
 	public boolean equals(Object o) {
 		return false;
 	}
 	
+	/**
+	 * Obtiene el modelo del peronaje de la entidad 
+	 * a partir de un nodo del tipo <code>Node</code>
+	 * @param node <code>Node</code> El Nodo del personaje
+	 * @return <code>IPersonaje</code> El personaje inicializado
+	 */
 	private IPersonaje getPlayer(Node node) 
 	{
 		if (entity.getSkin().getSkin().equals(Skin.PERSONAJE_VIEJO_CON_PIPA))       
@@ -84,7 +129,13 @@ public class U3DAddPlayerTask extends Task {
 		
 		return getPlayer(node, entity.getSkin().getSkin());
 	}
-	
+	/**
+	 * Crea e inicializa un personaje dado un <code>Node</code>
+	 * a partir de un modelo dado
+	 * @param node <code>Node</code> El Nodo del personaje
+	 * @param filename <code>String</code> nombre del archivo que contiene el modelo
+	 * @return <code>IPersonaje</code> El personaje inicializado
+	 */
 	private IPersonaje getPlayer(Node node, String fileName)
     {
 		IPersonaje p = new PersonaMD5(node);
@@ -96,7 +147,12 @@ public class U3DAddPlayerTask extends Task {
 		p.setLocalScale(scale);
 		return p;
     }
-	
+	/**
+	 * Crea e inicializa un personaje dado un <code>Node</code>
+	 * utilizando el modelo del personaje con pipa
+	 * @param node <code>Node</code> El Nodo del personaje
+	 * @return <code>IPersonaje</code> El personaje inicializado
+	 */
     private IPersonaje getPlayerPipa(Node node)
     {
         IPersonaje p = new PersonaDae(node);
@@ -108,7 +164,12 @@ public class U3DAddPlayerTask extends Task {
         p.setLocalScale(scale);
         return p;
     }
-   
+    /**
+	 * Crea e inicializa un personaje dado un <code>Node</code>
+	 * utilizando el modelo del personaje con camiseta 10
+	 * @param node <code>Node</code> El Nodo del personaje
+	 * @return <code>IPersonaje</code> El personaje inicializado
+	 */
     private IPersonaje getPlayerDiez(Node node)
     {
         IPersonaje p = new PersonaMD5(node);
