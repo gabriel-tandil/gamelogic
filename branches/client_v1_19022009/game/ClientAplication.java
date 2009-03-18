@@ -4,6 +4,8 @@ package client.game;
 
 /**
  * Esta clase es la encargada de inicializar el juego
+ * creando una instancia de U3dgame y llamando al método 
+ * start de la misma
  * @author kike
  *
  */

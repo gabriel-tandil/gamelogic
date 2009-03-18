@@ -19,7 +19,10 @@ import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.model.collada.ColladaImporter;
 
 /**
- * clase utilizada para importar un personaje en formato Dae
+ * clase utilizada para importar un personaje en formato Dae.
+ * Hereda de IPersonaje y se definen en ella los métodos para
+ * que el personaje pueda correr, moverse, se le puedan cargar
+ * las animaciones y la propia carga del personaje.
  * @author kike
  *
  */

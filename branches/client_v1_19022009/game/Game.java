@@ -18,7 +18,14 @@ import client.manager.IHudManager;
 /** 
  * @author Martin Sabatini - Sebastian Bisbal
  * @version Fecha de creación: 06-11-2008 
- *  Tiene como responsabilidad, inicializar todos los manager una vez que esta conectado. 
+ *  Tiene como responsabilidad, inicializar todos los manager una vez que esta conectado.
+ *  Esta clase del framework hereda de la clase BaseGame de 
+ *  jMonkeyEngine e implementa el método update(), el cual es invocado por el 
+ *  “Game Loop” de jME. En este método se deberán actualizar cada uno de los 
+ *  managers que contiene Game (ViewManager, HUDManager, TaskManager, 
+ *  InputManager, PhysicsManager y EntityManager). Adicionalmente 
+ *  contiene referencias a los GameState que componen el juego y el StateManager 
+ *  que se encarga de la administración de los dichos estados. 
  * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public abstract class Game extends BaseGame {

@@ -12,7 +12,15 @@ import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.shape.Sphere;
 
-
+/**
+ * esta clase hereda de ChaseCamera de jMonkey
+ * y es la encargada de que la cámara siempre 
+ * apunte al jugador y lo siga.En esta clase
+ * se verifica que la cámara no colisione con otros 
+ * objetos del mundo.
+ * @author kike
+ *
+ */
 public class U3DChaseCamera extends ChaseCamera {
 	
 	private Sphere sphere;

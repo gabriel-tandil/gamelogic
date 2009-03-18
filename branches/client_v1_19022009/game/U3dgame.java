@@ -53,6 +53,9 @@ import com.jme.util.geom.Debugger;
 import com.jmex.game.state.GameStateManager;
 /**
  * en esta clase se inicializa el sistema
+ * Esta clase la cual contiene el Loop principal del juego
+ * es la encargada de actualizar todo el juego a intervalos 
+ * constantes de tiempos.
  * @author kike
  *
  */

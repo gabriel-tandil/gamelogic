@@ -13,6 +13,13 @@ import com.jme.scene.Spatial;
 import com.jmex.game.state.GameState;
 import com.jmex.game.state.GameStateManager;
 
+/**
+ * En esta clase se setean las posiciones de la 
+ * cámara que sigue al personaje que recorre el juego.
+ * Es utilizada en U3DChaseCamera
+ * @author kike
+ *
+ */
 public class U3DThirdPersonMouseLook extends ThirdPersonMouseLook {
 	
 	public boolean hasCollition = false;
