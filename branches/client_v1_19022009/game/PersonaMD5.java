@@ -18,6 +18,9 @@ import com.model.md5.importer.MD5Importer;
 
 /**
  * clase utilizada para importar un personaje en formato MD5
+ * Hereda de IPersonaje y se definen en ella los métodos para
+ * que el personaje pueda correr, moverse y la propia carga
+ * del personaje.
  * @author kike
  *
  */
