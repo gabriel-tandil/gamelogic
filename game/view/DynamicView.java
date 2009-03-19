@@ -6,12 +6,13 @@ package client.game.view;
 import client.game.entity.IDynamicEntity;
 
 /** 
- * <code>DynamicView</code> extends <code>View</code> e implementa 
- * <code>IDynamicView</code> para representar una vista dinámica para su 
- * correspondiente <code>IDynamicEntity</code>. Las subclases necesitan implementar
- * la lógica específica del update.
+ * <code>DynamicView</code> extiende de <code>View</code>
+ * e implementa <code>IDynamicView</code> para representar 
+ * una vista dinámica para su correspondiente 
+ * <code>IDynamicEntity</code>. Las subclases necesitan 
+ * implementar la lógica específica del update.
  * 
- * @author Maria Hansen
+ * @author Maria Hansen, Sebastian Bisbal (revision Javadoc)
  * @version Creation date: 29-10-2008
  */
 public abstract class DynamicView extends View implements IDynamicView {

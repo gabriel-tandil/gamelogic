@@ -6,10 +6,11 @@ package client.game.view;
 import client.game.entity.IEntity;
 
 /** 
- * <code>IViewFactory</code> define la interface para la creación de vistas dada
- * una <code>IEntity</code>.
+ * <code>IViewFactory</code> define la interface para la 
+ * creación de vistas dada una <code>IEntity</code> y 
+ * para retornar el identificador de la misma.
  * 
- * @author Maria Hansen
+ * @author Maria Hansen, Sebastian Bisbal (Javadoc)
  * @version Creation date: 20-11-2008
  */
 public interface IViewFactory {
