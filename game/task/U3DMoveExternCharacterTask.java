@@ -24,6 +24,16 @@ import common.messages.MessageFactory;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgMove;
 
+/**
+ * <Code>U3DMoveExternCharacterTask</code> es responsable de actualizar
+ * en el view del player externo los nuevos parámetros de movimiento.
+ * <code>U3DMoveExternCharacterTask</code> extiende la funcionalidad de
+ * <code>Task</code>.
+ * 
+ * @author Sebastian Sampaoli (Javadoc)
+ *
+ */
+
 public class U3DMoveExternCharacterTask extends Task {
 
 	private static final int MOVIMIENTO_CAMINANDO = 70000;
@@ -69,6 +79,7 @@ public class U3DMoveExternCharacterTask extends Task {
 		return false;
 	}
 
+	@Override
 	public void execute() {
 		if (this.character == null)
 			return;
@@ -111,6 +122,7 @@ public class U3DMoveExternCharacterTask extends Task {
 
 	}
 
+	@Override
 	public void initTask(DynamicEntity theCharacter, boolean isLocal,
 			boolean adelante, boolean corriendo) {
 		if (corriendo)
@@ -123,10 +135,18 @@ public class U3DMoveExternCharacterTask extends Task {
 
 	}
 
+	/**
+	 * Devuelve el movimiento actual (corriendo o caminando).
+	 * @return el movimiento actual
+	 */
 	public float getMovement() {
 		return movement;
 	}
 
+	/**
+	 * Setea el movimiento actual (corriendo o caminando).
+	 * @param movement
+	 */
 	public void setMovement(float movement) {
 		this.movement = movement;
 	}
