@@ -27,16 +27,39 @@ import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgChangeWorld;
 
+/**
+ * <p>Title: ChangeToPlace</p>
+ * <p>Description: clase que representa el cambio de estado generado al querer
+ * ingresar a un nuevo mundo en el juego.</p>
+ * <p>Copyright: Copyright (c) 2009</p>
+ * @author L. Rudenick
+ * @version 1.0
+ */
 public class ChangeToPlace extends ChangeStateTask {
 	private String proxEstado;
 	
 	private Vector3f newPosition;
 
+	/**
+	 * Constructora principal de la clase. Inicializa los componentes a
+	 * utilizar en el objeto.
+	 * @param proxEstado nuevo estado al que se va a cambiar
+	 * @param theNewPosition posición en donde va a aparecer el player en el
+	 * mundo al que acaba de ingresar.
+	 */
 	public ChangeToPlace(String proxEstado, Vector3f theNewPosition) {
 		this.proxEstado = proxEstado;
 		newPosition = theNewPosition;
 	}
 
+	/**
+	 * Se elimina todo estado anterior, y se genera el nuevo estado al que se 
+	 * va a cambiar, con su respectivo player, la vista asociada al mismo, la posición
+	 * en la que este va a aparecer. Se setea este estado como próximo, y luego 
+	 * se envía un mensaje al servidor, para notificar el cambio de mundo en el 
+	 * juego.
+	 */
+	@Override
 	public void execute() {
 		try {
 			Player player = (Player) EntityManager.getInstance().getEntity(

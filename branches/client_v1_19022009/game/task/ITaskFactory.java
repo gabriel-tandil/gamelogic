@@ -2,9 +2,14 @@ package client.game.task;
 
 import client.game.task.ITask;
 
+
 /**
- * Define la interfaz de creación para las posteriores tareas que serán
- * definidas en el Game. 
+ * <p>Title: ITaskFactory</p>
+ * <p>Description: define la interfaz de creación para las posteriores tareas que serán
+ * definidas en el Game.</p>
+ * <p>Copyright: Copyright (c) 2009</p>
+ * @author L. Rudenick
+ * @version 1.0
  */
 public interface ITaskFactory {		
 	
