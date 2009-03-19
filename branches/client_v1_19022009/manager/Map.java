@@ -30,6 +30,7 @@ import com.jme.util.geom.BufferUtils;
  * movimiento correctamente, se utiliza un factor de escala, un desplazamiento en x, 
  * un desplazamiento en y, y una rotacion. Estos parámetros se utilizan para 
  * manejar el mapeo entre el mundo real y el mapa.
+ * <code>Map</code> solo es accedida por la clase <code>HudManager</code>.
  * 
  * @author Sebastian Sampaoli
  */
