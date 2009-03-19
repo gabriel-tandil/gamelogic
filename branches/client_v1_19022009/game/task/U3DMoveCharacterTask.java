@@ -23,6 +23,23 @@ import common.messages.MessageFactory;
 import common.messages.MsgTypes;
 import common.messages.notify.MsgMove;
 
+/**
+ * <Code>U3DMoveCharacterTask</code> es responsable de setear
+ * en el view del player los nuevos parámetros de movimiento.
+ * Para este proposito hace uso de la clase <code>ViewManager</code>.
+ * Además se encarga de manejar las colisiones mediante el uso
+ * de la clase <code>CollisionManager</code> y actualiza la posición
+ * actual del mapa utilizando la clase <code>HudManager</code>.
+ * También crea una tarea de movimiento que luego es subscripta al
+ * <code>TaskManager</code> y es enviada al servidor. 
+ * <Code>U3DMoveCharacterTask</code> es invocada cada vez que se
+ * produce un movimiento (tipicamente cuando el usuario apreta una
+ * tecla de movimiento). <code>U3DMoveCharacterTask</code> extiende
+ * la funcionalidad de <code>Task</code>.
+ * 
+ * @author Sebastian Sampaoli (Javadoc)
+ *
+ */
 public class U3DMoveCharacterTask extends Task {
 
 	private static final int MOVIMIENTO_CAMINANDO = 70000;
@@ -68,6 +85,7 @@ public class U3DMoveCharacterTask extends Task {
 		return false;
 	}
 
+	@Override
 	public void execute() {
 		if (this.character == null)
 			return;
@@ -165,6 +183,7 @@ public class U3DMoveCharacterTask extends Task {
 
 	}
 
+	@Override
 	public void initTask(Player theCharacter, boolean isLocal,
 			boolean adelante, boolean corriendo) {
 		if (corriendo)
@@ -177,10 +196,18 @@ public class U3DMoveCharacterTask extends Task {
 
 	}
 
+	/**
+	 * Devuelve el movimiento actual (corriendo o caminando).
+	 * @return el movimiento actual
+	 */
 	public float getMovement() {
 		return movement;
 	}
 
+	/**
+	 * Setea el movimiento actual (corriendo o caminando).
+	 * @param movement
+	 */
 	public void setMovement(float movement) {
 		this.movement = movement;
 	}

@@ -15,6 +15,17 @@ import common.messages.MsgTypes;
 import common.messages.notify.MsgRotate;
 import common.util.ChannelNameParser;
 
+/**
+ * <Code>U3DRotateCharacterTask</code> es responsable de actualizar
+ * la rotación actual del player. Además crea un mensaje de rotación
+ * que es enviado al servidor.
+ * <code>U3DRotateCharacterTask</code> extiende la funcionalidad de
+ * <code>Task</code>.
+ * 
+ * @author Sebastian Sampaoli (Javadoc)
+ *
+ */
+
 public class U3DRotateCharacterTask extends Task {
 	/**
 	 * The <code>CharacterEntity</code> to be set.
@@ -33,6 +44,7 @@ public class U3DRotateCharacterTask extends Task {
 		return false;
 	}
 
+	@Override
 	public void execute() {
 		float angle1 = character.getAngle();
 		character.setAngle(angle1 + angle);
@@ -55,6 +67,7 @@ public class U3DRotateCharacterTask extends Task {
 
 	}
 
+	@Override
 	public void initTask(Player theCharacter, float theangle) {
 		character = theCharacter;
 		angle = theangle;
