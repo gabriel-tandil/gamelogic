@@ -2,11 +2,15 @@ package client.game.task;
 
 import java.util.HashMap;
 
+
 /**
- * Esta clase es un singleton que contendrá las diferentes tareas definidas 
- * para el <code>Game<code>. Por medio de esta se pueden agregar, crear y obtener 
- * las tareas del <code>Game<code>. 
- * 
+ * <p>Title: TaskManagerFactory</p>
+ * <p>Description: esta clase es un singleton que contendrá las diferentes tareas 
+ * definidas para el <code>Game<code>. Por medio de esta se pueden agregar, crear 
+ * y obtener las tareas del <code>Game<code>. </p>
+ * <p>Copyright: Copyright (c) 2009</p>
+ * @author L. Rudenick
+ * @version 1.0
  */
 public class TaskManagerFactory {	
 	/**
@@ -41,8 +45,8 @@ public class TaskManagerFactory {
 	}
 	
 	/**
-	 * 
-	 * @param task Es una nueva tarea definida.
+	 * Agrega una nueva factory de tareas
+	 * @param task nueva factory de tareas
 	 */
 	public void add(ITaskFactory task) {
 		if (!contains(task))
@@ -50,6 +54,8 @@ public class TaskManagerFactory {
 	}
 	
 	/** 
+	 * Devuelve una tarea que está representada por el id
+	 * pasado como parámetro.
 	 * @param id Es el identificador de la tarea a ser creada.
 	 * @return La tarea que fue creada.
 	 */
@@ -57,8 +63,14 @@ public class TaskManagerFactory {
 		return ((ITaskFactory)taskFactorys.get(id)).createTask();
 	}
 	
-	private boolean contains(ITaskFactory task)
-	{
+	/**
+	 * Nos dice si la factory pasada como parámetro ya ha sido
+	 * agregada o no.
+	 * @param task factory de tareas
+	 * @return <code>true</code> si la factory pasada como parámetro ya ha sido
+	 * agregada, y <code>false</code> en caso contrario.
+	 */
+	private boolean contains(ITaskFactory task){
 		return (taskFactorys.containsValue(task));
 	}
 }

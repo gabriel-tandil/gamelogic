@@ -1,8 +1,8 @@
 package client.game.task;
-
 /**
- * <code>IRealTimeTask</code> define la inteface para las tareas que dependen 
- * del tiempo. Esto significa que las versiones viejas de la tarea pueden
+ * <p>Title: IRealTimeTask</p>
+ * <p>Description: <code>IRealTimeTask</code> define la inteface para las tareas 
+ * que dependen del tiempo. Esto significa que las versiones viejas de la tarea pueden
  * descartarse de forma segura si hay una nueva versión de la misma tarea disponible.
  * <p>
  * <code>IRealTimeTask</code> genera un time stamp en el momento que se contruye
@@ -10,9 +10,10 @@ package client.game.task;
  * <p>
  * <code>IRealTimeTask</code> prvee la funcionalidad para comparar con otra 
  * <code>IRealTimeTask</code> y determinar el orden de contrucción.
- * <p>
- *  
- * @author Polo
+ * <p></p>
+ * <p>Copyright: Copyright (c) 2009</p>
+ * @author L. Rudenick
+ * @version 1.0
  */
 public interface IRealTimeTask extends ITask {
 	
