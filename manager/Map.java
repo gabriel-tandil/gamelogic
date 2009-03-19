@@ -19,8 +19,17 @@ import com.jme.util.TextureManager;
 import com.jme.util.geom.BufferUtils;
 
 /**
- * Esta clase se encarga de cargar el mapa del lugar. Además se encarga de reflejar los
- * cambios en el mapa cuando ocurre un movimiento.
+ * <code>Map</code> es responsable de cargar el mapa del lugar. Además
+ * se encarga de reflejar los cambios en el mapa cuando ocurre un movimiento.
+ * <code>Map</code> permite obtener el nodo que contiene el mapa del lugar. 
+ * Este mapa puede ser cambiado para reflejar otro mundo.
+ * Los movimientos realizados por el jugador se ven reflejados en el mapa. Esto
+ * se realiza "moviendo" la textura que contiene el mapa para reflejar dichos
+ * movimientos y dejando la textura de posicion (en realidad el quad) en el centro,
+ * es decir en un lugar fijo. Para poder mover la textura del mapa para reflejar el
+ * movimiento correctamente, se utiliza un factor de escala, un desplazamiento en x, 
+ * un desplazamiento en y, y una rotacion. Estos parámetros se utilizan para 
+ * manejar el mapeo entre el mundo real y el mapa.
  * 
  * @author Sebastian Sampaoli
  */
@@ -41,22 +50,42 @@ public class Map{
 		return factor;
 	}
 
+	/**
+	 * Setea el factor de escala.
+	 * @param factor
+	 */
 	public void setFactor(float factor) {
 		this.factor = factor;
 	}
 
+	/**
+	 * Devuelve el desplazamiento en la coordenada x.
+	 * @return el desplazamiento en la coordenada x.
+	 */
 	public float getDesplazamientoX() {
 		return desplazamientoX;
 	}
 
+	/**
+	 * Setea el desplazamiento en la coordenada x.
+	 * @param desplazamientoX
+	 */
 	public void setDesplazamientoX(float desplazamientoX) {
 		this.desplazamientoX = desplazamientoX;
 	}
 
+	/**
+	 * Devuelve el desplazamiento en la coordenada y.
+	 * @return el desplazamiento en la coordenada y.
+	 */
 	public float getDesplazamientoY() {
 		return desplazamientoY;
 	}
 
+	/**
+	 * Setea el desplazamiento en la coordenada y.
+	 * @param desplazamientoY
+	 */
 	public void setDesplazamientoY(float desplazamientoY) {
 		this.desplazamientoY = desplazamientoY;
 	}
@@ -81,7 +110,13 @@ public class Map{
 		rootNode.attachChild(n);
 	}*/
 	
-	public Node loadMap(){
+	/**
+	 * Inicializa el nodo que contiene el mapa del lugar (con aspectos
+	 * tales como la textura del mapa, la textura de la posicion actual y
+	 * la textura del borde del mapa) y devuelve dicho nodo.
+	 * @return el nodo que contiene el mapa
+	 */
+   	public Node loadMap(){
         //Aplica la textura al borde del mapa y su ubicación
         this.setTexture(borderMap, "/HUD/textures/map_frame.png");
         borderMap.setLocalTranslation(new Vector3f((DisplaySystem
@@ -134,23 +169,43 @@ public class Map{
         return hudMap;
 	}
 	
-	public float getX() {
+	/**
+	 * Devuelve el valor de x.
+	 * @return el valor de x
+	 */
+   	public float getX() {
 		return x;
 	}
 
-	public void setX(float x) {
+	/**
+	 * Setea el valor de x.
+	 * @param x
+	 */
+   	public void setX(float x) {
 		this.y = x;
 	}
 
-	public float getY() {
+   	/**
+	 * Devuelve el valor de y.
+	 * @return el valor de y
+	 */
+   	public float getY() {
 		return y;
 	}
 
-	public void setY(float y) {
+   	/**
+	 * Setea el valor de y.
+	 * @param y
+	 */
+   	public void setY(float y) {
 		this.x = y;
 	}
 
-	public Node getHudMap() {
+	/**
+	 * Devuelve el nodo que contiene el mapa.
+	 * @return el nodo que contiene el mapa
+	 */
+   	public Node getHudMap() {
 		return hudMap;
 	}
 
@@ -225,8 +280,6 @@ public class Map{
 	
 	/**
 	 * Mueve la textura del mapa para reflejar el movimiento realizado por el jugador.
-	 * @param x la nueva coordenada en x a la que se movio el jugador
-	 * @param y la nueva coordenada en y a la que se movio el jugador
 	 */
 	public void redrawMap(){
 		float x=this.x*factor+desplazamientoX;
@@ -266,10 +319,18 @@ public class Map{
 	}	
 
 	
+	/**
+	 * Devuelve la rotacion (el parámetro rotacion que indica cuanto roto el jugador)
+	 * @return la rotacion
+	 */
 	public float getRotacion() {
 		return rotacion;
 	}
 
+	/**
+	 * Setea la rotacion.
+	 * @param rotacion
+	 */
 	public void setRotacion(float rotacion) {
 		this.rotacion = rotacion;
 	}
@@ -283,10 +344,18 @@ public class Map{
 		map.updateRenderState();
 	}
 
+	/**
+	 * Setea la rotacion del mundo.
+	 * @param la rotacion del mundo
+	 */
 	public void setRotacionMundo(float rotacionMundo) {
 		this.rotacionMundo = rotacionMundo;
 	}
 
+	/**
+	 * Devuelve la rotacion del mundo
+	 * @return la rotacion del mundo
+	 */
 	public float getRotacionMundo() {
 		return rotacionMundo;
 	}
