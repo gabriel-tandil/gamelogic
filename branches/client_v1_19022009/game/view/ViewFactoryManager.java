@@ -7,7 +7,10 @@ import java.util.Hashtable;
 import client.game.entity.IEntity;
 
 /** 
- * @author Maria Hansen
+ * <code>ViewFactoryManager</code> crea y maneja las <code>IView</code>
+ * correspondientes a la <code>IEntity</code>.
+ * 
+ * @author Maria Hansen, Sebastian Bisbal (javadoc)
  * @version Creation date: 20-11-2008
  */
 public class ViewFactoryManager {

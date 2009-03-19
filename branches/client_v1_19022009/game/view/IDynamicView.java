@@ -16,7 +16,9 @@ package client.game.view;
  */
 public interface IDynamicView extends IView {
 	/** 
-     * Actualiza esta vista dinámica basándose en el nuevo estado de su entidad.
+     * Actualiza esta vista dinámica basándose 
+     * en el nuevo estado de su entidad.
+     * 
      * @param interpolation El valor de interpolación del frame.
 	 */
 	public void update(float interpolation);
