@@ -1,22 +1,27 @@
 /**
  * RTaskArrived.java
  * @author Castillo/Santos
+ * Cada vez que una entidad entra a un "mundo" donde hay otros clientes, <br>
+ * se necesitará mantener consistente los datos en el servidor y/o<br> 
+ * notificar a los otros clientes. Esta clase fue creada con el fin<br> 
+ * de proveer este servicio al juego.<br>
+ * Está clase se compone de tres metodos:<br>
+ *     - <b>RTaskArrived:</b> Constructor de la clase.<br>
+ *     - <b>TaskCommunication:</b> Factory para crear una tarea de este tipo.<br>
+ *     - <b>execute:</b> Funcionalidad principal de la clase.<br>
  */
+
+
+
 package client.communication.tasks.comm;
 
-import client.communication.DynamicEntitysSolicitations;
+import javax.xml.soap.MessageFactory;
+
 import client.communication.GameContext;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.task.ITask;
-import client.manager.EntityManager;
 import client.manager.TaskManager;
-
-import common.exceptions.UnsopportedMessageException;
-import common.messages.IMessage;
-import common.messages.MessageFactory;
-import common.messages.MsgPlainText;
-import common.messages.MsgTypes;
 
 public class RTaskArrived extends TaskCommunication {
 
@@ -29,23 +34,26 @@ public class RTaskArrived extends TaskCommunication {
 
 	/**
 	 * Crea una tarea de tipo <I>RTashArrived</I> y setea el mensaje.
-	 * 
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
 	 * @return RTaskArrived
 	 */
+	
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
 		return new RTaskArrived(msg);
 	}
 
 	/**
-	 * Este metodo crea una entidad en el {@link EntityManager}<BR/> el id de
-	 * la entidad es obtenido desde el mensaje propio de<BR/> la tarea.<BR/>
-	 * 
+	 * Este método es el encargado de notificar al servidor y/o demás clientes la llegada<br>
+	 * de una nueva entidad al mundo.
 	 * @see client.game.task.ITask#execute() 04/02/2009
+	 * @see DynamicEntitysSolicitations
+	 * @see MsgPlainText
+	 * @see TaskManager
 	 * @author Castillo/Santos
 	 */
+	 
 	@Override
 	public void execute() {
 		MsgPlainText thisMsg = (MsgPlainText) this.getMessage();

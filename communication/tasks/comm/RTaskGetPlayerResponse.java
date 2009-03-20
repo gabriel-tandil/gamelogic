@@ -1,50 +1,57 @@
 /**
  * RTaskGetPlayerResponse.java
  * @author Castillo/Santos
+ * Dada una respuesta sobre un evento especifíco a un player, se agrega dicho player al<br>
+ * mundo actual seteandole los parametros provisto por el mensaje de respuesta<br>
+ * que pertenece a dicha clase.
+ * Está se compone de tres metodos:<br>
+ *     - <b>RTaskGetPlayerResponse:</b> Constructor de la clase.<br>
+ *     - <b>TaskCommunication:</b> Factory para crear una tarea de este tipo.<br>
+ *     - <b>execute:</b> Funcionalidad principal de la clase.<br>
  */
-package client.communication.tasks.comm;
 
+
+package client.communication.tasks;
 import java.util.HashMap;
 
-import client.communication.PositionsTranslator;
-import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.Player;
 import client.game.task.ChangeStateTask;
-import client.game.task.U3DChangeToFirstPlace;
 import client.manager.EntityManager;
 import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
-import common.messages.IMessage;
-import common.messages.responses.MsgGetPlayerResponse;
 
 public class RTaskGetPlayerResponse extends TaskCommunication {
 
 	/**
 	 * @param msg
 	 */
+	
 	public RTaskGetPlayerResponse(IMessage msg) {
 		super(msg);
 	}
 
 	/**
 	 * Crea una tarea de tipo <I>RTaskGetPlayerResponse</I> y setea el mensaje.
-	 * 
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
 	 * @return RTaskGetPlayerResponse
 	 */
+	
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
 		return new RTaskGetPlayerResponse(msg);
 	}
 
 	/**
-	 * Crea un player {@link Player}, setea todos sus atributos y se agrega al
+	 * Este método crea un player {@link Player}, setea todos sus atributos y se agrega al
 	 * mundo actual.
-	 * 
-	 * @see client.game.task.ITask#execute() 04/02/2009
+	 * @see client.game.task.ITask#execute()
+	 *@see MsgGetPlayerResponse
+	 *@see Player
+	 *@see ChangeStateTask
+	 *@see  TaskManager
 	 * @author Castillo/Santos
 	 */
 	@SuppressWarnings("unchecked")
