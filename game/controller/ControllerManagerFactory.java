@@ -1,6 +1,3 @@
-/**
- * 
- */
 package client.game.controller;
 
 import java.util.HashMap;
@@ -17,32 +14,39 @@ import client.game.task.ITaskFactory;
 import client.game.task.TaskManagerFactory;
 
 /** 
- * @author Mara
+ * Clase singleton. Funciona como un administrador de los Factories para los 
+ * distintos {@link IController} utilizados por el Game. Ésta permite agregar dichos 
+ * Factories y crear, mediante su, utilización, distintas instancias de 
+ * {@link IController}.
+ * 
+ * @author Leo López
  * @version Creation date: 20-11-2008
  */
 public class ControllerManagerFactory {
 	/**
-	 * HashMap que contiene las diferentes <code>controllers<code> del Game relacionadas a
-	 * sus correspondientes identificadores. 
+	 * {@link HashMap} que almacena el par Id - {@link IControllerFactory}. Para los  
+	 * diferentes {@link IControllerFactory} utilizados por el Game.  
 	 */
 	private HashMap<String,IControllerFactory> controllers;	
 
 	/**
-	 * La instancia de <code>ControllerManagerFactory</code>
+	 * Instancia de {@link ControllerManagerFactory}.
 	 */
-	private static ControllerManagerFactory instance=null;
+	private static ControllerManagerFactory instance = null;
 	
 	/**
-	 * Constructor <code>TaskFactoryManager</code>.
+	 * Constructor de {@link ControllerManagerFactory} utilizado por 
+	 * {@link ControllerManagerFactory#getInstance()}.
 	 */
 	private ControllerManagerFactory(){
 		this.controllers = new HashMap<String,IControllerFactory>();
 	}
 	
 	/**
-	 * Crea la instancia de <code>TaskFactoryManager</code> por primera 
-	 * y única vez.
-	 * @return La instancia de <code>TaskFactoryManager</code>.
+	 * Crea la instancia de {@link ControllerManagerFactory} por primera y 
+	 * única vez, y la retorna. Si ya estuviese creada sólo la devuelve.
+	 * 
+	 * @return instancia de {@link ControllerManagerFactory}.
 	 */
 	public static ControllerManagerFactory getInstance() {		
 		if(instance == null) {
@@ -52,8 +56,9 @@ public class ControllerManagerFactory {
 	}
 	
 	/**
-	 * Agrega un <code>IControllerFactory</code> 
-	 * @param task Es una nueva tarea definida para el Game.
+	 * Agrega un nuevo {@link IControllerFactory} 
+	 * @param controller es la instancia de {@link IControllerFactory} que
+	 * será agregada.
 	 */
 	public void add(IControllerFactory controller) {
 		String id = controller.getId();
@@ -62,9 +67,12 @@ public class ControllerManagerFactory {
 	}
 	
 	/** 
- 	 * Retorna el controller
-	 * @param id Es el identificador de la tarea a ser creada.
-	 * @return La tarea que fue creada.
+ 	 * Retorna la instancia de {@link IController} asociado a entity. 
+ 	 * Creada, utilizando el correspondiente {@link IControllerFactory}.
+ 	 * 
+	 * @param entity es la instancia de {@link IDynamicEntity} para la 
+	 * cual se creara el {@link IController} asociado.
+	 * @return la instancia de {@link IController} creada. 
 	 */
 	public IController createController(IDynamicEntity entity) {
 		

@@ -4,24 +4,25 @@ import client.game.Game;
 import client.game.entity.IDynamicEntity;
 
 /**
- * Define la interfaz de creación para los posteriores controles que serán
- * definidos en el Game. 
+ * Define la interfaz de creación para los diferentes {@link IController} que
+ * serán definidos en el Game. 
  */
 public interface IControllerFactory  {
 
 	/**
-	 * Este método será implementado por cada controlador definido para el game.
-	 * La clase que define al controlador es la que debe conocer como crear una instancia
-	 * de este. 
-	 * @param entity Entidad para la cual se desea asociar el <code>Controller<code>
-	 * creado.
-	 * @return El <code>IControllerFactory<code> creado.
+ 	 * Crea y retorna la instancia de {@link Controller} específica para los
+ 	 * diferentes tipos de controlador existentes en el Game.       
+ 	 * 	
+	 * @param entity es la {@link IDynamicEntity} asociada al {@link IController}
+	 * que será creado.
+	 * 
+	 * @return la instancia de {@link IController} creada.
 	 */
 	public IController createController(IDynamicEntity entity);	
 	
 	/**
-	 * @return
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Recupera el id del {@link IControllerFactory}.
+	 * @return String con el valor del id.
 	 */
 	public String getId();
 
