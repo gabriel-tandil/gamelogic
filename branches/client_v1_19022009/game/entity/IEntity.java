@@ -1,15 +1,14 @@
 /**
- * <code>IEntity</code> define la interface de todas las entitades
+ * La clase <code>IEntity</code> define 
+ * la interface de todas las entitades
+ *
+ * @author Santiago Michielotto
+ * @version Created: 20-11-2008
  */
 package client.game.entity;
 
 import com.jme.util.export.Savable;
 
-/** 
- * define la interface de todas las entitades
- * @author Santiago Michielotto
- * @version Created: 20-11-2008
- */
 public interface IEntity extends Savable {
 	/**
 	 * Retorna la identity de esta entidad
