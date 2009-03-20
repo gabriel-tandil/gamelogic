@@ -13,6 +13,12 @@ import common.messages.MsgPlainText;
 /**
  * TaskDisconnected.java
  * 
+ * Esta clase implementa una TaskCommunication: {@link TaskDisconnected} Al
+ * ocurrir una desconexión, se crea una tarea TaskDisconnected. La misma, al ser
+ * ejecutada, muestra al jugador el dialogo de consulta para volver a conectar.
+ * TaskDisconnected mantiene un String con la razón de desconexión en el
+ * atributo razonDesconeccion
+ * 
  * @author Castillo/Santos
  */
 public class TaskDisconnected extends TaskCommunication {
@@ -22,10 +28,12 @@ public class TaskDisconnected extends TaskCommunication {
 	 */
 	public static final String DISCONNECTED_TASK_TYPE = "disconnected";
 
-	/** La razon de la desconeccion. */
+	/** La razón de la desconexión. */
 	private String razonDesconeccion;
 
 	/**
+	 * Setea la razón de desconexión que es pasada como parámetro.
+	 * 
 	 * @param razonDesconeccion
 	 */
 	public TaskDisconnected(final String razonDesconeccion) {
@@ -34,19 +42,21 @@ public class TaskDisconnected extends TaskCommunication {
 	}
 
 	/**
+	 * Para crear una tarea TaskDisconnected, se invoca a este método, el cual
+	 * devuelve una instacia de la misma. Retorna una instancia de
+	 * TaskDisconnected.
 	 * 
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages
 	 *      .IMessage)
 	 */
-
 	public TaskCommunication factoryMethod(final IMessage msg) {
 		return new TaskDisconnected(((MsgPlainText) msg).getMsg());
 	}
 
 	/**
-	 * Se muestra el dialogo de consulta para volver a conectar, invocando al
-	 * {@link HudManager} con los botones correspondientes y la acciï¿½n de
-	 * cambio de estado.
+	 * 
+	 * Invoca al {@link HudManager} para mostrar al jugador el dialogo de
+	 * consulta para volver a conectar.
 	 * 
 	 * @see client.game.task.ITask#execute()
 	 * @author Castillo/Santos.
@@ -55,8 +65,7 @@ public class TaskDisconnected extends TaskCommunication {
 
 		HashMap<String, String> botones = new HashMap<String, String>();
 		botones.put("Salir", "Salir");
-		HudManager.getInstance().muestraDialogo(
-				"Se perdió la conexión.",
+		HudManager.getInstance().muestraDialogo("Se perdió la conexión.",
 				botones, new ActionListener() {
 					public void actionPerformed(ActionEvent event) {
 						System.exit(1);
@@ -67,6 +76,8 @@ public class TaskDisconnected extends TaskCommunication {
 	}
 
 	/**
+	 * Retorna el tipo de mensaje de la tarea.
+	 * 
 	 * @return {@link #DISCONNECTED_TASK_TYPE}
 	 */
 	public final String getMsgType() {
@@ -74,6 +85,8 @@ public class TaskDisconnected extends TaskCommunication {
 	}
 
 	/**
+	 * Retorna la Razón de desconexión.
+	 * 
 	 * @return the razonDesconeccion
 	 */
 	public final String getRazonDesconeccion() {
@@ -81,6 +94,8 @@ public class TaskDisconnected extends TaskCommunication {
 	}
 
 	/**
+	 * Setea al atributo razonDesconeccion con el string pasado como parámetro.
+	 * 
 	 * @param razonDesconeccion
 	 *            the razonDesconeccion to set
 	 */
