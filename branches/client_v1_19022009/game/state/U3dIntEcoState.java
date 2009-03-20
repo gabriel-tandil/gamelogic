@@ -17,32 +17,60 @@ import com.jme.scene.Skybox;
 import com.jme.scene.Spatial;
 
 /**
- * clase que representa el estado interior de cada lugar del juego. La cual hereda de U3dState que
- * a su vez hereda de WorldGameState
+ * Clase que representa el estado en que el jugador se encuentra dentro
+ * del edificio de la facultad de Economicas. Hereda de U3DState.
  * @author kike
  *
  */
 public class U3dIntEcoState extends U3dState {
 	
+	/**
+	 * Indica si el estado esta inicializado.
+	 */
 	private boolean initialized;
 	
+	/**
+	 * Camara que sigue al personaje.
+	 */
 	private U3DChaseCamera chaser;
 	
+	/**
+	 * La ruta del XML que se va a cargar
+	 */
 	private String url;
 	
+	/**
+	 * Vector que se establecera como nueva posicion del mundo.
+	 */
 	private Vector3f translation;
 	
+	/**
+	 * Nodo que contiene el modelo.
+	 */
 	private U3dBuildingView worldView;
 	
+	/**
+	 * La entidad que representa el mundo actual.
+	 */
 	private U3DBuildingEntity worldEntity;
 	
-
+	/**
+	 * Constructor de la clase <code>U3dIntEcoState</code>
+	 * @param name el nombre del estado representado por la clase
+	 * @param url la direccion del XML a cargar.
+	 */
 	public U3dIntEcoState(String name, String url) {
 		super(name);
 		this.url = url;
 		translation = new Vector3f();
 	}
 	
+	
+	/**
+	 * Este metodo es el encargado de inicializar todo lo correspondiente 
+	 * al estado(mundo, luz, HUD, posicion de inicio), invocando a los 
+	 * metodos necesarios.
+	 */
 	public void initialize() {
 	//	if (!this.initialized) {
 			
@@ -64,6 +92,12 @@ public class U3dIntEcoState extends U3dState {
 			rootNode.updateRenderState();
 		//}
 	}
+	
+	
+	/**
+	 * Inicializa el HUD correspondiente a este estado. Elimina las ventanas de
+	 * login, crea el mapa y le setea sus parametros.
+	 */
 	private void inicializaHUD() {
 		HudManager.getInstance().unSetCargando();
 		HudManager.getInstance().removeWindow("login");
@@ -72,10 +106,21 @@ public class U3dIntEcoState extends U3dState {
 		HudManager.getInstance().setMuestraMapa(false);
 		HudManager.getInstance().update();
 	}
+	
+	/**
+	 * Llama al metodo buildLight del <code>iworldbuilder</code> para
+	 * cargar las luces al mundo.
+	 */
 	private void initializeLight() {	
 		this.iworldbuilder.buildLight(rootNode);
 	}
 	
+	
+	/**
+	 * Crea la <code>U3DBuildingEntity</code> y la <code>U3dBuildingView</code>
+	 * a las que se aplica el mundo, crea el mundo y lo agrega a la vista
+	 * y por ultimo setea el cielo.
+	 */
 	private void initializeWorld() {
 		this.iworldbuilder = new XMLWorldBuilder(url);
 		
@@ -90,6 +135,13 @@ public class U3dIntEcoState extends U3dState {
 		this.rootNode.attachChild(worldView);
 	}
 
+	
+	/**
+	 * Este metodo crea una <code>U3DChaseCamera</code> para la 
+	 * <code>U3DPlayerView</code> y le setea el frustrum.
+	 * @param playerView <code>DynamicView</code> es la vista del jugador 
+	 * requerida para la Chasecamera
+	 */
 	public void initializeCamera(DynamicView playerView) {
 		if (playerView != null){
 			chaser = this.iworldbuilder.buildCamera(playerView);
@@ -103,6 +155,10 @@ public class U3dIntEcoState extends U3dState {
 		
 	}
 	
+	/**
+	 * Metodo que limpia todo lo creado para el estado con el objetivo
+	 * de optimizar el uso de memoria.
+	 */
 	public void cleanup() {
 		rootNode.detachChild(worldView);
 		
@@ -124,10 +180,17 @@ public class U3dIntEcoState extends U3dState {
 		System.runFinalization();
 	}
 
+	/**
+	 * Se encarga de dibujar el nodo raiz. Es llamado siempre por el 
+	 * <code>GameStateManager</code> despues del update(float).
+	 */
 	public void render(float arg0) {
 		super.render(arg0);
 	}
 
+	/**
+	 * Actualiza la camara asociada a la vista del player y el hud.
+	 */
 	public void updateState(float interpolation) {
 		if (chaser!=null)
 		{
@@ -155,14 +218,27 @@ public class U3dIntEcoState extends U3dState {
 		return null;
 	}
 	
+	/**
+	 * Metodo que dice si el estado esta inicializado 
+	 * @return la variable que indica si el estado se encuentra inicializado.
+	 */
 	public boolean isInitialized() {
 		return initialized;
 	}
 
+	/**
+	 * Setea la propiedad initialized del estado
+	 * @param initialized 
+	 */
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;
 	}
 	
+	/**
+	 * Se encarga de actualizar la camara de manera que siempre apunte al
+	 * personaje y verifica las posibles colisiones de esta con los distintos
+	 * objetos del mundo.
+	 */
 	public void updateCamera() {
 		boolean intersects = false;
 		Spatial worldView = this.rootNode.getChild(this.name + "_View");
@@ -172,6 +248,9 @@ public class U3dIntEcoState extends U3dState {
 //		System.out.println(intersects);
 	}
 
+	/**
+	 * Retorna el vector que se establecera como nueva posicion del mundo. 
+	 */
 	public Vector3f getTranslation() {
 		return this.translation;
 	}
@@ -182,7 +261,10 @@ public class U3dIntEcoState extends U3dState {
 		return true;
 	}
 
-	@Override
+	/** 
+	 * @return el dialogo correspondiente segun el estado al que se este 
+	 * cambiando, preguntando si se quiere ingresar o no.
+	 */
 	public String getDialogText() {
 		return "Est\u00E1s frente a la puerta de ingreso a "+getName()+". \u00BFQuer\u00E9s Entrar?";
 	}
