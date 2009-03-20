@@ -1,6 +1,10 @@
 /**
- *<code>IDynamicEntity</code> defines the interface for all types of dynamic
- * entity in the game world.
+ * La clase <code>IDynamicEntity</code> define la interface
+ * de todos los tipos de entidades
+ * dinamicas del juego.
+ * 
+ * @author Cristian Calomino
+ * @version Created: 20-11-2008
  */
 package client.game.entity;
 
@@ -9,11 +13,6 @@ import client.game.IPersonaje;
 import com.jme.math.Vector3f;
 import common.datatypes.Skin;
 
-/** 
- * Define la interface para todos los tipos de entidades dinámicas del juego
- * @author Cristian Calomino
- * @version Created: 20-11-2008
- */
 public interface IDynamicEntity extends IEntity {
 	/**
 	 * Setea con cero la fuerza en esta entidad.
