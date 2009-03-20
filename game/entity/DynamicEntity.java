@@ -1,7 +1,11 @@
 /**
- * <code>DynamicEntity</code> extends <code>Entity</code> and implements
- * <code>IDynamicEntity</code> to represent an actual dynamic entity in
- * the game world.
+ * La clase <code>DynamicEntity</code> hereda de 
+ * la clase <code>Entity</code> e implementa la 
+ * clase <code>IDynamicEntity</code> para representar 
+ * una enitdad dinamica en el mundo del juego.
+ * 
+ * @author Critian Calomino
+ * @version Created: 20-11-2008
  */
 package client.game.entity;
 
@@ -27,12 +31,6 @@ import com.jmex.game.state.GameStateManager;
 import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
-/**
- * Esta clase extiende de <code>Entity</code> e implementa
- *  <code>IDynamicEntity</code> para representar una entidad dinámica en el juego.
- * @author Critian Calomino
- * @version Created: 20-11-2008
- */
 public class DynamicEntity extends Entity implements IDynamicEntity {
 
 	public void init(Vector3f force, float mass, Vector3f velocity,
