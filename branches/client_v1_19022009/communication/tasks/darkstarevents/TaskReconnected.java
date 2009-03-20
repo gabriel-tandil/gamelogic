@@ -8,6 +8,10 @@ import common.messages.IMessage;
 /**
  * TaskReconnected.java
  * 
+ * Esta clase implementa una tarea de comunicación: {@link TaskReconnected}
+ * Cuando se realiza una reconexión, se crea una tarea TaskReconnected. La
+ * misma, al ser ejecutada, muestra al jugador el mensaje de reconexión.
+ * 
  * @author Castillo/Santos
  */
 public class TaskReconnected extends TaskCommunication {
@@ -25,18 +29,19 @@ public class TaskReconnected extends TaskCommunication {
 	}
 
 	/**
+	 * Para crear una tarea TaskReconnected, se invoca a este método, el cual
+	 * devuelve una instacia de la misma. Retorna una instancia de
+	 * TaskReconnected.
 	 * 
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages
 	 *      .IMessage)
 	 */
-
 	public TaskCommunication factoryMethod(final IMessage msg) {
 		return new TaskReconnected();
 	}
 
 	/**
-	 * Se invoca al {@link HudManager} para mostrar el dialogo de reconexiï¿½n,
-	 * con los botones correspondientes y la acciï¿½n de cambio de estado.
+	 * Invoca al {@link HudManager} para mostrar el mensaje de reconexión.
 	 * 
 	 * @author Castillo/Santos.
 	 * @see client.game.task.ITask#execute()
@@ -46,14 +51,14 @@ public class TaskReconnected extends TaskCommunication {
 				TaskReconnecting.MENSAJE_RECONECTANDO);
 
 		HudManager.getInstance().update();
-
 	}
 
 	/**
+	 * Retorna el tipo de mensaje de la tarea.
+	 * 
 	 * @return {@link #RECONNECTED_TASK_TYPE}
 	 */
 	public final String getMsgType() {
 		return RECONNECTED_TASK_TYPE;
 	}
-
 }

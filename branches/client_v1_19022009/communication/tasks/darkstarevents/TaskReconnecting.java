@@ -8,13 +8,18 @@ import common.messages.IMessage;
 /**
  * TaskReconnecting.java
  * 
+ * Implementa una {@link TaskCommunication}: {@link TaskReconnecting} Durante
+ * un intento de reconexión, se crea una tarea TaskReconnecting. La misma, al
+ * ser ejecutada, muestra al jugador el mensaje que indica que se está
+ * intentando una reconexión.
+ * 
  * @author Castillo/Santos
  */
 public class TaskReconnecting extends TaskCommunication {
 
 	/**
 	 * String que identifica el mensaje escrito por pantalla para mostrar el
-	 * mensaje de intencion de reconeccion.
+	 * mensaje de intención de reconexión.
 	 */
 	public static final String MENSAJE_RECONECTANDO = "RECONNECTING";
 
@@ -31,18 +36,21 @@ public class TaskReconnecting extends TaskCommunication {
 	}
 
 	/**
+	 * Para crear una tarea TaskReconnecting, se invoca a este método, el cual
+	 * devuelve una instacia de la misma. Retorna una instancia de
+	 * TaskReconnecting.
 	 * 
 	 * @see client.communication.tasks.TaskCommunication#
 	 *      factoryMethod(common.messages.IMessage)
 	 */
-
 	public TaskCommunication factoryMethod(final IMessage msg) {
 		return new TaskReconnecting();
 	}
 
 	/**
-	 * La tarea que tenga el mensaje tendria que mostrar el dialogo y cambie de
-	 * estado de ser necesario, invocando al {@link HudManager}
+	 * 
+	 * Invoca al {@link HudManager} para mostrar al jugador el mensaje que
+	 * indica el intento de reconexión.
 	 * 
 	 * @author Castillo/Santos.
 	 * @see client.game.task.ITask#execute()
@@ -55,6 +63,8 @@ public class TaskReconnecting extends TaskCommunication {
 	}
 
 	/**
+	 * Retorna el tipo de mensaje de la tarea. *
+	 * 
 	 * @return {@link #RECONNECTING_TASK_TYPE}
 	 */
 	public final String getMsgType() {
