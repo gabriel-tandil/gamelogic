@@ -1,6 +1,10 @@
 /**
- *<code>Player</code> extends <code>DynamicEntity</code> to define
- * the base player in the game.
+ * La clase <code>Player</code> extiende de la clase 
+ * <code>DynamicEntity</code> para definir el jugador
+ * base en el juego.
+ * 
+ * @author Cristian Calomino
+ * @version Created: 20-11-2008
  */
 package client.game.entity;
 
@@ -20,11 +24,6 @@ import com.jmex.game.state.GameStateManager;
 import common.datatypes.PlayerState;
 import common.datatypes.Skin;
 
-/** 
- * Extiende de DynamicEntity para definir el jugador base en el juego.
- * @author Cristian Calomino
- * @version Created: 20-11-2008
- */
 public class Player extends DynamicEntity {
 	
 	/**
