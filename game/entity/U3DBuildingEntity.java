@@ -1,3 +1,12 @@
+/**
+ * La clase <code>U3DBuildingEntity</code> hereda
+ * de la clase <code>Entity</code>, esta
+ * clase es la que representa un edificio
+ * en el juego.
+ * 
+ * @author kike
+ */
+
 package client.game.entity;
 
 import java.io.IOException;
@@ -8,10 +17,8 @@ import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
 import com.jme.util.export.OutputCapsule;
-/**
- * Entidad que representa un edificio del juego
- * @author kike
- */
+
+
 public class U3DBuildingEntity extends Entity {
 
 	public U3DBuildingEntity(String id)
