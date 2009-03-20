@@ -19,9 +19,12 @@ public interface IGameState {
 	public void initialize();
 
 	/** 
-	 * @return el WorldGameState
+	 * @return el WorldGameState 
 	 */
 	public WorldGameState getWorld();
-	
+	/**
+	 * 
+	 * @param playerView la vista asociada al player
+	 */
 	public void initializeCamera(DynamicView playerView);
 }

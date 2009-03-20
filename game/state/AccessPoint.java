@@ -1,7 +1,5 @@
 /**
- * El AccessPoint es del tipo <code>Entity</code>. El <code>AccessPoint</code> representa los 
- * nuevos puntos de acceso BasicGameState del juego.
- * Cuado una entidad colisiona con el <code>AccessPoint</code> <code>Entity</code>, El juego cambia a un nuevo estado.
+ *
  */
 package client.game.state;
 
@@ -22,8 +20,13 @@ import com.jmex.bui.event.ActionListener;
 import com.jmex.game.state.BasicGameState;
 
 /**
- * Representa los nuevos puntos de acceso BasicGameState del juego.
- * @author Santiago Michielotto
+ * Implementa la interfaz IAccessPoint. El AccessPoint es del tipo 
+ * <code>Entity</code>. 
+ * El <code>AccessPoint</code> representa los nuevos puntos de acceso 
+ * BasicGameState del juego. Cuando una entidad colisiona con el 
+ * <code>AccessPoint</code> <code>Entity</code>, el juego cambia a un nuevo 
+ * estado.
+ * @author Santiago Michielotto, Martin Sabatini (Javadoc)
  * @version Created: 19-11-2008
  * @version Modified: 06-02-2009
  */
@@ -39,6 +42,9 @@ long timer;
 	 */
 	private String nextState;
 	
+	/**
+	 *  Proxima Posicion
+	 */
 	private Vector3f nextPosition;
 
 	/**
@@ -50,7 +56,10 @@ long timer;
 		nextPosition = theNextPosition;
 		timer=System.currentTimeMillis();
 	}
-
+	/**
+	 * 
+	 * @return el nodo asociado al que esta asociado el AccessPoint
+	 */
 	public Node getNodo() {
 		return nodo;
 	}
@@ -60,15 +69,17 @@ long timer;
 	 */
 	private BasicGameState proxEstado;
 
+	/**
+	 * 
+	 * @return el proximo estado del juego.
+	 */
 	public BasicGameState getProxEstado() {
 		return this.proxEstado;
 	}
 
 	/**
 	 * Aplica un <code>BasicGameState</code> al <code>AccessPoint</code>.
-	 * 
-	 * @param theBasicgamestate
-	 *            <code>BasicGameState</code> a aplicar.
+	 * @param theBasicgamestate <code>BasicGameState</code> a aplicar.
 	 */
 	public void setBasicgamestate(BasicGameState state) {
 		proxEstado = state;
@@ -84,9 +95,8 @@ long timer;
 	}
 
 	/**
-	 * This method create a new <code>ChangeStateTask</code>, and this is
-	 * enqueue first in the list of task to execute calling a singleton
-	 * <code>TaskManager</code>
+	 * Este metodo crea una nueva <code>ChangeStateTask</code>, y la agrega
+	 * al comienzo de la lista de tareas a ejecutar.
 	 */
 	public void show() {
 		if (!proxEstado.isActive()) {
@@ -105,6 +115,11 @@ long timer;
 		}
 	}
 
+	/**
+	 * Se encarga de mostrar el dialogo cuando se colisiona con un AccessPoint,
+	 * preguntando si se quiere ingresar o salir del lugar en el que se encuentra. 
+	 * En caso afirmativo se produce un cambio de estado.
+	 */
 	public void dialogoIngresar() {
 		
 		// if (!GameStateManager.getInstance().getChild("Eco").isActive())
@@ -138,7 +153,11 @@ long timer;
 		
 		
 	}
-
+	
+	/**
+	 * Devuelve la siguiente posicion.
+	 * @return la siguiente posicion.
+	 */
 	public Vector3f getNextPosition() {
 		return nextPosition;
 	}

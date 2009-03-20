@@ -31,9 +31,10 @@ import common.messages.MsgPlainText;
 import common.messages.MsgTypes;
 
 /**
- * clase que representa el estado del login. Desde esta clase se maneja la
- * visualización del cartel que dice "cargando" una vez q se loguea un
- * usuario.Esta clase hereda de U3dState que a su vez hereda de WorldGameState
+ * Clase que representa el estado del login. Esta clase hereda de 
+ * <code>U3dState</code> que a su vez hereda de <code>WorldGameState</code>
+ * Se encarga de mostrar la pantalla de login del usuario y verificar
+ * que el logueo haya sido correcto 
  * 
  * @author kike
  */
@@ -41,14 +42,40 @@ public class U3dLoginState extends U3dState {
 	public static final String LOGUEO_OK = "loggin Ok";
 	public static final String LOGUEO_ERROR = "login Failed";
 
+	/**
+	 * Indica el ancho de la textura
+	 */
 	private int textureWidth;
-	// initialize texture height
+	
+	
+	/**
+	 * Indica la altura de la textura
+	 */
 	private int textureHeight;
 
+	/**
+	 * Variable que se usa para manejar el logueo de un usuario
+	 */
 	private boolean loguear;
+	
+	
+	/**
+	 * String que se usa para verificar si el logueo se realizo correctamente
+	 * o no.	
+	 */
 	private String respuestaLogueo = null;
+	
+	
+	/**
+	 * Representa el usuario que se loguea.
+	 */
 	private String user;
 
+	/**
+	 * Metodo constructor de U3DLoginState. Se encarga de setear el nombre 
+	 * al estado.
+	 * @param name el nombre a establecer al estado.
+	 */
 	public U3dLoginState(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
@@ -60,12 +87,18 @@ public class U3dLoginState extends U3dState {
 
 	}
 
-	@Override
+	/**
+	 * Se encarga de dibujar el nodo raiz. Es llamado siempre por el 
+	 * <code>GameStateManager</code> despues del update(float).
+	 */
 	public void render(float arg0) {
 		super.render(arg0);
 	}
 
-	@Override
+	/**
+	 * Actualiza el nodo raiz. Es llamado por el padre <code>GameStateNode</code>
+	 * siempre antes del render(float).
+	 */
 	public void update(float arg0) {
 
 		// HudManager.getInstance().getRoot()// solo necesito actualizar los
@@ -76,6 +109,13 @@ public class U3dLoginState extends U3dState {
 		manejaLogueo();
 	}
 
+	
+	/**
+	 * Metodo que se encarga del logueo de los usuarios. En caso de ser 
+	 * correcto genera una tarea <code>U3dCargandoTask</code> y la agrega 
+	 * a la lista de tareas. En caso que el logueo sea incorrecto muestra 
+	 * un dialogo pidiendo verificacion de los datos ingresados.
+	 */
 	private void manejaLogueo() {
 		if (loguear) {
 
@@ -133,6 +173,14 @@ public class U3dLoginState extends U3dState {
 		return (int) (porcent * this.currentResolution[1] / 100);
 	}
 
+	
+	/**
+	 * Agrega al <code>TaskManagerFactory</code> las factorys 
+	 * <code>U3DCargandoTaskFactory</code> y <code>U3DLoginRequestTaskFactory</code>,
+	 * setea las distintas caracteristicas de la pantalla de logueo
+	 * llamando al metodo inicializaHUD() y actualiza el nodo raiz
+	 * del hud y del mapa.
+	 */
 	public void initialize() {
 
 		actualState = getName();
@@ -206,6 +254,11 @@ public class U3dLoginState extends U3dState {
 
 	private int[] currentResolution;
 
+	/**
+	 * Metodo que se encarga de crear la tarea <code>U3DLoginRequestTask</code>
+	 * y agregarla a la lista de tareas del <code></TaskManager>
+	 * @param event el evento ocurrido
+	 */
 	public void handleInput(ActionEvent event) {
 		String action = event.getAction();
 		if (action.equals("login")) {
@@ -232,6 +285,10 @@ public class U3dLoginState extends U3dState {
 		}
 	}
 
+	/**
+	 * Este metodo se encarga de configurar los distintos parametros
+	 * de la ventana de login 
+	 */
 	private void inicializaHUD() {
 		BWindow login;
 		BTextField userNameField;
@@ -316,7 +373,7 @@ public class U3dLoginState extends U3dState {
 		return 1f - (float) yPixel / textureHeight;
 	}
 
-	@Override
+	
 	public void initializeState() {
 		// TODO Auto-generated method stub
 

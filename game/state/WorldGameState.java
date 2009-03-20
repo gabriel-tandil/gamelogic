@@ -9,9 +9,11 @@ import com.jmex.game.state.BasicGameState;
 
 /** 
  * Es la forma abstracta de los posibles estados que el juego puede tener.
+ * Hereda de la clase <code>BasicGameState</code> provista por el jme e 
+ * implementa la interface <code>IGameState</code> para definir la 
+ * abstraccion basica de los estados del juego.
  * @author Martin Sabatini - Sebastian Bisbal
  * @version Fecha de creación: 05-11-2008
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public abstract class WorldGameState extends BasicGameState implements
 		IGameState {
@@ -21,13 +23,13 @@ public abstract class WorldGameState extends BasicGameState implements
 	}
 
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * el game asociado
 	 */
 	private Game game;
 
 	/** 
 	 * @return el game
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * 
 	 */
 	public Game getGame() {
 		// begin-user-code
@@ -37,7 +39,7 @@ public abstract class WorldGameState extends BasicGameState implements
 
 	/** 
 	 * @param theGame el game a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * 
 	 */
 	public void setGame(Game theGame) {
 		// begin-user-code
@@ -46,13 +48,13 @@ public abstract class WorldGameState extends BasicGameState implements
 	}
 
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * el iwordbuilder asociado al estado correspondiente
 	 */
 	protected IWorldBuilder iworldbuilder;
 	
 	/** 
 	 * @return el iworldbuilder
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * 
 	 */
 	
 	public IWorldBuilder getIworldbuilder() {
@@ -63,7 +65,7 @@ public abstract class WorldGameState extends BasicGameState implements
 
 	/** 
 	 * @param theIworldbuilder el iworldbuilder a establecer
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * 
 	 */
 	public void setIworldbuilder(IWorldBuilder theIworldbuilder) {
 		// begin-user-code
@@ -72,8 +74,9 @@ public abstract class WorldGameState extends BasicGameState implements
 	}
 
 	/** 
-	 *  Siempre llama al construir el mundo del IWorldBuilder
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Se encarga de inicializar el mundo correspondiente al estado, llamando
+	 * al metodo buildWorld del iworldbuilder asociado y pasandole como 
+	 * parametro el nodo raiz.
 	 */
 	private void initializeWorld() {
 		// begin-user-code
@@ -81,26 +84,47 @@ public abstract class WorldGameState extends BasicGameState implements
 
 		// end-user-code
 	}
-
+	
+	/**
+	 * Este metodo llama al metodo update de <code>BasicGameState</code>
+	 * que se encarga de actualizar el rootNode. Tambien se encarga de llamar 
+	 * al metodo updateState que sera implementado por las clases que 
+	 * representan los distintos estados del juego.
+	 * @param interpolation es el valor de la frecuencia de interpolacion 
+	 * en segundos.
+	 */
 	public void update(float interpolation) {
 		super.update(interpolation);
 		this.updateState(interpolation);
 	}
 	
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Metodo que debe ser implementado por toda clase que extienda de esta.
+	 * Se encarga de inicializar el estado correspondiente.
 	 */
 	public abstract void initializeState();
 
 	/** 
-	 * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	 * Metodo que debe ser implementado por toda clase que extienda de esta. 
+	 * Se encarga de actualizar el estado.
 	 */
 	public abstract void updateState(float interpolation);
 	
+	
+	/**
+	 * Metodo que debe ser implementado por toda clase que extienda de esta.
+	 * 
+	 * @return el dialogo correspondiente segun el estado al que se este 
+	 * cambiando.
+	 */
 	public abstract String getDialogText();
 	
 	public abstract boolean needClean();
 	
+	
+	/**
+	 * el String con el nombre del estado actual.
+	 */
 	public static String actualState;
 		
 }
