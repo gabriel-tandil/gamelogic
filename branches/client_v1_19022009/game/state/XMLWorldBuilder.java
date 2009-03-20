@@ -136,7 +136,6 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		this.url = urlxml;
 		vrl = new Vector<ResourceLocator>();
 	}
-
 	/**
 	 * Se borran las texturas de memoria.
 	 * @param node <code>Node</code> El nodo que se borra de memoria
