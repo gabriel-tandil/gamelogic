@@ -1,37 +1,35 @@
-/**
- * 
- */
 package client.game.controller;
 
 import client.game.entity.IDynamicEntity;
 
 /**
- * <code>Controller</code> implementa <code>IController</code> para definir la
- * abstracciónn básica del controlador de una entidad. Este es responsable de monitorear
- * y procesar las entradas del usuario. Genera las correspondientes <code>ITask</code>
- * en respuesta a los eventos de entrada.
- * <p>
- * <code>Controller</code> es, además, responsable de monitorear el estado de la
- * <code>IDynamicEntity</code> que este controla para generar las correspondientes
- *  <code>ITask</code> durante el ciclo de update. Esto permite al <code>Controller</code>
- *  modificar la <code>IDynamicEntity</code> continuamente a través de las distintas
- *  iteraciones del update.
+ * {@link Controller} implementa {@link IController} para definir la
+ * abstracción básica del controlador de una entidad. Este es responsable de monitorear
+ * y procesar las entradas del usuario. Genera las correspondientes {@link ITask}
+ * en respuesta a los eventos de entrada.<br> 
+ * {@link Controller} es, además, responsable de monitorear el estado de la
+ * {@link IDynamicEntity}, la cual este maneja, para generar las correspondientes
+ *  {@link ITask} durante el ciclo de update. Esto permite al {@link Controller}
+ *  modificar la {@link IDynamicEntity}, continuamente, en cada una de las iteraciones 
+ *  del update.
+ *  
+ *  @author Leo López
  * */
 public abstract class Controller implements IController{
 	
 	/**
-	 * La <code>IDynamicEntity<code> controlada por este <code>Controller<code>.
+	 * La correspondiente {@link IDynamicEntity} manejada por el {@link Controller}
 	 */
 	private IDynamicEntity idynamicentity;
 	
 	/**
-	 * Este flag indica si el control esta activo o no.
+	 * Este flag indica si el {@link Controller} se encuentra activo o no.
 	 */
 	private boolean active;
 			
 	/**
-	 * Constructor de <code>Controller</code>.
-	 * @param La <code>IDynamicEntity</code> controlada.
+	 * Constructor de {@link Controller}
+	 * @param entity la {@link IDynamicEntity} controlada.
 	 */
 	public Controller(IDynamicEntity entity) {	
 		if(entity == null) throw new IllegalArgumentException("Null entity.");
@@ -39,29 +37,36 @@ public abstract class Controller implements IController{
 	}
 		
 	/**
-	 * Hace el update de la logica de este controlador.
-	 * @param Es el valor de la frecuencia de interpolation en segundos.
+	 * Realiza el update de la logica de este controlador.<br>
+	 * Creará las correspondientes {@link ITask} que llevarán
+	 * a cabo el comportamiento respectivo de la {@link IDynamicEntity}.
+	 * @param interpolation es el valor de la frecuencia de interpolacion 
+	 * en segundos.
 	 */
 	public abstract void updateLogic(float interpolation);
 	
 	/**
-	 * Retorna la idynamicentity
-	 * @return el idynamicentity
+	 * Obtiene la instancia de {@link IDynamicEntity} manejada por
+	 * el {@link Controller}.
+	 * @return una instancia de {@link IDynamicEntity}.
 	 */
 	public IDynamicEntity getIDynamicEntity() {
 		return this.idynamicentity;
 	}
 	
 	/**
-	 * Setea la idynamicentity con la theIdynamicentity pasada como parametro
-	 * @param theIdynamicentity el idynamicentity a establecer
+	 * Setea la {@link IDynamicEntity} manejada por el {@link Controller}.
+	 * @param theIdynamicentity es el valor para setear la instancia de 
+	 * {@link IDynamicEntity}.
 	 */
 	public void setIDynamicEntity(IDynamicEntity theIdynamicentity) {
 		this.idynamicentity = theIdynamicentity;
 	}
 	
 	/**
-	 * Aplica el update
+	 * Lleva a cabo el {@link Controller#updateLogic(float)}.
+	 * @param interpolation es el valor de la frecuencia de interpolacion
+	 * en segundos.
 	 */
 	public void update(float interpolation) {
 		this.updateLogic(interpolation);
@@ -69,16 +74,18 @@ public abstract class Controller implements IController{
 	
 
 	/**
-	 * Setea el flag active con la varibale pasada como parametro
-	 * @param active el flag a establecer
+	 * Setea el valor para active.
+	 * @param active, el valor a setear.
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
 	}
 	
 	/**
-	 * Retorna el flag active, muestra si se encuentra activo o no
-	 * @return active, flag muestra si se encuentra activo o no
+	 * Retorna el valor del flag active, indicando si el {@link Controller}
+	 * se encuentra activo o no.
+	 * @return boolean, valor que indica si el {@link Controller} se 
+	 * encuentra activo o no.
 	 */
 	public boolean isActive() {
 		return this.active;

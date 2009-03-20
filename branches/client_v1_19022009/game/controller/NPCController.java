@@ -6,14 +6,17 @@ package client.game.controller;
 import client.game.entity.IDynamicEntity;
 
 /** 
- * Esta clase contendrá el algoritmo de comportamiento del NPC.
+ * Extiende {@link Controller}.<br>
+ * Lleva a cabo el algoritmo de comportamiento de la 
+ * {@link IDynamicEntity} que representa al NPC.
  */
 public class NPCController extends Controller {
 	
 	
 	/**
-	 * Contructor del <code>Controller<code> del NPC.
-	 * @param entity La entidad que representará al NPC.
+	 * Contructor de {@link NPCController}.
+	 * @param entity es la {@link IDynamicEntity} que 
+	 * será asociada al {@link NPCController}.
 	 */
 	public NPCController(IDynamicEntity entity) {
 		super(entity);		
@@ -26,6 +29,11 @@ public class NPCController extends Controller {
 	}
 	
 
+	/**
+	 * Recupera la instancia de {@link IDynamicEntity} asociada
+	 * al {@link NPCController}.
+	 * @return la instancia de {@link IDynamicEntity}.
+	 */
 	public IDynamicEntity getEntity() {
 		// TODO Auto-generated method stub
 		return null;
