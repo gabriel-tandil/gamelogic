@@ -98,53 +98,81 @@ import com.jmex.model.converters.ObjToJme;
 import com.jmex.model.util.ModelLoader;
 
 /**
- * @author Mara
- * @generated "De UML a Java V5.0 (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ * <code>XMLWorldBuilder</code> Tarea encargada
+ * Carga de los modelos 3D dentro del "Mundo", carga de AccessPoints,
+ * creación de camaras  y creacion de luces relacionadas a cada modelo
+ * Extiende la funcionalidad de <code>IWrldBuilder</code>
+ * @author Luciano Doglioli
+ * @version 1.0
  */
 public class XMLWorldBuilder implements IWorldBuilder {
-
+	/**
+	 * Path del XML que contiene los datos del modelo a cargar 
+	 */
 	private String url;
-
+	/**
+	 * Posicion inicial del jugador dentro del modelo
+	 */
 	private Vector3f initialPosition = null;
-
+	/**
+	 * Rotacion del personaje en el modelo
+	 */
 	private Quaternion Rotation = null;
 
-	/* modif 2 */
+	/**
+	 * Almacena las texturas de cada uno de los modelos
+	 */
 	Vector<ResourceLocator> vrl;
+	/**
+	 * Entidad asociada al modelo
+	 */
 	U3DBuildingEntity worldEntity;
-
+	
+	/**
+	 * Constructor de <code>XMLWorldBuilder</code>.
+	 * @param urlxml <code>String</code> La ruta del XML que se va a cargar.
+	 */
 	public XMLWorldBuilder(String urlxml) {
 		this.url = urlxml;
 		vrl = new Vector<ResourceLocator>();
 	}
 
-	// modificacion
+	/**
+	 * Se borran las texturas de memoria.
+	 * @param node <code>Node</code> El nodo que se borra de memoria
+	 */
 	public void destroyWorld(Node node) {
-
 		CollisionManager.getInstace().removeAccessPoints();
 
-		/** Q sino se confunden las texturas.... xDDDDDD */
+		/** Q sino se confunden las texturas.... */
 		for (int i = 0; i < vrl.size(); i++)
 			ResourceLocatorTool.removeResourceLocator(
 					ResourceLocatorTool.TYPE_TEXTURE, vrl.get(i));
 		vrl.clear();
-
 	}
-
+	/**
+	 * Crea el mundo y lo agrega a worldView
+	 * @param worldView <code>Node</code> el nodo contenedor del modelo que se carga.
+	 */
 	public void buildWorld(Node worldView) {
-
 		Node campus = new Node("campus");
 		getWorld(campus);
 		campus.setLocalScale(0.3f);
 		campus.lock();
 		worldView.attachChild(campus);
-
 	}
-
+	/**
+	 * Se borran las texturas de memoria.
+	 * @return <code>Vector3f</code> La posicion inicial del personaje en el mundo. 
+	 */
 	public Vector3f getInitialPosition() {
 		return initialPosition;
 	}
 
+	/**
+	 * Crea el cielo.
+	 * @return <code>Skybox</code> retorna el cielo cargado con texturas.
+	 */
 	public Skybox setupSky() {
 		Skybox sb = new Skybox("cielo", 1200, 200, 1200);
 		try {
@@ -185,7 +213,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		sb.updateRenderState();
 		return sb;
 	}
-
+	/**
+	 * Carga desde archivo todas las partes que componen un modelo(definidas en el XML)
+	 * y las agrega a un Nodo, el cual luego se agrega al rootNode
+	 * @param nodeRoot <code>Node</code> El nodo Raiz de todos los modelos
+	 */
 	private void getWorld(Node nodeRoot) {
 		Node world = new Node("TestWorld");
 		URL filename = java.lang.ClassLoader.getSystemClassLoader()
@@ -285,8 +317,13 @@ public class XMLWorldBuilder implements IWorldBuilder {
 				e.printStackTrace();
 			}
 		}
-	}
-
+	} 
+	/**
+	 * Se carga de archivo una determinada parte del modelo, reconoce el 
+	 * formato del fragmento y de acuerdo a ello le da el tratamiento corrspondiente.
+	 * @param modelfile <code>String</code> La ruta del fragmento de modelo.
+	 * @return <code>Node</code> el modelo cargado en un Node.
+	 */
 	public Node cargarModelo(String modelFile) {
 		Node loadedModel = null;
 		FormatConverter formatConverter = null;
@@ -347,7 +384,14 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		//loadedModel.lock();
 		return loadedModel;
 	}
-
+	/**
+	 * Se parsea el XML y se buscan todas las propiedades del modelo
+	 * que se esta cargando. Se ingresa un Nodo el cual se modifica y 
+	 * es devuelto por la funcion con los cambios relaizados.
+	 * @param child <code>Node</code> el nodo cargado con propiedades por defecto.
+	 * @param node  <code>Element</code> elemento del xml que posee las propiedades buscadas.
+	 * @return <code>Node</code> nodo con las nuevas propiedades.	 
+	 */
 	private Node parseNode(Node child, Element node)
 			throws DataConversionException {
 		List list;
@@ -589,6 +633,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		return null;
 	}
 
+	/**
+	 * Se parsea en el XML el tag que detecta los bounding.
+	 * @param children <code>List</code> Lista de valores detectados para el tag bounding.
+	 * @return <code>BoundingVolume</code> el valor de bounding indicado por el tag.	 
+	 */
 	private BoundingVolume parseBoundingVolume(List children)
 			throws DataConversionException {
 		List list;
@@ -672,7 +721,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 		return bv;
 	}
-
+	/**
+	 * Se parsea en el XML el tag que detecta los LineSegment.
+	 * @param children <code>List</code> Lista de valores detectados para el tag LineSegment.
+	 * @return <code>LineSegment</code> el valor de LineSegment indicado por el tag.	 
+	 */
 	private LineSegment parseLineSegment(List children) {
 		List list;
 		Iterator i;
@@ -720,7 +773,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 		return ls;
 	}
-
+	/**
+	 * Se parsea en el XML el tag que detecta los renderer.
+	 * @param children <code>List</code> Lista de valores detectados para el tag Renderer.
+	 * @return <code>Renderer</code> el valor de Renderer indicado por el tag.	 
+	 */
 	private Renderer parseRenderer(List children) {
 		List list;
 		Iterator i;
@@ -778,7 +835,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 		return lw;
 	}
-
+	/**
+	 * Se parsea en el XML el tag que detecta las propiedades de la camara asociada a un Node.
+	 * @param children <code>List</code> Lista de valores detectados para el tag Camera.
+	 * @return <code>Camera</code> el valor de Camera indicado por el tag.	 
+	 */
 	private Camera parseCamera(List children) {
 		List list;
 		Iterator i;
@@ -992,8 +1053,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 		return lw;
 	}
-
-	// Hecho por Carlitos
+	/**
+	 * Se parsea en el XML el tag que detecta el renderState.
+	 * @param children <code>List</code> Lista de valores detectados para el tag renderState.
+	 * @return <code>renderState</code> el valor de renderState indicado por el tag.	 
+	 */
 	private RenderState parseRenderState(List children) {
 		List lis, lis2;
 		Iterator i, it2, it3;
@@ -2419,7 +2483,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		return null;
 	}
 
-	// Hecho por Carlitos
+	/**
+	 * Se parsea en el XML el tag que detecta el color del nodo.
+	 * @param children <code>List</code> Lista de valores detectados para el tag ColorRGBA.
+	 * @return <code>ColorRGBA</code> el valor de colorRGBA indicado por el tag.	 
+	 */
 	private ColorRGBA parseColor(List children) {
 		Iterator i;
 		Element e;
@@ -2443,7 +2511,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		return color;
 	}
 
-	// Hecho por Carlitos
+	/**
+	 * Se parsea en el XML el tag que detecta el valor de ArreFloat.
+	 * @param children <code>List</code> Lista de valores detectados para el tag ArreFloat.
+	 * @return <code>float[]</code> .	 
+	 */
 	private float[] parseArreFloat(List children) {
 		Iterator i;
 		Element e;
@@ -2468,8 +2540,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		}
 		return arr;
 	}
-
-	// Hecho por Carlitos
+	/**
+	 * Se parsea en el XML el tag que detecta Vector3f.
+	 * @param children <code>List</code> Lista de valores detectados para el tag Vector3f.
+	 * @return <code>Vector3f</code> el valor de Vector3f indicado por el tag.	 
+	 */
 	private Vector3f parseVector3f(List children) {
 		Iterator i;
 		Element e;
@@ -2490,7 +2565,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		return v3f;
 	}
 
-	// Hecho por Carlitos
+	/**
+	 * Se parsea en el XML el tag que detecta Quaternion.
+	 * @param children <code>List</code> Lista de valores detectados para el tag Quaternion.
+	 * @return <code>Quaternion</code> el valor de Quaternion indicado por el tag.	 
+	 */
 	private Quaternion parseQuaternion(List children) {
 		Iterator i;
 		Element e;
@@ -2513,8 +2592,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 		return q;
 	}
-
-	// Hecho por Carlitos
+	/**
+	 * Se parsea en el XML el tag que detecta Matrix3F.
+	 * @param children <code>List</code> Lista de valores detectados para el tag Matrix3f.
+	 * @return <code>Matrix3f</code> el valor de Matrix3f indicado por el tag.	 
+	 */
 	private Matrix3f parseMatrix3f(List children) {
 		Iterator i;
 		Element e;
@@ -2549,7 +2631,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 		return m3f;
 	}
-
+	/**
+	 * Se parsea en el XML los accespoints y se cargan en el collisionManager.
+	 * @param world <code>Node</code> Nodo al cual se asocian los accessPoints correspondientes.
+	 * @param node <code>Element</code> Lista con todos los accessPoints existentes.	 
+	 */
 	private void parseAccessPoints(Node world, Element node) {
 		List list;
 		Iterator i;
@@ -2592,17 +2678,9 @@ public class XMLWorldBuilder implements IWorldBuilder {
 			}
 	}
 
-	//**************************************************************************
-	// ********
-	// Iluminación
-	//**************************************************************************
-	// ********
 	/**
-	 * Metodo encargado de leer un archivo de extension ".xml" y cargar desde el
-	 * mismo clases para realizar la iluminacion.
-	 * 
-	 * @param nodeRoot
-	 *            : nodo "Padre".
+	 * Se parsea en el XML las luces y se cargan en el mundo.
+	 * @param nodeRoot <code>Node</code> Nodo que representa el mundo.
 	 */
 	public void buildLight(Node nodeRoot) {
 		// Lee la ruta donde se haya el archivo ".xml"
@@ -2673,16 +2751,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 
 	/**
-	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
-	 * "SETERS" correspondiente a "PointLight". Este método busca el ".set" que
-	 * es llamado desde el codigo y busca su correspondiente defincion en el
-	 * ".xml".
-	 * 
-	 * @param child
-	 *            : clase PointLight.
-	 * @param node
-	 *            : Element, permite realizar la lectura del ".xml".
-	 * @return PointLight: retorna una "PointLight".
+	 * Se parsea en el XML los puntos de donde se establece la luz y se setean sus caracteristicas.
+	 * @param child <code>PointLight</code> PointLight de entrada con valores predeterminados.
+	 * @param node <code>Element</code> Lista con todos las caracteristicas del PointLight.
+	 * @return <code>PointhLight</code> pointLight con las nuevas propiedades.	 
 	 */
 	private PointLight parsePointLight(PointLight child, Element node)
 			throws DataConversionException {
@@ -2741,16 +2813,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 
 	/**
-	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
-	 * "SETERS" correspondiente a "LightState". Este método busca el ".set" que
-	 * es llamado desde el codigo y busca su correspondiente defincion en el
-	 * ".xml".
-	 * 
-	 * @param child
-	 *            : clase LightState.
-	 * @param node
-	 *            : Element, permite realizar la lectura del ".xml".
-	 * @return PointLight: retorna "LightState".
+	 * Se parsea en el XML el estado de las luces.
+	 * @param child <code>LightState</code> LightState de entrada con valores predeterminados.
+	 * @param node <code>Element</code> Lista con todos las caracteristicas del LightState.
+	 * @return <code>LightState</code> LightState con las nuevas propiedades.	 
 	 */
 	private LightState parseLightState(LightState child, Element node)
 			throws DataConversionException {
@@ -2772,16 +2838,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 
 	/**
-	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
-	 * "SETERS" correspondiente a "DirectionalLight". Este método busca el
-	 * ".set" que es llamado desde el codigo y busca su correspondiente
-	 * defincion en el ".xml".
-	 * 
-	 * @param child
-	 *            : clase DirectionalLight.
-	 * @param node
-	 *            : Element, permite realizar la lectura del ".xml".
-	 * @return PointLight: retorna una "DirectionalLight".
+	 * Se parsea en el XML la direccion de la luz y se setean sus caracteristicas.
+	 * @param child <code>DirectionalLight</code> DirectionalLight de entrada con valores predeterminados.
+	 * @param node <code>Element</code> Lista con todos las caracteristicas de DirectionalLight.
+	 * @return <code>DirectionalLight</code> DirectionalLight con las nuevas propiedades.	 
 	 */
 	private DirectionalLight parseDirectionalLight(DirectionalLight child,
 			Element node) throws DataConversionException {
@@ -2833,16 +2893,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 	}
 
 	/**
-	 * Este metodo lee el archivo ".xml", donde se hayan definidos todos los
-	 * "SETERS" correspondiente a "SpotLight". Este método busca el ".set" que
-	 * es llamado desde el codigo y busca su correspondiente defincion en el
-	 * ".xml".
-	 * 
-	 * @param child
-	 *            : clase SpotLight.
-	 * @param node
-	 *            : Element, permite realizar la lectura del ".xml".
-	 * @return PointLight: retorna una "SpotLight".
+	 * Se parsea en el XML los SpotLight y se setean sus caracteristicas.
+	 * @param child <code>SpotLight</code> SpotLight de entrada con valores predeterminados.
+	 * @param node <code>Element</code> Lista con todos las caracteristicas del SpotLight.
+	 * @return <code>SpotLight</code> SpotLight con las nuevas propiedades.	 
 	 */
 	private SpotLight parseSpotLight(SpotLight child, Element node)
 			throws DataConversionException {
@@ -2905,19 +2959,11 @@ public class XMLWorldBuilder implements IWorldBuilder {
 
 		return child;
 	}
-
-	//**************************************************************************
-	// *******
-	// Cámaras
-	//**************************************************************************
-	// *******
 	/**
 	 * Construye una U3DChaseCamera para el U3dPlayerView a partir de parametros
 	 * obtenidos del archivo xml que indica la variable url
-	 * 
-	 * @param playerView
-	 *            es la vista del jugador requerida para la Chasecamera
-	 * @author Carlos Fritz
+	 * @param playerView <code>DynamicView</code> es la vista del jugador requerida para la Chasecamera
+	 * @return <code>U3DChaseCamera</code> U3DChaseCamera generada.
 	 */
 	public U3DChaseCamera buildCamera(DynamicView playerView) {
 		URL filename = java.lang.ClassLoader.getSystemClassLoader()
@@ -3015,7 +3061,10 @@ public class XMLWorldBuilder implements IWorldBuilder {
 		}
 		return null;
 	}
-
+	/**
+	 * genera un punto de translacion del mundo que se genera.
+	 * @param point <code>Vector3f</code> Vector que se establecera como nueva posicion del mundo.
+	 */
 	public void getTranslationPoint(Vector3f point) {
 		URL filename = java.lang.ClassLoader.getSystemClassLoader()
 				.getSystemResource(url);
