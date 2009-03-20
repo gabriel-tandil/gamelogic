@@ -21,7 +21,7 @@ public abstract class Task implements ITask {
 	
 	/**
 	 * Constructor de <code>Task</code>.
-	 * @param game The <code>Game</code> instance.
+	 * @param game La instancia de <code>Game</code>.
 	 */
 	public Task() {
 		this.timestamp = System.currentTimeMillis();		
@@ -29,7 +29,7 @@ public abstract class Task implements ITask {
 	
 	/**
 	 * @param task <code>ITask</code> 
-	 * @return True Si la tarea <code>tast</code> fue creada antes a dicha tarea 
+	 * @return True Si la tarea <code>task</code> fue creada antes a dicha tarea 
 	 */
 	public boolean isLaterThan(ITask task){
 		return timestamp>task.getTimestamp();
