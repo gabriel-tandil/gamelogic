@@ -1,12 +1,20 @@
 /**
  * RTaskMove.java
  * @author Castillo/Santos
+ * Cada vez que una entidad realize un movimiento simple, se necesitará mantener consistente<br> 
+ * los datos en el servidor y/o notificar a los otros clientes. Esta clase fue <br>
+ * creada con el fin de proveer dicho servicio al juego.<br>
+ * Está clase se compone de tres metodos:<br>
+ *     - <b>RTaskMove:</b> Constructor de la clase.<br>
+ *     - <b>TaskCommunication:</b> Factory para crear una tarea de este tipo.<br>
+ *     - <b>execute:</b> Funcionalidad principal de la clase.<br>
  */
+
 package client.communication.tasks.comm;
 
-import client.communication.DynamicEntitysSolicitations;
+import javax.xml.soap.MessageFactory;
+
 import client.communication.GameContext;
-import client.communication.PositionsTranslator;
 import client.communication.tasks.TaskCommFactory;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
@@ -15,41 +23,40 @@ import client.manager.EntityManager;
 import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
-import common.exceptions.UnsopportedMessageException;
-import common.messages.IMessage;
-import common.messages.MessageFactory;
-import common.messages.MsgPlainText;
-import common.messages.MsgTypes;
-import common.messages.notify.MsgMove;
 
 public class RTaskMove extends TaskCommunication {
 
 	/**
 	 * @param msg
 	 */
+	
 	public RTaskMove(IMessage msg) {
 		super(msg);
 	}
 
 	/**
 	 * Crea una tarea de tipo <I>RTaskMove</I> y setea el mensaje.
-	 * 
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
 	 * @return RTaskMove
 	 */
+	
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
 		return new RTaskMove(msg);
 	}
 
 	/**
-	 * Actualiza la ENTITY correspondiente recuperandola del EntityManager En
-	 * caso de no encontrarla crea una TASKCOMM con MSG get_dynamic_entity
-	 * 
-	 * @see client.game.task.ITask#execute() 04/02/2009
+	 * Este método se utiliza para proveer la funcionalidad <br>
+	 * cuando una entidad realiza un movimiento localmente o externamente<br>
+	 * al mundo actual.
+	 * @see client.game.task.ITask#execute()
+	 * @see DynamicEntitysSolicitations
+	 * @see MsgMove
+	 * @see MsgPlainText
+	 * @see TaskManager
+	 * @see DynamicEntity
 	 * @author Castillo/Santos
-	 * 
 	 */
 
 	@Override
@@ -92,7 +99,7 @@ public class RTaskMove extends TaskCommunication {
 							.getPosDestino());
 			// "moverla" Tomando los datos desde el MsgMove.
 			entity.setPosition(clientPosition);
-		}// else if (dEState.equals(DynamicEntitysSolicitations.SOLICITED){
+		}
 	}
 
 }

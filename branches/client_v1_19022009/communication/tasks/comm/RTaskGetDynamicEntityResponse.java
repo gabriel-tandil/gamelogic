@@ -1,9 +1,19 @@
+/**
+ * RTaskGetDynamicEntityResponse.java
+ * @author Castillo/Santos
+ * Dada una respuesta sobre algún evento a una entidad, se deberá acrualizar los datos<br>
+ * de dicha entidad para mantener consistentes los datos en el servidor y/o demás<br>
+ * clientes.<br>
+ * Está se compone de tres metodos:<br>
+ *     - <b>RTaskGetDynamicEntityResponse:</b> Constructor de la clase.<br>
+ *     - <b>TaskCommunication:</b> Factory para crear una tarea de este tipo.<br>
+ *     - <b>execute:</b> Funcionalidad principal de la clase.<br>
+ */
+
+
 package client.communication.tasks.comm;
 
-import client.communication.DynamicEntitysSolicitations;
 import client.communication.GameContext;
-import client.communication.PositionsTranslator;
-import client.communication.WorldsMaper;
 import client.communication.tasks.TaskCommunication;
 import client.game.entity.DynamicEntity;
 import client.game.entity.Player;
@@ -11,14 +21,7 @@ import client.manager.EntityManager;
 import client.manager.TaskManager;
 
 import com.jme.math.Vector3f;
-import common.messages.IMessage;
-import common.messages.MsgPlainText;
-import common.messages.responses.MsgGetDynamicEntityResponse;
 
-/**
- * @author Castillo/Santos
- * 
- */
 public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 
 	/**
@@ -29,10 +32,12 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 	}
 
 	/**
-	 * (non-Javadoc)
-	 * 
+	 * Crea una tarea de tipo <I>RTaskGetDynamicEntityResponse</I> y setea el mensaje.
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
+	 * @param msg
+	 * @return RTaskGetDynamicEntityResponse
 	 */
+	
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
 		return new RTaskGetDynamicEntityResponse(msg);
@@ -48,7 +53,6 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 	 * una tarea especifica a la cual se le asigna el mensaje creado
 	 * anteriormente y finalmente se envia esa<BR>
 	 * tarea al taskManager {@link TaskManager}.
-	 * 
 	 * @see client.game.task.ITask#execute()
 	 */
 
@@ -91,7 +95,7 @@ public class RTaskGetDynamicEntityResponse extends TaskCommunication {
 			Player player = (Player) EntityManager.getInstance().getEntity(
 					GameContext.getUserName());
 			
-			if (/*(entity!=null) && */(idClientWorld.compareTo(player.getActualWorld()) == 0)){
+			if (idClientWorld.compareTo(player.getActualWorld()) == 0){
 				entity.init(Vector3f.ZERO, 8f, Vector3f.ZERO, msg.getAngle().x,
 						idClientWorld, msg.getSkin(), clientPosition);
                 // Marco el estado local de la entidad recien creada como existente.

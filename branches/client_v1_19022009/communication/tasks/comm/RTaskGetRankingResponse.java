@@ -1,58 +1,62 @@
 /**
  * RTaskGetRankingResponse.java
- * @author lito
+ * @author Castillo/Santos
+ * Cada vez que se solicité el ranking de un juego 2D mediante el uso de mensajería<br>
+ * que provee este framework se dará uso a dicha clase<br> 
+ * Está clase se compone de tres metodos:<br>
+ *     - <b>RTaskGetRankingResponse:</b> Constructor de la clase.<br>
+ *     - <b>TaskCommunication:</b> Factory para crear una tarea de este tipo.<br>
+ *     - <b>execute:</b> Funcionalidad principal de la clase.<br>
  */
+
 package client.communication.tasks.comm;
-
-import com.jmex.game.state.GameStateManager;
-
-import common.datatypes.Ranking;
-import common.messages.IMessage;
-import common.messages.responses.MsgGetRankingResponse;
 
 import client.communication.tasks.TaskCommunication;
 import client.minigame.MiniGameState;
 
-/**
- * TODO hacer javaDoc
- * 
- * @author lito 01/11/2008
- */
+import com.jmex.game.state.GameStateManager;
+
 public class RTaskGetRankingResponse extends TaskCommunication {
 
 	/**
 	 * @param msg
 	 */
+	
 	public RTaskGetRankingResponse(IMessage msg) {
 		super(msg);
 	}
 
 	/**
-	 * TODO hacer javaDoc
-	 * 
+	 * Crea una tarea de tipo <I>RTaskGetRankingResponse</I> y setea el mensaje.
 	 * @see client.communication.tasks.TaskCommunication#factoryMethod(common.messages.IMessage)
 	 * @param msg
-	 * @return
+	 * @return RTaskGetRankingResponse
 	 */
+	
 	@Override
 	public TaskCommunication factoryMethod(IMessage msg) {
 		return new RTaskGetRankingResponse(msg);
 	}
 
 	/**
-	 * TODO hacer javaDoc
-	 * 
+	 * Este método obtiene el ranking solicitado y se le hes seteado<br>
+	 * al juego 2D en cuestión para que sea mostrado mediante las interfaces
+	 * encargadas de realizar dicha operación. 
+	 * @see Ranking
+	 * @see MiniGameState
 	 * @see client.game.task.ITask#execute() 01/11/2008
-	 * @author lito
+	 * @author Castillo/Santos
 	 */
+	
 	@Override
 	public void execute() {
+		
 		// el ranking que fue solicitado.
 		Ranking ranking = ((MsgGetRankingResponse) this.getMessage())
 				.getRanking();
 
 		// Obtiene el estado actual, el cual esta identificado por el id del
-		// minijuego para el cual tse tiene el ranking
+		// minijuego para el cual se tiene el ranking
 		MiniGameState miniGameState = (MiniGameState) GameStateManager
 				.getInstance().getChild(ranking.getId2DGame());
 		
