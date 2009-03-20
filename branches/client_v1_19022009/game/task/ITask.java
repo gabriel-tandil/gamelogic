@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package client.game.task;
 
 /**
