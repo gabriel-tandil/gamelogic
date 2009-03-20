@@ -1,6 +1,11 @@
 /**
- *<code>Entity</code> defines the base abstraction of an entity in the game
- * world. One <code>Entity</code> has an identity and a type 
+ * La clase <code>Entity</code> es una clase abstracta
+ * que define la entidad en el mundo del juego.
+ * Una <code>Entity</code> tiene una entidad
+ * y un tipo.
+ * 
+ * @author Cristian Calomino
+ * @version Created: 20-11-2008
  */
 package client.game.entity;
 
@@ -9,13 +14,6 @@ import java.io.IOException;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
 
-/** 
- * es una clase abstracta que define una entidad en el juego. Tiene
- * una identidad y un tipo
- * @author Cristian Calomino
- * @version Created: 20-11-2008
- * 
- */
 public abstract class Entity implements IEntity {
 	/**
 	 * La identity de la <code>Entity</code>.
