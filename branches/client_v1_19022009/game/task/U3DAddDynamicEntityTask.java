@@ -118,8 +118,8 @@ public class U3DAddDynamicEntityTask extends Task {
 	private IPersonaje getPlayer(Node node, String fileName) {
 		IPersonaje p = new PersonaMD5(node);
 		p.setPaquete("jmetest/data/model/MD5/");
-		p.setPersonaje("jmetest/data/model/MD5/"+fileName+".md5mesh");
-		p.setAnimaciones("jmetest/data/model/MD5/"+fileName+".md5anim");
+		p.setPersonaje("jmetest/data/model/MD5/"+fileName+"/Mesh.md5mesh");
+		p.setAnimaciones("jmetest/data/model/MD5/"+fileName+"/MeshAnim.md5anim");
 		p.cargar();
 		p.setModelBound(new BoundingBox());
 		p.setLocalScale(scale);
