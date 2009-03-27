@@ -20,7 +20,7 @@
 		<name param1="string"></name>
 	</node>
 	<accesspoints>	
-		<accesspoint param1="1019" param2="SpotCampus" posX="415" posY="0.5" posZ="-300"/>
+		<accesspoint param1="1019" param2="Eco" posX="415" posY="0.5" posZ="-300"/>
 		<accesspoint param1="1053" param2="Eco" posX="1250.0" posY="0.5" posZ="-354.0"/>
 		<accesspoint param1="809" param2="Exa" posX="35" posY="0.5" posZ="-15" />
 		<accesspoint param1="808" param2="Exa" posX="35" posY="0.5" posZ="-15"/>
@@ -71,6 +71,10 @@
 		<accesspoint param1="1112" param2="Memo" />
 		<accesspoint param1="1210" param2="BigBalls" />
 		<accesspoint param1="1211" param2="BigBalls" />
+		<accesspoint param1="1010" param2="SpotEco" posX="415" posY="0.5" posZ="-300"/>
+		<accesspoint param1="224" param2="SpotCampus" posX="415" posY="0.5" posZ="-300"/>
+		<accesspoint param1="341" param2="SpotIsi" posX="415" posY="0.5" posZ="-300"/>
+		<accesspoint param1="791" param2="SpotExa" posX="415" posY="0.5" posZ="-300"/>		
 	</accesspoints>
 	<directionalLight>
 		<diffuse>
