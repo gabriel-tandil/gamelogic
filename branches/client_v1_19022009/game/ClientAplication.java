@@ -1,5 +1,7 @@
 package client.game;
 
+import com.jme.app.AbstractGame.ConfigShowMode;
+
 
 
 /**
@@ -18,6 +20,7 @@ public class ClientAplication {
 
 	public static void main(String[] args) {
 		U3dgame game = new U3dgame();
+		game.setConfigShowMode(ConfigShowMode.AlwaysShow);
 		game.start();
 	}
 }

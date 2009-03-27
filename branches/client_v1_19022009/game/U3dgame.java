@@ -125,9 +125,8 @@ public class U3dgame extends Game {
 	protected void initWindow() {
 		this.display.setMinSamples(0);
 		this.display.setVSyncEnabled(false);
-		this.display.createWindow(this.settings.getWidth(), this.settings
-				.getHeight(), this.settings.getDepth(), this.settings
-				.getFrequency(), false);
+		this.display.createWindow(this.settings.getWidth(),this.settings.getHeight(), this.settings.getDepth(), this.settings
+				.getFrequency(), this.settings.isFullscreen());
 		this.display.getRenderer().setBackgroundColor(ColorRGBA.gray);
 
 	}
